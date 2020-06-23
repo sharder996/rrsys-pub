@@ -11,6 +11,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Thus begins the story of Group 8's fantasic adventure into the world of COMP 3350
+        // Thus begins the story of Group 8's fantastic adventure into the world of COMP 3350
     }
 }
