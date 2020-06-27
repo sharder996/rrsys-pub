@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">rrsys</string>
+    <string name="app_name">RRSYS</string>
+
+    <string name="restaurant_reservation_system">Restaurant Reservation System</string>
+    <string name="create">Create a reservation</string>
+    <string name="update">Update a reservation</string>
+    <string name="review">Review a reservation</string>
+    <string name="number_of_people"># of people: </string>
 </resources>
