@@ -1,11 +1,11 @@
 package comp3350.rrsys.objects;
 
 public class SampleObject {
-    private int Tid; //this can be string.
+    private int TID; //this can be string.
     private int capacity; // # of people
 
-    public SampleObject(int Tid, int capacity){
-        this.Tid = Tid;
+    public SampleObject(int TID, int capacity){
+        this.TID = TID;
         this.capacity = capacity;
     }
 
@@ -14,6 +14,6 @@ public class SampleObject {
     }
 
     public int getTid(){
-        return Tid;
+        return TID;
     }
 }
