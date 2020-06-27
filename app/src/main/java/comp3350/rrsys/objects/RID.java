@@ -3,7 +3,7 @@ package comp3350.rrsys.objects;
 import java.util.UUID;
 
 public class RID {
-    private String RID = null;
+    private String RID;
     private int NumPeople;
     private int month;
     private int date;
@@ -18,6 +18,7 @@ public class RID {
         this.date = date;
         this.time = time;
         this.TID = TID;
+        this.RID = generateRID();
     }
     //update reservation
     public void setNumpeople(int num){
@@ -42,7 +43,10 @@ public class RID {
     public int getTime(){
         return time;
     }
-    public String generateRID(){
+
+    public String getRID() { return RID; }
+
+    private String generateRID(){
         String uuid = UUID.randomUUID().toString();
         RID = uuid.substring(0,8);
 

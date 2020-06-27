@@ -31,6 +31,7 @@ public class DataAccessStub
     }
 
     //TODO: insert/implement database functions here
+    //Note: see database functions in database object
     public String getReservationSequential(List<RID> reservationResult)
     {
         return null;

@@ -4,6 +4,8 @@ package comp3350.rrsys.objects;
  *
  * Customer stub database object. Holds unique ID (enforced by Database object), customer name (first
  * and last) and phone number;
+ * TODO:
+ *      - Force 1 word only for first and last name (no spaces)
  */
 public class Customer {
 
@@ -20,12 +22,12 @@ public class Customer {
         cID = counter++;
 
         if(!fName.isEmpty() && !containsDigitInString(fName)){
-            firstName = fName;
+            firstName = titleCaseConversion(fName);
         } else {
             throw new IllegalArgumentException("Invalid name.\n");
         }
         if(!lName.isEmpty() && !containsDigitInString(lName)){
-            lastName = lName;
+            lastName = titleCaseConversion(lName);
         } else {
             throw new IllegalArgumentException("Invalid name.\n");
         }
@@ -49,6 +51,10 @@ public class Customer {
         return containsDigit;
     }
 
+    private String titleCaseConversion(String input) {
+        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    }
+
     public String getFirstName(){
         return firstName;
     }
@@ -69,17 +75,17 @@ public class Customer {
         return cID;
     }
 
-    public void setFirstName(String newFstName) throws IllegalArgumentException {
-        if(!newFstName.isEmpty() && !containsDigitInString(newFstName)){
-            firstName = newFstName;
+    public void setFirstName(String newFirstName) throws IllegalArgumentException {
+        if(!newFirstName.isEmpty() && !containsDigitInString(newFirstName)){
+            firstName = titleCaseConversion(newFirstName);
         } else {
             throw new IllegalArgumentException("Invalid name.\n");
         }
     }
 
-    public void setLastName(String newLstName) throws IllegalArgumentException {
-        if(!newLstName.isEmpty() && !containsDigitInString(newLstName)){
-            firstName = newLstName;
+    public void setLastName(String newLastName) throws IllegalArgumentException {
+        if(!newLastName.isEmpty() && !containsDigitInString(newLastName)){
+            lastName = titleCaseConversion(newLastName);
         } else {
             throw new IllegalArgumentException("Invalid name.\n");
         }
