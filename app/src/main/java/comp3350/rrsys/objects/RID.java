@@ -31,6 +31,17 @@ public class RID {
         this.TID = TID;
     }
 
+    public int getMonth(){
+        return month;
+    }
+
+    public int getDate(){
+        return date;
+    }
+
+    public int getTime(){
+        return time;
+    }
     public String generateRID(){
         String uuid = UUID.randomUUID().toString();
         RID = uuid.substring(0,8);
