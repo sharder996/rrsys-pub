@@ -6,33 +6,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editNumberOfPeople"
+
+    <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="131dp"
+        android:textSize="20sp"
+        android:text="@string/check_availability"
+        app:layout_constraintBottom_toTopOf="@+id/availabilityList"
+        app:layout_constraintStart_toStartOf="@+id/availabilityList"
+        android:layout_marginBottom="10dp"/>
+
+    <ListView
+        android:id="@+id/availabilityList"
+        android:layout_width="354dp"
+        android:layout_height="296dp"
+        android:background="@drawable/back"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <NumberPicker
+        android:id="@+id/editNumberOfPeople"
+        android:layout_width="146dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="250dp"
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="555dp"
-        android:ems="10"
-        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/textNumberOfPeople"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textNumberOfPeople"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textNumberOfPeople"
-        android:layout_width="102dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="139dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="566dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/number_of_people"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editNumberOfPeople"
+        android:textSize="22sp"
+        app:layout_constraintTop_toTopOf="@+id/editNumberOfPeople"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/textDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_date"
+        android:textSize="22sp"
+        app:layout_constraintTop_toTopOf="@+id/editTextDate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="32dp" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textDatePicker"
+         />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,5 +5,14 @@
     <string name="create">Create a reservation</string>
     <string name="update">Update a reservation</string>
     <string name="review">Review a reservation</string>
-    <string name="number_of_people"># of people: </string>
+    <string name="number_of_people">Number of people: </string>
+    <string name="check_availability">Check availability</string>
+    <string name="pick_date">Date: </string>
+    <string name="time">Time: </string>
+    <string name="confirm">Confirm</string>
+    <string name="back">Back</string>
+    <string name="done">Done</string>
+    <string name="reservation_details">Reservation details: </string>
+    <string name="reservation_thank_you">Thank you for making a reservation with us!</string>
+    <string name="reservation_code_message">Here is your reservation code to be presented upon arrival: </string>
 </resources>
