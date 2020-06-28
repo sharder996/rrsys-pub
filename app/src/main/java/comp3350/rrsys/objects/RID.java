@@ -18,7 +18,7 @@ public class RID {
         this.date = date;
         this.time = time;
         this.TID = TID;
-        this.RID = generateRID();
+        generateRID();
     }
     //update reservation
     public void setNumpeople(int num){
@@ -46,11 +46,9 @@ public class RID {
 
     public String getRID() { return RID; }
 
-    private String generateRID(){
+    private void generateRID(){
         String uuid = UUID.randomUUID().toString();
         RID = uuid.substring(0,8);
-
-        return RID;
     }
 
 
