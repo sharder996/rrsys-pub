@@ -81,7 +81,7 @@ public class Database {
  */
 class CustomerCompareById implements Comparator<Customer>{
     public int compare(Customer a, Customer b){
-        return a.getcID() - b.getcID();
+        return a.getCID() - b.getCID();
     }
 }
 

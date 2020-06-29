@@ -4,8 +4,6 @@ package comp3350.rrsys.objects;
  *
  * Customer stub database object. Holds unique ID (enforced by Database object), customer name (first
  * and last) and phone number;
- * TODO:
- *      - Force 1 word only for first and last name (no spaces)
  */
 public class Customer {
 
@@ -15,18 +13,18 @@ public class Customer {
     private String firstName;
     private String lastName;
     private int phoneNumber; //any non numerical character removed
-    private static int counter = 0;
+    private static int counter = 1;
 
     public Customer(String fName, String lName, String pNum) throws IllegalArgumentException{
 
         cID = counter++;
 
-        if(!fName.isEmpty() && !containsDigitInString(fName)){
+        if(!fName.isEmpty() && !containsDigitInString(fName) && fName.split("\\s+").length == 1){
             firstName = titleCaseConversion(fName);
         } else {
             throw new IllegalArgumentException("Invalid name.\n");
         }
-        if(!lName.isEmpty() && !containsDigitInString(lName)){
+        if(!lName.isEmpty() && !containsDigitInString(lName) && lName.split("\\s+").length == 1){
             lastName = titleCaseConversion(lName);
         } else {
             throw new IllegalArgumentException("Invalid name.\n");
@@ -36,7 +34,6 @@ public class Customer {
         } else {
             throw new IllegalArgumentException("Invalid phone number format.");
         }
-
     }
 
     private boolean containsDigitInString(String input) {
@@ -71,12 +68,12 @@ public class Customer {
         return phoneNumber;
     }
 
-    public int getcID(){
+    public int getCID(){
         return cID;
     }
 
     public void setFirstName(String newFirstName) throws IllegalArgumentException {
-        if(!newFirstName.isEmpty() && !containsDigitInString(newFirstName)){
+        if(!newFirstName.isEmpty() && !containsDigitInString(newFirstName) && newFirstName.split("\\s+").length == 1){
             firstName = titleCaseConversion(newFirstName);
         } else {
             throw new IllegalArgumentException("Invalid name.\n");
@@ -84,7 +81,7 @@ public class Customer {
     }
 
     public void setLastName(String newLastName) throws IllegalArgumentException {
-        if(!newLastName.isEmpty() && !containsDigitInString(newLastName)){
+        if(!newLastName.isEmpty() && !containsDigitInString(newLastName) && newLastName.split("\\s+").length == 1){
             lastName = titleCaseConversion(newLastName);
         } else {
             throw new IllegalArgumentException("Invalid name.\n");
