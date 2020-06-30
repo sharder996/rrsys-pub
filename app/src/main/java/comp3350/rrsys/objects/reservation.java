@@ -2,7 +2,7 @@ package comp3350.rrsys.objects;
 
 import java.util.UUID;
 
-public class RID {
+public class reservation {
     private String rID;
     private int numPeople;
     private int month;
@@ -13,7 +13,7 @@ public class RID {
     private int tID;
     //private int cID; // customer ID
 
-    public RID(int numPeople, int month, int date, String startTime, String endTime, int tID){
+    public reservation(int numPeople, int month, int date, String startTime, String endTime, int tID){
         this.numPeople = numPeople;
         this.month = month;
         this.date = date;
@@ -24,7 +24,7 @@ public class RID {
         generateRID();
     }
 
-    public RID(int numPeople, int month, int date, String startTime, int period){
+    public reservation(int numPeople, int month, int date, String startTime, int period){
         this.numPeople = numPeople;
         this.month = month;
         this.date = date;
