@@ -1,86 +1,67 @@
 package comp3350.rrsys.objects;
 
-import java.util.UUID;
 
+/*
+    reservation object accepts
+        - rID (reservation ID)
+        - cID (customer ID)
+        - tID (table ID)
+        - month ()
+        -
+
+ */
 public class reservation {
-    private String rID;
+    private int reservationID;
     private int numPeople;
+    private int customerID;
     private int month;
     private int date;
-    private String startTime; // eg. in the format 7:30
-    private String endTime;
-    private int period; // how long in min (15 min increments)
-    private int tID;
+    DateTime startTime; // eg. in the format 7:30
+    DateTime endTime;
+    //private int period; // how long in min (15 min increments)
+    private int tableID;
+    private static int counter = 1;
     //private int cID; // customer ID
 
-    public reservation(int numPeople, int month, int date, String startTime, String endTime, int tID){
-        this.numPeople = numPeople;
-        this.month = month;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        //this.cID = cID;
-        this.tID = tID;
-        generateRID();
-    }
-
-    public reservation(int numPeople, int month, int date, String startTime, int period){
-        this.numPeople = numPeople;
-        this.month = month;
-        this.date = date;
-        this.startTime = startTime;
-        this.period = period;
+    public reservation(int reservationID, int customerID, int tableID, int numPeople, DateTime startTime, DateTime endTime){
+            this.reservationID = counter++;
+            this.customerID = customerID;
+            this.tableID = tableID;
+            this.numPeople = numPeople;
+            this.startTime = startTime;
+            this.endTime = endTime;
     }
 
     //update reservation
     public void setNumPeople(int num){
         numPeople = num;
     }
-    public void setData(int month, int date){
-        this.month = month;
-        this.date = date;
-    }
-    public void setTime(String startTime, String endTime) {
+
+    public void setTime(DateTime startTime, DateTime endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
     public void setTID(int tID){
-        this.tID = tID;
+        this.tableID = tID;
     }
+
+    public void setReservationID(int reservationID) { this.reservationID = reservationID; }
 
     public int getNumPeople() { return numPeople; }
 
-    public int getMonth(){
-        return month;
-    }
+    public DateTime getStartTimeTime(){ return startTime; }
 
-    public int getDate(){
-        return date;
-    }
+    public DateTime getEndTime() { return endTime; }
 
-    public String getTime(){
-        return startTime;
-    }
+    public int getRID() { return reservationID; }
 
-    public String getEndTime() { return endTime; }
+    public int getTID() { return tableID; }
 
-    public int getPeriod() { return period; }
 
-    public String getRID() { return rID; }
-
-    public int getTID() { return tID; }
-
-    //public int getCID() { return cID; }
-
-    private void generateRID(){
-        String uuid = UUID.randomUUID().toString();
-        rID = uuid.substring(0,8);
-    }
-
-    public boolean equal(String reservation){
+    public boolean equal(int reservationID){
         boolean result = false;
-        if(rID.equals(reservation)){
+        if(this.reservationID == reservationID){
             result = true;
         }
         return result;
@@ -88,9 +69,8 @@ public class reservation {
 
     public String confirmation(){
         String s ="";
-        s += "Reservation ID: " + rID + "\nNumer of People: " + numPeople
-                + "\nData: " + month + " " + date + "\nTime: " +  startTime + " - " + endTime
-                + "\nTable ID: " + tID;
+        s += "Reservation ID: " + reservationID + "\nNumer of People: " + numPeople
+                + "\nTable ID: " + tableID + "Time: " + startTime.print() +" - " + endTime.print();
 
         return s;
     }
