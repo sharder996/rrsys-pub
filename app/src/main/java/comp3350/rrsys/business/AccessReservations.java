@@ -6,13 +6,13 @@ import java.util.List;
 
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
-import comp3350.rrsys.objects.RID;
+import comp3350.rrsys.objects.reservation;
 import comp3350.rrsys.persistence.DataAccessStub;
 
 public class AccessReservations extends Activity
 {
     private DataAccessStub dataAccess;
-    private List<RID> reservations;
+    private List<reservation> reservations;
 
     public AccessReservations()
     {
@@ -20,23 +20,23 @@ public class AccessReservations extends Activity
         reservations = null;
     }
 
-    public String getReservations(List<RID> reservations)
+    public String getReservations(List<reservation> reservations)
     {
         reservations.clear();
         return dataAccess.getReservationSequential(reservations);
     }
 
-    public String insertReservation(RID currentReservation)
+    public String insertReservation(reservation currentReservation)
     {
         return dataAccess.insertReservation(currentReservation);
     }
 
-    public String updateReservation(RID currentReservation)
+    public String updateReservation(reservation currentReservation)
     {
         return dataAccess.updateReservation(currentReservation);
     }
 
-    public String deleteReservation(RID currentReservation)
+    public String deleteReservation(reservation currentReservation)
     {
         return dataAccess.deleteReservation(currentReservation);
     }

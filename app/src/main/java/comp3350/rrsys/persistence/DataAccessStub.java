@@ -6,7 +6,7 @@ import java.util.List;
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.Table;
-import comp3350.rrsys.objects.RID;
+import comp3350.rrsys.objects.reservation;
 
 public class DataAccessStub {
 
@@ -15,7 +15,7 @@ public class DataAccessStub {
 
     private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
-    private ArrayList<RID> reservations;
+    private ArrayList<reservation> reservations;
 
     public DataAccessStub(String dbName)
     {
@@ -32,13 +32,13 @@ public class DataAccessStub {
         //TODO: insert hardcoded database here
         Customer customer;
         Table table;
-        RID reservation;
+        reservation reservation;
 
         customers = new ArrayList<Customer>();
 
         tables = new ArrayList<Table>();
 
-        reservations = new ArrayList<RID>();
+        reservations = new ArrayList<comp3350.rrsys.objects.reservation>();
     }
 
     public void close()
@@ -55,8 +55,8 @@ public class DataAccessStub {
 
     // return the suggested reservations in priority order
     // currentReservation RID(numPeople, month, date, startTime, period)
-    public ArrayList<RID> searchReservations(RID currentReservation) {
-        ArrayList<RID> results = new ArrayList<RID>();
+    public ArrayList<reservation> searchReservations(reservation currentReservation) {
+        ArrayList<reservation> results = new ArrayList<reservation>();
         int numPeople = currentReservation.getNumPeople();
         int month = currentReservation.getMonth();
         int date = currentReservation.getDate();
@@ -88,7 +88,7 @@ public class DataAccessStub {
                             int min = Integer.parseInt(tokens[1]) + currentReservation.getPeriod();
                             int hour = Integer.parseInt(tokens[0]) + min / 60;
                             String endTime = hour + ":" + (min % 60);
-                            orderedInsert(results, new RID(numPeople, month, date, startTime, endTime, table.getTID()), Math.abs(i-index));
+                            orderedInsert(results, new reservation(numPeople, month, date, startTime, endTime, table.getTID()), Math.abs(i-index));
                         }
                     }
                     i++;
@@ -98,7 +98,7 @@ public class DataAccessStub {
         return results;
     }
 
-    private void orderedInsert(ArrayList<RID> results, RID reservation, int index) {
+    private void orderedInsert(ArrayList<reservation> results, reservation reservation, int index) {
         int pos = 0;
         int max = results.size();
         while(pos < max && Math.abs(incrementIndex(results.get(pos))-index) < Math.abs(incrementIndex(reservation)-index)){
@@ -108,13 +108,13 @@ public class DataAccessStub {
     }
 
     // return the index of the start time of a reservation
-    private int incrementIndex(RID reservation){
+    private int incrementIndex(reservation reservation){
         String[] startTime = reservation.getTime().split(":");
         return (Integer.parseInt(startTime[0])-Table.getTime())*4 + Integer.parseInt(startTime[1])/15;
     }
 
     // create a reservation RID(numPeople, month, date, startTime, endTime, tID)
-    public String insertReservation(RID currentReservation)
+    public String insertReservation(reservation currentReservation)
     {
         reservations.add(currentReservation);
         int tID = currentReservation.getTID();
@@ -134,17 +134,17 @@ public class DataAccessStub {
         return null;
     }
 
-    public String getReservationSequential(List<RID> reservationResult)
+    public String getReservationSequential(List<reservation> reservationResult)
     {
         return null;
     }
 
-    public String updateReservation(RID currentReservation)
+    public String updateReservation(reservation currentReservation)
     {
         return null;
     }
 
-    public String deleteReservation(RID currentReservation)
+    public String deleteReservation(reservation currentReservation)
     {
         return null;
     }
