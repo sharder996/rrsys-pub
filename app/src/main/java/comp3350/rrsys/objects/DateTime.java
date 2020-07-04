@@ -13,7 +13,7 @@ public class DateTime {
     //
     //Calendar cal = new GregorianCalendar(2013,7,28,13,24);
     //DateTime reservation = new DateTime(cal);
-    public DateTime(Calendar timeInfo) throws java.text.ParseException{
+    public DateTime(Calendar timeInfo) throws java.text.ParseException {
         int CurrYear = Calendar.getInstance().get(Calendar.YEAR);
         //check valid year
         if(!(timeInfo.get(timeInfo.YEAR) >= CurrYear &&  timeInfo.get(timeInfo.YEAR) <= CurrYear+1)){
@@ -36,8 +36,8 @@ public class DateTime {
             throw new ParseException("Invalid Minutes.\n", timeInfo.get(timeInfo.MINUTE));
         }
     timeSlot = timeInfo;
-
     }
+
     public void setYear(int year){timeSlot.set(timeSlot.YEAR,year);}
     public void setMonth(int month){timeSlot.set(timeSlot.MONTH,month);}
     public void setDate(int date){timeSlot.set(timeSlot.DATE,date);}
@@ -45,14 +45,15 @@ public class DateTime {
     public void setMintues(int minutes){timeSlot.set(timeSlot.MINUTE,minutes);}
 
     public int getYear(){ return timeSlot.get(timeSlot.YEAR); }
-
     public int getMonth(){ return timeSlot.get(timeSlot.MONTH); }
-
     public int getDate(){ return timeSlot.get(timeSlot.DATE); }
-
     public int getHour(){ return timeSlot.get(timeSlot.HOUR); }
-
     public int getMinutes(){ return timeSlot.get(timeSlot.MINUTE); }
+
+    // return how long between two date time in minutes
+    public int getPeriod(DateTime other) {
+        return (other.getHour()-this.getHour())*60 + other.getMinutes()-this.getMinutes();
+    }
 
     public String print(){
         String s = "";

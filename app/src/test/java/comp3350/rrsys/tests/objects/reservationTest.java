@@ -3,7 +3,6 @@ package comp3350.rrsys.tests.objects;
 import junit.framework.TestCase;
 
 import comp3350.rrsys.objects.Customer;
-import comp3350.rrsys.objects.reservation;
 
 public class reservationTest extends TestCase
 {

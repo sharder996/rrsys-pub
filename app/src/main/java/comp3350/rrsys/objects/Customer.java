@@ -55,19 +55,15 @@ public class Customer {
     public String getFirstName(){
         return firstName;
     }
-
     public String getLastName(){
         return lastName;
     }
-
     public String getFullName(){
         return firstName + " " + lastName;
     }
-
     public int getPhoneNumber(){
         return phoneNumber;
     }
-
     public int getCID(){
         return cID;
     }
