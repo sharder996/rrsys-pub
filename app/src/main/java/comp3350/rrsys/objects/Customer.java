@@ -52,6 +52,10 @@ public class Customer {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
+    public boolean equals(int cID){
+        return this.cID == cID;
+    }
+
     public String getFirstName(){
         return firstName;
     }

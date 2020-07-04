@@ -17,9 +17,8 @@ public class Reservation {
     private DateTime endTime;
     private static int counter = 1;
 
-    // constructor when insert a reservation
+    // constructor for insert a reservation or search suggested reservations
     public Reservation(int customerID, int tableID, int numPeople, DateTime startTime, DateTime endTime){
-        this.reservationID = counter++;
         this.customerID = customerID;
         this.tableID = tableID;
         this.numPeople = numPeople;
@@ -27,15 +26,9 @@ public class Reservation {
         this.endTime = endTime;
     }
 
-    // constructor when search for suggested reservations
-    public Reservation(int tableID, int numPeople, DateTime startTime, DateTime endTime){
-        this.tableID = tableID;
-        this.numPeople = numPeople;
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
-
     // setter
+    // set the reservation ID only when insert a reservation
+    public void setRID() { this.reservationID = counter++; }
     public void setRID(int reservationID) { this.reservationID = reservationID; }
     public void setTID(int tableID){
         this.tableID = tableID;

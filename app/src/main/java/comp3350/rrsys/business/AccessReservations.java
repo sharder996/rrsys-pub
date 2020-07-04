@@ -1,22 +1,25 @@
 package comp3350.rrsys.business;
 
-import android.app.Activity;
-
+import java.util.ArrayList;
 import java.util.List;
 
+import comp3350.rrsys.R;
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
+import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.persistence.DataAccessStub;
 
-public class AccessReservations extends Activity
+public class AccessReservations
 {
     private DataAccessStub dataAccess;
     private List<Reservation> reservations;
+    private Reservation reservation;
+    private int currentReservation;
 
     public AccessReservations()
     {
-        dataAccess = Services.getDataAccess(Main.dbName);
+        dataAccess = (DataAccessStub) Services.getDataAccess(Main.dbName);
         reservations = null;
     }
 
@@ -26,18 +29,41 @@ public class AccessReservations extends Activity
         return dataAccess.getReservationSequential(reservations);
     }
 
-    /*public String insertReservation(Reservation currentReservation)
+    public List<Reservation> getSequential(int customerID)
+    {
+        reservations = dataAccess.getReservations(customerID);
+        return reservations;
+    }
+
+    public Reservation getRandom(int reservationID)
+    {
+        reservations = null;
+        reservation = dataAccess.getReservation(reservationID);
+        currentReservation = 0;
+        if(reservation != null) {
+            reservations.add(reservation);
+            currentReservation++;
+        }
+        return reservation;
+    }
+
+    public String insertReservation(Reservation currentReservation)
     {
         return dataAccess.insertReservation(currentReservation);
-    }*/
+    }
 
-    public String updateReservation(Reservation currentReservation)
+    public String updateReservation(Reservation newReservation)
     {
-        return dataAccess.updateReservation(currentReservation);
+        return dataAccess.updateReservation(reservation.getRID(), newReservation);
     }
 
     public String deleteReservation(Reservation currentReservation)
     {
         return dataAccess.deleteReservation(currentReservation);
+    }
+
+    public String deleteReservation(int reservationID)
+    {
+        return dataAccess.deleteReservation(reservationID);
     }
 }

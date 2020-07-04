@@ -21,6 +21,10 @@ public class Table {
         }
     }
 
+    public boolean equals(int tID){
+        return this.tID == tID;
+    }
+
     public int getTID() { return tID; }
     public int getCapacity() { return capacity; }
 

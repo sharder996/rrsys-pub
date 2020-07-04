@@ -16,6 +16,7 @@ public class DataAccessStub {
     private String dbName;
     private String dbType = "stub";
 
+    private int customerID; // the customer ID of current customer (logged in)
     private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
@@ -86,7 +87,7 @@ public class DataAccessStub {
                         if (numIncrement == totalIncrement) {
                             DateTime start = getDateTime(startTime, i);
                             DateTime end = getDateTime(endTime, i+numIncrement);
-                            orderedInsert(results, new Reservation(table.getTID(), numPeople, start, end), index);
+                            orderedInsert(results, new Reservation(customerID, table.getTID(), numPeople, start, end), index);
                         }
                     }
                     i++;
@@ -102,15 +103,17 @@ public class DataAccessStub {
     }
 
     // return the date time corresponding to an index
-    private DateTime getDateTime(DateTime time, int index) {
-        // TODO: need some changes here...
-        // DateTime result = new DateTime(???);
-        DateTime result = time;
-        result.setYear(time.getYear());
-        result.setMonth(time.getMonth());
-        result.setDate(time.getDate());
-        result.setHour(Table.getTime() + index/4);
-        result.setMintues(index%4);
+    private DateTime getDateTime(DateTime time, int index){
+        DateTime result = null;
+        try {
+            result = new DateTime(Calendar.getInstance());
+            result.setYear(time.getYear());
+            result.setMonth(time.getMonth());
+            result.setDate(time.getDate());
+            result.setHour(Table.getTime() + index / 4);
+            result.setMintues(index % 4);
+        }
+        catch (java.text.ParseException pe) { System.out.println(pe); }
         return result;
     }
 
@@ -137,13 +140,12 @@ public class DataAccessStub {
     }
 
     // insert a reservation
-    public String insertReservation(int customerID, Reservation r) {
-        int tID = r.getTID();
+    public String insertReservation(Reservation r) {
         DateTime startTime = r.getStartTime();
         DateTime endTime = r.getEndTime();
-        Reservation reservation = new Reservation(customerID, tID, r.getNumPeople(), startTime, endTime);
-        reservations.add(reservation);
-        setTable(tID, startTime.getMonth(), startTime.getDate(), getIndex(startTime), getIndex(endTime), false);
+        r.setRID();
+        reservations.add(r);
+        setTable(r.getTID(), startTime.getMonth(), startTime.getDate(), getIndex(startTime), getIndex(endTime), false);
         return null;
     }
 
@@ -174,10 +176,10 @@ public class DataAccessStub {
     public String deleteReservation(Reservation r){
         for(int i = 0; i < reservations.size(); i++) {
             if (reservations.get(i).equals(r.getRID())) {
-                reservations.remove(i);
                 DateTime start = r.getStartTime();
                 DateTime end = r.getEndTime();
                 setTable(r.getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
+                reservations.remove(i);
                 break;
             }
         }
@@ -190,23 +192,72 @@ public class DataAccessStub {
             if (reservations.get(i).equals(rID)) {
                 DateTime start = reservations.get(i).getStartTime();
                 DateTime end = reservations.get(i).getEndTime();
-                reservations.remove(i);
                 setTable(reservations.get(i).getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
+                reservations.remove(i);
                 break;
             }
         }
         return null;
     }
 
-    // update a reservation
-    public String updateReservation(Reservation prev) {
-        deleteReservation(prev);
-        // TODO: update a reservation
+    // update a reservation with rID to curr
+    public String updateReservation(int rID, Reservation curr) {
+        for(int i = 0; i < reservations.size(); i++) {
+            if (reservations.get(i).equals(rID)) {
+                Reservation prev = reservations.get(i);
+                DateTime prevStart = prev.getStartTime();
+                DateTime prevEnd = prev.getEndTime();
+                DateTime currStart = curr.getStartTime();
+                DateTime currEnd = curr.getEndTime();
+                curr.setRID(prev.getRID());
+                setTable(prev.getTID(), prevStart.getMonth(), prevStart.getDate(), getIndex(prevStart), getIndex(prevEnd), true);
+                setTable(curr.getTID(), currStart.getMonth(), currStart.getDate(), getIndex(currStart), getIndex(currEnd), false);
+                curr.setRID(prev.getRID());
+                reservations.set(i, curr);
+            }
+        }
         return null;
     }
 
     public String getReservationSequential(List<Reservation> reservationResult) {
+        reservationResult.addAll(reservations);
         return null;
     }
 
+    public String getTableSequential(List<Table> tableResult) {
+        tableResult.addAll(tables);
+        return null;
+    }
+
+    public Table getTableRandom(int tableID) {
+        Table result = null;
+        for(int i = 0; i < tables.size(); i++) {
+            if(tables.get(i).equals(tableID)) {
+                result = tables.get(i);
+                break;
+            }
+        }
+        return result;
+    }
+
+    public String getCustomerSequential(List<Customer> customerResult) {
+        customerResult.addAll(customers);
+        return null;
+    }
+
+    public Customer getCustomerRandom(int customerID) {
+        Customer result = null;
+        for(int i = 0; i < customers.size(); i++) {
+            if(tables.get(i).equals(customerID)) {
+                result = customers.get(i);
+                break;
+            }
+        }
+        return result;
+    }
+
+    public String insertCustomer(Customer customer) {
+        customers.add(customer);
+        return null;
+    }
 }
