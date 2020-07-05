@@ -3,6 +3,7 @@ package comp3350.rrsys.persistence;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import comp3350.rrsys.application.Main;
@@ -51,7 +52,6 @@ public class DataAccessStub {
     }
 
     //TODO: insert/implement database functions here
-    //Note: see database functions in database object
 
     public static void updateTables(){
         // clear last day/month's reservations of all tables ?
@@ -258,6 +258,89 @@ public class DataAccessStub {
 
     public String insertCustomer(Customer customer) {
         customers.add(customer);
+        return null;
+    }
+
+    public String insertCustomer(String firstName, String lastName, String phoneNumber) {
+        try {
+            customers.add(new Customer(firstName, lastName, phoneNumber));
+            return null;
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
+    }
+
+    public String updateCustomer(int customerID, Customer updatedCustomer) {
+        for (int i = 0; i < customers.size(); i++) {
+            if (customerID == customers.get(i).getCID()) {
+                try {
+                    Customer prev = customers.get(i);
+                    prev.setLastName(updatedCustomer.getLastName());
+                    prev.setFirstName(updatedCustomer.getFirstName());
+                    prev.setPhoneNumber(String.valueOf(updatedCustomer.getPhoneNumber()));
+                    customers.set(i, prev);
+                    break;
+                } catch (IllegalArgumentException e) {
+                    return e.getMessage();
+                }
+            }
+        }
+        return null;
+    }
+
+    public String deleteCustomer(int customerID) {
+        for (int i = 0; i < customers.size(); i++) {
+            if (customerID == customers.get(i).getCID()) {
+                customers.remove(i);
+                break;
+            }
+        }
+        return null;
+    }
+
+    public String addTable(Table thisTable) {
+        for ( int i = 0; i < tables.size(); i++ ) {
+            if (thisTable.equals(tables.get(i).getTID())) {
+                return "Error: Table with ID: " + thisTable.getTID() + " already exists.";
+            }
+        }
+        tables.add(thisTable);
+        return null;
+    }
+
+    public String addTable(int tableID, int size) {
+        for (int i = 0; i < tables.size(); i++) {
+            if(tableID == tables.get(i).getTID()) {
+                return "Error: Table with ID: " + tableID + " already exists.";
+            }
+        }
+        tables.add(new Table(tableID, size));
+        return null;
+    }
+
+    public String deleteTable(int tableID) {
+        for (int i = 0; i < tables.size(); i++) {
+            if (tables.get(i).equals(tableID)){
+                tables.remove(i);
+                break;
+            }
+            if(i + 1 >= tables.size()) {
+                return "Table ID: " + tableID + " not found";
+            }
+        }
+        return null;
+    }
+
+    public String updateTable(int tableID, Table thisTable) {
+        for (int i = 0; i < tables.size(); i++) {
+            if (tables.get(i).equals(tableID)) {
+                tables.set(i, thisTable);
+                return null;
+            }
+            if(i + 1 >= tables.size()) {
+                return "Table ID: " + tableID + " not found";
+            }
+        }
         return null;
     }
 }
