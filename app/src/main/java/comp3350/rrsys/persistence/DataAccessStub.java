@@ -256,11 +256,13 @@ public class DataAccessStub {
         return result;
     }
 
+    //Adds a customer to list by object
     public String insertCustomer(Customer customer) {
         customers.add(customer);
         return null;
     }
 
+    //Adds a customer by raw data type values
     public String insertCustomer(String firstName, String lastName, String phoneNumber) {
         try {
             customers.add(new Customer(firstName, lastName, phoneNumber));
@@ -270,6 +272,7 @@ public class DataAccessStub {
         }
     }
 
+    //updates an existing customer with matching customer id
     public String updateCustomer(int customerID, Customer updatedCustomer) {
         for (int i = 0; i < customers.size(); i++) {
             if (customerID == customers.get(i).getCID()) {
@@ -284,10 +287,14 @@ public class DataAccessStub {
                     return e.getMessage();
                 }
             }
+            if(i + 1 >= customers.size()) {
+                return "Error: Customer with ID: " + customerID + " already exists.";
+            }
         }
         return null;
     }
 
+    //Removes first customer with matching ID
     public String deleteCustomer(int customerID) {
         for (int i = 0; i < customers.size(); i++) {
             if (customerID == customers.get(i).getCID()) {
@@ -298,6 +305,7 @@ public class DataAccessStub {
         return null;
     }
 
+    //Adds table by Table object
     public String addTable(Table thisTable) {
         for ( int i = 0; i < tables.size(); i++ ) {
             if (thisTable.equals(tables.get(i).getTID())) {
@@ -308,6 +316,7 @@ public class DataAccessStub {
         return null;
     }
 
+    //adds a new table object by raw data types
     public String addTable(int tableID, int size) {
         for (int i = 0; i < tables.size(); i++) {
             if(tableID == tables.get(i).getTID()) {
@@ -318,6 +327,7 @@ public class DataAccessStub {
         return null;
     }
 
+    //removes a table by matching table ID
     public String deleteTable(int tableID) {
         for (int i = 0; i < tables.size(); i++) {
             if (tables.get(i).equals(tableID)){
@@ -331,6 +341,7 @@ public class DataAccessStub {
         return null;
     }
 
+    //updates existing table with matching ID
     public String updateTable(int tableID, Table thisTable) {
         for (int i = 0; i < tables.size(); i++) {
             if (tables.get(i).equals(tableID)) {
