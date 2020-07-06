@@ -12,6 +12,7 @@
     <string name="confirm">Confirm</string>
     <string name="back">Back</string>
     <string name="done">Done</string>
+    <string name="length_of_stay">Length of stay: </string>
     <string name="reservation_details">Reservation details: </string>
     <string name="reservation_thank_you">Thank you for making a reservation with us!</string>
     <string name="reservation_code_message">Here is your reservation code to be presented upon arrival: </string>

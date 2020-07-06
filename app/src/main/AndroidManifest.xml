@@ -16,6 +16,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.CreateReservationActivity"
+            android:label="@string/restaurant_reservation_system"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.rrsys.presentation.CreateReservationActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.ConfirmReservationActivity"
+            android:label="@string/restaurant_reservation_system"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.rrsys.presentation.CreateReservationActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.ReceiptReservationActivity"
+            android:label="@string/restaurant_reservation_system"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.rrsys.presentation.ReceiptReservationActivity" />
+        </activity>
     </application>
 
 </manifest>
