@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/buttonDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="buttonDoneOnClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="buttonBackOnClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"  />
+
+    <Button
+        android:id="@+id/buttonCheckAvailability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/check_availability"
+        app:layout_constraintBottom_toTopOf="@+id/availabilityList"
+        app:layout_constraintStart_toStartOf="@+id/availabilityList"
+        android:layout_marginBottom="10dp"/>
+
+    <ListView
+        android:id="@+id/availabilityList"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:background="@drawable/back"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonDone" />
+
+    <EditText
+        android:id="@+id/editNumberOfPeople"
+        android:layout_width="146dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="44dp"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/textNumberOfPeople"
+        app:layout_constraintTop_toBottomOf="@id/textLengthOfStay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textNumberOfPeople"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/number_of_people"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="@+id/editNumberOfPeople"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/editLengthOfStay"
+        android:layout_width="146dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="44dp"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/editNumberOfPeople"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textDatePicker"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textLengthOfStay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/length_of_stay"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="@+id/editLengthOfStay"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/textDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_date"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="@+id/editTextDate"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="32dp" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textDatePicker"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

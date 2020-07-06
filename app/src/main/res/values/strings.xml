@@ -14,6 +14,14 @@
     <string name="done">Done</string>
     <string name="length_of_stay">Length of stay: </string>
     <string name="reservation_details">Reservation details: </string>
+    <string name="reservation_updates">Updated reservation details: </string>
     <string name="reservation_thank_you">Thank you for making a reservation with us!</string>
     <string name="reservation_code_message">Here is your reservation code to be presented upon arrival: </string>
+    <string name="enter_reservation_info_msg">Enter the reservation code or your name and the date for the reservation you wish to review: </string>
+    <string name="enter_reservation_info_msg_update">Enter the reservation code or your name and the date for the reservation you wish to update: </string>
+    <string name="reservation_code">Reservation code: </string>
+    <string name="cancel">Cancel reservation</string>
+    <string name="name">Name: </string>
+    <string name="or">OR</string>
+    <string name="enter">Enter</string>
 </resources>

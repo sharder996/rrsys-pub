@@ -8,13 +8,13 @@ import android.view.View;
 
 import comp3350.rrsys.R;
 
-public class UpdateReservationActivity extends Activity
-{
+public class ConfirmUpdatesActivity extends Activity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_reservation);
+        setContentView(R.layout.activity_confirm_updates);
     }
 
     @Override
@@ -26,14 +26,14 @@ public class UpdateReservationActivity extends Activity
 
     public void buttonBackOnClick(View v)
     {
-        Intent backPageIntent = new Intent(UpdateReservationActivity.this,GetUpdateReservationActivity.class);
-        UpdateReservationActivity.this.startActivity(backPageIntent);
+        Intent backPageIntent = new Intent(ConfirmUpdatesActivity.this,UpdateReservationActivity.class);
+        ConfirmUpdatesActivity.this.startActivity(backPageIntent);
     }
 
 
-    public void buttonDoneOnClick(View v)
+    public void buttonConfirmOnClick(View v)
     {
-        Intent confirmUpdatesIntent = new Intent(UpdateReservationActivity.this, ConfirmUpdatesActivity.class);
-        UpdateReservationActivity.this.startActivity(confirmUpdatesIntent);
+        Intent confirmUpdatesIntent = new Intent(ConfirmUpdatesActivity.this, HomeActivity.class);
+        ConfirmUpdatesActivity.this.startActivity(confirmUpdatesIntent);
     }
 }

@@ -40,6 +40,46 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="comp3350.rrsys.presentation.ReceiptReservationActivity" />
         </activity>
+        <activity
+            android:name=".presentation.ReviewReservationActivity"
+            android:label="@string/restaurant_reservation_system"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.rrsys.presentation.ReviewReservationActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.GetReviewReservationActivity"
+            android:label="@string/restaurant_reservation_system"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.rrsys.presentation.GetReviewReservationActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.UpdateReservationActivity"
+            android:label="@string/restaurant_reservation_system"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.rrsys.presentation.UpdateReservationActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.GetUpdateReservationActivity"
+            android:label="@string/restaurant_reservation_system"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.rrsys.presentation.GetReviewReservationActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.ConfirmUpdatesActivity"
+            android:label="@string/restaurant_reservation_system"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.rrsys.presentation.ConfirmUpdatesActivity" />
+        </activity>
     </application>
 
 </manifest>

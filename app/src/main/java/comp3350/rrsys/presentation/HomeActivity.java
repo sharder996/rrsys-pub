@@ -51,13 +51,13 @@ public class HomeActivity extends Activity
 
     public void buttonUpdateOnClick(View v)
     {
-        Intent updateReservationIntent = new Intent(HomeActivity.this, UpdateReservationActivity.class);
+        Intent updateReservationIntent = new Intent(HomeActivity.this, GetUpdateReservationActivity.class);
         HomeActivity.this.startActivity(updateReservationIntent);
     }
 
     public void buttonReviewOnClick(View v)
     {
-        Intent reviewReservationIntent = new Intent(HomeActivity.this, ReviewReservationActivity.class);
+        Intent reviewReservationIntent = new Intent(HomeActivity.this, GetReviewReservationActivity.class);
         HomeActivity.this.startActivity(reviewReservationIntent);
     }
 }
