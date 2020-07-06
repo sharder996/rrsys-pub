@@ -4,7 +4,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import comp3350.rrsys.tests.business.SampleBusinessTest;
-import comp3350.rrsys.tests.objects.reservationTest;
+import comp3350.rrsys.tests.objects.TestReservation;
 
 public class AllTests
 {
@@ -19,7 +19,7 @@ public class AllTests
     }
 
     private static void testObjects(){
-        suite.addTestSuite(reservationTest.class);
+        suite.addTestSuite(TestReservation.class);
     }
 
     private static void testBusiness(){
