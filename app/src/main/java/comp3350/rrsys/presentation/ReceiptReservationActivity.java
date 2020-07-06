@@ -9,20 +9,18 @@ import android.view.View;
 
 import comp3350.rrsys.R;
 
-public class CreateReservationActivity extends Activity
-{
-
+public class ReceiptReservationActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_reservation);
+        setContentView(R.layout.activity_reservation_receipt);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.menu_create_reservation, menu);
+        getMenuInflater().inflate(R.menu.menu_reservation_receipt, menu);
         return true;
     }
 
@@ -33,9 +31,9 @@ public class CreateReservationActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    public void buttonConfirmOnClick(View v)
+    public void buttonHomeOnClick(View v)
     {
-        Intent confirmReservationIntent = new Intent(CreateReservationActivity.this, ConfirmReservationActivity.class);
-        CreateReservationActivity.this.startActivity(confirmReservationIntent);
+        Intent returnHomeIntent = new Intent(ReceiptReservationActivity.this, HomeActivity.class);
+        ReceiptReservationActivity.this.startActivity(returnHomeIntent);
     }
 }

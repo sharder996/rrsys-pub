@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/reservation_details"
         android:textSize="22dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -22,9 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pick_date"
-        android:textSize="18dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
+        android:textSize="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="@+id/textReservationDetails"
         app:layout_constraintTop_toTopOf="@+id/textReservationDetails"/>
 
@@ -33,8 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="*date info*"
-        android:textSize="18dp"
-        android:layout_marginStart="25dp"
+        android:textSize="16dp"
+        android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/textDateLabel"
         app:layout_constraintTop_toTopOf="@+id/textDateLabel"/>
 
@@ -44,9 +44,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/time"
-        android:textSize="18dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
+        android:textSize="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="@+id/textReservationDetails"
         app:layout_constraintTop_toTopOf="@+id/textDateLabel"/>
 
@@ -55,8 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="*time info*"
-        android:textSize="18dp"
-        android:layout_marginStart="25dp"
+        android:textSize="16dp"
+        android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/textTimeLabel"
         app:layout_constraintTop_toTopOf="@+id/textTimeLabel"/>
 
@@ -65,9 +65,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/number_of_people"
-        android:textSize="18dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
+        android:textSize="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="@+id/textReservationDetails"
         app:layout_constraintTop_toTopOf="@+id/textTimeLabel"/>
 
@@ -76,32 +76,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="*# people*"
-        android:textSize="18dp"
-        android:layout_marginStart="25dp"
+        android:textSize="16dp"
+        android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/textNumberOfPeopleLabel"
         app:layout_constraintTop_toTopOf="@+id/textNumberOfPeopleLabel"/>
 
-    <Button
-        android:id="@+id/buttonBack"
+    <TextView
+        android:id="@+id/textReservationCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/back"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:onClick="buttonBackOnClick"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textNumberOfPeopleLabel"/>
+        android:text="@string/reservation_code"
+        android:textSize="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="@+id/textReservationDetails"
+        app:layout_constraintTop_toTopOf="@+id/textNumberOfPeopleLabel"/>
 
-    <Button
-        android:id="@+id/buttonConfirm"
+    <TextView
+        android:id="@+id/textReservationCodeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/confirm"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="20dp"
-        android:onClick="buttonConfirmOnClick"
-        app:layout_constraintTop_toBottomOf="@id/textNumberOfPeopleLabel"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:text="*reservation code*"
+        android:textSize="16dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/textReservationCode"
+        app:layout_constraintTop_toTopOf="@+id/textReservationCode"/>
 
+    <Button
+        android:id="@+id/buttonDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="buttonDoneOnClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
