@@ -18,7 +18,7 @@ public class TestDateTime extends TestCase{
 
 
     public void testDateTime(){
-        System.out.println("\nStarting TestReservation");
+        System.out.println("\nStarting TestDateTime");
         DateTime time1 = null;
         DateTime time2 = null;
         try{
@@ -34,7 +34,6 @@ public class TestDateTime extends TestCase{
         assertEquals(time1.getDate(), 23);
         assertEquals(time1.getHour(), 14);
         assertEquals(time1.getMinutes(), 00);
-        assertNotNull(time1);
         assertNotNull(time2);
         assertFalse(time1.equals(time2));
 
@@ -47,5 +46,62 @@ public class TestDateTime extends TestCase{
         time1.setDate(24);
         assertTrue(time1.equals(time2));
 
+        //test before unix epoch
+        DateTime time3 = null;
+        try{
+            time3 = new DateTime(new GregorianCalendar(1969,1,1,00,00));
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        assertNull(time3);
+
+        //test valid leap year
+        DateTime time4 = null;
+        try{
+            time4 = new DateTime(new GregorianCalendar(2020,2,30,12,00));
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        assertNotNull(time4);
+        assertEquals(2, time4.getMonth());
+        assertEquals(30, time4.getDate());
+
+        //test invalid leap year
+        DateTime time5 = null;
+        try{
+            time5 = new DateTime(new GregorianCalendar(2021,2,30,12,00));
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        assertNotNull(time4);
+        assertEquals(2, time4.getMonth());
+        assertEquals(30, time4.getDate());
+
+        //test invalid date
+        DateTime time6 = null;
+        try{
+            time6 = new DateTime(new GregorianCalendar(2020,2,31,12,00));
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        assertNotNull(time6);
+        assertEquals(2, time6.getMonth());
+        assertEquals(31, time6.getDate());
+
+        //test invalid time
+        DateTime time7 = null;
+        try{
+            time7 = new DateTime(new GregorianCalendar(2020,2,28,-1,00));
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        assertNotNull(time7);
+        assertFalse(-1 == time7.getHour());
+        assertEquals(27, time7.getDate());
     }
 }
