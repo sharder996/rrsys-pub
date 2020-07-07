@@ -227,7 +227,7 @@ public class DataAccessStub {
         return null;
     }
 
-    public Table getTableRandom(int tableID) {
+    public Table getTableByID(int tableID) {
         Table result = null;
         for(int i = 0; i < tables.size(); i++) {
             if(tables.get(i).equals(tableID)) {
@@ -243,10 +243,10 @@ public class DataAccessStub {
         return null;
     }
 
-    public Customer getCustomerRandom(int customerID) {
+    public Customer getCustomerByID(int customerID) {
         Customer result = null;
         for(int i = 0; i < customers.size(); i++) {
-            if(tables.get(i).equals(customerID)) {
+            if(customers.get(i).equals(customerID)) {
                 result = customers.get(i);
                 break;
             }
