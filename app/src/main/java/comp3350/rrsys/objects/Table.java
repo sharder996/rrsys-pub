@@ -1,7 +1,7 @@
 package comp3350.rrsys.objects;
 
-public class Table {
-
+public class Table
+{
     private int tID;
     private int capacity; // # of people
     boolean[][][] available; // whether the table is available for each period/increment
@@ -9,12 +9,15 @@ public class Table {
     private static int endTime = 22; // end hour
     private static int numIncrement = (endTime-startTime)*4;
 
-    public Table(int tID, int capacity){
+    public Table(int tID, int capacity)
+    {
         this.tID = tID;
         this.capacity = capacity;
         available = new boolean[12][31][numIncrement];
-        for(int month = 0; month < available.length; month++) {
-            for (int day = 0; day < available[0].length; day++) {
+        for(int month = 0; month < available.length; month++)
+        {
+            for (int day = 0; day < available[0].length; day++)
+            {
                 for (int time = 0; time < available[0][0].length; time++)
                     available[month][day][time] = true;
             }

@@ -1,5 +1,8 @@
 package comp3350.rrsys.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /*
     reservation object accepts
         - reservationID (reservation ID)
@@ -8,7 +11,8 @@ package comp3350.rrsys.objects;
         - numPeople
         - startTime & endTime
  */
-public class Reservation {
+public class Reservation implements Parcelable
+{
     private int reservationID;
     private int customerID;
     private int tableID;
@@ -18,12 +22,18 @@ public class Reservation {
     private static int counter = 1;
 
     // constructor for insert a reservation or search suggested reservations
-    public Reservation(int customerID, int tableID, int numPeople, DateTime startTime, DateTime endTime){
+    public Reservation(int customerID, int tableID, int numPeople, DateTime startTime, DateTime endTime)
+    {
         this.customerID = customerID;
         this.tableID = tableID;
         this.numPeople = numPeople;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public Reservation(Parcel in)
+    {
+
     }
 
     // setter
@@ -37,7 +47,8 @@ public class Reservation {
         numPeople = num;
     }
 
-    public void setTime(DateTime startTime, DateTime endTime) {
+    public void setTime(DateTime startTime, DateTime endTime)
+    {
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -54,10 +65,35 @@ public class Reservation {
         return this.reservationID == reservationID;
     }
 
-    public String confirmation(){
+    public String confirmation()
+    {
         String s ="";
-        s += "Reservation ID: " + reservationID + "\nNumer of People: " + numPeople +
-                "\nTable ID: " + tableID + "\nTime: " + startTime.print() +" - " + endTime.print();
+        s += "Reservation ID: " + reservationID + "\nNumber of People: " + numPeople +
+                "\nTable ID: " + tableID + "\nTime: " + startTime.toString() +" - " + endTime.toString();
         return s;
     }
+
+    @Override
+    public int describeContents() { return 0; }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+
+    }
+
+    public static final Parcelable.Creator<Reservation> CREATOR = new Parcelable.Creator<Reservation>()
+    {
+        @Override
+        public Reservation createFromParcel(Parcel source)
+        {
+            return new Reservation(source);
+        }
+
+        @Override
+        public Reservation[] newArray(int size)
+        {
+            return new Reservation[size];
+        }
+    };
 }

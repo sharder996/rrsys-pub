@@ -5,11 +5,11 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -34,12 +34,16 @@ public class CreateReservationActivity extends Activity
     private ArrayList<Reservation> reservationList;
     private ArrayAdapter<Reservation> reservationArrayAdapter;
     private int reservationSelected = -1;
+    private Reservation selected = null;
 
     private Calendar calendar;
     private String amPm;
     private boolean dateEdited = false;
     private boolean timeInEdited = false;
     private boolean timeOutEdited = false;
+
+    private final int MAX_PEOPLE = 12;
+    private final int MIN_PEOPLE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -207,8 +211,8 @@ public class CreateReservationActivity extends Activity
         });
 
         NumberPicker numberPicker = findViewById(R.id.editNumberOfPeople);
-        numberPicker.setMinValue(1);
-        numberPicker.setMaxValue(12);
+        numberPicker.setMinValue(MIN_PEOPLE);
+        numberPicker.setMaxValue(MAX_PEOPLE);
     }
 
     @Override
@@ -227,13 +231,14 @@ public class CreateReservationActivity extends Activity
 
     public void buttonConfirmOnClick(View v)
     {
-        Intent confirmReservationIntent = new Intent(CreateReservationActivity.this, ConfirmReservationActivity.class);
+        Intent confirmReservationIntent = new Intent(CreateReservationActivity.this, CreateConfirmReservationActivity.class);
+        confirmReservationIntent.putExtra("reservation", selected);
         CreateReservationActivity.this.startActivity(confirmReservationIntent);
     }
 
     public void selectTimeAtPosition(int position)
     {
-        Reservation selected = reservationArrayAdapter.getItem(position);
+        selected = reservationArrayAdapter.getItem(position);
 
 
     }

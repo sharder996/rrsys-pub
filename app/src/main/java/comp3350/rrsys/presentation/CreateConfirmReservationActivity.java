@@ -8,14 +8,18 @@ import android.view.MenuItem;
 import android.view.View;
 
 import comp3350.rrsys.R;
+import comp3350.rrsys.objects.Reservation;
 
-public class ConfirmReservationActivity extends Activity{
+public class CreateConfirmReservationActivity extends Activity{
+
+    private Reservation reservation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_confirm_reservation);
+        reservation = getIntent().getParcelableExtra("reservation");
     }
 
     @Override
@@ -34,15 +38,15 @@ public class ConfirmReservationActivity extends Activity{
 
     public void buttonBackOnClick(View v)
     {
-        Intent backPageIntent = new Intent(ConfirmReservationActivity.this, CreateReservationActivity.class);
-        ConfirmReservationActivity.this.startActivity(backPageIntent);
+        Intent backPageIntent = new Intent(CreateConfirmReservationActivity.this, CreateReservationActivity.class);
+        CreateConfirmReservationActivity.this.startActivity(backPageIntent);
     }
 
 
     public void buttonConfirmOnClick(View v)
     {
-        Intent confirmReservationIntent = new Intent(ConfirmReservationActivity.this, ReceiptReservationActivity.class);
-        ConfirmReservationActivity.this.startActivity(confirmReservationIntent);
+        Intent confirmReservationIntent = new Intent(CreateConfirmReservationActivity.this, ReceiptReservationActivity.class);
+        CreateConfirmReservationActivity.this.startActivity(confirmReservationIntent);
     }
 
 }

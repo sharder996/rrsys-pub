@@ -25,7 +25,7 @@
                 android:value="comp3350.rrsys.presentation.CreateReservationActivity" />
         </activity>
         <activity
-            android:name=".presentation.ConfirmReservationActivity"
+            android:name=".presentation.CreateConfirmReservationActivity"
             android:label="@string/title_activity_confirm_reservation"
             android:windowSoftInputMode="adjustNothing">
             <meta-data

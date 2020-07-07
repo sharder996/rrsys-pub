@@ -1,9 +1,7 @@
 package comp3350.rrsys.persistence;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 import comp3350.rrsys.application.Main;
@@ -111,7 +109,7 @@ public class DataAccessStub {
             result.setMonth(time.getMonth());
             result.setDate(time.getDate());
             result.setHour(Table.getTime() + index / 4);
-            result.setMintues(index % 4);
+            result.setMinutes(index % 4);
         }
         catch (java.text.ParseException pe) { System.out.println(pe); }
         return result;
