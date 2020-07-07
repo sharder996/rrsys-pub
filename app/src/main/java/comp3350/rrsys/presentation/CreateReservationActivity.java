@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -25,25 +24,33 @@ import android.widget.TimePicker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import comp3350.rrsys.R;
+import comp3350.rrsys.business.GenerateReservation;
+import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
 
 public class CreateReservationActivity extends Activity
 {
+    private final int MAX_PEOPLE = 12;
+    private final int MIN_PEOPLE = 1;
+    private final int MIN_TIME = 30;
+    private final int MAX_TIME = 180;
+
     private ArrayList<Reservation> reservationList;
     private ArrayAdapter<Reservation> reservationArrayAdapter;
     private int reservationSelected = -1;
-    private Reservation selected = null;
+
+    private Reservation selected;
+    private int setYear, setMonth, setDay, setStartHourOfDay, setStartMinute, setEndHourOfDay, setEndMinute;
+    private int numberOfPeople = MIN_PEOPLE;
 
     private Calendar calendar;
     private String amPm;
     private boolean dateEdited = false;
     private boolean timeInEdited = false;
     private boolean timeOutEdited = false;
-
-    private final int MAX_PEOPLE = 12;
-    private final int MIN_PEOPLE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,7 +83,7 @@ public class CreateReservationActivity extends Activity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id)
             {
-                Button confirmButton = findViewById(R.id.buttonConfirm);
+                Button confirmButton = findViewById(R.id.buttonMakeReservation);
 
                 if(position == reservationSelected)
                 {
@@ -107,6 +114,9 @@ public class CreateReservationActivity extends Activity
                     public void onDateSet(DatePicker datePicker, int year, int month, int day)
                     {
                         editTextDate.setText(day + "/" + (month + 1) + "/" + year);
+                        setDay = day;
+                        setMonth = month;
+                        setYear = year;
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
@@ -147,6 +157,9 @@ public class CreateReservationActivity extends Activity
                             amPm = "AM";
 
                         editTextTime.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+
+                        setStartHourOfDay = hourOfDay;
+                        setStartMinute = minutes;
                     }
                 }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
 
@@ -187,6 +200,9 @@ public class CreateReservationActivity extends Activity
                             amPm = "AM";
 
                         editTextLengthOfStay.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+
+                        setEndHourOfDay = hourOfDay;
+                        setEndMinute = minutes;
                     }
                 }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
 
@@ -213,6 +229,14 @@ public class CreateReservationActivity extends Activity
         NumberPicker numberPicker = findViewById(R.id.editNumberOfPeople);
         numberPicker.setMinValue(MIN_PEOPLE);
         numberPicker.setMaxValue(MAX_PEOPLE);
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
+        {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int prev, int next)
+            {
+                numberOfPeople = next;
+            }
+        });
     }
 
     @Override
@@ -239,12 +263,43 @@ public class CreateReservationActivity extends Activity
     public void selectTimeAtPosition(int position)
     {
         selected = reservationArrayAdapter.getItem(position);
-
-
     }
 
     public void buttonCheckAvailabilityOnClick(View v)
     {
+        DateTime startTime = null;
+        DateTime endTime = null;
+
+        try
+        {
+            startTime = new DateTime(new GregorianCalendar(setYear, setMonth, setDay, setStartHourOfDay, setStartMinute));
+            endTime = new DateTime(new GregorianCalendar(setYear, setMonth, setDay, setEndHourOfDay, setEndMinute));
+        }
+        catch(Exception e)
+        {
+            Messages.fatalError(this, "Error processing date. Please enter a valid date.");
+        }
+
+        if(startTime.getYear() >= calendar.get(Calendar.YEAR) && startTime.getMonth() >= calendar.get(Calendar.MONTH) && startTime.getDate() >= calendar.get(Calendar.DAY_OF_MONTH))
+        {
+            if (startTime != null && endTime != null)
+            {
+                if (startTime.getPeriod(endTime) >= MIN_TIME && startTime.getPeriod(endTime) <= MAX_TIME)
+                {
+                    ArrayList<Reservation> suggestions = GenerateReservation.SuggestReservations(startTime, endTime, numberOfPeople);
+                    reservationList = suggestions;
+
+                    reservationArrayAdapter.notifyDataSetChanged();
+                    ListView listView = findViewById(R.id.availabilityList);
+                    listView.setSelection(0);
+                } else
+                    Messages.warning(this, "Error: Reservation must be between " + MIN_TIME + " minutes and " + MAX_TIME + " minutes.");
+            }
+            else
+                Messages.warning(this, "Error processing date. Please enter a valid date.");
+        }
+        else
+            Messages.warning(this, "Error: Please enter a date that is not in the past.");
 
     }
 }

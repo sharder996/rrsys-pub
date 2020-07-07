@@ -31,4 +31,6 @@
     <string name="name">Name: </string>
     <string name="or">OR</string>
     <string name="enter">Enter</string>
+    <string name="fatalError">Fatal Error</string>
+    <string name="warning">Warning</string>
 </resources>
