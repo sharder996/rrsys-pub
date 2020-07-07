@@ -4,6 +4,8 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import comp3350.rrsys.tests.business.SampleBusinessTest;
+import comp3350.rrsys.tests.objects.TestCustomer;
+import comp3350.rrsys.tests.objects.TestDateTime;
 import comp3350.rrsys.tests.objects.TestReservation;
 
 public class AllTests
@@ -14,12 +16,16 @@ public class AllTests
     {
         suite = new TestSuite("AllTests");
         testObjects();
-        testBusiness();
+        //testBusiness();
         return suite;
     }
 
     private static void testObjects(){
+
         suite.addTestSuite(TestReservation.class);
+        suite.addTestSuite(TestCustomer.class);
+        suite.addTestSuite(TestDateTime.class);
+
     }
 
     private static void testBusiness(){
