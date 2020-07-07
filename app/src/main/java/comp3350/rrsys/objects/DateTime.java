@@ -61,6 +61,13 @@ public class DateTime implements Parcelable
     public int getMinutes(){ return timeSlot.get(timeSlot.MINUTE); }
 
     // return how long between two date time in minutes
+    public boolean equals(DateTime compare){
+        if(compare.getYear() == timeSlot.get(timeSlot.YEAR) && compare.getMonth() == timeSlot.get(timeSlot.MONTH) && compare.getDate() == timeSlot.get(timeSlot.DATE) &&
+                compare.getHour() == timeSlot.get(timeSlot.HOUR) && compare.getMinutes() == timeSlot.get(timeSlot.MINUTE)){
+            return true;
+        }
+        return false;
+    }
     public int getPeriod(DateTime other)
     {
         return (other.getHour()-this.getHour())*60 + other.getMinutes()-this.getMinutes();

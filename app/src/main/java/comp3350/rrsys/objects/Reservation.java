@@ -39,7 +39,7 @@ public class Reservation implements Parcelable
     // setter
     // set the reservation ID only when insert a reservation
     public void setRID() { this.reservationID = counter++; }
-    public void setRID(int reservationID) { this.reservationID = reservationID; }
+    public void setRID(int reservationID) { this.reservationID = reservationID;}
     public void setTID(int tableID){
         this.tableID = tableID;
     }
