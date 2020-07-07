@@ -17,7 +17,7 @@ public class TestDateTime extends TestCase{
     public TestDateTime(String arg0) { super(arg0); }
 
 
-    public void TestDateTime(){
+    public void testDateTime(){
         System.out.println("\nStarting TestReservation");
         DateTime time1 = null;
         DateTime time2 = null;
@@ -28,6 +28,24 @@ public class TestDateTime extends TestCase{
             e.printStackTrace();
         }
 
-        //assertTrue(time1.equals(time2));
+        assertNotNull(time1);
+        assertEquals(time1.getYear(), 2020);
+        assertEquals(time1.getMonth(), 8);
+        assertEquals(time1.getDate(), 23);
+        assertEquals(time1.getHour(), 14);
+        assertEquals(time1.getMinutes(), 00);
+        assertNotNull(time1);
+        assertNotNull(time2);
+        assertFalse(time1.equals(time2));
+
+        time2.setHour(14);
+        assertTrue(time1.equals(time2));
+
+        time2.setDate(24);
+        assertFalse(time1.equals(time2));
+
+        time1.setDate(24);
+        assertTrue(time1.equals(time2));
+
     }
 }
