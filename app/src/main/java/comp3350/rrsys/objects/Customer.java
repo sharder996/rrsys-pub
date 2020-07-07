@@ -23,12 +23,12 @@ public class Customer
         if(!fName.isEmpty() && !containsDigitInString(fName) && fName.split("\\s+").length == 1){
             firstName = titleCaseConversion(fName);
         } else {
-            throw new IllegalArgumentException("Invalid name.\n");
+            throw new IllegalArgumentException("Invalid name.");
         }
         if(!lName.isEmpty() && !containsDigitInString(lName) && lName.split("\\s+").length == 1){
             lastName = titleCaseConversion(lName);
         } else {
-            throw new IllegalArgumentException("Invalid name.\n");
+            throw new IllegalArgumentException("Invalid name.");
         }
         if(!pNum.isEmpty() && pNum.matches(regExPhoneNumber)){
             phoneNumber = Integer.parseInt(pNum.replaceAll("\\D", ""));
@@ -56,10 +56,12 @@ public class Customer
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
-    public boolean equals(int cID)
+    public boolean equals(Customer other)
     {
-        return this.cID == cID;
+        return this.cID == other.cID;
     }
+
+    public String toString() { return "Name: " + this.getFullName() + " -- Ph. num.: " + this.getPhoneNumber(); }
 
     public String getFirstName()
     {
@@ -87,7 +89,7 @@ public class Customer
         if(!newFirstName.isEmpty() && !containsDigitInString(newFirstName) && newFirstName.split("\\s+").length == 1)
             firstName = titleCaseConversion(newFirstName);
         else
-            throw new IllegalArgumentException("Invalid name.\n");
+            throw new IllegalArgumentException("Invalid name.");
     }
 
     public void setLastName(String newLastName) throws IllegalArgumentException
@@ -95,7 +97,7 @@ public class Customer
         if(!newLastName.isEmpty() && !containsDigitInString(newLastName) && newLastName.split("\\s+").length == 1)
             lastName = titleCaseConversion(newLastName);
         else
-            throw new IllegalArgumentException("Invalid name.\n");
+            throw new IllegalArgumentException("Invalid name.");
     }
 
     public void setPhoneNumber(String newPhNum) throws IllegalArgumentException
