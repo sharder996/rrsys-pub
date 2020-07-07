@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name=".presentation.CreateReservationActivity"
-            android:label="@string/restaurant_reservation_system"
+            android:label="@string/title_activity_create_reservation"
             android:windowSoftInputMode="adjustNothing">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name=".presentation.ConfirmReservationActivity"
-            android:label="@string/restaurant_reservation_system"
+            android:label="@string/title_activity_confirm_reservation"
             android:windowSoftInputMode="adjustNothing">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -34,7 +34,7 @@
         </activity>
         <activity
             android:name=".presentation.ReceiptReservationActivity"
-            android:label="@string/restaurant_reservation_system"
+            android:label="@string/title_activity_reservation_receipt"
             android:windowSoftInputMode="adjustNothing">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -42,7 +42,7 @@
         </activity>
         <activity
             android:name=".presentation.ReviewReservationActivity"
-            android:label="@string/restaurant_reservation_system"
+            android:label="@string/title_activity_review_reservation"
             android:windowSoftInputMode="adjustNothing">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -58,7 +58,7 @@
         </activity>
         <activity
             android:name=".presentation.UpdateReservationActivity"
-            android:label="@string/restaurant_reservation_system"
+            android:label="@string/title_activity_update_reservation"
             android:windowSoftInputMode="adjustNothing">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

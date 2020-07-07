@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">RRSYS</string>
 
+    <string name="title_activity_create_reservation">RRSYS: Create Reservation</string>
+    <string name="title_activity_review_reservation">RRSYS: Review Reservation</string>
+    <string name="title_activity_update_reservation">RRSYS: Update Reservation</string>
+    <string name="title_activity_confirm_reservation">RRSYS: Confirm Reservation</string>
+    <string name="title_activity_reservation_receipt">RRSYS: Reservation Receipt</string>
     <string name="restaurant_reservation_system">Restaurant Reservation System</string>
     <string name="create">Create a reservation</string>
     <string name="update">Update a reservation</string>
@@ -8,6 +13,8 @@
     <string name="number_of_people">Number of people: </string>
     <string name="check_availability">Check availability</string>
     <string name="pick_date">Date: </string>
+    <string name="pick_time">Arrival: </string>
+    <string name="pick_time2">Departure: </string>
     <string name="time">Time: </string>
     <string name="confirm">Confirm</string>
     <string name="back">Back</string>
