@@ -33,6 +33,15 @@ public class Reservation implements Parcelable
 
     public Reservation(Parcel in)
     {
+        String[] data = new String[3];
+
+        in.readStringArray(data);
+
+        this.customerID = Integer.parseInt(data[0]);
+        this.tableID = Integer.parseInt(data[1]);
+        this.numPeople = Integer.parseInt(data[2]);
+        this.startTime = in.readParcelable(DateTime.class.getClassLoader());
+        this.endTime = in.readParcelable(DateTime.class.getClassLoader());
 
     }
 
@@ -79,7 +88,10 @@ public class Reservation implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-
+        dest.writeStringArray(new String[]{String.valueOf(this.customerID), String.valueOf(this.tableID),
+                String.valueOf(this.numPeople)});
+        dest.writeParcelable(startTime, flags);
+        dest.writeParcelable(endTime, flags);
     }
 
     public static final Parcelable.Creator<Reservation> CREATOR = new Parcelable.Creator<Reservation>()

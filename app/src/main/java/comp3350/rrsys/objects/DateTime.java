@@ -13,7 +13,7 @@ import java.util.Calendar;
 public class DateTime implements Parcelable
 {
 
-  Calendar timeSlot = null; //Calendar library
+  Calendar timeSlot; //Calendar library
     //
     //Calendar cal = new GregorianCalendar(2013,7,28,13,24);
     //DateTime reservation = new DateTime(cal);
@@ -40,12 +40,13 @@ public class DateTime implements Parcelable
         if(!(timeInfo.get(timeInfo.MINUTE) >=0 && timeInfo.get(timeInfo.MINUTE) <= 60)){
             throw new ParseException("Invalid Minutes.\n", timeInfo.get(timeInfo.MINUTE));
         }
+
         timeSlot = timeInfo;
     }
 
     public DateTime(Parcel in)
     {
-
+        timeSlot = in.readParcelable(Calendar.class.getClassLoader());
     }
 
     public void setYear(int year){timeSlot.set(timeSlot.YEAR,year);}
@@ -92,7 +93,7 @@ public class DateTime implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-
+        //dest.writeParcelable(timeSlot, flags);
     }
 
     public static final Parcelable.Creator<DateTime> CREATOR = new Parcelable.Creator<DateTime>()
