@@ -13,7 +13,7 @@ import java.util.Calendar;
 public class DateTime implements Parcelable
 {
 
-  Calendar timeSlot; //Calendar library
+  Calendar timeSlot = null; //Calendar library
     //
     //Calendar cal = new GregorianCalendar(2013,7,28,13,24);
     //DateTime reservation = new DateTime(cal);
@@ -33,8 +33,8 @@ public class DateTime implements Parcelable
             throw new ParseException("Invalid Date.\n",timeInfo.get(timeInfo.DAY_OF_MONTH));
         }
 
-        if(!(timeInfo.get(timeInfo.HOUR) >=0 && timeInfo.get(timeInfo.HOUR) <= 24)){
-            throw new ParseException("Invalid Hour.\n",timeInfo.get(timeInfo.HOUR));
+        if(!(timeInfo.get(timeInfo.HOUR_OF_DAY) >=0 && timeInfo.get(timeInfo.HOUR_OF_DAY) <= 24)){
+            throw new ParseException("Invalid Hour.\n",timeInfo.get(timeInfo.HOUR_OF_DAY));
         }
 
         if(!(timeInfo.get(timeInfo.MINUTE) >=0 && timeInfo.get(timeInfo.MINUTE) <= 60)){
@@ -51,16 +51,23 @@ public class DateTime implements Parcelable
     public void setYear(int year){timeSlot.set(timeSlot.YEAR,year);}
     public void setMonth(int month){timeSlot.set(timeSlot.MONTH,month);}
     public void setDate(int date){timeSlot.set(timeSlot.DATE,date);}
-    public void setHour(int hour){timeSlot.set(timeSlot.HOUR,hour);}
+    public void setHour(int hour){ timeSlot.set(timeSlot.HOUR_OF_DAY,hour); }
     public void setMinutes(int minutes){timeSlot.set(timeSlot.MINUTE,minutes);}
 
     public int getYear(){ return timeSlot.get(timeSlot.YEAR); }
     public int getMonth(){ return timeSlot.get(timeSlot.MONTH); }
     public int getDate(){ return timeSlot.get(timeSlot.DATE); }
-    public int getHour(){ return timeSlot.get(timeSlot.HOUR); }
+    public int getHour(){ return timeSlot.get(Calendar.HOUR_OF_DAY); }
     public int getMinutes(){ return timeSlot.get(timeSlot.MINUTE); }
 
     // return how long between two date time in minutes
+    public boolean equals(DateTime compare){
+        if(compare.getYear() == timeSlot.get(timeSlot.YEAR) && compare.getMonth() == timeSlot.get(timeSlot.MONTH) && compare.getDate() == timeSlot.get(timeSlot.DATE) &&
+                compare.getHour() == timeSlot.get(timeSlot.HOUR_OF_DAY) && compare.getMinutes() == timeSlot.get(timeSlot.MINUTE)){
+            return true;
+        }
+        return false;
+    }
     public int getPeriod(DateTime other)
     {
         return (other.getHour()-this.getHour())*60 + other.getMinutes()-this.getMinutes();
