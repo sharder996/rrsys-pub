@@ -286,8 +286,10 @@ public class CreateReservationActivity extends Activity
             {
                 if (startTime.getPeriod(endTime) >= MIN_TIME && startTime.getPeriod(endTime) <= MAX_TIME)
                 {
+                    reservationList.clear();
                     ArrayList<Reservation> suggestions = GenerateReservation.SuggestReservations(startTime, endTime, numberOfPeople);
-                    reservationList = suggestions;
+                    for(Reservation reservation : suggestions)
+                        reservationList.add(reservation);
 
                     reservationArrayAdapter.notifyDataSetChanged();
                     ListView listView = findViewById(R.id.availabilityList);
