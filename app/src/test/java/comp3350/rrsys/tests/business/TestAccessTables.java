@@ -29,11 +29,14 @@ public class TestAccessTables extends TestCase {
         int openTime = 8;
         int closeTime = 22;
 
-        ArrayList<Table> tableList;
+        ArrayList<Table> tableList = null;
         Calendar currTime = Calendar.getInstance();
         for(int i = 1; i <= 31; i++){
             for(int j = openTime; j <= closeTime; j++){
                 for(int k = 1; k <= 10; k++){
+                    if(tableList != null){
+                        tableList.clear();
+                    }
                     tableList = accessTables.recommendTables(k, currTime.MONTH, i, j, j+1);
                     assertTrue(tableList.size() > 0);
                 }

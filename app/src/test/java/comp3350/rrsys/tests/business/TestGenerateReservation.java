@@ -39,6 +39,9 @@ public class TestGenerateReservation extends TestCase {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                    if(reservations != null) {
+                        reservations.clear();
+                    }
                     reservations = GenerateReservation.SuggestReservations(startTime, endTime, 4);
                     assertTrue(reservations.size() > 0);
                 }
