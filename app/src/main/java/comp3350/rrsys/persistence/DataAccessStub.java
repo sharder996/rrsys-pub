@@ -436,48 +436,48 @@ public class DataAccessStub {
         reservation1 = new Reservation(customers.get(0).getCID(), tables.get(17).getTID(), 5 , startTime, endTime);
         insertReservation(reservation1);
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        Reservation reservation2;
-        DateTime startTime1 = null;
-        DateTime endTime1 = null;
-        try{
-            startTime1 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,2,00));
-            endTime1 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,4,30));
-        }catch(ParseException e){}
-        reservation2 = new Reservation( tables.get(29).getTID(), 7 , startTime1, endTime1);
-        insertReservation(reservation2);
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        Reservation reservation3;
-        DateTime startTime3 = null;
-        DateTime endTime3 = null;
-        try{
-            startTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,1,00));
-            endTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,2,00));
-        }catch(ParseException e){}
-        reservation3 = new Reservation(customers.get(15).getCID(), tables.get(18).getTID(), 6 , startTime3, endTime3);
-        insertReservation(reservation3);
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        Reservation reservation4;
-        DateTime startTime4 = null;
-        DateTime endTime4 = null;
-        try{
-            startTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,6,00));
-            endTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,9,00));
-        }catch(ParseException e){}
-        reservation4 = new Reservation(customers.get(5).getCID(), tables.get(0).getTID(), 4 , startTime4, endTime4);
-        insertReservation(reservation4);
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        Reservation reservation5;
-        DateTime startTime5 = null;
-        DateTime endTime5 = null;
-        try{
-            startTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,5,00));
-            endTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,8,15));
-        }catch(ParseException e){}
-        reservation5 = new Reservation(customers.get(27).getCID(), tables.get(28).getTID(), 10 , startTime5, endTime5);
-        insertReservation(reservation5);
-    }
+//        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+//        Reservation reservation2;
+//        DateTime startTime2 = null;
+//        DateTime endTime2 = null;
+//        try{
+//            startTime2 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,2,00));
+//            endTime2 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,4,30));
+//        }catch(ParseException e){}
+//        reservation2 = new Reservation( tables.get(29).getTID(), 7 , startTime2, endTime2);
+//        insertReservation(reservation2);
+//
+//        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+//        Reservation reservation3;
+//        DateTime startTime3 = null;
+//        DateTime endTime3 = null;
+//        try{
+//            startTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,1,00));
+//            endTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,2,00));
+//        }catch(ParseException e){}
+//        reservation3 = new Reservation(customers.get(15).getCID(), tables.get(18).getTID(), 6 , startTime3, endTime3);
+//        insertReservation(reservation3);
+//
+//        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+//        Reservation reservation4;
+//        DateTime startTime4 = null;
+//        DateTime endTime4 = null;
+//        try{
+//            startTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,6,00));
+//            endTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,9,00));
+//        }catch(ParseException e){}
+//        reservation4 = new Reservation(customers.get(5).getCID(), tables.get(0).getTID(), 4 , startTime4, endTime4);
+//        insertReservation(reservation4);
+//
+//        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+//        Reservation reservation5;
+//        DateTime startTime5 = null;
+//        DateTime endTime5 = null;
+//        try{
+//            startTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,5,00));
+//            endTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,8,15));
+//        }catch(ParseException e){}
+//        reservation5 = new Reservation(customers.get(27).getCID(), tables.get(28).getTID(), 10 , startTime5, endTime5);
+//        insertReservation(reservation5);
+//    }
 }
