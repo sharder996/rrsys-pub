@@ -416,8 +416,6 @@ public class DataAccessStub {
             DecimalFormat df4 = new DecimalFormat("0000"); // 4 zeros
 
             String phoneNumber = df3.format(num1) + "-" + df3.format(num2) + "-" + df4.format(num3);
-
-
             insertCustomer(randomfirstName, randomlastName, phoneNumber);
 
         }
@@ -426,8 +424,23 @@ public class DataAccessStub {
 
         // Make DateTime for next day e.g.. July 9th, 2020;
         Calendar time = new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE) +1);
-
         //make 5 reservations on first day e.g. July 9th.
+        fakeReservation(currTime, time);
+
+        time = new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE) +2);
+        //make 5 reservations on first day e.g. July 10th.
+        fakeReservation(currTime, time);
+
+        time = new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE) +3);
+        //make 5 reservations on first day e.g. July 11th.
+        fakeReservation(currTime, time);
+
+        time = new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE) +4);
+        //make 5 reservations on first day e.g. July 12th.
+        fakeReservation(currTime, time);
+
+        time = new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE) +5);
+        //make 5 reservations on first day e.g. July 13th.
         fakeReservation(currTime, time);
     }
     private void fakeReservation(Calendar currTime, Calendar time) {
