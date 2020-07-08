@@ -23,7 +23,7 @@ public class ReceiptReservationActivity extends Activity{
         textReservationCode.setText("" + reservation.getRID());
 
         final TextView textDateInfo = findViewById(R.id.textDateInfo);
-        textDateInfo.setText(reservation.getStartTime().getDate() + "//" + reservation.getStartTime().getMonth() + "//" + reservation.getStartTime().getYear());
+        textDateInfo.setText((reservation.getStartTime().getMonth()+1) + "/" + reservation.getStartTime().getDate() + "/" + reservation.getStartTime().getYear());
 
         final TextView textTimeInfo = findViewById(R.id.textTimeInfo);
         textTimeInfo.setText(reservation.getStartTime().getHour() + ":" + reservation.getStartTime().getMinutes() + " - " + reservation.getEndTime().getHour() + ":" + reservation.getEndTime().getMinutes());

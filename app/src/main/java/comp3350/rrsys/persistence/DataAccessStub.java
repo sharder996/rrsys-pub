@@ -366,13 +366,15 @@ public class DataAccessStub {
         // Table ID will be 1 to 30.
         // 15 tables for maximum 4 people , 10 tables for maximum 6 people, 5 tables for maximum 10
 
-        /*int size = 2;
+        // 5 tables each for 2, 4, 6, 8, 10, 12 people, totally 30 tables
+        int size = 2;
         for(int i = 1; i <= 30; i++) {
             addTable(i, size);
             if(i % 5 == 0)
                 size += 2;
-        }*/
+        }
 
+        /*
         for(int i = 1; i < 16; i++){ // 4 people maximum table. Table ID will be 1 to 15
             addTable(i, 4);
         }
@@ -383,7 +385,7 @@ public class DataAccessStub {
 
         for(int i= 0; i < 5; i++){ // 10 people maximum table. Table ID will be 26 to 30
             addTable(i+16+10, 10);
-        }
+        }*/
 
         //generate customer informations
         //assume there are 100 customers.
