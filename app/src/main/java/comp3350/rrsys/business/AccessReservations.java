@@ -72,7 +72,4 @@ public class AccessReservations
     {
         return dataAccess.deleteReservation(reservationID);
     }
-
-
-
 }

@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reservation_details"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="20dp"
             android:layout_columnSpan="2"/>

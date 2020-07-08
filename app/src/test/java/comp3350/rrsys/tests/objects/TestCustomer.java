@@ -2,11 +2,14 @@ package comp3350.rrsys.tests.objects;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 import comp3350.rrsys.objects.Customer;
 /* TODO:
  *      - Add more test cases for invalid data
  */
-public class TestCustomer extends TestCase {
+public class TestCustomer extends TestCase
+{
     public TestCustomer(String arg0) { super(arg0); }
 
     public void testCustomer()
@@ -41,51 +44,72 @@ public class TestCustomer extends TestCase {
         assertFalse(customer1.equals(customer2));
 
         Customer customer3 = null;
-        try {
+        try
+        {
             customer3 = new Customer("", "Test", "123-456-7890");
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             e.getMessage();
         }
         assertNull(customer3);
 
-        try {
+        try
+        {
             customer3 = new Customer("Test", "", "123-456-7890");
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             e.getMessage();
         }
         assertNull(customer3);
 
-        try {
+        try
+        {
             customer3 = new Customer("Test", "Testing", "");
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             e.getMessage();
         }
         assertNull(customer3);
 
-        try {
+        try
+        {
             customer3 = new Customer("Test", "Testing", "aaa-456-7890");
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             e.getMessage();
         }
         assertNull(customer3);
 
-        try {
+        try
+        {
             customer3 = new Customer("Test3", "Testing", "123-456-7890");
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             e.getMessage();
         }
         assertNull(customer3);
 
-        try {
+        try
+        {
             customer3 = new Customer("Test", "Testing6", "123-456-7890");
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             e.getMessage();
         }
         assertNull(customer3);
 
-        try {
+        try
+        {
             customer3 = new Customer("Test", "Testing", "456-7890");
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             e.getMessage();
         }
         assertNull(customer3);

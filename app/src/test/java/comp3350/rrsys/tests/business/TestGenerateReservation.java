@@ -2,6 +2,8 @@ package comp3350.rrsys.tests.business;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -12,10 +14,12 @@ import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.persistence.DataAccessStub;
 
-public class TestGenerateReservation extends TestCase {
+public class TestGenerateReservation extends TestCase
+{
     public TestGenerateReservation(String arg0) { super(arg0); }
 
-    public void testGenerateReservations() {
+    public void testGenerateReservations()
+    {
         System.out.println("\nStarting testGenerateReservations");
 
         DataAccessStub accessStub = new DataAccessStub();
@@ -28,18 +32,25 @@ public class TestGenerateReservation extends TestCase {
         int openTime = 8;
         int closeTime = 22;
 
-        for(int i = 1; i < month; i++){
-            for(int j = 1; j <= date; j++){
-                for(int k = openTime; k < closeTime; k++){
+        for(int i = 1; i < month; i++)
+        {
+            for(int j = 1; j <= date; j++)
+            {
+                for(int k = openTime; k < closeTime; k++)
+                {
                     DateTime startTime = null;
                     DateTime endTime = null;
-                    try {
+                    try
+                    {
                         startTime = new DateTime(new GregorianCalendar(2020,i,j,k,00));
                         endTime = new DateTime(new GregorianCalendar(2020,i,j,k+1,00));
-                    } catch (ParseException e) {
+                    }
+                    catch (ParseException e)
+                    {
                         e.printStackTrace();
                     }
-                    if(reservations != null) {
+                    if(reservations != null)
+                    {
                         reservations.clear();
                     }
                     reservations = GenerateReservation.SuggestReservations(startTime, endTime, 4);
@@ -47,6 +58,7 @@ public class TestGenerateReservation extends TestCase {
                 }
             }
         }
+
         accessStub.close();
         System.out.println("\nEnd testGenerateReservations");
     }

@@ -7,13 +7,15 @@ import comp3350.rrsys.application.Services;
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.persistence.DataAccessStub;
 
-public class AccessCustomers {
+public class AccessCustomers
+{
     private DataAccessStub dataAccess;
     private List<Customer> customers;
     private Customer customer;
     private int currentCustomer;
 
-    public AccessCustomers() {
+    public AccessCustomers()
+    {
         //dataAccess = (DataAccessStub)Services.createDataAccess(Main.dbName);
         dataAccess = (DataAccessStub)Services.getDataAccess(Main.dbName);
         customers = null;
@@ -21,22 +23,26 @@ public class AccessCustomers {
         currentCustomer = 0;
     }
 
-    public String getCustomers(List<Customer> customers) {
+    public String getCustomers(List<Customer> customers)
+    {
         customers.clear();
         return dataAccess.getCustomerSequential(customers);
     }
 
     public Customer getSequential()
     {
-        if (customers == null) {
+        if (customers == null)
+        {
             dataAccess.getCustomerSequential(customers);
             currentCustomer = 0;
         }
-        if (currentCustomer < customers.size()) {
+        if (currentCustomer < customers.size())
+        {
             customer = (Customer) customers.get(currentCustomer);
             currentCustomer++;
         }
-        else {
+        else
+        {
             customers = null;
             customer = null;
             currentCustomer = 0;

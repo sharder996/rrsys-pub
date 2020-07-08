@@ -2,6 +2,8 @@ package comp3350.rrsys.tests.business;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,10 +14,12 @@ import comp3350.rrsys.business.AccessReservations;
 import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
 
-public class TestAccessReservations extends TestCase {
+public class TestAccessReservations extends TestCase
+{
     public TestAccessReservations(String arg0) { super(arg0); }
 
-    public void testAccessReservations() {
+    public void testAccessReservations()
+    {
         System.out.println("\nStarting TestAccessReservations");
 
         Main.startUp();
@@ -29,10 +33,13 @@ public class TestAccessReservations extends TestCase {
 
         DateTime startTime = null;
         DateTime endTime = null;
-        try {
+        try
+        {
             startTime = new DateTime(new GregorianCalendar(2020,10,01,12,00));
             endTime = new DateTime(new GregorianCalendar(2020, 10, 01, 13, 00));
-        } catch (ParseException e) {
+        }
+        catch (ParseException e)
+        {
             e.printStackTrace();
         }
         assertNotNull(startTime);

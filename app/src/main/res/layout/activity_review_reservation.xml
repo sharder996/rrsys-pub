@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
@@ -11,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/reservation_details"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="100dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pick_date"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="@+id/textReservationDetails"
@@ -33,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="*date info*"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/textDateLabel"
         app:layout_constraintTop_toTopOf="@+id/textDateLabel"/>
@@ -44,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/time"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="@+id/textReservationDetails"
@@ -55,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="*time info*"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/textTimeLabel"
         app:layout_constraintTop_toTopOf="@+id/textTimeLabel"/>
@@ -65,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/number_of_people"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="@+id/textReservationDetails"
@@ -76,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="*# people*"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/textNumberOfPeopleLabel"
         app:layout_constraintTop_toTopOf="@+id/textNumberOfPeopleLabel"/>
@@ -86,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/reservation_code"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="@+id/textReservationDetails"
@@ -97,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="*reservation code*"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/textReservationCode"
         app:layout_constraintTop_toTopOf="@+id/textReservationCode"/>

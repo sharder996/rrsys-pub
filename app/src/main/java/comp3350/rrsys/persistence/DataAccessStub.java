@@ -14,7 +14,8 @@ import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.Table;
 
-public class DataAccessStub {
+public class DataAccessStub
+{
 
     private String dbName;
     private String dbType = "stub";
@@ -54,13 +55,15 @@ public class DataAccessStub {
         System.out.println("Closed " + dbType + " database " + dbName);
     }
 
-    public static void updateTables(){
+    public static void updateTables()
+    {
         // clear last day/month's reservations of all tables ?
     }
 
     // return an array of suggested reservations in order
     // which has the same "length" as (endTime-startTime)
-    public ArrayList<Reservation> searchReservations(int numPeople, DateTime startTime, DateTime endTime) {
+    public ArrayList<Reservation> searchReservations(int numPeople, DateTime startTime, DateTime endTime)
+    {
         ArrayList<Reservation> results = new ArrayList<Reservation>();
         int month = startTime.getMonth();
         int day = startTime.getDate();
@@ -69,23 +72,29 @@ public class DataAccessStub {
         int maxIndex = Table.getNumIncrement(); // max index
 
         Table table;
-        for(int t = 0; t < tables.size(); t++) {
+        for(int t = 0; t < tables.size(); t++)
+        {
             table = tables.get(t);
-            if(table.getCapacity() >= numPeople) {
+            if(table.getCapacity() >= numPeople)
+            {
                 // within +- half hour of the start time
                 int i = Math.max(index-2, 0);
-                while(i <= index+2 && i < maxIndex) {
+                while(i <= index+2 && i < maxIndex)
+                {
                     while(i <= index+2 && i < maxIndex && !table.getAvailable(month, day, i))
                         i++;
-                    if (i <= index + 2 && i < maxIndex) {
+                    if (i <= index + 2 && i < maxIndex)
+                    {
                         int numIncrement = 1;
-                        for (int time = i + 1; time < i + totalIncrement; time++) {
+                        for (int time = i + 1; time < i + totalIncrement; time++)
+                        {
                             if (time < maxIndex && table.getAvailable(month, day, time))
                                 numIncrement++;
                             else
                                 break;
                         }
-                        if (numIncrement == totalIncrement) {
+                        if (numIncrement == totalIncrement)
+                        {
                             DateTime start = getDateTime(startTime, i);
                             DateTime end = getDateTime(endTime, i+numIncrement);
                             orderedInsert(results, new Reservation(customerID, table.getTID(), numPeople, start, end), startTime);
@@ -99,14 +108,17 @@ public class DataAccessStub {
     }
 
     // return the index of a date time
-    private int getIndex(DateTime time){
+    private int getIndex(DateTime time)
+    {
         return (time.getHour()-Table.getStartTime())*4 + (time.getMinutes()+7)/15;
     }
 
     // return the date time corresponding to an index
-    private DateTime getDateTime(DateTime time, int index){
+    private DateTime getDateTime(DateTime time, int index)
+    {
         DateTime result = null;
-        try {
+        try
+        {
             result = new DateTime(Calendar.getInstance());
             result.setYear(time.getYear());
             result.setMonth(time.getMonth());
@@ -120,7 +132,8 @@ public class DataAccessStub {
 
     // ordered insert a suggested reservation into a temp array
     // ordered by how close to the startTime
-    private void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t) {
+    private void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t)
+    {
         int pos = 0;
         int max = results.size();
         while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) < Math.abs(r.getStartTime().getPeriod(t)))
@@ -131,11 +144,14 @@ public class DataAccessStub {
     }
 
     // set the availability of a table
-    private void setTable(int tID, int month, int day, int startIndex, int endIndex, boolean bool) {
+    private void setTable(int tID, int month, int day, int startIndex, int endIndex, boolean bool)
+    {
         Table table;
-        for(int i = 0; i < tables.size(); i++) {
+        for(int i = 0; i < tables.size(); i++)
+        {
             table = tables.get(i);
-            if(table.getTID() == tID) {
+            if(table.getTID() == tID)
+            {
                 for(int time = startIndex; time < endIndex; time++)
                     table.setAvailable(month, day, time, bool);
             }
@@ -143,7 +159,8 @@ public class DataAccessStub {
     }
 
     // insert a reservation
-    public String insertReservation(Reservation r) {
+    public String insertReservation(Reservation r)
+    {
         DateTime startTime = r.getStartTime();
         DateTime endTime = r.getEndTime();
         r.setRID();
@@ -154,10 +171,13 @@ public class DataAccessStub {
 
     // get a reservation
     // get a reservation by reservationID
-    public Reservation getReservation(int reservationID) {
+    public Reservation getReservation(int reservationID)
+    {
         Reservation result = null;
-        for(int i = 0; i < reservations.size(); i++) {
-            if(reservations.get(i).equals(reservationID)) {
+        for(int i = 0; i < reservations.size(); i++)
+        {
+            if(reservations.get(i).equals(reservationID))
+            {
                 result = reservations.get(i);
                 break;
             }
@@ -166,9 +186,11 @@ public class DataAccessStub {
     }
 
     // get an array of reservations by customerID
-    public ArrayList<Reservation> getReservations(int customerID) {
+    public ArrayList<Reservation> getReservations(int customerID)
+    {
         ArrayList<Reservation> results = new ArrayList<Reservation>();
-        for(int i = 0; i < reservations.size(); i++) {
+        for(int i = 0; i < reservations.size(); i++)
+        {
             if(reservations.get(i).equals(customerID))
                 results.add(reservations.get(i));
         }
@@ -176,9 +198,12 @@ public class DataAccessStub {
     }
 
     // delete a reservation
-    public String deleteReservation(Reservation r){
-        for(int i = 0; i < reservations.size(); i++) {
-            if (reservations.get(i).equals(r.getRID())) {
+    public String deleteReservation(Reservation r)
+    {
+        for(int i = 0; i < reservations.size(); i++)
+        {
+            if (reservations.get(i).equals(r.getRID()))
+            {
                 DateTime start = r.getStartTime();
                 DateTime end = r.getEndTime();
                 setTable(r.getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
@@ -190,53 +215,64 @@ public class DataAccessStub {
     }
 
     // delete a reservation by reservation ID
-    public String deleteReservation(int rID){
-                    for(int i = 0; i < reservations.size(); i++) {
-                        if (reservations.get(i).equals(rID)) {
-                            DateTime start = reservations.get(i).getStartTime();
-                            DateTime end = reservations.get(i).getEndTime();
-                            setTable(reservations.get(i).getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
-                            reservations.remove(i);
-                            break;
-                        }
-                    }
-                    return null;
-                }
+    public String deleteReservation(int rID)
+    {
+        for(int i = 0; i < reservations.size(); i++)
+        {
+            if (reservations.get(i).equals(rID))
+            {
+                DateTime start = reservations.get(i).getStartTime();
+                DateTime end = reservations.get(i).getEndTime();
+                setTable(reservations.get(i).getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
+                reservations.remove(i);
+                break;
+            }
+        }
+        return null;
+    }
 
                 // update a reservation with rID to curr
-                public String updateReservation(int rID, Reservation curr) {
-                    for(int i = 0; i < reservations.size(); i++) {
-                        if (reservations.get(i).equals(rID)) {
-                            Reservation prev = reservations.get(i);
-                            DateTime prevStart = prev.getStartTime();
-                            DateTime prevEnd = prev.getEndTime();
-                            DateTime currStart = curr.getStartTime();
-                            DateTime currEnd = curr.getEndTime();
-                            curr.setRID(prev.getRID());
-                            setTable(prev.getTID(), prevStart.getMonth(), prevStart.getDate(), getIndex(prevStart), getIndex(prevEnd), true);
-                            setTable(curr.getTID(), currStart.getMonth(), currStart.getDate(), getIndex(currStart), getIndex(currEnd), false);
-                            curr.setRID(prev.getRID());
+    public String updateReservation(int rID, Reservation curr)
+    {
+        for(int i = 0; i < reservations.size(); i++)
+        {
+            if (reservations.get(i).equals(rID))
+            {
+                Reservation prev = reservations.get(i);
+                DateTime prevStart = prev.getStartTime();
+                DateTime prevEnd = prev.getEndTime();
+                DateTime currStart = curr.getStartTime();
+                DateTime currEnd = curr.getEndTime();
+                curr.setRID(prev.getRID());
+                setTable(prev.getTID(), prevStart.getMonth(), prevStart.getDate(), getIndex(prevStart), getIndex(prevEnd), true);
+                setTable(curr.getTID(), currStart.getMonth(), currStart.getDate(), getIndex(currStart), getIndex(currEnd), false);
+                curr.setRID(prev.getRID());
                 reservations.set(i, curr);
             }
         }
         return null;
     }
 
-    public String getReservationSequential(List<Reservation> reservationResult) {
+    public String getReservationSequential(List<Reservation> reservationResult)
+    {
         reservationResult.addAll(reservations);
         return null;
     }
 
-    public ArrayList<Table> getTableSequential() {
+    public ArrayList<Table> getTableSequential()
+    {
         ArrayList<Table> result = new ArrayList<Table>();
         result.addAll(tables);
         return result;
     }
 
-    public Table getTableRandom(int tableID) {
+    public Table getTableRandom(int tableID)
+    {
         Table result = null;
-        for(int i = 0; i < tables.size(); i++) {
-            if(tables.get(i).equals(tableID)) {
+        for(int i = 0; i < tables.size(); i++)
+        {
+            if(tables.get(i).equals(tableID))
+            {
                 result = tables.get(i);
                 break;
             }
@@ -244,15 +280,19 @@ public class DataAccessStub {
         return result;
     }
 
-    public String getCustomerSequential(List<Customer> customerResult) {
+    public String getCustomerSequential(List<Customer> customerResult)
+    {
         customerResult.addAll(customers);
         return null;
     }
 
-    public Customer getCustomerByID(int customerID) {
+    public Customer getCustomerByID(int customerID)
+    {
         Customer result = null;
-        for(int i = 0; i < customers.size(); i++) {
-            if(customers.get(i).equals(customerID)) {
+        for(int i = 0; i < customers.size(); i++)
+        {
+            if(customers.get(i).equals(customerID))
+            {
                 result = customers.get(i);
                 break;
             }
@@ -261,37 +301,49 @@ public class DataAccessStub {
     }
 
     //Adds a customer to list by object
-    public String insertCustomer(Customer customer) {
+    public String insertCustomer(Customer customer)
+    {
         customers.add(customer);
         return null;
     }
 
     //Adds a customer by raw data type values
-    public String insertCustomer(String firstName, String lastName, String phoneNumber) {
-        try {
+    public String insertCustomer(String firstName, String lastName, String phoneNumber)
+    {
+        try
+        {
             customers.add(new Customer(firstName, lastName, phoneNumber));
             return null;
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             return e.getMessage();
         }
     }
 
     //updates an existing customer with matching customer id
-    public String updateCustomer(int customerID, Customer updatedCustomer) {
-        for (int i = 0; i < customers.size(); i++) {
-            if (customerID == customers.get(i).getCID()) {
-                try {
+    public String updateCustomer(int customerID, Customer updatedCustomer)
+    {
+        for (int i = 0; i < customers.size(); i++)
+        {
+            if (customerID == customers.get(i).getCID())
+            {
+                try
+                {
                     Customer prev = customers.get(i);
                     prev.setLastName(updatedCustomer.getLastName());
                     prev.setFirstName(updatedCustomer.getFirstName());
                     prev.setPhoneNumber(String.valueOf(updatedCustomer.getPhoneNumber()));
                     customers.set(i, prev);
                     break;
-                } catch (IllegalArgumentException e) {
+                }
+                catch (IllegalArgumentException e)
+                {
                     return e.getMessage();
                 }
             }
-            if(i + 1 >= customers.size()) {
+            if(i + 1 >= customers.size())
+            {
                 return "Error: Customer with ID: " + customerID + " already exists.";
             }
         }
@@ -299,9 +351,12 @@ public class DataAccessStub {
     }
 
     //Removes first customer with matching ID
-    public String deleteCustomer(int customerID) {
-        for (int i = 0; i < customers.size(); i++) {
-            if (customerID == customers.get(i).getCID()) {
+    public String deleteCustomer(int customerID)
+    {
+        for (int i = 0; i < customers.size(); i++)
+        {
+            if (customerID == customers.get(i).getCID())
+            {
                 customers.remove(i);
                 break;
             }
@@ -310,9 +365,12 @@ public class DataAccessStub {
     }
 
     //Adds table by Table object
-    public String addTable(Table thisTable) {
-        for ( int i = 0; i < tables.size(); i++ ) {
-            if (thisTable.equals(tables.get(i).getTID())) {
+    public String addTable(Table thisTable)
+    {
+        for ( int i = 0; i < tables.size(); i++ )
+        {
+            if (thisTable.equals(tables.get(i).getTID()))
+            {
                 return "Error: Table with ID: " + thisTable.getTID() + " already exists.";
             }
         }
@@ -321,9 +379,12 @@ public class DataAccessStub {
     }
 
     //adds a new table object by raw data types
-    public String addTable(int tableID, int size) {
-        for (int i = 0; i < tables.size(); i++) {
-            if(tableID == tables.get(i).getTID()) {
+    public String addTable(int tableID, int size)
+    {
+        for (int i = 0; i < tables.size(); i++)
+        {
+            if(tableID == tables.get(i).getTID())
+            {
                 return "Error: Table with ID: " + tableID + " already exists.";
             }
         }
@@ -332,13 +393,17 @@ public class DataAccessStub {
     }
 
     //removes a table by matching table ID
-    public String deleteTable(int tableID) {
-        for (int i = 0; i < tables.size(); i++) {
-            if (tables.get(i).equals(tableID)){
+    public String deleteTable(int tableID)
+    {
+        for (int i = 0; i < tables.size(); i++)
+        {
+            if (tables.get(i).equals(tableID))
+            {
                 tables.remove(i);
                 break;
             }
-            if(i + 1 >= tables.size()) {
+            if(i + 1 >= tables.size())
+            {
                 return "Table ID: " + tableID + " not found";
             }
         }
@@ -346,21 +411,25 @@ public class DataAccessStub {
     }
 
     //updates existing table with matching ID
-    public String updateTable(int tableID, Table thisTable) {
-        for (int i = 0; i < tables.size(); i++) {
-            if (tables.get(i).equals(tableID)) {
+    public String updateTable(int tableID, Table thisTable)
+    {
+        for (int i = 0; i < tables.size(); i++)
+        {
+            if (tables.get(i).equals(tableID))
+            {
                 tables.set(i, thisTable);
                 return null;
             }
-            if(i + 1 >= tables.size()) {
+            if(i + 1 >= tables.size())
+            {
                 return "Table ID: " + tableID + " not found";
             }
         }
         return null;
     }
 
-    public void generateFakeData(){
-
+    public void generateFakeData()
+    {
         //generate tables in the restaurant.
         //assume there are 30 tables
         // Table ID will be 1 to 30.
@@ -368,7 +437,8 @@ public class DataAccessStub {
 
         // 5 tables each for 2, 4, 6, 8, 10, 12 people, totally 30 tables
         int size = 2;
-        for(int i = 1; i <= 30; i++) {
+        for(int i = 1; i <= 30; i++)
+        {
             addTable(i, size);
             if(i % 5 == 0)
                 size += 2;
@@ -404,19 +474,23 @@ public class DataAccessStub {
             char[] first = new char[length];
             char[] last = new char[length + 2];
 
-            for (int i = 0; i < length; i++) {
+            for (int i = 0; i < length; i++)
+            {
                 first[i] = name.charAt(rand.nextInt(name.length()));
             }
 
-            for (int i = 0; i < length; i++) {
+            for (int i = 0; i < length; i++)
+            {
                 last[i] = name.charAt(rand.nextInt(name.length()));
             }
 
-            for (int i = 0; i < first.length; i++) {
+            for (int i = 0; i < first.length; i++)
+            {
                 randomfirstName += first[i];
             }
 
-            for (int i = 0; i < last.length; i++) {
+            for (int i = 0; i < last.length; i++)
+            {
                     randomlastName += last[i];
             }
             ///////////////////////////////////////////////////////////////////////////
@@ -430,7 +504,6 @@ public class DataAccessStub {
 
             String phoneNumber = df3.format(num1) + "-" + df3.format(num2) + "-" + df4.format(num3);
             insertCustomer(randomfirstName, randomlastName, phoneNumber);
-
         }
 
         Calendar currTime = Calendar.getInstance(); // get Current Date and Time e.g.. July 8th, 2020.
@@ -456,7 +529,9 @@ public class DataAccessStub {
         //make 5 reservations on first day e.g. July 13th.
         fakeReservation(currTime, time);*/
     }
-    private void fakeReservation(Calendar currTime, Calendar time) {
+
+    private void fakeReservation(Calendar currTime, Calendar time)
+    {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         int Min = 0;
         int Max = 99;
@@ -465,11 +540,13 @@ public class DataAccessStub {
         Reservation reservation1;
         DateTime startTime = null;
         DateTime endTime = null;
-        try {
+        try
+        {
             startTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 11, 00));
             endTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 12, 30));
-        } catch (ParseException e) {
         }
+        catch (ParseException e) { }
+
         reservation1 = new Reservation(customers.get(random).getCID(), tables.get(17).getTID(), 5, startTime, endTime);
         insertReservation(reservation1);
 
@@ -477,11 +554,13 @@ public class DataAccessStub {
         Reservation reservation2;
         DateTime startTime2 = null;
         DateTime endTime2 = null;
-        try {
+        try
+        {
             startTime2 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 14, 00));
             endTime2 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 16, 30));
-        } catch (ParseException e) {
         }
+        catch (ParseException e) { }
+
         reservation2 = new Reservation(tables.get(29).getTID(), 7, startTime2, endTime2);
         insertReservation(reservation2);
 
@@ -491,11 +570,13 @@ public class DataAccessStub {
         Reservation reservation3;
         DateTime startTime3 = null;
         DateTime endTime3 = null;
-        try {
+        try
+        {
             startTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 13, 00));
             endTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 14, 00));
-        } catch (ParseException e) {
         }
+        catch (ParseException e) { }
+
         reservation3 = new Reservation(customers.get(random).getCID(), tables.get(18).getTID(), 6, startTime3, endTime3);
         insertReservation(reservation3);
 
@@ -505,11 +586,13 @@ public class DataAccessStub {
         Reservation reservation4;
         DateTime startTime4 = null;
         DateTime endTime4 = null;
-        try {
+        try
+        {
             startTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 18, 00));
             endTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 21, 00));
-        } catch (ParseException e) {
         }
+        catch (ParseException e) { }
+
         reservation4 = new Reservation(customers.get(random).getCID(), tables.get(0).getTID(), 4, startTime4, endTime4);
         insertReservation(reservation4);
 
@@ -519,11 +602,13 @@ public class DataAccessStub {
         Reservation reservation5;
         DateTime startTime5 = null;
         DateTime endTime5 = null;
-        try {
+        try
+        {
             startTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 17, 00));
             endTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 20, 15));
-        } catch (ParseException e) {
         }
+        catch (ParseException e) { }
+
         reservation5 = new Reservation(customers.get(random).getCID(), tables.get(28).getTID(), 10, startTime5, endTime5);
         insertReservation(reservation5);
     }

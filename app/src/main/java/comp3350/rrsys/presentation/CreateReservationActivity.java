@@ -319,6 +319,5 @@ public class CreateReservationActivity extends Activity
         }
         else
             Messages.warning(this, "Error: Please enter a date that is not in the past.");
-
     }
 }

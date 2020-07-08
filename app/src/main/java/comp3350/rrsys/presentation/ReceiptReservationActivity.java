@@ -11,7 +11,8 @@ import android.widget.TextView;
 import comp3350.rrsys.R;
 import comp3350.rrsys.objects.Reservation;
 
-public class ReceiptReservationActivity extends Activity{
+public class ReceiptReservationActivity extends Activity
+{
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

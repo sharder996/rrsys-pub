@@ -1,11 +1,14 @@
 package comp3350.rrsys.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /* Class: Customer
  *
  * Customer stub database object. Holds unique ID (enforced by Database object), customer name (first
  * and last) and phone number;
  */
-public class Customer
+public class Customer implements Parcelable
 {
     private int cID;
     //enforces format: 9999999999, 1-999-999-9999 and 999-999-9999
@@ -17,7 +20,6 @@ public class Customer
 
     public Customer(String fName, String lName, String pNum) throws IllegalArgumentException
     {
-
         cID = counter++;
 
         if(!fName.isEmpty() && !containsDigitInString(fName) && fName.split("\\s+").length == 1){
@@ -36,6 +38,35 @@ public class Customer
             throw new IllegalArgumentException("Invalid phone number format.");
         }
     }
+
+    private Customer(Parcel in)
+    {
+        cID = in.readInt();
+        firstName = in.readString();
+        lastName = in.readString();
+        phoneNumber = in.readInt();
+    }
+
+    @Override
+    public int describeContents() { return 0; }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeInt(cID);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeInt(phoneNumber);
+    }
+
+    public static final Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>()
+    {
+        @Override
+        public Customer createFromParcel(Parcel source) { return new Customer(source); }
+
+        @Override
+        public Customer[] newArray(int size) { return new Customer[size]; }
+    };
 
     private boolean containsDigitInString(String input)
     {
@@ -61,6 +92,7 @@ public class Customer
         return this.cID == other.cID;
     }
 
+    @Override
     public String toString() { return "Name: " + this.getFullName() + " -- Ph. num.: " + this.getPhoneNumber(); }
 
     public String getFirstName()

@@ -8,8 +8,8 @@ import android.view.View;
 
 import comp3350.rrsys.R;
 
-public class ConfirmUpdatesActivity extends Activity {
-
+public class ConfirmUpdatesActivity extends Activity
+{
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -29,7 +29,6 @@ public class ConfirmUpdatesActivity extends Activity {
         Intent backPageIntent = new Intent(ConfirmUpdatesActivity.this,UpdateReservationActivity.class);
         ConfirmUpdatesActivity.this.startActivity(backPageIntent);
     }
-
 
     public void buttonConfirmOnClick(View v)
     {

@@ -30,7 +30,6 @@ public class UpdateReservationActivity extends Activity
         UpdateReservationActivity.this.startActivity(backPageIntent);
     }
 
-
     public void buttonDoneOnClick(View v)
     {
         Intent confirmUpdatesIntent = new Intent(UpdateReservationActivity.this, ConfirmUpdatesActivity.class);

@@ -24,7 +24,8 @@ public class Table
         }
     }
 
-    public boolean equals(int tID){
+    public boolean equals(int tID)
+    {
         return this.tID == tID;
     }
 
@@ -38,7 +39,9 @@ public class Table
     public boolean getAvailable(int month, int day, int time) { return available[month-1][day-1][time]; }
     public void setAvailable(int month, int day, int time, boolean bool) { available[month-1][day-1][time] = bool; }
 
-    public String toString() {
+    @Override
+    public String toString()
+    {
         return "Table " + tID + "Capacity " + capacity;
     }
 }

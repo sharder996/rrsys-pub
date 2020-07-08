@@ -18,8 +18,8 @@ import comp3350.rrsys.business.AccessReservations;
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.Reservation;
 
-public class CreateConfirmReservationActivity extends Activity{
-
+public class CreateConfirmReservationActivity extends Activity
+{
     private Reservation reservation;
     private String lastName, firstName, phoneNumber;
     private boolean firstNameEdited, lastNameEdited, phoneNumberEdited;
@@ -148,5 +148,4 @@ public class CreateConfirmReservationActivity extends Activity{
             CreateConfirmReservationActivity.this.startActivity(confirmReservationIntent);
         }
     }
-
 }

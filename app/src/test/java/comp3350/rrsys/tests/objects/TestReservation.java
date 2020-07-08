@@ -17,16 +17,19 @@ public class TestReservation extends TestCase
 {
     public TestReservation(String arg0) { super(arg0); }
 
-    public void testReservation() {
-
+    public void testReservation()
+    {
         System.out.println("\nStarting TestReservation");
 
         Customer customer0 = new Customer("Cody", "Moon", "204-115-4259");
         Reservation res0 = null;
-        try {
+        try
+        {
             res0 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res0.setRID();
-        } catch (ParseException e) {
+        }
+        catch (ParseException e)
+        {
             e.printStackTrace();
         }
 
@@ -39,18 +42,24 @@ public class TestReservation extends TestCase
         assertEquals(1, res0.getNumPeople());
         assertFalse(res0.confirmation() == null);
 
-        try {
+        try
+        {
             assertTrue(res0.getStartTime().equals(new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00))));
             assertTrue(res0.getEndTime().equals( new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00))));
-        }catch(ParseException y){
+        }
+        catch(ParseException y)
+        {
             y.printStackTrace();
         }
 
         Reservation res1 = null;
-        try {
+        try
+        {
             res1 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res1.setRID(res0.getRID());
-        } catch (ParseException e) {
+        }
+        catch (ParseException e)
+        {
             e.printStackTrace();
         }
 
@@ -61,10 +70,13 @@ public class TestReservation extends TestCase
 
         //Beginning tests of invalid/odd data
         Reservation res2 = null;
-        try {
+        try
+        {
             res2 = new Reservation(customer0.getCID(), 2, -1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res2.setRID(res0.getRID() + 1);
-        } catch (ParseException e) {
+        }
+        catch (ParseException e)
+        {
             e.printStackTrace();
         }
 
@@ -76,10 +88,13 @@ public class TestReservation extends TestCase
         assertFalse(res2.getTID() == res0.getTID());
 
         Reservation res3 = null;
-        try {
+        try
+        {
             res3 = new Reservation(customer0.getCID(), -2, 6, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res3.setRID(res2.getRID() + 1);
-        } catch (ParseException e) {
+        }
+        catch (ParseException e)
+        {
             e.printStackTrace();
         }
 
@@ -88,9 +103,7 @@ public class TestReservation extends TestCase
         assertEquals(6, res3.getNumPeople());
         assertEquals(-2, res3.getTID());
 
-        Reservation res4 = null;
-
-        res4 = new Reservation(customer0.getCID(), 5, 6, null, null);
+        Reservation res4 = new Reservation(customer0.getCID(), 5, 6, null, null);
         res4.setRID(res3.getRID() + 1);
 
         assertNotNull(res4);
@@ -99,10 +112,13 @@ public class TestReservation extends TestCase
 
         //test negative customer number
         Reservation res5 = null;
-        try {
+        try
+        {
             res5 = new Reservation(-1, 10, 6, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res5.setRID(res3.getRID() + 1);
-        } catch (ParseException e) {
+        }
+        catch (ParseException e)
+        {
             e.printStackTrace();
         }
 

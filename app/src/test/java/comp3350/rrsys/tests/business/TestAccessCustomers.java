@@ -1,13 +1,17 @@
 package comp3350.rrsys.tests.business;
 
 import junit.framework.TestCase;
+
+import org.junit.Test;
+
 import java.util.ArrayList;
 
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.business.AccessCustomers;
 import comp3350.rrsys.objects.Customer;
 
-public class TestAccessCustomers extends TestCase {
+public class TestAccessCustomers extends TestCase
+{
     public TestAccessCustomers(String arg0) { super(arg0); }
 
     public void testAccessCustomer()

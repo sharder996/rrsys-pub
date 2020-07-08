@@ -13,8 +13,8 @@ import comp3350.rrsys.R;
 import comp3350.rrsys.business.AccessReservations;
 import comp3350.rrsys.objects.Reservation;
 
-public class GetReviewReservationActivity extends Activity{
-
+public class GetReviewReservationActivity extends Activity
+{
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -35,7 +35,6 @@ public class GetReviewReservationActivity extends Activity{
         GetReviewReservationActivity.this.startActivity(returnHomeIntent);
     }
 
-
     public void buttonEnterOnClick(View v)
     {
         AccessReservations reservations = new AccessReservations();
@@ -44,8 +43,10 @@ public class GetReviewReservationActivity extends Activity{
         EditText date = (EditText) findViewById(R.id.editTextDate);
         EditText code = (EditText) findViewById(R.id.editTextReservationCode);
 
-        if(code.length() != 0){
-            try{
+        if(code.length() != 0)
+        {
+            try
+            {
                 selected = reservations.getRandom(Integer.parseInt(code.getText().toString()));
 
                 String time = selected.getStartTime().getHour() +":" + selected.getStartTime().getMinutes();
@@ -58,13 +59,16 @@ public class GetReviewReservationActivity extends Activity{
                 confirmIntent.putExtra("People", selected.getNumPeople());
                 GetReviewReservationActivity.this.startActivity(confirmIntent);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 code.setError("Sorry we found no reservation with that reservation code");
                 e.printStackTrace();
             }
         }
-        else if(customer.length() != 0 && date.length() != 0){
-            try{
+        else if(customer.length() != 0 && date.length() != 0)
+        {
+            try
+            {
                 String[] monthDayYear = date.getText().toString().split("/");
                 List<Reservation> options = reservations.getSequential(Integer.parseInt(customer.getText().toString()));
                 for(int i = 0; i < options.size(); i++){
@@ -84,12 +88,14 @@ public class GetReviewReservationActivity extends Activity{
                 confirmIntent.putExtra("People", selected.getNumPeople());
                 GetReviewReservationActivity.this.startActivity(confirmIntent);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 customer.setError("Sorry we found no reservation with that customer ID and date");
                 e.printStackTrace();
             }
         }
-        else{
+        else
+        {
             if(customer.length() == 0){
                 customer.setError("Enter customer ID");
             }

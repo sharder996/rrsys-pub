@@ -24,17 +24,16 @@ public class AllTests
         return suite;
     }
 
-    private static void testObjects(){
-
+    private static void testObjects()
+    {
         suite.addTestSuite(TestReservation.class);
         suite.addTestSuite(TestCustomer.class);
         suite.addTestSuite(TestDateTime.class);
         suite.addTestSuite(TestTable.class);
-
     }
 
-    private static void testBusiness(){
-
+    private static void testBusiness()
+    {
         suite.addTestSuite(TestAccessCustomers.class);
         suite.addTestSuite(TestAccessReservations.class);
         suite.addTestSuite(TestAccessTables.class);
