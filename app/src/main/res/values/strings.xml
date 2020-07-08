@@ -32,6 +32,7 @@
     <string name="first_name">First name: </string>
     <string name="last_name">Last name: </string>
     <string name="phone_number">Phone Number: </string>
+    <string name="phone_number_hint">999-999-9999</string>
     <string name="or">OR</string>
     <string name="enter">Enter</string>
     <string name="fatalError">Fatal Error</string>

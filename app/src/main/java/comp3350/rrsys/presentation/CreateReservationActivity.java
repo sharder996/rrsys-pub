@@ -305,6 +305,9 @@ public class CreateReservationActivity extends Activity
                     reservationArrayAdapter.notifyDataSetChanged();
                     ListView listView = findViewById(R.id.availabilityList);
                     listView.setSelection(0);
+
+                    if(suggestions.isEmpty())
+                        Messages.warning(this, "Error: No openings found.");
                 }
                 else if (startTime.getPeriod(endTime) < MIN_TIME || startTime.getPeriod(endTime) > MAX_TIME)
                     Messages.warning(this, "Error: Reservation must be between " + MIN_TIME + " minutes and " + MAX_TIME + " minutes.");
