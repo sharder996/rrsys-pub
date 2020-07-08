@@ -46,6 +46,7 @@ public class DataAccessStub {
         tables = new ArrayList<Table>();
 
         reservations = new ArrayList<Reservation>();
+        generateFakeData();
     }
 
     public void close()
@@ -64,19 +65,19 @@ public class DataAccessStub {
         int month = startTime.getMonth();
         int day = startTime.getDate();
         int index = getIndex(startTime);
-        int totalIncrement = startTime.getPeriod(endTime)/15; // total num of increments
+        int totalIncrement = (startTime.getPeriod(endTime)+7)/15; // total num of increments
         int maxIndex = Table.getNumIncrement(); // max index
 
         Table table;
         for(int t = 0; t < tables.size(); t++) {
             table = tables.get(t);
             if(table.getCapacity() >= numPeople) {
-                // within +- 1 hour of the start time
-                int i = Math.max(index-4, 0);
-                while(i <= index+4 && i < maxIndex) {
-                    while(i <= index+4 && i < maxIndex && !table.getAvailable(month, day, i))
+                // within +- half hour of the start time
+                int i = Math.max(index-2, 0);
+                while(i <= index+2 && i < maxIndex) {
+                    while(i <= index+2 && i < maxIndex && !table.getAvailable(month, day, i))
                         i++;
-                    if (i <= index + 4 && i < maxIndex) {
+                    if (i <= index + 2 && i < maxIndex) {
                         int numIncrement = 1;
                         for (int time = i + 1; time < i + totalIncrement; time++) {
                             if (time < maxIndex && table.getAvailable(month, day, time))
@@ -87,7 +88,7 @@ public class DataAccessStub {
                         if (numIncrement == totalIncrement) {
                             DateTime start = getDateTime(startTime, i);
                             DateTime end = getDateTime(endTime, i+numIncrement);
-                            orderedInsert(results, new Reservation(customerID, table.getTID(), numPeople, start, end), index);
+                            orderedInsert(results, new Reservation(customerID, table.getTID(), numPeople, start, end), startTime);
                         }
                     }
                     i++;
@@ -99,7 +100,7 @@ public class DataAccessStub {
 
     // return the index of a date time
     private int getIndex(DateTime time){
-        return (time.getHour()-Table.getStartTime())*4 + time.getMinutes()/15;
+        return (time.getHour()-Table.getStartTime())*4 + (time.getMinutes()+7)/15;
     }
 
     // return the date time corresponding to an index
@@ -111,7 +112,7 @@ public class DataAccessStub {
             result.setMonth(time.getMonth());
             result.setDate(time.getDate());
             result.setHour(Table.getStartTime() + index / 4);
-            result.setMinutes(index % 4);
+            result.setMinutes(index % 4 * 15);
         }
         catch (java.text.ParseException pe) { System.out.println(pe); }
         return result;
@@ -119,10 +120,12 @@ public class DataAccessStub {
 
     // ordered insert a suggested reservation into a temp array
     // ordered by how close to the startTime
-    private void orderedInsert(ArrayList<Reservation> results, Reservation r, int index) {
+    private void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t) {
         int pos = 0;
         int max = results.size();
-        while(pos < max && Math.abs(getIndex(results.get(pos).getStartTime())-index) < Math.abs(getIndex(r.getStartTime())-index))
+        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) < Math.abs(r.getStartTime().getPeriod(t)))
+            pos++;
+        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) == Math.abs(r.getStartTime().getPeriod(t)) && getTableRandom(results.get(pos).getTID()).getCapacity() < getTableRandom(r.getTID()).getCapacity())
             pos++;
         results.add(pos, r);
     }
@@ -363,6 +366,13 @@ public class DataAccessStub {
         // Table ID will be 1 to 30.
         // 15 tables for maximum 4 people , 10 tables for maximum 6 people, 5 tables for maximum 10
 
+        /*int size = 2;
+        for(int i = 1; i <= 30; i++) {
+            addTable(i, size);
+            if(i % 5 == 0)
+                size += 2;
+        }*/
+
         for(int i = 1; i < 16; i++){ // 4 people maximum table. Table ID will be 1 to 15
             addTable(i, 4);
         }
@@ -423,7 +433,7 @@ public class DataAccessStub {
 
         Calendar currTime = Calendar.getInstance(); // get Current Date and Time e.g.. July 8th, 2020.
 
-        // Make DateTime for next day e.g.. July 9th, 2020;
+        /*// Make DateTime for next day e.g.. July 9th, 2020;
         Calendar time = new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE) +1);
         //make 5 reservations on first day e.g. July 9th.
         fakeReservation(currTime, time);
@@ -442,7 +452,7 @@ public class DataAccessStub {
 
         time = new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE) +5);
         //make 5 reservations on first day e.g. July 13th.
-        fakeReservation(currTime, time);
+        fakeReservation(currTime, time);*/
     }
     private void fakeReservation(Calendar currTime, Calendar time) {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////

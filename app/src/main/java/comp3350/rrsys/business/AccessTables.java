@@ -19,7 +19,6 @@ public class AccessTables {
     }
 
     public ArrayList<Table> getTables() {
-        dataAccess.generateFakeData();
         return dataAccess.getTableSequential();
     }
 
