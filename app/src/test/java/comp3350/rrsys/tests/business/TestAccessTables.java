@@ -2,6 +2,7 @@ package comp3350.rrsys.tests.business;
 
 import junit.framework.TestCase;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import comp3350.rrsys.application.Main;
@@ -26,15 +27,19 @@ public class TestAccessTables extends TestCase {
         accessStub.generateFakeData();
         ArrayList<Table> tables = null;
         tables = accessStub.getTableSequential();
-        for(int i = 0; i < tables.size(); i++) {
-            System.out.println(tables.get(i).toString());
-        }
-        /*ArrayList<Table> tableList = null;
+
+//        for(int i = 0; i < tables.size(); i++) {
+//            System.out.println(tables.get(i).toString());
+//        }
+
+        ArrayList<Table> tableList;
         tableList = accessTables.recommendTables(4, 7, 8, 12, 13);
 
         for(int i = 0; i < tableList.size(); i++){
             System.out.println(tableList.get(i).toString());
-        }*/
+        }
+
+
         accessStub.close();
         Main.shutDown();
     }

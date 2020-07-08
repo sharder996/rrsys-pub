@@ -19,6 +19,7 @@ public class AccessTables {
     }
 
     public ArrayList<Table> getTables() {
+        dataAccess.generateFakeData();
         return dataAccess.getTableSequential();
     }
 
@@ -27,19 +28,20 @@ public class AccessTables {
     }
 
     public ArrayList<Table> recommendTables(int numPeople, int month, int date, int startTime, int endTime) {
+
         ArrayList<Table> result = new ArrayList<>();
-        ArrayList<Table> allTables = new ArrayList<>();
+        ArrayList<Table> allTables;
         allTables = getTables();
-        //Boolean isAvail = true;
+
 
         for(int i = 0; i < allTables.size(); i++) {
             if (allTables.get(i).getCapacity() >= numPeople) {
-                for (int j = startTime; j < endTime; i++) {
+                for (int j = startTime; j < endTime; j++) {
                     if(!allTables.get(i).getAvailable(month, date, j)){
                         //isAvail = false;
                         break;
                     }
-                    if(j+1 == endTime){
+                    else{
                         result.add(allTables.get(i));
                     }
                 }
