@@ -1,8 +1,12 @@
 package comp3350.rrsys.persistence;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Random;
 
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.objects.DateTime;
@@ -349,5 +353,131 @@ public class DataAccessStub {
             }
         }
         return null;
+    }
+
+    public void generateFakeData(){
+
+        //generate tables in the restaurant.
+        //assume there are 30 tables
+        // Table ID will be 1 to 30.
+        // 15 tables for maximum 4 people , 10 tables for maximum 6 people, 5 tables for maximum 10
+
+        for(int i = 1; i < 16; i++){ // 4 people maximum table. Table ID will be 1 to 15
+            addTable(i, 4);
+        }
+
+        for(int i = 0; i < 10; i++){ // 6 people maximum table. Table ID will be 16 to 25
+            addTable(i + 16, 6);
+        }
+
+        for(int i= 0; i < 5; i++){ // 10 people maximum table. Table ID will be 26 to 30
+            addTable(i+16+10, 10);
+        }
+
+        //generate customer informations
+        //assume there are 100 customers.
+        Random rand = new Random();
+        String name = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        String randomfirstName = "";
+        String randomlastName = "";
+
+        int length = 4;
+
+        for(int k = 1000; k <1100; k++) { // k is last four digits in phone number. (100 customers)
+
+            ///////////////////////////////////////////////////////////////////////////
+            // generate random names
+            char[] first = new char[length];
+            char[] last = new char[length + 2];
+
+            for (int i = 0; i < length; i++) {
+                first[i] = name.charAt(rand.nextInt(name.length()));
+            }
+
+            for (int i = 0; i < length; i++) {
+                last[i] = name.charAt(rand.nextInt(name.length()));
+            }
+
+            for (int i = 0; i < first.length; i++) {
+                randomfirstName += first[i];
+            }
+
+            for (int i = 0; i < last.length + 2; i++) {
+                    randomlastName += last[i];
+            }
+            ///////////////////////////////////////////////////////////////////////////
+            // generate random phone numbers
+            int num1 = (rand.nextInt(7) + 1) * 100 + (rand.nextInt(8) * 10) + rand.nextInt(8);
+            int num2 = rand.nextInt(743);
+            int num3 = rand.nextInt(10000);
+
+            DecimalFormat df3 = new DecimalFormat("000"); // 3 zeros
+            DecimalFormat df4 = new DecimalFormat("0000"); // 4 zeros
+
+            String phoneNumber = df3.format(num1) + "-" + df3.format(num2) + "-" + df4.format(num3);
+
+
+            insertCustomer(randomfirstName, randomlastName, phoneNumber);
+
+        }
+
+
+    }
+    private void fakeReservation(Calendar currTime, Calendar time){
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        Reservation reservation1;
+        DateTime startTime = null;
+        DateTime endTime = null;
+        try{
+            startTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,11,00));
+            endTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,12,30));
+        }catch(ParseException e){}
+        reservation1 = new Reservation(customers.get(0).getCID(), tables.get(17).getTID(), 5 , startTime, endTime);
+        insertReservation(reservation1);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        Reservation reservation2;
+        DateTime startTime1 = null;
+        DateTime endTime1 = null;
+        try{
+            startTime1 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,2,00));
+            endTime1 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,4,30));
+        }catch(ParseException e){}
+        reservation2 = new Reservation( tables.get(29).getTID(), 7 , startTime1, endTime1);
+        insertReservation(reservation2);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        Reservation reservation3;
+        DateTime startTime3 = null;
+        DateTime endTime3 = null;
+        try{
+            startTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,1,00));
+            endTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,2,00));
+        }catch(ParseException e){}
+        reservation3 = new Reservation(customers.get(15).getCID(), tables.get(18).getTID(), 6 , startTime3, endTime3);
+        insertReservation(reservation3);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        Reservation reservation4;
+        DateTime startTime4 = null;
+        DateTime endTime4 = null;
+        try{
+            startTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,6,00));
+            endTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,9,00));
+        }catch(ParseException e){}
+        reservation4 = new Reservation(customers.get(5).getCID(), tables.get(0).getTID(), 4 , startTime4, endTime4);
+        insertReservation(reservation4);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        Reservation reservation5;
+        DateTime startTime5 = null;
+        DateTime endTime5 = null;
+        try{
+            startTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,5,00));
+            endTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,8,15));
+        }catch(ParseException e){}
+        reservation5 = new Reservation(customers.get(27).getCID(), tables.get(28).getTID(), 10 , startTime5, endTime5);
+        insertReservation(reservation5);
     }
 }
