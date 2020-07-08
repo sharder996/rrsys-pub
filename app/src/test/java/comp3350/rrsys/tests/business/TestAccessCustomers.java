@@ -3,6 +3,7 @@ package comp3350.rrsys.tests.business;
 import junit.framework.TestCase;
 import java.util.ArrayList;
 
+import comp3350.rrsys.application.Main;
 import comp3350.rrsys.business.AccessCustomers;
 import comp3350.rrsys.objects.Customer;
 
@@ -13,6 +14,7 @@ public class TestAccessCustomers extends TestCase {
     {
         System.out.println("\nStarting TestAccessCustomer");
 
+        Main.startUp();
         AccessCustomers accessCustomers = new AccessCustomers();
         assertNotNull(accessCustomers);
         ArrayList<Customer> customerList = new ArrayList<>();
@@ -22,6 +24,6 @@ public class TestAccessCustomers extends TestCase {
         accessCustomers.insertCustomer(new Customer("Jim", "Jam", "204-956-1203"));
         accessCustomers.getCustomers(customerList);
         assertTrue(customerList.size() > 0);
-
+        Main.shutDown();
     }
 }

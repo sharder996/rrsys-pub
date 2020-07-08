@@ -14,8 +14,8 @@ public class AccessCustomers {
     private int currentCustomer;
 
     public AccessCustomers() {
-        dataAccess = (DataAccessStub)Services.createDataAccess(Main.dbName);
-        //dataAccess = (DataAccessStub)Services.getDataAccess(Main.dbName);
+        //dataAccess = (DataAccessStub)Services.createDataAccess(Main.dbName);
+        dataAccess = (DataAccessStub)Services.getDataAccess(Main.dbName);
         customers = null;
         customer = null;
         currentCustomer = 0;

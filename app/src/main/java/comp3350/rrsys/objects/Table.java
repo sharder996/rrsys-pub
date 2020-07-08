@@ -14,12 +14,12 @@ public class Table
         this.tID = tID;
         this.capacity = capacity;
         available = new boolean[12][31][numIncrement];
-        for(int month = 0; month < available.length; month++)
+        for(int month = 1; month <= available.length; month++)
         {
-            for (int day = 0; day < available[0].length; day++)
+            for (int day = 1; day <= available[0].length; day++)
             {
                 for (int time = 0; time < available[0][0].length; time++)
-                    available[month][day][time] = true;
+                    available[month-1][day-1][time] = true;
             }
         }
     }
@@ -35,8 +35,8 @@ public class Table
     public static int getEndTime() { return endTime; }
     public static int getNumIncrement() { return numIncrement; }
 
-    public boolean getAvailable(int month, int day, int time) { return available[month][day][time]; }
-    public void setAvailable(int month, int day, int time, boolean bool) { available[month][day][time] = bool; }
+    public boolean getAvailable(int month, int day, int time) { return available[month-1][day-1][time]; }
+    public void setAvailable(int month, int day, int time, boolean bool) { available[month-1][day-1][time] = bool; }
 
     public String toString() {
         return "Table " + tID + "Capacity " + capacity;
