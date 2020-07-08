@@ -37,7 +37,7 @@ public class CreateConfirmReservationActivity extends Activity{
         accessCustomers = new AccessCustomers();
 
         final TextView editDateInfo = findViewById(R.id.textDateInfo);
-        editDateInfo.setText(reservation.getStartTime().getDate() + "//" + reservation.getStartTime().getMonth() + "//" + reservation.getStartTime().getYear());
+        editDateInfo.setText((reservation.getStartTime().getMonth()+1) + "/" + reservation.getStartTime().getDate() + "/" + reservation.getStartTime().getYear());
 
         final TextView editStartTimeInfo = findViewById(R.id.textStartTimeInfo);
         editStartTimeInfo.setText(reservation.getStartTime().getHour() + ":" + reservation.getStartTime().getMinutes());
@@ -140,8 +140,6 @@ public class CreateConfirmReservationActivity extends Activity{
         if(customer != null)
         {
             accessCustomers.insertCustomer(customer);
-
-            reservation.setRID();
             reservation.setCustomerID(customer.getCID());
             accessReservations.insertReservation(reservation);
 
