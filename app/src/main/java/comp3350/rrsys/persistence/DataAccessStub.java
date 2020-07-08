@@ -403,7 +403,7 @@ public class DataAccessStub {
                 randomfirstName += first[i];
             }
 
-            for (int i = 0; i < last.length + 2; i++) {
+            for (int i = 0; i < last.length ; i++) {
                     randomlastName += last[i];
             }
             ///////////////////////////////////////////////////////////////////////////
