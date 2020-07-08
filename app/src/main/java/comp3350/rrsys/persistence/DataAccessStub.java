@@ -224,9 +224,12 @@ public class DataAccessStub {
         return null;
     }
 
-    public String getTableSequential(List<Table> tableResult) {
-        tableResult.addAll(tables);
-        return null;
+    public ArrayList<Table> getTableSequential() {
+        ArrayList<Table> result = null;
+        System.out.println("Num of tables: " + tables.size());
+        result.addAll(tables);
+        System.out.println("Num of tables(result): " + result.size());
+        return result;
     }
 
     public Table getTableRandom(int tableID) {
@@ -245,10 +248,10 @@ public class DataAccessStub {
         return null;
     }
 
-    public Customer getCustomerRandom(int customerID) {
+    public Customer getCustomerByID(int customerID) {
         Customer result = null;
         for(int i = 0; i < customers.size(); i++) {
-            if(tables.get(i).equals(customerID)) {
+            if(customers.get(i).equals(customerID)) {
                 result = customers.get(i);
                 break;
             }
@@ -403,7 +406,7 @@ public class DataAccessStub {
                 randomfirstName += first[i];
             }
 
-            for (int i = 0; i < last.length ; i++) {
+            for (int i = 0; i < last.length; i++) {
                     randomlastName += last[i];
             }
             ///////////////////////////////////////////////////////////////////////////
