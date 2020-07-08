@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import comp3350.rrsys.R;
+import comp3350.rrsys.objects.Reservation;
 
 public class ReceiptReservationActivity extends Activity{
     @Override
@@ -15,6 +17,19 @@ public class ReceiptReservationActivity extends Activity{
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_receipt);
+        Reservation reservation = (Reservation)getIntent().getParcelableExtra("reservation");
+
+        final TextView textReservationCode = findViewById(R.id.textReservationCode);
+        textReservationCode.setText("" + reservation.getRID());
+
+        final TextView textDateInfo = findViewById(R.id.textDateInfo);
+        textDateInfo.setText(reservation.getStartTime().getDate() + "//" + reservation.getStartTime().getMonth() + "//" + reservation.getStartTime().getYear());
+
+        final TextView textTimeInfo = findViewById(R.id.textTimeInfo);
+        textTimeInfo.setText(reservation.getStartTime().getHour() + ":" + reservation.getStartTime().getMinutes() + " - " + reservation.getEndTime().getHour() + ":" + reservation.getEndTime().getMinutes());
+
+        final TextView textNumberOfPeopleInfo = findViewById(R.id.textNumberOfPeopleInfo);
+        textNumberOfPeopleInfo.setText("" + reservation.getNumPeople());
     }
 
     @Override

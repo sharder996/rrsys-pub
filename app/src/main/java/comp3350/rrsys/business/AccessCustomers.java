@@ -14,8 +14,8 @@ public class AccessCustomers {
     private int currentCustomer;
 
     public AccessCustomers() {
-        dataAccess = (DataAccessStub)Services.createDataAccess(Main.dbName);
-        //dataAccess = (DataAccessStub)Services.getDataAccess(Main.dbName);
+        //dataAccess = (DataAccessStub)Services.createDataAccess(Main.dbName);
+        dataAccess = (DataAccessStub)Services.getDataAccess(Main.dbName);
         customers = null;
         customer = null;
         currentCustomer = 0;
@@ -47,7 +47,7 @@ public class AccessCustomers {
     public Customer getRandom(int customerID)
     {
         customers = null;
-        customer = dataAccess.getCustomerRandom(customerID);
+        customer = dataAccess.getCustomerByID(customerID);
         currentCustomer = 0;
         if(customer != null) {
             customers.add(customer);

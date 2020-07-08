@@ -4,6 +4,10 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="comp3350.rrsys.presentation.CreateConfirmReservationActivity">
 
     <GridLayout
@@ -17,8 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reservation_details"
-            android:textSize="22dp"
-            android:layout_marginStart="20dp"
+            android:textSize="22sp"
             android:layout_marginTop="100dp"
             android:layout_columnSpan="2" />
 
@@ -27,8 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pick_date"
-            android:textSize="18dp"
-            android:layout_marginStart="25dp"
+            android:textSize="18sp"
             android:layout_marginTop="20dp" />
 
         <TextView
@@ -36,17 +38,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="*date info*"
-            android:textSize="18dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="25dp" />
+            android:textSize="18sp"
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:id="@+id/textStartTimeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pick_time"
-            android:textSize="18dp"
-            android:layout_marginStart="25dp"
+            android:textSize="18sp"
             android:layout_marginTop="20dp" />
 
         <TextView
@@ -54,17 +54,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="*start time info*"
-            android:textSize="18dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="25dp" />
+            android:textSize="18sp"
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:id="@+id/textEndTimeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pick_time2"
-            android:textSize="18dp"
-            android:layout_marginStart="25dp"
+            android:textSize="18sp"
             android:layout_marginTop="20dp" />
 
         <TextView
@@ -72,8 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="*end time info*"
-            android:textSize="18dp"
-            android:layout_marginStart="25dp"
+            android:textSize="18sp"
             android:layout_marginTop="20dp" />
 
         <TextView
@@ -81,8 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/number_of_people"
-            android:textSize="18dp"
-            android:layout_marginStart="25dp"
+            android:textSize="18sp"
             android:layout_marginTop="20dp" />
 
         <TextView
@@ -90,8 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="*# people*"
-            android:textSize="18dp"
-            android:layout_marginStart="25dp"
+            android:textSize="18sp"
             android:layout_marginTop="20dp" />
 
         <View
@@ -108,8 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/first_name"
-            android:textSize="18dp"
-            android:layout_marginStart="25dp"
+            android:textSize="18sp"
             android:layout_marginTop="20dp" />
 
         <EditText
@@ -124,8 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/last_name"
-            android:textSize="18dp"
-            android:layout_marginStart="25dp"
+            android:textSize="18sp"
             android:layout_marginTop="20dp" />
 
         <EditText
@@ -140,8 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/phone_number"
-            android:textSize="18dp"
-            android:layout_marginStart="25dp"
+            android:textSize="18sp"
             android:layout_marginTop="20dp" />
 
         <EditText
@@ -149,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="8"
-            android:hint="999-999-9999"
+            android:hint="@string/phone_number_hint"
             android:layout_marginTop="20dp" />
     </GridLayout>
 

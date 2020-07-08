@@ -141,6 +141,7 @@ public class CreateConfirmReservationActivity extends Activity{
         {
             accessCustomers.insertCustomer(customer);
 
+            reservation.setRID();
             reservation.setCustomerID(customer.getCID());
             accessReservations.insertReservation(reservation);
 
