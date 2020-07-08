@@ -99,7 +99,7 @@ public class DataAccessStub {
 
     // return the index of a date time
     private int getIndex(DateTime time){
-        return (time.getHour()-Table.getTime())*4 + time.getMinutes()/15;
+        return (time.getHour()-Table.getStartTime())*4 + time.getMinutes()/15;
     }
 
     // return the date time corresponding to an index
@@ -110,7 +110,7 @@ public class DataAccessStub {
             result.setYear(time.getYear());
             result.setMonth(time.getMonth());
             result.setDate(time.getDate());
-            result.setHour(Table.getTime() + index / 4);
+            result.setHour(Table.getStartTime() + index / 4);
             result.setMinutes(index % 4);
         }
         catch (java.text.ParseException pe) { System.out.println(pe); }
@@ -422,18 +422,25 @@ public class DataAccessStub {
 
         }
 
+        Calendar currTime = Calendar.getInstance(); // get Current Date and Time e.g.. July 8th, 2020.
 
+        // Make DateTime for next day e.g.. July 9th, 2020;
+        Calendar time = new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE) +1);
+
+        //make 5 reservations on first day e.g. July 9th.
+        fakeReservation(currTime, time);
     }
-    private void fakeReservation(Calendar currTime, Calendar time){
+    private void fakeReservation(Calendar currTime, Calendar time) {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         Reservation reservation1;
         DateTime startTime = null;
         DateTime endTime = null;
-        try{
-            startTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,11,00));
-            endTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR),currTime.get(currTime.MONTH),currTime.get(currTime.DATE) + 1,12,30));
-        }catch(ParseException e){}
-        reservation1 = new Reservation(customers.get(0).getCID(), tables.get(17).getTID(), 5 , startTime, endTime);
+        try {
+            startTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE) + 1, 11, 00));
+            endTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE) + 1, 12, 30));
+        } catch (ParseException e) {
+        }
+        reservation1 = new Reservation(customers.get(0).getCID(), tables.get(17).getTID(), 5, startTime, endTime);
         insertReservation(reservation1);
 
 //        ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -480,4 +487,5 @@ public class DataAccessStub {
 //        reservation5 = new Reservation(customers.get(27).getCID(), tables.get(28).getTID(), 10 , startTime5, endTime5);
 //        insertReservation(reservation5);
 //    }
+    }
 }
