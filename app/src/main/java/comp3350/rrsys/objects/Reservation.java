@@ -3,6 +3,8 @@ package comp3350.rrsys.objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 /*
     reservation object accepts
         - reservationID (reservation ID)
@@ -29,32 +31,36 @@ public class Reservation implements Parcelable
         this.numPeople = numPeople;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.reservationID = -1;
     }
 
-    public Reservation(Parcel in)
+    public Reservation(int tableID, int numPeople, DateTime startTime, DateTime endTime)
     {
-        String[] data = new String[3];
+        this.customerID = -1;
+        this.tableID = tableID;
+        this.numPeople = numPeople;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.reservationID = -1;
+    }
 
-        in.readStringArray(data);
-
-        this.customerID = Integer.parseInt(data[0]);
-        this.tableID = Integer.parseInt(data[1]);
-        this.numPeople = Integer.parseInt(data[2]);
-        this.startTime = in.readParcelable(DateTime.class.getClassLoader());
-        this.endTime = in.readParcelable(DateTime.class.getClassLoader());
-
+    private Reservation(Parcel in)
+    {
+        reservationID = in.readInt();
+        customerID = in.readInt();
+        tableID = in.readInt();
+        numPeople = in.readInt();
+        startTime = in.readParcelable(DateTime.class.getClassLoader());
+        endTime = in.readParcelable(DateTime.class.getClassLoader());
     }
 
     // setter
     // set the reservation ID only when insert a reservation
     public void setRID() { this.reservationID = counter++; }
     public void setRID(int reservationID) { this.reservationID = reservationID;}
-    public void setTID(int tableID){
-        this.tableID = tableID;
-    }
-    public void setNumPeople(int num){
-        numPeople = num;
-    }
+    public void setTID(int tableID) { this.tableID = tableID; }
+    public void setNumPeople(int num) { numPeople = num; }
+    public void setCustomerID(int customerID) { this.customerID = customerID; }
 
     public void setTime(DateTime startTime, DateTime endTime)
     {
@@ -70,7 +76,8 @@ public class Reservation implements Parcelable
     public DateTime getStartTime(){ return startTime; }
     public DateTime getEndTime() { return endTime; }
 
-    public boolean equals(int reservationID){
+    public boolean equals(int reservationID)
+    {
         return this.reservationID == reservationID;
     }
 
@@ -88,8 +95,10 @@ public class Reservation implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeStringArray(new String[]{String.valueOf(this.customerID), String.valueOf(this.tableID),
-                String.valueOf(this.numPeople)});
+        dest.writeInt(reservationID);
+        dest.writeInt(customerID);
+        dest.writeInt(tableID);
+        dest.writeInt(numPeople);
         dest.writeParcelable(startTime, flags);
         dest.writeParcelable(endTime, flags);
     }

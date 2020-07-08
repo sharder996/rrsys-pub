@@ -7,13 +7,14 @@ import comp3350.rrsys.R;
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
 import comp3350.rrsys.objects.Customer;
+import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.persistence.DataAccessStub;
 
 public class AccessReservations
 {
     private DataAccessStub dataAccess;
-    private List<Reservation> reservations;
+    private ArrayList<Reservation> reservations;
     private Reservation reservation;
     private int currentReservation;
 
@@ -23,13 +24,17 @@ public class AccessReservations
         reservations = null;
     }
 
-    public String getReservations(List<Reservation> reservations)
+    public String getReservations(ArrayList<Reservation> reservations)
     {
         reservations.clear();
         return dataAccess.getReservationSequential(reservations);
     }
 
-    public List<Reservation> getSequential(int customerID)
+    public ArrayList<Reservation> searchReservations(int numPeople, DateTime startTime, DateTime endTime) {
+        return dataAccess.searchReservations(numPeople, startTime, endTime);
+    }
+
+    public ArrayList<Reservation> getSequential(int customerID)
     {
         reservations = dataAccess.getReservations(customerID);
         return reservations;
