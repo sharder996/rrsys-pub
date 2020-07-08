@@ -135,7 +135,7 @@ public class CreateReservationActivity extends Activity
             @Override
             public void afterTextChanged(Editable editable)
             {
-                dateEdited = true;
+                dateEdited = editTextDate.getText().toString().length() > 0;
                 buttonCheckAvailability.setEnabled(dateEdited && timeInEdited && timeOutEdited);
             }
         });
@@ -178,7 +178,7 @@ public class CreateReservationActivity extends Activity
             @Override
             public void afterTextChanged(Editable editable)
             {
-                timeInEdited = true;
+                timeInEdited = editTextTime.getText().toString().length() > 0;
                 buttonCheckAvailability.setEnabled(dateEdited && timeInEdited && timeOutEdited);
             }
         });
@@ -221,12 +221,12 @@ public class CreateReservationActivity extends Activity
             @Override
             public void afterTextChanged(Editable editable)
             {
-                timeOutEdited = true;
+                timeOutEdited = editTextLengthOfStay.getText().toString().length() > 0;
                 buttonCheckAvailability.setEnabled(dateEdited && timeInEdited && timeOutEdited);
             }
         });
 
-        NumberPicker numberPicker = findViewById(R.id.editNumberOfPeople);
+        final NumberPicker numberPicker = findViewById(R.id.editNumberOfPeople);
         numberPicker.setMinValue(MIN_PEOPLE);
         numberPicker.setMaxValue(MAX_PEOPLE);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()

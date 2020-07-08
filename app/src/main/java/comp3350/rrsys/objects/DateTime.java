@@ -6,14 +6,14 @@ import android.os.Parcelable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /*
     accepts "yyyy-mm-ddTHH:mm" this format
  */
 public class DateTime implements Parcelable
 {
-
-  Calendar timeSlot; //Calendar library
+    Calendar timeSlot; //Calendar library
     //
     //Calendar cal = new GregorianCalendar(2013,7,28,13,24);
     //DateTime reservation = new DateTime(cal);
@@ -44,9 +44,9 @@ public class DateTime implements Parcelable
         timeSlot = timeInfo;
     }
 
-    public DateTime(Parcel in)
+    private DateTime(Parcel in)
     {
-        timeSlot = in.readParcelable(Calendar.class.getClassLoader());
+        timeSlot = new GregorianCalendar(in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
     }
 
     public void setYear(int year){timeSlot.set(timeSlot.YEAR,year);}
@@ -62,12 +62,10 @@ public class DateTime implements Parcelable
     public int getMinutes(){ return timeSlot.get(timeSlot.MINUTE); }
 
     // return how long between two date time in minutes
-    public boolean equals(DateTime compare){
-        if(compare.getYear() == timeSlot.get(timeSlot.YEAR) && compare.getMonth() == timeSlot.get(timeSlot.MONTH) && compare.getDate() == timeSlot.get(timeSlot.DATE) &&
-                compare.getHour() == timeSlot.get(timeSlot.HOUR_OF_DAY) && compare.getMinutes() == timeSlot.get(timeSlot.MINUTE)){
-            return true;
-        }
-        return false;
+    public boolean equals(DateTime compare)
+    {
+        return compare.getYear() == timeSlot.get(timeSlot.YEAR) && compare.getMonth() == timeSlot.get(timeSlot.MONTH) && compare.getDate() == timeSlot.get(timeSlot.DATE) &&
+                compare.getHour() == timeSlot.get(timeSlot.HOUR_OF_DAY) && compare.getMinutes() == timeSlot.get(timeSlot.MINUTE);
     }
     public int getPeriod(DateTime other)
     {
@@ -85,15 +83,16 @@ public class DateTime implements Parcelable
     }
 
     @Override
-    public int describeContents()
-    {
-        return 0;
-    }
+    public int describeContents() { return 0; }
 
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        //dest.writeParcelable(timeSlot, flags);
+        dest.writeInt(this.getYear());
+        dest.writeInt(this.getMonth());
+        dest.writeInt(this.getDate());
+        dest.writeInt(this.getHour());
+        dest.writeInt(this.getMinutes());
     }
 
     public static final Parcelable.Creator<DateTime> CREATOR = new Parcelable.Creator<DateTime>()
