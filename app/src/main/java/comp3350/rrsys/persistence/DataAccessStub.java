@@ -19,7 +19,7 @@ public class DataAccessStub {
     private String dbName;
     private String dbType = "stub";
 
-    private int customerID; // the customer ID of current customer (logged in)
+    //private int customerID; // the customer ID of current customer (logged in)
     private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
@@ -88,7 +88,7 @@ public class DataAccessStub {
                         if (numIncrement == totalIncrement) {
                             DateTime start = getDateTime(startTime, i);
                             DateTime end = getDateTime(endTime, i+numIncrement);
-                            orderedInsert(results, new Reservation(customerID, table.getTID(), numPeople, start, end), startTime);
+                            orderedInsert(results, new Reservation(table.getTID(), numPeople, start, end), startTime);
                         }
                     }
                     i++;
@@ -191,31 +191,31 @@ public class DataAccessStub {
 
     // delete a reservation by reservation ID
     public String deleteReservation(int rID){
-                    for(int i = 0; i < reservations.size(); i++) {
-                        if (reservations.get(i).equals(rID)) {
-                            DateTime start = reservations.get(i).getStartTime();
-                            DateTime end = reservations.get(i).getEndTime();
-                            setTable(reservations.get(i).getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
-                            reservations.remove(i);
-                            break;
-                        }
-                    }
-                    return null;
-                }
+        for(int i = 0; i < reservations.size(); i++) {
+            if (reservations.get(i).equals(rID)) {
+                DateTime start = reservations.get(i).getStartTime();
+                DateTime end = reservations.get(i).getEndTime();
+                setTable(reservations.get(i).getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
+                reservations.remove(i);
+                break;
+            }
+        }
+        return null;
+    }
 
-                // update a reservation with rID to curr
-                public String updateReservation(int rID, Reservation curr) {
-                    for(int i = 0; i < reservations.size(); i++) {
-                        if (reservations.get(i).equals(rID)) {
-                            Reservation prev = reservations.get(i);
-                            DateTime prevStart = prev.getStartTime();
-                            DateTime prevEnd = prev.getEndTime();
-                            DateTime currStart = curr.getStartTime();
-                            DateTime currEnd = curr.getEndTime();
-                            curr.setRID(prev.getRID());
-                            setTable(prev.getTID(), prevStart.getMonth(), prevStart.getDate(), getIndex(prevStart), getIndex(prevEnd), true);
-                            setTable(curr.getTID(), currStart.getMonth(), currStart.getDate(), getIndex(currStart), getIndex(currEnd), false);
-                            curr.setRID(prev.getRID());
+    // update a reservation with rID to curr
+    public String updateReservation(int rID, Reservation curr) {
+        for(int i = 0; i < reservations.size(); i++) {
+            if (reservations.get(i).equals(rID)) {
+                Reservation prev = reservations.get(i);
+                DateTime prevStart = prev.getStartTime();
+                DateTime prevEnd = prev.getEndTime();
+                DateTime currStart = curr.getStartTime();
+                DateTime currEnd = curr.getEndTime();
+                curr.setRID(prev.getRID());
+                setTable(prev.getTID(), prevStart.getMonth(), prevStart.getDate(), getIndex(prevStart), getIndex(prevEnd), true);
+                setTable(curr.getTID(), currStart.getMonth(), currStart.getDate(), getIndex(currStart), getIndex(currEnd), false);
+                curr.setRID(prev.getRID());
                 reservations.set(i, curr);
             }
         }
@@ -258,6 +258,28 @@ public class DataAccessStub {
             }
         }
         return result;
+    }
+
+    public int getCustomerID(String fName, String lName) {
+        int customerID = -1;
+        for(int i = 0; i < customers.size(); i++) {
+            if(customers.get(i).getFirstName().equals(fName) && customers.get(i).getLastName().equals(lName)) {
+                customerID = customers.get(i).getCID();
+                break;
+            }
+        }
+        return customerID;
+    }
+
+    public int getCustomerID(int phoneNum) {
+        int customerID = -1;
+        for(int i = 0; i < customers.size(); i++) {
+            if(customers.get(i).getPhoneNumber() == phoneNum) {
+                customerID = customers.get(i).getCID();
+                break;
+            }
+        }
+        return customerID;
     }
 
     //Adds a customer to list by object

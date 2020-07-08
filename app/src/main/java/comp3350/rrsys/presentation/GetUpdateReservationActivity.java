@@ -14,11 +14,15 @@ import comp3350.rrsys.business.AccessReservations;
 import comp3350.rrsys.objects.Reservation;
 
 public class GetUpdateReservationActivity extends Activity {
+
+    private AccessReservations accessReservations;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_reservation_update);
+        accessReservations = new AccessReservations();
     }
 
     @Override
@@ -37,7 +41,6 @@ public class GetUpdateReservationActivity extends Activity {
 
     public void buttonEnterOnClick(View v)
     {
-        AccessReservations reservations = new AccessReservations();
         Reservation selected = null;
         EditText customer = (EditText) findViewById(R.id.editTextCustomer);
         EditText date = (EditText) findViewById(R.id.editTextDate);
@@ -45,7 +48,7 @@ public class GetUpdateReservationActivity extends Activity {
 
         if(code.length() != 0){
             try{
-                selected = reservations.getRandom(Integer.parseInt(code.getText().toString()));
+                selected = accessReservations.getRandom(Integer.parseInt(code.getText().toString()));
 
                 String time = selected.getStartTime().getHour() +":" + selected.getStartTime().getMinutes();
                 String resDate = selected.getStartTime().getMonth() +"/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();
@@ -66,7 +69,7 @@ public class GetUpdateReservationActivity extends Activity {
         else if(customer.length() != 0 && date.length() != 0){
             try{
                 String[] monthDayYear = date.getText().toString().split("/");
-                List<Reservation> options = reservations.getSequential(Integer.parseInt(customer.getText().toString()));
+                List<Reservation> options = accessReservations.getSequential(Integer.parseInt(customer.getText().toString()));
                 for(int i = 0; i < options.size(); i++){
                     if(options.get(i).getStartTime().getMonth() == Integer.parseInt(monthDayYear[0]) && options.get(i).getStartTime().getDate() == Integer.parseInt(monthDayYear[1]) && options.get(i).getStartTime().getYear() == Integer.parseInt(monthDayYear[2])){
                         selected = options.get(i);
