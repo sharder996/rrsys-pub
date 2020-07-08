@@ -40,6 +40,14 @@ public class DataAccessStub {
         customers = new ArrayList<Customer>();
 
         tables = new ArrayList<Table>();
+        table = new Table(1, 4);
+        tables.add(table);
+        table = new Table(2, 6);
+        tables.add(table);
+        table = new Table(3, 8);
+        tables.add(table);
+        table = new Table(4, 10);
+        tables.add(table);
 
         reservations = new ArrayList<Reservation>();
     }
@@ -60,19 +68,19 @@ public class DataAccessStub {
         int month = startTime.getMonth();
         int day = startTime.getDate();
         int index = getIndex(startTime);
-        int totalIncrement = startTime.getPeriod(endTime)/15; // total num of increments
+        int totalIncrement = (startTime.getPeriod(endTime)+7)/15; // total num of increments
         int maxIndex = Table.getNumIncrement(); // max index
 
         Table table;
         for(int t = 0; t < tables.size(); t++) {
             table = tables.get(t);
             if(table.getCapacity() >= numPeople) {
-                // within +- 1 hour of the start time
-                int i = Math.max(index-4, 0);
-                while(i <= index+4 && i < maxIndex) {
-                    while(i <= index+4 && i < maxIndex && !table.getAvailable(month, day, i))
+                // within +- half hour of the start time
+                int i = Math.max(index-2, 0);
+                while(i <= index+2 && i < maxIndex) {
+                    while(i <= index+2 && i < maxIndex && !table.getAvailable(month, day, i))
                         i++;
-                    if (i <= index + 4 && i < maxIndex) {
+                    if (i <= index + 2 && i < maxIndex) {
                         int numIncrement = 1;
                         for (int time = i + 1; time < i + totalIncrement; time++) {
                             if (time < maxIndex && table.getAvailable(month, day, time))
@@ -83,7 +91,7 @@ public class DataAccessStub {
                         if (numIncrement == totalIncrement) {
                             DateTime start = getDateTime(startTime, i);
                             DateTime end = getDateTime(endTime, i+numIncrement);
-                            orderedInsert(results, new Reservation(customerID, table.getTID(), numPeople, start, end), index);
+                            orderedInsert(results, new Reservation(customerID, table.getTID(), numPeople, start, end), startTime);
                         }
                     }
                     i++;
@@ -95,7 +103,7 @@ public class DataAccessStub {
 
     // return the index of a date time
     private int getIndex(DateTime time){
-        return (time.getHour()-Table.getTime())*4 + time.getMinutes()/15;
+        return (time.getHour()-Table.getStartTime())*4 + (time.getMinutes()+7)/15;
     }
 
     // return the date time corresponding to an index
@@ -106,8 +114,8 @@ public class DataAccessStub {
             result.setYear(time.getYear());
             result.setMonth(time.getMonth());
             result.setDate(time.getDate());
-            result.setHour(Table.getTime() + index / 4);
-            result.setMinutes(index % 4);
+            result.setHour(Table.getStartTime() + index / 4);
+            result.setMinutes(index % 4 * 15);
         }
         catch (java.text.ParseException pe) { System.out.println(pe); }
         return result;
@@ -115,12 +123,25 @@ public class DataAccessStub {
 
     // ordered insert a suggested reservation into a temp array
     // ordered by how close to the startTime
-    private void orderedInsert(ArrayList<Reservation> results, Reservation r, int index) {
+    private void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t) {
         int pos = 0;
         int max = results.size();
-        while(pos < max && Math.abs(getIndex(results.get(pos).getStartTime())-index) < Math.abs(getIndex(r.getStartTime())-index))
+        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) < Math.abs(r.getStartTime().getPeriod(t)))
+            pos++;
+        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) == Math.abs(r.getStartTime().getPeriod(t)) && getTableCapacity(results.get(pos).getTID()) < getTableCapacity(r.getTID()))
             pos++;
         results.add(pos, r);
+    }
+
+    public int getTableCapacity(int tID) {
+        int capacity = 0;
+        for(int i = 0; i < tables.size(); i++) {
+            if(tables.get(i).getTID() == tID) {
+                capacity = tables.get(i).getCapacity();
+                break;
+            }
+        }
+        return capacity;
     }
 
     // set the availability of a table
@@ -348,6 +369,11 @@ public class DataAccessStub {
                 return "Table ID: " + tableID + " not found";
             }
         }
+        return null;
+    }
+
+    public String getTables(List<Table> tableResult) {
+        tableResult.addAll(tables);
         return null;
     }
 }

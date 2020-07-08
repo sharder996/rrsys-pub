@@ -5,8 +5,8 @@ public class Table
     private int tID;
     private int capacity; // # of people
     boolean[][][] available; // whether the table is available for each period/increment
-    private static int startTime = 8; // start hour
-    private static int endTime = 22; // end hour
+    private static int startTime = 7; // start hour
+    private static int endTime = 23; // end hour
     private static int numIncrement = (endTime-startTime)*4;
 
     public Table(int tID, int capacity)
@@ -31,9 +31,14 @@ public class Table
     public int getTID() { return tID; }
     public int getCapacity() { return capacity; }
 
-    public static int getTime() { return startTime; }
+    public static int getStartTime() { return startTime; }
+    public static int getEndTime() { return endTime; }
     public static int getNumIncrement() { return numIncrement; }
 
     public boolean getAvailable(int month, int day, int time) { return available[month][day][time]; }
     public void setAvailable(int month, int day, int time, boolean bool) { available[month][day][time] = bool; }
+
+    public String toString() {
+        return "Table " + tID + "Capacity " + capacity;
+    }
 }

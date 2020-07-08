@@ -25,11 +25,16 @@ import android.widget.TimePicker;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.lang.String;
 
 import comp3350.rrsys.R;
+import comp3350.rrsys.business.AccessTables;
 import comp3350.rrsys.business.GenerateReservation;
+import comp3350.rrsys.business.AccessReservations;
+import comp3350.rrsys.business.AccessTables;
 import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
+import comp3350.rrsys.objects.Table;
 
 public class CreateReservationActivity extends Activity
 {
@@ -39,6 +44,8 @@ public class CreateReservationActivity extends Activity
     private final int MAX_TIME = 180;
 
     private ArrayList<Reservation> reservationList;
+    private AccessReservations accessReservations;
+    private AccessTables accessTables;
     private ArrayAdapter<Reservation> reservationArrayAdapter;
     private int reservationSelected = -1;
 
@@ -61,6 +68,8 @@ public class CreateReservationActivity extends Activity
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         reservationList = new ArrayList<>();
+        accessReservations = new AccessReservations();
+        accessTables = new AccessTables();
         reservationArrayAdapter = new ArrayAdapter<Reservation>(this, android.R.layout.simple_list_item_activated_2, android.R.id.text1, reservationList)
         {
             @Override
@@ -70,7 +79,8 @@ public class CreateReservationActivity extends Activity
 
                 TextView text1 = view.findViewById(android.R.id.text1);
 
-                text1.setText(reservationList.get(position).getStartTime() + " - " + reservationList.get(position).getEndTime());
+                text1.setText(reservationList.get(position).getStartTime() + " - " + reservationList.get(position).getEndTime().toString().substring(12)
+                        + " Table " + reservationList.get(position).getTID() + " Capacity " + accessTables.getTableCapacity(reservationList.get(position).getTID()));
 
                 return view;
             }
@@ -113,7 +123,7 @@ public class CreateReservationActivity extends Activity
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day)
                     {
-                        editTextDate.setText(day + "/" + (month + 1) + "/" + year);
+                        editTextDate.setText((month + 1) + "/" + day + "/" + year);
                         setDay = day;
                         setMonth = month;
                         setYear = year;
@@ -152,9 +162,9 @@ public class CreateReservationActivity extends Activity
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes)
                     {
                         if(hourOfDay >= 12)
-                            amPm = "PM";
+                            amPm = " PM";
                         else
-                            amPm = "AM";
+                            amPm = " AM";
 
                         editTextTime.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
 
@@ -195,9 +205,9 @@ public class CreateReservationActivity extends Activity
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes)
                     {
                         if(hourOfDay >= 12)
-                            amPm = "PM";
+                            amPm = " PM";
                         else
-                            amPm = "AM";
+                            amPm = " AM";
 
                         editTextLengthOfStay.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
 
@@ -284,18 +294,22 @@ public class CreateReservationActivity extends Activity
         {
             if (startTime != null && endTime != null)
             {
-                if (startTime.getPeriod(endTime) >= MIN_TIME && startTime.getPeriod(endTime) <= MAX_TIME)
+                if (startTime.getHour() >= Table.getStartTime() && (endTime.getHour() < Table.getEndTime() || (endTime.getHour() == Table.getEndTime() && endTime.getMinutes() == 0))
+                && startTime.getPeriod(endTime) >= MIN_TIME && startTime.getPeriod(endTime) <= MAX_TIME)
                 {
                     reservationList.clear();
-                    ArrayList<Reservation> suggestions = GenerateReservation.SuggestReservations(startTime, endTime, numberOfPeople);
+                    ArrayList<Reservation> suggestions = accessReservations.searchReservations(numberOfPeople, startTime, endTime);
                     for(Reservation reservation : suggestions)
                         reservationList.add(reservation);
 
                     reservationArrayAdapter.notifyDataSetChanged();
                     ListView listView = findViewById(R.id.availabilityList);
                     listView.setSelection(0);
-                } else
+                }
+                else if (startTime.getPeriod(endTime) < MIN_TIME || startTime.getPeriod(endTime) > MAX_TIME)
                     Messages.warning(this, "Error: Reservation must be between " + MIN_TIME + " minutes and " + MAX_TIME + " minutes.");
+                else
+                    Messages.warning(this, "Error: Our restaurant is open from 7:00 AM to 23:00 PM.");
             }
             else
                 Messages.warning(this, "Error processing date. Please enter a valid date.");
