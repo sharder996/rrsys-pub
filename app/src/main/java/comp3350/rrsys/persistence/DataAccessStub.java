@@ -447,7 +447,7 @@ public class DataAccessStub {
     private void fakeReservation(Calendar currTime, Calendar time) {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         int Min = 0;
-        int Max = 30;
+        int Max = 99;
         int random = 0;
         random = Min + (int)(Math.random() * ((Max - Min) + 1));
         Reservation reservation1;
@@ -474,6 +474,8 @@ public class DataAccessStub {
         insertReservation(reservation2);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        random = Min + (int)(Math.random() * ((Max - Min) + 1));
+
         Reservation reservation3;
         DateTime startTime3 = null;
         DateTime endTime3 = null;
@@ -486,6 +488,8 @@ public class DataAccessStub {
         insertReservation(reservation3);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        random = Min + (int)(Math.random() * ((Max - Min) + 1));
+
         Reservation reservation4;
         DateTime startTime4 = null;
         DateTime endTime4 = null;
@@ -498,6 +502,8 @@ public class DataAccessStub {
         insertReservation(reservation4);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        random = Min + (int)(Math.random() * ((Max - Min) + 1));
+
         Reservation reservation5;
         DateTime startTime5 = null;
         DateTime endTime5 = null;
