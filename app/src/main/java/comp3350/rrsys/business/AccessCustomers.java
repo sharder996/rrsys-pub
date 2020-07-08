@@ -62,8 +62,16 @@ public class AccessCustomers
         return customer;
     }
 
-    public String insertCustomer(Customer currentCourse)
+    public int getCustomerID(String fName, String lName) {
+        return dataAccess.getCustomerID(fName, lName);
+    }
+
+    public int getCustomerID(int phoneNum) {
+        return dataAccess.getCustomerID(phoneNum);
+    }
+
+    public String insertCustomer(Customer currentCustomer)
     {
-        return dataAccess.insertCustomer(currentCourse);
+        return dataAccess.insertCustomer(currentCustomer);
     }
 }

@@ -43,14 +43,14 @@ public class AccessReservations
 
     public Reservation getRandom(int reservationID)
     {
-        reservations = null;
+        /*reservations = null;
         reservation = dataAccess.getReservation(reservationID);
         currentReservation = 0;
         if(reservation != null) {
             reservations.add(reservation);
             currentReservation++;
-        }
-        return reservation;
+        }*/
+        return dataAccess.getReservation(reservationID);
     }
 
     public String insertReservation(Reservation currentReservation)
