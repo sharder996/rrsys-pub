@@ -52,7 +52,6 @@ public class TestTable extends TestCase {
         for(int i = 1; i <= month; i++){
             for(int j = 1; j <= date; j++) {
                 for(int k = openTime; k <= closeTime; k++){
-                    //System.out.println("i:" + i + " j:" + j + " k:" + k);
                     assertTrue(t1.getAvailable(i, j, k));
                 }
             }

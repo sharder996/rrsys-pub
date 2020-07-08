@@ -1,5 +1,6 @@
 package comp3350.rrsys.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.rrsys.application.Main;
@@ -17,13 +18,33 @@ public class AccessTables {
         tables = null;
     }
 
-    public String getTables(List<Table> tables) {
-        tables.clear();
-        return dataAccess.getTables(tables);
+    public ArrayList<Table> getTables() {
+        return dataAccess.getTableSequential();
     }
 
     public int getTableCapacity(int tID) {
-        return dataAccess.getTableCapacity(tID);
+        return dataAccess.getTableRandom(tID).getCapacity();
     }
 
+    public ArrayList<Table> recommendTables(int numPeople, int month, int date, int startTime, int endTime) {
+        ArrayList<Table> result = new ArrayList<>();
+        ArrayList<Table> allTables = new ArrayList<>();
+        allTables = getTables();
+        //Boolean isAvail = true;
+
+        for(int i = 0; i < allTables.size(); i++) {
+            if (allTables.get(i).getCapacity() >= numPeople) {
+                for (int j = startTime; j < endTime; i++) {
+                    if(!allTables.get(i).getAvailable(month, date, j)){
+                        //isAvail = false;
+                        break;
+                    }
+                    if(j+1 == endTime){
+                        result.add(allTables.get(i));
+                    }
+                }
+            }
+        }
+        return result;
+    }
 }
