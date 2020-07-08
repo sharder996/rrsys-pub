@@ -49,8 +49,6 @@ public class DataAccessStub {
         System.out.println("Closed " + dbType + " database " + dbName);
     }
 
-    //TODO: insert/implement database functions here
-
     public static void updateTables(){
         // clear last day/month's reservations of all tables ?
     }

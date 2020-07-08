@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import comp3350.rrsys.R;
 
@@ -15,6 +16,16 @@ public class ReviewReservationActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_reservation);
+
+        TextView date = (TextView) findViewById(R.id.textDateInfo);
+        TextView time = (TextView) findViewById(R.id.textTimeInfo);
+        TextView code = (TextView) findViewById(R.id.textReservationCodeInfo);
+        TextView numPeople = (TextView) findViewById(R.id.textNumberOfPeopleInfo);
+
+        code.setText(getIntent().getStringExtra("Code"));
+        time.setText(getIntent().getStringExtra("Time"));
+        date.setText(getIntent().getStringExtra("Date"));
+        numPeople.setText(getIntent().getStringExtra("People"));
     }
 
     @Override
