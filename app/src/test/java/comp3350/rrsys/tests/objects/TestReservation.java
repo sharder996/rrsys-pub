@@ -109,5 +109,6 @@ public class TestReservation extends TestCase
         assertNotNull(res5);
         assertEquals(-1, res5.getCID());
 
+        System.out.println("\nEnd TestReservation");
     }
 }

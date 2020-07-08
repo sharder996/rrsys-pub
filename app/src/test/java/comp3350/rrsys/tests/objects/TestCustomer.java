@@ -89,5 +89,6 @@ public class TestCustomer extends TestCase {
             e.getMessage();
         }
         assertNull(customer3);
+        System.out.println("\nEnd TestCustomer");
     }
 }

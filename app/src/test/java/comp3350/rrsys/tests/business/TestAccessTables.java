@@ -4,9 +4,11 @@ import junit.framework.TestCase;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.business.AccessTables;
+import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.persistence.DataAccessStub;
 
@@ -16,10 +18,6 @@ public class TestAccessTables extends TestCase {
     public void testAccessTables() {
         System.out.println("\nStarting TestAccessTables");
 
-        /*Table t0 = new Table(1, 4);
-        Table t1 = new Table(2, 6);
-        Table t2 = new Table(3, 10);*/
-
         Main.startUp();
         AccessTables accessTables = new AccessTables();
         DataAccessStub accessStub = new DataAccessStub();
@@ -28,19 +26,23 @@ public class TestAccessTables extends TestCase {
         ArrayList<Table> tables = null;
         tables = accessStub.getTableSequential();
 
-//        for(int i = 0; i < tables.size(); i++) {
-//            System.out.println(tables.get(i).toString());
-//        }
+        int openTime = 8;
+        int closeTime = 22;
 
         ArrayList<Table> tableList;
-        tableList = accessTables.recommendTables(4, 7, 8, 12, 13);
+        Calendar currTime = Calendar.getInstance();
+        for(int i = 1; i <= 31; i++){
+            for(int j = openTime; j <= closeTime; j++){
+                for(int k = 1; k <= 10; k++){
+                    tableList = accessTables.recommendTables(k, currTime.MONTH, i, j, j+1);
+                    assertTrue(tableList.size() > 0);
+                }
 
-        for(int i = 0; i < tableList.size(); i++){
-            System.out.println(tableList.get(i).toString());
+            }
         }
-
 
         accessStub.close();
         Main.shutDown();
+        System.out.println("\nEnd TestAccessTables");
     }
 }

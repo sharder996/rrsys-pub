@@ -103,5 +103,7 @@ public class TestDateTime extends TestCase{
         assertNotNull(time7);
         assertFalse(-1 == time7.getHour());
         assertEquals(27, time7.getDate());
+
+        System.out.println("\nEnd TestDateTime");
     }
 }

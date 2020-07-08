@@ -57,5 +57,6 @@ public class TestTable extends TestCase {
             }
         }
 
+        System.out.println("\nEnd TestTable");
     }
 }

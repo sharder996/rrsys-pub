@@ -25,5 +25,6 @@ public class TestAccessCustomers extends TestCase {
         accessCustomers.getCustomers(customerList);
         assertTrue(customerList.size() > 0);
         Main.shutDown();
+        System.out.println("\nEnd TestAccessCustomer");
     }
 }

@@ -45,5 +45,6 @@ public class TestAccessReservations extends TestCase {
         //assertTrue()
 
         Main.shutDown();
+        System.out.println("\nEnd TestAccessReservations");
     }
 }
