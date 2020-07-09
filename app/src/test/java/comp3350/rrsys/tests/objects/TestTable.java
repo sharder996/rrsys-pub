@@ -76,7 +76,7 @@ public class TestTable extends TestCase
         {
             assertNull(t1);
         }
-        
+
         try
         {
             t1 = new Table(1, -1);

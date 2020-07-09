@@ -2,7 +2,6 @@ package comp3350.rrsys.tests.business;
 
 import junit.framework.TestCase;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -43,8 +42,8 @@ public class TestGenerateReservation extends TestCase
 
                     try
                     {
-                        startTime = new DateTime(new GregorianCalendar(calendar.get(calendar.YEAR), i, j, k, 0));
-                        endTime = new DateTime(new GregorianCalendar(calendar.get(calendar.YEAR), i, j, k+1, 0));
+                        startTime = new DateTime(new GregorianCalendar(calendar.get(Calendar.YEAR), i, j, k, 0));
+                        endTime = new DateTime(new GregorianCalendar(calendar.get(Calendar.YEAR), i, j, k+1, 0));
                     }
                     catch (IllegalArgumentException e)
                     {

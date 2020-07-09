@@ -3,7 +3,6 @@ package comp3350.rrsys.tests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import comp3350.rrsys.application.Main;
 import comp3350.rrsys.tests.business.TestAccessCustomers;
 import comp3350.rrsys.tests.business.TestAccessReservations;
 import comp3350.rrsys.tests.business.TestAccessTables;
