@@ -2,8 +2,6 @@ package comp3350.rrsys.tests.business;
 
 import junit.framework.TestCase;
 
-import org.junit.Test;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -40,15 +38,17 @@ public class TestGenerateReservation extends TestCase
                 {
                     DateTime startTime = null;
                     DateTime endTime = null;
+
                     try
                     {
-                        startTime = new DateTime(new GregorianCalendar(2020,i,j,k,00));
-                        endTime = new DateTime(new GregorianCalendar(2020,i,j,k+1,00));
+                        startTime = new DateTime(new GregorianCalendar(2020, i, j, k, 0));
+                        endTime = new DateTime(new GregorianCalendar(2020, i, j, k+1, 0));
                     }
                     catch (ParseException e)
                     {
-                        e.printStackTrace();
+                        fail();
                     }
+
                     if(reservations != null)
                     {
                         reservations.clear();

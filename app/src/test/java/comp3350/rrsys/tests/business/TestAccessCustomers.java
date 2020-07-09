@@ -2,8 +2,6 @@ package comp3350.rrsys.tests.business;
 
 import junit.framework.TestCase;
 
-import org.junit.Test;
-
 import java.util.ArrayList;
 
 import comp3350.rrsys.application.Main;
@@ -20,14 +18,16 @@ public class TestAccessCustomers extends TestCase
 
         Main.startUp();
         AccessCustomers accessCustomers = new AccessCustomers();
-        assertNotNull(accessCustomers);
         ArrayList<Customer> customerList = new ArrayList<>();
 
+        assertNotNull(accessCustomers);
         assertEquals(0, customerList.size());
 
         accessCustomers.insertCustomer(new Customer("Jim", "Jam", "204-956-1203"));
         accessCustomers.getCustomers(customerList);
+
         assertTrue(customerList.size() > 0);
+
         Main.shutDown();
         System.out.println("\nEnd TestAccessCustomer");
     }

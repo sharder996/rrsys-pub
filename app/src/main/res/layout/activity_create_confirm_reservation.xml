@@ -39,7 +39,8 @@
             android:layout_height="wrap_content"
             android:text="*date info*"
             android:textSize="18sp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp" />
 
         <TextView
             android:id="@+id/textStartTimeLabel"
@@ -55,7 +56,8 @@
             android:layout_height="wrap_content"
             android:text="*start time info*"
             android:textSize="18sp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp" />
 
         <TextView
             android:id="@+id/textEndTimeLabel"
@@ -71,7 +73,8 @@
             android:layout_height="wrap_content"
             android:text="*end time info*"
             android:textSize="18sp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp" />
 
         <TextView
             android:id="@+id/textNumberOfPeopleLabel"
@@ -87,7 +90,8 @@
             android:layout_height="wrap_content"
             android:text="*# people*"
             android:textSize="18sp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"/>
 
         <View
             android:layout_width="match_parent"

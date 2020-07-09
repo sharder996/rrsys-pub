@@ -12,7 +12,7 @@ public class Customer implements Parcelable
 {
     private int cID;
     //enforces format: 9999999999, 1-999-999-9999 and 999-999-9999
-    private String regExPhoneNumber = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$";
+    private final static String regExPhoneNumber = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$";
     private String firstName;
     private String lastName;
     private int phoneNumber; //any non numerical character removed
