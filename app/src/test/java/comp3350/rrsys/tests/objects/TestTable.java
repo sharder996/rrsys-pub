@@ -7,7 +7,8 @@ public class TestTable extends TestCase
 {
     public TestTable(String arg0) { super(arg0); }
 
-    public void testTableEquality() {
+    public void testTableEquality()
+    {
         System.out.println("\nStarting TestTableEquality");
 
         Table t0 = new Table(0, 4);
@@ -20,7 +21,8 @@ public class TestTable extends TestCase
         System.out.println("\nEnd TestTableEquality");
     }
 
-    public void testTableAvailable() {
+    public void testTableAvailable()
+    {
         System.out.println("\nStarting TestTableAvailable");
         Table t0 = new Table(0, 4);
         int month = 12;
@@ -28,9 +30,12 @@ public class TestTable extends TestCase
         int openTime = 8;
         int closeTime = 22;
 
-        for (int i = 1; i <= month; i++) {
-            for (int j = 1; j <= date; j++) {
-                for (int k = openTime; k <= closeTime; k++) {
+        for (int i = 1; i <= month; i++)
+        {
+            for (int j = 1; j <= date; j++)
+            {
+                for (int k = openTime; k <= closeTime; k++)
+                {
                     assertTrue(t0.getAvailable(i, j, k));
                 }
             }
@@ -38,12 +43,17 @@ public class TestTable extends TestCase
 
         t0.setAvailable(10, 10, 12, false);
 
-        for (int i = 1; i <= month; i++) {
-            for (int j = 1; j <= date; j++) {
-                for (int k = openTime; k <= closeTime; k++) {
-                    if (i == 10 && j == 10 && k == 12) {
+        for (int i = 1; i <= month; i++)
+        {
+            for (int j = 1; j <= date; j++)
+            {
+                for (int k = openTime; k <= closeTime; k++)
+                {
+                    if (i == 10 && j == 10 && k == 12)
+                    {
                         assertFalse(t0.getAvailable(i, j, k));
-                    } else {
+                    } else
+                    {
                         assertTrue(t0.getAvailable(i, j, k));
                     }
                 }
@@ -52,25 +62,30 @@ public class TestTable extends TestCase
         System.out.println("\nEnd TestTableAvailable");
     }
 
-    public void testTableInvalidEntries() {
+    public void testTableInvalidEntries()
+    {
         System.out.println("\nStarting TestTableInvalidEntries");
 
         Table t1 = null;
-        try {
+        try
+        {
             t1 = new Table(-1, 2);
             fail();
-        } catch (IllegalArgumentException e) {
-            //success
         }
-        assertNull(t1);
-
-        try {
+        catch (IllegalArgumentException e)
+        {
+            assertNull(t1);
+        }
+        
+        try
+        {
             t1 = new Table(1, -1);
             fail();
-        } catch (IllegalArgumentException e) {
-            //success
         }
-        assertNull(t1);
+        catch (IllegalArgumentException e)
+        {
+            assertNull(t1);
+        }
 
         System.out.println("\nEnd TestTableInvalidEntries");
     }
