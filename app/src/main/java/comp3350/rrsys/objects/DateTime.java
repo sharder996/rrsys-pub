@@ -20,7 +20,7 @@ public class DateTime implements Parcelable
     {
         int CurrYear = Calendar.getInstance().get(Calendar.YEAR);
         //check valid year
-        if(!(timeInfo.get(timeInfo.YEAR) >= CurrYear &&  timeInfo.get(timeInfo.YEAR) <= CurrYear+1))
+        if(!(timeInfo.get(Calendar.YEAR) >= CurrYear &&  timeInfo.get(Calendar.YEAR) <= CurrYear+1))
             throw new IllegalArgumentException("Invalid Year.");
 
         timeSlot = timeInfo;
@@ -31,23 +31,23 @@ public class DateTime implements Parcelable
         timeSlot = new GregorianCalendar(in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
     }
 
-    public void setYear(int year){timeSlot.set(timeSlot.YEAR,year);}
-    public void setMonth(int month){timeSlot.set(timeSlot.MONTH,month);}
-    public void setDate(int date){timeSlot.set(timeSlot.DATE,date);}
-    public void setHour(int hour){ timeSlot.set(timeSlot.HOUR_OF_DAY,hour); }
-    public void setMinutes(int minutes){timeSlot.set(timeSlot.MINUTE,minutes);}
+    public void setYear(int year){timeSlot.set(Calendar.YEAR,year);}
+    public void setMonth(int month){timeSlot.set(Calendar.MONTH,month-1);}
+    public void setDate(int date){timeSlot.set(Calendar.DATE,date);}
+    public void setHour(int hour){ timeSlot.set(Calendar.HOUR_OF_DAY,hour); }
+    public void setMinutes(int minutes){timeSlot.set(Calendar.MINUTE,minutes);}
 
-    public int getYear(){ return timeSlot.get(timeSlot.YEAR); }
-    public int getMonth(){ return timeSlot.get(timeSlot.MONTH); }
-    public int getDate(){ return timeSlot.get(timeSlot.DATE); }
+    public int getYear(){ return timeSlot.get(Calendar.YEAR); }
+    public int getMonth(){ return timeSlot.get(Calendar.MONTH)+1; }
+    public int getDate(){ return timeSlot.get(Calendar.DATE); }
     public int getHour(){ return timeSlot.get(Calendar.HOUR_OF_DAY); }
-    public int getMinutes(){ return timeSlot.get(timeSlot.MINUTE); }
+    public int getMinutes(){ return timeSlot.get(Calendar.MINUTE); }
 
     // return how long between two date time in minutes
     public boolean equals(DateTime compare)
     {
-        return compare.getYear() == timeSlot.get(timeSlot.YEAR) && compare.getMonth() == timeSlot.get(timeSlot.MONTH) && compare.getDate() == timeSlot.get(timeSlot.DATE) &&
-                compare.getHour() == timeSlot.get(timeSlot.HOUR_OF_DAY) && compare.getMinutes() == timeSlot.get(timeSlot.MINUTE);
+        return compare.getYear() == timeSlot.get(Calendar.YEAR) && compare.getMonth() == timeSlot.get(Calendar.MONTH) && compare.getDate() == timeSlot.get(Calendar.DATE) &&
+                compare.getHour() == timeSlot.get(Calendar.HOUR_OF_DAY) && compare.getMinutes() == timeSlot.get(Calendar.MINUTE);
     }
     public int getPeriod(DateTime other)
     {
