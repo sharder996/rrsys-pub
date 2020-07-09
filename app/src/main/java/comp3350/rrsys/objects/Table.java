@@ -42,6 +42,6 @@ public class Table
     @Override
     public String toString()
     {
-        return "Table " + tID + "Capacity " + capacity;
+        return "Table " + tID + " Capacity " + capacity;
     }
 }

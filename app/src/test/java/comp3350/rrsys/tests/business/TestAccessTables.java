@@ -27,8 +27,6 @@ public class TestAccessTables extends TestCase
         DataAccessStub accessStub = new DataAccessStub();
         accessStub.open(Main.dbName);
         accessStub.generateFakeData();
-        ArrayList<Table> tables = null;
-        tables = accessStub.getTableSequential();
 
         int openTime = 8;
         int closeTime = 22;
@@ -46,6 +44,11 @@ public class TestAccessTables extends TestCase
                         tableList.clear();
                     }
                     tableList = accessTables.recommendTables(k, currTime.MONTH, i, j, j+1);
+                    /*System.out.println("Request -- Num People: " + k + " Day: " + i + " Start Time: " + j);
+                    for(int l = 0; l < tableList.size(); l++){
+                        System.out.println(tableList.get(l).toString());
+                    }
+                    System.out.println("===================");*/
                     assertTrue(tableList.size() > 0);
                 }
             }

@@ -36,20 +36,24 @@ public class AccessTables
         ArrayList<Table> allTables;
         allTables = getTables();
 
-        for(int i = 0; i < allTables.size(); i++)
+        for(int i = 0; i < allTables.size() && result.size() < 5; i++)
         {
             if (allTables.get(i).getCapacity() >= numPeople)
             {
                 for (int j = startTime; j < endTime; j++)
                 {
-                    if(!allTables.get(i).getAvailable(month, date, j))
-                    {
-                        //isAvail = false;
-                        break;
-                    }
-                    else
-                    {
-                        result.add(allTables.get(i));
+                    if (startTime + 1 != endTime) {
+                        if (!allTables.get(i).getAvailable(month, date, j)) {
+                            break;
+                        } else {
+                            continue;
+                        }
+                    } else {
+                        if (allTables.get(i).getAvailable(month, date, j)) {
+                            result.add(allTables.get(i));
+                        } else {
+                            break;
+                        }
                     }
                 }
             }
