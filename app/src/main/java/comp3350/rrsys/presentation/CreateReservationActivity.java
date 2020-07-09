@@ -290,7 +290,10 @@ public class CreateReservationActivity extends Activity
             Messages.fatalError(this, "Error processing date. Please enter a valid date.");
         }
 
-        if(startTime.getYear() >= calendar.get(Calendar.YEAR) && startTime.getMonth() >= calendar.get(Calendar.MONTH) && startTime.getDate() >= calendar.get(Calendar.DAY_OF_MONTH))
+        if(setYear < calendar.get(Calendar.YEAR) || (setYear == calendar.get(Calendar.YEAR) && setMonth < calendar.get(Calendar.MONTH)) ||
+                (setYear == calendar.get(Calendar.YEAR) && setMonth == calendar.get(Calendar.MONTH) && setDay < calendar.get(Calendar.DAY_OF_MONTH)))
+            Messages.warning(this, "Error: Please enter a date that is not in the past.");
+        else
         {
             if (startTime != null && endTime != null)
             {
@@ -317,7 +320,5 @@ public class CreateReservationActivity extends Activity
             else
                 Messages.warning(this, "Error processing date. Please enter a valid date.");
         }
-        else
-            Messages.warning(this, "Error: Please enter a date that is not in the past.");
     }
 }
