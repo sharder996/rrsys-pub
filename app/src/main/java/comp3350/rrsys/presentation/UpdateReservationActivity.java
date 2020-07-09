@@ -287,7 +287,7 @@ public class UpdateReservationActivity extends Activity
         setEndHourOfDay = deleted.getEndTime().getHour();
         setEndMinute = deleted.getEndTime().getMinutes();
         numberOfPeople = deleted.getNumPeople();
-        //accessReservations.deleteReservation(deleted.getRID());
+        accessReservations.deleteReservation(deleted.getRID());
     }
 
     @Override
@@ -304,8 +304,8 @@ public class UpdateReservationActivity extends Activity
 
     public void buttonConfirmOnClick(View v)
     {
-        accessReservations.getRandom(deleted.getRID());
-        accessReservations.updateReservation(selected);
+        //accessReservations.getRandom(deleted.getRID());
+        accessReservations.insertReservation(selected);
         added = true;
 
         String time;

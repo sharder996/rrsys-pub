@@ -19,7 +19,7 @@ If you have trouble with running the application on the above device, the applic
 
 ## Log File
 
-A log file recording the activity of all group members can be found separately. The log file is updated periodically as each developer spends time on a task. The developer will record the amount of time they spent, rationale behind decisions, and 
+A log file recording the activity of all group members can be found separately. The log file is updated periodically as each developer spends time on a task. The developer will record the amount of time they spent, rationale behind decisions, and what they did.
 
 ## Package Details
 
