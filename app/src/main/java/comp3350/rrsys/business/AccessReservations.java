@@ -55,7 +55,7 @@ public class AccessReservations
 
     public String updateReservation(Reservation newReservation)
     {
-        return dataAccess.updateReservation(reservation.getRID(), newReservation);
+        return dataAccess.updateReservation(newReservation.getRID(), newReservation);
     }
 
     public String deleteReservation(Reservation currentReservation)
