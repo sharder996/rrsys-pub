@@ -36,7 +36,6 @@ public class DataAccessStub
 
     public void open(String dbName)
     {
-        //TODO: insert hardcoded database here
         Customer customer;
         Table table;
         Reservation reservation;
@@ -116,14 +115,19 @@ public class DataAccessStub
     private DateTime getDateTime(DateTime time, int index)
     {
         DateTime result = null;
-
+        try
+        {
             result = new DateTime(Calendar.getInstance());
             result.setYear(time.getYear());
             result.setMonth(time.getMonth());
             result.setDate(time.getDate());
             result.setHour(Table.getStartTime() + index / 4);
             result.setMinutes(index % 4 * 15);
-
+        }
+        catch (IllegalArgumentException pe)
+        {
+            System.out.println(pe);
+        }
         return result;
     }
 
@@ -161,12 +165,15 @@ public class DataAccessStub
     // insert a reservation
     public String insertReservation(Reservation r)
     {
+        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0){
+            return "fail";
+        }
         DateTime startTime = r.getStartTime();
         DateTime endTime = r.getEndTime();
         r.setRID();
         reservations.add(r);
         setTable(r.getTID(), startTime.getMonth(), startTime.getDate(), getIndex(startTime), getIndex(endTime), false);
-        return null;
+        return "success";
     }
 
     // get a reservation
@@ -200,6 +207,7 @@ public class DataAccessStub
     // delete a reservation
     public String deleteReservation(Reservation r)
     {
+        boolean found = false;
         for(int i = 0; i < reservations.size(); i++)
         {
             if (reservations.get(i).equals(r.getRID()))
@@ -208,15 +216,21 @@ public class DataAccessStub
                 DateTime end = r.getEndTime();
                 setTable(r.getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
                 reservations.remove(i);
+                found = true;
                 break;
             }
         }
-        return null;
+
+        if(found == false) {
+            return "fail";
+        }
+        return "success";
     }
 
     // delete a reservation by reservation ID
     public String deleteReservation(int rID)
     {
+        boolean found = false;
         for(int i = 0; i < reservations.size(); i++)
         {
             if (reservations.get(i).equals(rID))
@@ -225,15 +239,22 @@ public class DataAccessStub
                 DateTime end = reservations.get(i).getEndTime();
                 setTable(reservations.get(i).getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
                 reservations.remove(i);
+                found = true;
                 break;
             }
         }
-        return null;
+        if(found == false) {
+            return "fail";
+        }
+        return "success";
     }
 
     // update a reservation with rID to curr
     public String updateReservation(int rID, Reservation curr)
     {
+        if(curr.getNumPeople() < 0 || curr.getTID() < 0 ){
+            return "fail";
+        }
         for(int i = 0; i < reservations.size(); i++)
         {
             if (reservations.get(i).equals(rID))
@@ -250,7 +271,7 @@ public class DataAccessStub
                 reservations.set(i, curr);
             }
         }
-        return null;
+        return "success";
     }
 
     public String getReservationSequential(List<Reservation> reservationResult)
@@ -569,12 +590,12 @@ public class DataAccessStub
         Reservation reservation1;
         DateTime startTime = null;
         DateTime endTime = null;
-
-
+        try
+        {
             startTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 11, 00));
             endTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 12, 30));
-
-
+        }
+        catch (IllegalArgumentException e) { }
         reservation1 = new Reservation(customers.get(random).getCID(), tables.get(17).getTID(), 5, startTime, endTime);
         insertReservation(reservation1);
 
@@ -582,10 +603,12 @@ public class DataAccessStub
         Reservation reservation2;
         DateTime startTime2 = null;
         DateTime endTime2 = null;
-
+        try
+        {
             startTime2 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 14, 00));
             endTime2 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 16, 30));
-
+        }
+        catch (IllegalArgumentException e) { }
         reservation2 = new Reservation(tables.get(29).getTID(), 7, startTime2, endTime2);
         insertReservation(reservation2);
 
@@ -595,11 +618,12 @@ public class DataAccessStub
         Reservation reservation3;
         DateTime startTime3 = null;
         DateTime endTime3 = null;
-
+        try
+        {
             startTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 13, 00));
             endTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 14, 00));
-
-
+        }
+        catch (IllegalArgumentException e) { }
         reservation3 = new Reservation(customers.get(random).getCID(), tables.get(18).getTID(), 6, startTime3, endTime3);
         insertReservation(reservation3);
 
@@ -609,10 +633,12 @@ public class DataAccessStub
         Reservation reservation4;
         DateTime startTime4 = null;
         DateTime endTime4 = null;
-
+        try
+        {
             startTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 18, 00));
             endTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 21, 00));
-
+        }
+        catch (IllegalArgumentException e) { }
         reservation4 = new Reservation(customers.get(random).getCID(), tables.get(0).getTID(), 4, startTime4, endTime4);
         insertReservation(reservation4);
 
@@ -622,11 +648,12 @@ public class DataAccessStub
         Reservation reservation5;
         DateTime startTime5 = null;
         DateTime endTime5 = null;
-
+        try
+        {
             startTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 17, 00));
             endTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 20, 15));
-
-
+        }
+        catch (IllegalArgumentException e) { }
         reservation5 = new Reservation(customers.get(random).getCID(), tables.get(28).getTID(), 10, startTime5, endTime5);
         insertReservation(reservation5);
     }

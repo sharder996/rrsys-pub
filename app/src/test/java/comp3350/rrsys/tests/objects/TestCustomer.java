@@ -20,7 +20,7 @@ public class TestCustomer extends TestCase
         assertEquals("Ivan", customer.getFirstName());
         assertEquals("Barbashev", customer.getLastName());
         assertEquals("Ivan Barbashev", customer.getFullName());
-        assertNotEquals("204-555-9999", Integer.toString(customer.getPhoneNumber()));
+        assertNotEquals("204-555-9999", Long.toString(customer.getPhoneNumber()));
         assertEquals(2045559999, customer.getPhoneNumber());
 
         customer.setFirstName("Annie");
@@ -152,5 +152,75 @@ public class TestCustomer extends TestCase
             assertNull(customer);
         }
         System.out.println("\nEnding testCustomerInvalidPhoneNumberLength");
+    }
+
+    public void testChangeCustomerBadData() {
+        System.out.println("\nStarting testChangeCustomerBadData");
+
+        Customer customer0 = new Customer("Ivan", "Barbashev", "204-555-9999");
+        assertNotNull(customer0);
+        assertEquals("Ivan", customer0.getFirstName());
+        assertEquals("Barbashev", customer0.getLastName());
+        assertEquals("Ivan Barbashev", customer0.getFullName());
+        assertNotEquals("204-555-9999", Long.toString(customer0.getPhoneNumber()));
+        assertEquals(2045559999, customer0.getPhoneNumber());
+
+        try{
+            customer0.setPhoneNumber("abc-def-ghij");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertNotEquals("abc-def-ghij", Long.toString(customer0.getPhoneNumber()));
+            assertEquals(2045559999, customer0.getPhoneNumber());
+        }
+
+        try {
+            customer0.setFirstName("123");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Ivan", customer0.getFirstName());
+            assertEquals("Ivan Barbashev", customer0.getFullName());
+        }
+
+        try {
+            customer0.setFirstName("a1");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Ivan", customer0.getFirstName());
+            assertEquals("Ivan Barbashev", customer0.getFullName());
+        }
+
+        try {
+            customer0.setFirstName("123a");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Ivan", customer0.getFirstName());
+            assertEquals("Ivan Barbashev", customer0.getFullName());
+        }
+
+        try {
+            customer0.setLastName("123");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Barbashev", customer0.getLastName());
+            assertEquals("Ivan Barbashev", customer0.getFullName());
+        }
+
+        try {
+            customer0.setLastName("a1");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Barbashev", customer0.getLastName());
+            assertEquals("Ivan Barbashev", customer0.getFullName());
+        }
+
+        try {
+            customer0.setLastName("123a");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Barbashev", customer0.getLastName());
+            assertEquals("Ivan Barbashev", customer0.getFullName());
+        }
+
+        System.out.println("\nEnding testChangeCustomerBadData");
     }
 }

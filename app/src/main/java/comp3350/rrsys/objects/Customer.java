@@ -15,7 +15,7 @@ public class Customer implements Parcelable
     private final static String regExPhoneNumber = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$";
     private String firstName;
     private String lastName;
-    private int phoneNumber; //any non numerical character removed
+    private long phoneNumber; //any non numerical character removed
     private static int counter = 1;
 
     public Customer(String fName, String lName, String pNum) throws IllegalArgumentException
@@ -33,7 +33,7 @@ public class Customer implements Parcelable
             throw new IllegalArgumentException("Invalid name.");
         }
         if(!pNum.isEmpty() && pNum.matches(regExPhoneNumber)){
-            phoneNumber = Integer.parseInt(pNum.replaceAll("\\D", ""));
+            phoneNumber = Long.parseLong(pNum.replaceAll("\\D", ""));
         } else {
             throw new IllegalArgumentException("Invalid phone number format.");
         }
@@ -56,7 +56,7 @@ public class Customer implements Parcelable
         dest.writeInt(cID);
         dest.writeString(firstName);
         dest.writeString(lastName);
-        dest.writeInt(phoneNumber);
+        dest.writeLong(phoneNumber);
     }
 
     public static final Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>()
@@ -107,7 +107,7 @@ public class Customer implements Parcelable
     {
         return firstName + " " + lastName;
     }
-    public int getPhoneNumber()
+    public long getPhoneNumber()
     {
         return phoneNumber;
     }

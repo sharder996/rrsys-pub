@@ -40,11 +40,25 @@ public class CreateConfirmReservationActivity extends Activity
         editDateInfo.setText((reservation.getStartTime().getMonth()+1) + "/" + reservation.getStartTime().getDate() + "/" + reservation.getStartTime().getYear());
 
         final TextView editStartTimeInfo = findViewById(R.id.textStartTimeInfo);
-        String startTime = String.format(reservation.getStartTime().getHour() + ":02d", reservation.getStartTime().getMinutes());
+        String startTime;
+
+        if(reservation.getStartTime().getMinutes() < 10){
+            startTime = String.format(reservation.getStartTime().getHour() + ":0%d", reservation.getStartTime().getMinutes());
+        }
+        else{
+            startTime = String.format(reservation.getStartTime().getHour() + ":%d", reservation.getStartTime().getMinutes());
+        }
         editStartTimeInfo.setText(startTime);
 
         final TextView editEndTimeInfo = findViewById(R.id.textEndTimeInfo);
-        String endTime = String.format(reservation.getEndTime().getHour() + ":02d", reservation.getEndTime().getMinutes());
+        String endTime;
+
+        if(reservation.getStartTime().getMinutes() < 10) {
+            endTime = String.format(reservation.getEndTime().getHour() + ":0%d", reservation.getEndTime().getMinutes());
+        }
+        else{
+            endTime = String.format(reservation.getEndTime().getHour() + ":%d", reservation.getEndTime().getMinutes());
+        }
         editEndTimeInfo.setText(endTime);
 
         final TextView editNumberOfPeople = findViewById(R.id.textNumberOfPeopleInfo);

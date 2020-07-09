@@ -27,7 +27,15 @@ public class ReceiptReservationActivity extends Activity
         textDateInfo.setText((reservation.getStartTime().getMonth()+1) + "/" + reservation.getStartTime().getDate() + "/" + reservation.getStartTime().getYear());
 
         final TextView textTimeInfo = findViewById(R.id.textTimeInfo);
-        String timeInfo = String.format(reservation.getStartTime().getHour() + ":02d - " + reservation.getEndTime().getHour() + ":02d", reservation.getStartTime().getMinutes(), reservation.getEndTime().getMinutes());
+        String timeInfo;
+        if(reservation.getStartTime().getMinutes() < 10 && reservation.getEndTime().getMinutes() < 10)
+            timeInfo = String.format(reservation.getStartTime().getHour() + ":0%d - " + reservation.getEndTime().getHour() + ":0%d", reservation.getStartTime().getMinutes(), reservation.getEndTime().getMinutes());
+        else if(reservation.getStartTime().getMinutes() < 10)
+            timeInfo = String.format(reservation.getStartTime().getHour() + ":0%d - " + reservation.getEndTime().getHour() + ":%d", reservation.getStartTime().getMinutes(), reservation.getEndTime().getMinutes());
+        else if(reservation.getEndTime().getMinutes() < 10)
+            timeInfo = String.format(reservation.getStartTime().getHour() + ":%d - " + reservation.getEndTime().getHour() + ":0%d", reservation.getStartTime().getMinutes(), reservation.getEndTime().getMinutes());
+        else
+            timeInfo = String.format(reservation.getStartTime().getHour() + ":%d - " + reservation.getEndTime().getHour() + ":%d", reservation.getStartTime().getMinutes(), reservation.getEndTime().getMinutes());
         textTimeInfo.setText(timeInfo);
 
         final TextView textNumberOfPeopleInfo = findViewById(R.id.textNumberOfPeopleInfo);

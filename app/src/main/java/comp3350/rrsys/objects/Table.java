@@ -9,17 +9,21 @@ public class Table
     private static int endTime = 23; // end hour
     private static int numIncrement = (endTime-startTime)*4;
 
-    public Table(int tID, int capacity)
+    public Table(int tID, int capacity) throws IllegalArgumentException
     {
-        this.tID = tID;
-        this.capacity = capacity;
-        available = new boolean[12][31][numIncrement];
-        for(int month = 1; month <= available.length; month++)
-        {
-            for (int day = 1; day <= available[0].length; day++)
-            {
-                for (int time = 0; time < available[0][0].length; time++)
-                    available[month-1][day-1][time] = true;
+        if(tID < 0) {
+            throw new IllegalArgumentException("tID must be positive integer.");
+        } else if (capacity <= 0) {
+            throw new IllegalArgumentException("Table capacity must be positive integer.");
+        } else {
+            this.tID = tID;
+            this.capacity = capacity;
+            available = new boolean[12][31][numIncrement];
+            for (int month = 1; month <= available.length; month++) {
+                for (int day = 1; day <= available[0].length; day++) {
+                    for (int time = 0; time < available[0][0].length; time++)
+                        available[month - 1][day - 1][time] = true;
+                }
             }
         }
     }

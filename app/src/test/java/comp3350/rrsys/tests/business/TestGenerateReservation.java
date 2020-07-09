@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import comp3350.rrsys.application.Main;
@@ -29,6 +30,7 @@ public class TestGenerateReservation extends TestCase
         int date = 31;
         int openTime = 8;
         int closeTime = 22;
+        Calendar calendar = Calendar.getInstance();
 
         for(int i = 1; i < month; i++)
         {
@@ -39,11 +41,14 @@ public class TestGenerateReservation extends TestCase
                     DateTime startTime = null;
                     DateTime endTime = null;
 
-                    try{
-                        startTime = new DateTime(new GregorianCalendar(2020, i, j, k, 0));
-                        endTime = new DateTime(new GregorianCalendar(2020, i, j, k+1, 0));
-                    }catch(IllegalArgumentException e){
-
+                    try
+                    {
+                        startTime = new DateTime(new GregorianCalendar(calendar.get(calendar.YEAR), i, j, k, 0));
+                        endTime = new DateTime(new GregorianCalendar(calendar.get(calendar.YEAR), i, j, k+1, 0));
+                    }
+                    catch (IllegalArgumentException e)
+                    {
+                        fail();
                     }
 
                     if(reservations != null)
