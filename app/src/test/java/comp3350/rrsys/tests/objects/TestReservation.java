@@ -2,11 +2,6 @@ package comp3350.rrsys.tests.objects;
 
 import junit.framework.TestCase;
 
-import org.junit.Test;
-
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import comp3350.rrsys.objects.Customer;
@@ -25,7 +20,7 @@ public class TestReservation extends TestCase
         Reservation res0 = null;
         try
         {
-            res0 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
+            res0 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 0)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 0)));
             res0.setRID();
         }
         catch (IllegalArgumentException e)
@@ -40,12 +35,13 @@ public class TestReservation extends TestCase
         assertEquals(res0.getCID(), customer0.getCID());
         assertEquals(1, res0.getTID());
         assertEquals(1, res0.getNumPeople());
-        assertFalse(res0.confirmation() == null);
+        assertNotNull(res0.confirmation());
 
         System.out.println("\nEnd TestReservation");
     }
 
-    public void testReservationNotEqual(){
+    public void testReservationNotEqual()
+    {
         System.out.println("\nStarting TestReservationEqual");
 
         Customer customer0 = new Customer("Cody", "Moon", "204-115-4259");
@@ -54,36 +50,36 @@ public class TestReservation extends TestCase
         Reservation res1 = null;
         try
         {
-            res0 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
+            res0 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 0)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 0)));
             res0.setRID();
-            res1 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
+            res1 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 0)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 0)));
             res1.setRID(res0.getRID());
         }
         catch (IllegalArgumentException e)
         {
-            e.printStackTrace();
+            fail();
         }
 
         assertEquals(res0.getRID(), res1.getRID());
         assertTrue(res0.equals(res1.getRID()));
         assertEquals(res0.getCID(), res1.getCID());
         System.out.println("\nEnd TestReservationEqual");
-
     }
 
-    public void testReservationNegativeNumPeople(){
+    public void testReservationNegativeNumPeople()
+    {
         System.out.println("\nStarting TestReservationNegativeParameter");
         Customer customer0 = new Customer("Cody", "Moon", "204-115-4259");
 
         Reservation res2 = null;
         try
         {
-            res2 = new Reservation(customer0.getCID(), 2, -1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
+            res2 = new Reservation(customer0.getCID(), 2, -1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 0)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 0)));
             res2.setRID();
         }
         catch (IllegalArgumentException e)
         {
-            e.printStackTrace();
+            fail();
         }
 
         //testing with negative numbers of people
@@ -94,31 +90,32 @@ public class TestReservation extends TestCase
         System.out.println("\nEnd TestReservationNegativeParameter");
     }
 
-    public void testReservationNegativeTableID(){
+    public void testReservationNegativeTableID()
+    {
         System.out.println("\nStarting TestReservationNegativeTableID");
         Customer customer0 = new Customer("Cody", "Moon", "204-115-4259");
 
         Reservation res3 = null;
         try
         {
-            res3 = new Reservation(customer0.getCID(), -2, 6, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
+            res3 = new Reservation(customer0.getCID(), -2, 6, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 0)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 0)));
             res3.setRID();
         }
         catch (IllegalArgumentException e)
         {
-            e.printStackTrace();
+            fail();
         }
+
         //test negative table number
         assertNotNull(res3);
         assertEquals(6, res3.getNumPeople());
         assertEquals(-2, res3.getTID());
 
-
         System.out.println("\nEnd TestReservationNegativeTableID");
-
     }
 
-    public void testReservationNullTime(){
+    public void testReservationNullTime()
+    {
         System.out.println("\nStarting TestReservationNullTime");
         Customer customer0 = new Customer("Cody", "Moon", "204-115-4259");
 
@@ -130,27 +127,26 @@ public class TestReservation extends TestCase
         assertNull(res4.getEndTime());
 
         System.out.println("\nEnd TestReservationNullTime");
-
     }
 
-    public void testReservationNegativeCustomer(){
+    public void testReservationNegativeCustomer()
+    {
         System.out.println("\nStarting TestReservationNegativeCustomer");
         Customer customer0 = new Customer("Cody", "Moon", "204-115-4259");
         Reservation res5 = null;
         try
         {
-            res5 = new Reservation(-1, 10, 6, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
+            res5 = new Reservation(-1, 10, 6, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 0)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 0)));
             res5.setRID();
         }
         catch (IllegalArgumentException e)
         {
-            e.printStackTrace();
+            fail();
         }
 
         assertNotNull(res5);
         assertEquals(-1, res5.getCID());
 
         System.out.println("\nEnd TestReservationNegativeCustomer");
-
     }
 }
