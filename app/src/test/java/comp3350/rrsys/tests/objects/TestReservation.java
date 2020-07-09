@@ -28,7 +28,7 @@ public class TestReservation extends TestCase
             res0 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res0.setRID();
         }
-        catch (ParseException e)
+        catch (IllegalArgumentException e)
         {
             e.printStackTrace();
         }
@@ -59,7 +59,7 @@ public class TestReservation extends TestCase
             res1 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res1.setRID(res0.getRID());
         }
-        catch (ParseException e)
+        catch (IllegalArgumentException e)
         {
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class TestReservation extends TestCase
             res2 = new Reservation(customer0.getCID(), 2, -1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res2.setRID();
         }
-        catch (ParseException e)
+        catch (IllegalArgumentException e)
         {
             e.printStackTrace();
         }
@@ -104,7 +104,7 @@ public class TestReservation extends TestCase
             res3 = new Reservation(customer0.getCID(), -2, 6, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res3.setRID();
         }
-        catch (ParseException e)
+        catch (IllegalArgumentException e)
         {
             e.printStackTrace();
         }
@@ -142,7 +142,7 @@ public class TestReservation extends TestCase
             res5 = new Reservation(-1, 10, 6, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res5.setRID();
         }
-        catch (ParseException e)
+        catch (IllegalArgumentException e)
         {
             e.printStackTrace();
         }
