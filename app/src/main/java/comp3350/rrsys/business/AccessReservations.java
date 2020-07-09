@@ -73,6 +73,8 @@ public class AccessReservations
         return dataAccess.deleteReservation(reservationID);
     }
 
+    // return an array of suggested reservations in order
+    // which has the same "length" as (endTime-startTime)
     public static ArrayList<Reservation> SuggestReservations(DateTime startTime, DateTime endTime, int numPeople)
     {
 

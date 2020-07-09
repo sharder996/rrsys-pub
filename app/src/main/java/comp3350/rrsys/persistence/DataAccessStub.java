@@ -58,56 +58,6 @@ public class DataAccessStub
         // clear last day/month's reservations of all tables ?
     }
 
-    // return an array of suggested reservations in order
-    // which has the same "length" as (endTime-startTime)
-    /*
-    public ArrayList<Reservation> searchReservations(int numPeople, DateTime startTime, DateTime endTime)
-
-    {
-        ArrayList<Reservation> results = new ArrayList<Reservation>();
-        int month = startTime.getMonth();
-        int day = startTime.getDate();
-        int index = getIndex(startTime);
-        int totalIncrement = (startTime.getPeriod(endTime)+7)/15; // total num of increments
-        int maxIndex = Table.getNumIncrement(); // max index
-
-        Table table;
-        for(int t = 0; t < tables.size(); t++)
-        {
-            table = tables.get(t);
-            if(table.getCapacity() >= numPeople)
-            {
-                // within +- half hour of the start time
-                int i = Math.max(index-2, 0);
-                while(i <= index+2 && i < maxIndex)
-                {
-                    while(i <= index+2 && i < maxIndex && !table.getAvailable(month, day, i))
-                        i++;
-                    if (i <= index + 2 && i < maxIndex)
-                    {
-                        int numIncrement = 1;
-                        for (int time = i + 1; time < i + totalIncrement; time++)
-                        {
-                            if (time < maxIndex && table.getAvailable(month, day, time))
-                                numIncrement++;
-                            else
-                                break;
-                        }
-                        if (numIncrement == totalIncrement)
-                        {
-                            DateTime start = getDateTime(startTime, i);
-                            DateTime end = getDateTime(endTime, i+numIncrement);
-                            orderedInsert(results, new Reservation(table.getTID(), numPeople, start, end), startTime);
-                        }
-                    }
-                    i++;
-                }
-            }
-        }
-        return results;
-    }
-     */
-
     // return the index of a date time
     public int getIndex(DateTime time)
     {
