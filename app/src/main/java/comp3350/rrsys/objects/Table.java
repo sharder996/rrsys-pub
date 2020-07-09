@@ -7,7 +7,7 @@ public class Table
     boolean[][][] available; // whether the table is available for each period/increment
     private static int startTime = 7; // start hour
     private static int endTime = 23; // end hour
-    private static int numIncrement = (endTime-startTime)*4;
+    private static int numIncrement = (endTime-startTime)*4; // num of 15 min increments each day
 
     public Table(int tID, int capacity) throws IllegalArgumentException
     {

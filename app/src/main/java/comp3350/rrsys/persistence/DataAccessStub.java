@@ -1,7 +1,6 @@
 package comp3350.rrsys.persistence;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -36,26 +35,16 @@ public class DataAccessStub
 
     public void open(String dbName)
     {
-        Customer customer;
-        Table table;
-        Reservation reservation;
-
         customers = new ArrayList<Customer>();
-
         tables = new ArrayList<Table>();
-
         reservations = new ArrayList<Reservation>();
+
         generateFakeData();
     }
 
     public void close()
     {
         System.out.println("Closed " + dbType + " database " + dbName);
-    }
-
-    public static void updateTables()
-    {
-        // clear last day/month's reservations of all tables ?
     }
 
     // return the index of a date time
@@ -432,12 +421,9 @@ public class DataAccessStub
 
     public void generateFakeData()
     {
-
         //generate tables in the restaurant.
         //assume there are 30 tables
         // Table ID will be 1 to 30.
-        // 15 tables for maximum 4 people , 10 tables for maximum 6 people, 5 tables for maximum 10
-
         // 5 tables each for 2, 4, 6, 8, 10, 12 people, totally 30 tables
         int size = 2;
         for(int i = 1; i <= 30; i++)
@@ -446,19 +432,6 @@ public class DataAccessStub
             if(i % 5 == 0)
                 size += 2;
         }
-
-        /*
-        for(int i = 1; i < 16; i++){ // 4 people maximum table. Table ID will be 1 to 15
-            addTable(i, 4);
-        }
-
-        for(int i = 0; i < 10; i++){ // 6 people maximum table. Table ID will be 16 to 25
-            addTable(i + 16, 6);
-        }
-
-        for(int i= 0; i < 5; i++){ // 10 people maximum table. Table ID will be 26 to 30
-            addTable(i+16+10, 10);
-        }*/
 
         //generate customer informations
         //assume there are 100 customers.
@@ -509,9 +482,9 @@ public class DataAccessStub
             insertCustomer(randomfirstName, randomlastName, phoneNumber);
         }
 
-        Calendar currTime = Calendar.getInstance(); // get Current Date and Time e.g.. July 8th, 2020.
+        /*Calendar currTime = Calendar.getInstance(); // get Current Date and Time e.g.. July 8th, 2020.
 
-        /*// Make DateTime for next day e.g.. July 9th, 2020;
+        // Make DateTime for next day e.g.. July 9th, 2020;
         Calendar time = new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE) +1);
         //make 5 reservations on first day e.g. July 9th.
         fakeReservation(currTime, time);

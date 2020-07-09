@@ -16,7 +16,6 @@ public class AccessCustomers
 
     public AccessCustomers()
     {
-        //dataAccess = (DataAccessStub)Services.createDataAccess(Main.dbName);
         dataAccess = (DataAccessStub)Services.getDataAccess(Main.dbName);
         customers = null;
         customer = null;

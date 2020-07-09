@@ -7,8 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import java.util.List;
-
 import comp3350.rrsys.R;
 import comp3350.rrsys.business.AccessReservations;
 import comp3350.rrsys.objects.Reservation;

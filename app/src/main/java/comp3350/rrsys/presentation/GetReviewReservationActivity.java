@@ -7,17 +7,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import comp3350.rrsys.R;
-import comp3350.rrsys.business.AccessCustomers;
 import comp3350.rrsys.business.AccessReservations;
 import comp3350.rrsys.objects.Reservation;
 
 public class GetReviewReservationActivity extends Activity
 {
-    private AccessCustomers accessCustomers;
     private AccessReservations accessReservations;
 
     @Override
@@ -25,7 +20,6 @@ public class GetReviewReservationActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_reservation_review);
-        accessCustomers = new AccessCustomers();
         accessReservations = new AccessReservations();
     }
 

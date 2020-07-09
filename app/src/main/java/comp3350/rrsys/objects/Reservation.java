@@ -3,8 +3,6 @@ package comp3350.rrsys.objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
-
 /*
     reservation object accepts
         - reservationID (reservation ID)

@@ -1,12 +1,9 @@
 package comp3350.rrsys.business;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import comp3350.rrsys.R;
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
-import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
@@ -18,7 +15,6 @@ public class AccessReservations
     private DataAccessStub dataAccess;
     private ArrayList<Reservation> reservations;
     private Reservation reservation;
-    private int currentReservation;
 
     public AccessReservations()
     {
@@ -121,13 +117,6 @@ public class AccessReservations
         }
 
         return results;
-        /*
-        ArrayList<Reservation> result = new ArrayList<>();
-        result.add(new Reservation(0, 0, numberOfPeople, start, end));
-
-        return result;
-
-         */
     }
 
     public static int getIndex(DateTime time)
