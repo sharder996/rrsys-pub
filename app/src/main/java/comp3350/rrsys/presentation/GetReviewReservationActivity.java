@@ -15,8 +15,8 @@ import comp3350.rrsys.business.AccessCustomers;
 import comp3350.rrsys.business.AccessReservations;
 import comp3350.rrsys.objects.Reservation;
 
-public class GetReviewReservationActivity extends Activity{
-
+public class GetReviewReservationActivity extends Activity
+{
     private AccessCustomers accessCustomers;
     private AccessReservations accessReservations;
 
@@ -50,8 +50,10 @@ public class GetReviewReservationActivity extends Activity{
         EditText date = (EditText) findViewById(R.id.editTextDate);
         EditText code = (EditText) findViewById(R.id.editTextReservationCode);
 
-        if(code.length() != 0){
-            try{
+        if(code.length() != 0)
+        {
+            try
+            {
                 selected = accessReservations.getRandom(Integer.parseInt(code.getText().toString()));
 
                 String time = selected.getStartTime().getHour() +":" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() +":" + selected.getEndTime().getMinutes();
@@ -64,19 +66,23 @@ public class GetReviewReservationActivity extends Activity{
                 confirmIntent.putExtra("People", selected.getNumPeople()+"");
                 GetReviewReservationActivity.this.startActivity(confirmIntent);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 code.setError("Sorry we found no reservation with that reservation code");
                 e.printStackTrace();
             }
         }
-        else if(customer.length() != 0 && date.length() != 0){
-            try{
+        else if(customer.length() != 0 && date.length() != 0)
+        {
+            try
+            {
                 String[] monthDayYear = date.getText().toString().split("/");
                 String[] name = customer.getText().toString().trim().split("\\s+");
                 int customerID = accessCustomers.getCustomerID(name[0], name[1]);
                 List<Reservation> options = accessReservations.getSequential(customerID);
                 for(int i = 0; i < options.size(); i++){
-                    if(options.get(i).getStartTime().getMonth() == Integer.parseInt(monthDayYear[0]) && options.get(i).getStartTime().getDate() == Integer.parseInt(monthDayYear[1]) && options.get(i).getStartTime().getYear() == Integer.parseInt(monthDayYear[2])){
+                    if(options.get(i).getStartTime().getMonth() == Integer.parseInt(monthDayYear[0]) && options.get(i).getStartTime().getDate() == Integer.parseInt(monthDayYear[1]) && options.get(i).getStartTime().getYear() == Integer.parseInt(monthDayYear[2]))
+                    {
                         selected = options.get(i);
                         break;
                     }
@@ -92,19 +98,24 @@ public class GetReviewReservationActivity extends Activity{
                 confirmIntent.putExtra("People", selected.getNumPeople()+"");
                 GetReviewReservationActivity.this.startActivity(confirmIntent);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 customer.setError("Sorry we found no reservation with that customer ID and date");
                 e.printStackTrace();
             }
         }
-        else{
-            if(customer.length() == 0){
+        else
+        {
+            if(customer.length() == 0)
+            {
                 customer.setError("Enter customer ID");
             }
-            if(code.length() ==0) {
+            if(code.length() ==0)
+            {
                 date.setError("Enter date");
             }
-            if(date.length() ==0) {
+            if(date.length() ==0)
+            {
                 code.setError("Enter reservation code");
             }
         }

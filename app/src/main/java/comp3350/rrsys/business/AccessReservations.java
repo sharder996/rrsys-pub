@@ -31,7 +31,8 @@ public class AccessReservations
         return dataAccess.getReservationSequential(reservations);
     }
 
-    public ArrayList<Reservation> searchReservations(int numPeople, DateTime startTime, DateTime endTime) {
+    public ArrayList<Reservation> searchReservations(int numPeople, DateTime startTime, DateTime endTime)
+    {
         return dataAccess.searchReservations(numPeople, startTime, endTime);
     }
 

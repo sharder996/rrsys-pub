@@ -55,18 +55,21 @@ public class AccessCustomers
         customers = null;
         customer = dataAccess.getCustomerByID(customerID);
         currentCustomer = 0;
-        if(customer != null) {
+        if(customer != null)
+        {
             customers.add(customer);
             currentCustomer++;
         }
         return customer;
     }
 
-    public int getCustomerID(String fName, String lName) {
+    public int getCustomerID(String fName, String lName)
+    {
         return dataAccess.getCustomerID(fName, lName);
     }
 
-    public int getCustomerID(int phoneNum) {
+    public int getCustomerID(int phoneNum)
+    {
         return dataAccess.getCustomerID(phoneNum);
     }
 

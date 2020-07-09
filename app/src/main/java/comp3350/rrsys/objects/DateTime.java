@@ -21,23 +21,28 @@ public class DateTime implements Parcelable
     {
         int CurrYear = Calendar.getInstance().get(Calendar.YEAR);
         //check valid year
-        if(!(timeInfo.get(timeInfo.YEAR) >= CurrYear &&  timeInfo.get(timeInfo.YEAR) <= CurrYear+1)){
+        if(!(timeInfo.get(timeInfo.YEAR) >= CurrYear &&  timeInfo.get(timeInfo.YEAR) <= CurrYear+1))
+        {
             throw new ParseException("Invalid Year.\n", timeInfo.get(timeInfo.YEAR));
         }
 
-        if(!(timeInfo.get(timeInfo.MONTH) >= 1 && timeInfo.get(timeInfo.MONTH) <= 12)){
+        if(!(timeInfo.get(timeInfo.MONTH) >= 1 && timeInfo.get(timeInfo.MONTH) <= 12))
+        {
             throw new ParseException("Invalid Month.\n", timeInfo.get(timeInfo.MONTH));
         }
 
-        if(!(timeInfo.get(timeInfo.DAY_OF_MONTH) >= 1 ||  timeInfo.get(timeInfo.DAY_OF_MONTH) <= timeInfo.getActualMaximum(timeInfo.DAY_OF_MONTH))){
+        if(!(timeInfo.get(timeInfo.DAY_OF_MONTH) >= 1 ||  timeInfo.get(timeInfo.DAY_OF_MONTH) <= timeInfo.getActualMaximum(timeInfo.DAY_OF_MONTH)))
+        {
             throw new ParseException("Invalid Date.\n",timeInfo.get(timeInfo.DAY_OF_MONTH));
         }
 
-        if(!(timeInfo.get(timeInfo.HOUR_OF_DAY) >=0 && timeInfo.get(timeInfo.HOUR_OF_DAY) <= 24)){
+        if(!(timeInfo.get(timeInfo.HOUR_OF_DAY) >=0 && timeInfo.get(timeInfo.HOUR_OF_DAY) <= 24))
+        {
             throw new ParseException("Invalid Hour.\n",timeInfo.get(timeInfo.HOUR_OF_DAY));
         }
 
-        if(!(timeInfo.get(timeInfo.MINUTE) >=0 && timeInfo.get(timeInfo.MINUTE) <= 60)){
+        if(!(timeInfo.get(timeInfo.MINUTE) >=0 && timeInfo.get(timeInfo.MINUTE) <= 60))
+        {
             throw new ParseException("Invalid Minutes.\n", timeInfo.get(timeInfo.MINUTE));
         }
 

@@ -32,7 +32,6 @@ public class AccessTables
 
     public ArrayList<Table> recommendTables(int numPeople, int month, int date, int startTime, int endTime)
     {
-
         ArrayList<Table> result = new ArrayList<>();
         ArrayList<Table> allTables;
         allTables = getTables();
