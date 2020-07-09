@@ -20,8 +20,7 @@ public class TestCustomer extends TestCase
         assertEquals("Ivan", customer.getFirstName());
         assertEquals("Barbashev", customer.getLastName());
         assertEquals("Ivan Barbashev", customer.getFullName());
-        assertNotEquals("204-555-9999", Long.toString(customer.getPhoneNumber()));
-        assertEquals(2045559999, customer.getPhoneNumber());
+        assertTrue("2045559999".equals(customer.getPhoneNumber()));
 
         customer.setFirstName("Annie");
         customer.setLastName("Apple");
@@ -31,7 +30,7 @@ public class TestCustomer extends TestCase
         assertEquals("Annie", customer.getFirstName());
         assertEquals("Apple", customer.getLastName());
         assertEquals("Annie Apple", customer.getFullName());
-        assertEquals(2045551111, customer.getPhoneNumber());
+        assertTrue("2045551111".equals(customer.getPhoneNumber()));
 
         System.out.println("\nEnding testCustomerCreation");
     }
@@ -162,15 +161,13 @@ public class TestCustomer extends TestCase
         assertEquals("Ivan", customer0.getFirstName());
         assertEquals("Barbashev", customer0.getLastName());
         assertEquals("Ivan Barbashev", customer0.getFullName());
-        assertNotEquals("204-555-9999", Long.toString(customer0.getPhoneNumber()));
-        assertEquals(2045559999, customer0.getPhoneNumber());
+        assertTrue("2045559999".equals(customer0.getPhoneNumber()));
 
         try{
             customer0.setPhoneNumber("abc-def-ghij");
             fail();
         } catch (IllegalArgumentException e) {
-            assertNotEquals("abc-def-ghij", Long.toString(customer0.getPhoneNumber()));
-            assertEquals(2045559999, customer0.getPhoneNumber());
+            assertTrue("2045559999".equals(customer0.getPhoneNumber()));
         }
 
         try {
