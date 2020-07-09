@@ -36,7 +36,6 @@ public class DataAccessStub
 
     public void open(String dbName)
     {
-        //TODO: insert hardcoded database here
         Customer customer;
         Table table;
         Reservation reservation;
@@ -166,12 +165,15 @@ public class DataAccessStub
     // insert a reservation
     public String insertReservation(Reservation r)
     {
+        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0){
+            return "fail";
+        }
         DateTime startTime = r.getStartTime();
         DateTime endTime = r.getEndTime();
         r.setRID();
         reservations.add(r);
         setTable(r.getTID(), startTime.getMonth(), startTime.getDate(), getIndex(startTime), getIndex(endTime), false);
-        return null;
+        return "success";
     }
 
     // get a reservation
@@ -205,6 +207,7 @@ public class DataAccessStub
     // delete a reservation
     public String deleteReservation(Reservation r)
     {
+        boolean found = false;
         for(int i = 0; i < reservations.size(); i++)
         {
             if (reservations.get(i).equals(r.getRID()))
@@ -213,15 +216,21 @@ public class DataAccessStub
                 DateTime end = r.getEndTime();
                 setTable(r.getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
                 reservations.remove(i);
+                found = true;
                 break;
             }
         }
-        return null;
+
+        if(found == false) {
+            return "fail";
+        }
+        return "success";
     }
 
     // delete a reservation by reservation ID
     public String deleteReservation(int rID)
     {
+        boolean found = false;
         for(int i = 0; i < reservations.size(); i++)
         {
             if (reservations.get(i).equals(rID))
@@ -230,15 +239,22 @@ public class DataAccessStub
                 DateTime end = reservations.get(i).getEndTime();
                 setTable(reservations.get(i).getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
                 reservations.remove(i);
+                found = true;
                 break;
             }
         }
-        return null;
+        if(found == false) {
+            return "fail";
+        }
+        return "success";
     }
 
     // update a reservation with rID to curr
     public String updateReservation(int rID, Reservation curr)
     {
+        if(curr.getNumPeople() < 0 || curr.getTID() < 0 ){
+            return "fail";
+        }
         for(int i = 0; i < reservations.size(); i++)
         {
             if (reservations.get(i).equals(rID))
@@ -255,7 +271,7 @@ public class DataAccessStub
                 reservations.set(i, curr);
             }
         }
-        return null;
+        return "success";
     }
 
     public String getReservationSequential(List<Reservation> reservationResult)

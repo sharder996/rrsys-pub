@@ -85,7 +85,7 @@ public class CreateConfirmReservationActivity extends Activity
 
         final EditText editLastName = findViewById(R.id.editLastName);
         editLastName.addTextChangedListener(new TextWatcher()
-        { 
+        {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
