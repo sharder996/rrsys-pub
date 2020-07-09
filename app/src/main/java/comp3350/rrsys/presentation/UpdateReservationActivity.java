@@ -58,23 +58,6 @@ public class UpdateReservationActivity extends Activity
     private boolean timeOutEdited = false;
 
     @Override
-//    protected void onCreate(Bundle savedInstanceState)
-//    {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_update_reservation);
-//
-//        EditText date = (EditText) findViewById(R.id.editTextDate);
-//        EditText timeStart = (EditText) findViewById(R.id.editTextStartTime);
-//        EditText timeEnd = (EditText) findViewById(R.id.editLengthOfStay);
-//        NumberPicker numPeople = (NumberPicker) findViewById(R.id.editNumberOfPeople);
-//
-//        //selected = accessReservations.getRandom(Integer.parseInt(getIntent().getStringExtra("Code")));
-//
-//        timeStart.setText(getIntent().getStringExtra("TimeStart"));
-//        timeEnd.setText(getIntent().getStringExtra("TimeEnd"));
-//        date.setText(getIntent().getStringExtra("Date"));
-//       // numPeople.setValue();
-//    }
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -376,15 +359,6 @@ public class UpdateReservationActivity extends Activity
             }
             else
                 Messages.warning(this, "Error processing date. Please enter a valid date.");
-        }
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-
-        if(!added){
-            accessReservations.insertReservation(deleted);
         }
     }
 }
