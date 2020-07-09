@@ -116,19 +116,14 @@ public class DataAccessStub
     private DateTime getDateTime(DateTime time, int index)
     {
         DateTime result = null;
-        try
-        {
+
             result = new DateTime(Calendar.getInstance());
             result.setYear(time.getYear());
             result.setMonth(time.getMonth());
             result.setDate(time.getDate());
             result.setHour(Table.getStartTime() + index / 4);
             result.setMinutes(index % 4 * 15);
-        }
-        catch (java.text.ParseException pe)
-        {
-            System.out.println(pe);
-        }
+
         return result;
     }
 
@@ -574,12 +569,12 @@ public class DataAccessStub
         Reservation reservation1;
         DateTime startTime = null;
         DateTime endTime = null;
-        try
-        {
+
+
             startTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 11, 00));
             endTime = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 12, 30));
-        }
-        catch (ParseException e) { }
+
+
         reservation1 = new Reservation(customers.get(random).getCID(), tables.get(17).getTID(), 5, startTime, endTime);
         insertReservation(reservation1);
 
@@ -587,12 +582,10 @@ public class DataAccessStub
         Reservation reservation2;
         DateTime startTime2 = null;
         DateTime endTime2 = null;
-        try
-        {
+
             startTime2 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 14, 00));
             endTime2 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 16, 30));
-        }
-        catch (ParseException e) { }
+
         reservation2 = new Reservation(tables.get(29).getTID(), 7, startTime2, endTime2);
         insertReservation(reservation2);
 
@@ -602,12 +595,11 @@ public class DataAccessStub
         Reservation reservation3;
         DateTime startTime3 = null;
         DateTime endTime3 = null;
-        try
-        {
+
             startTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 13, 00));
             endTime3 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 14, 00));
-        }
-        catch (ParseException e) { }
+
+
         reservation3 = new Reservation(customers.get(random).getCID(), tables.get(18).getTID(), 6, startTime3, endTime3);
         insertReservation(reservation3);
 
@@ -617,12 +609,10 @@ public class DataAccessStub
         Reservation reservation4;
         DateTime startTime4 = null;
         DateTime endTime4 = null;
-        try
-        {
+
             startTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 18, 00));
             endTime4 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 21, 00));
-        }
-        catch (ParseException e) { }
+
         reservation4 = new Reservation(customers.get(random).getCID(), tables.get(0).getTID(), 4, startTime4, endTime4);
         insertReservation(reservation4);
 
@@ -632,12 +622,11 @@ public class DataAccessStub
         Reservation reservation5;
         DateTime startTime5 = null;
         DateTime endTime5 = null;
-        try
-        {
+
             startTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 17, 00));
             endTime5 = new DateTime(new GregorianCalendar(currTime.get(currTime.YEAR), currTime.get(currTime.MONTH), currTime.get(currTime.DATE), 20, 15));
-        }
-        catch (ParseException e) { }
+
+
         reservation5 = new Reservation(customers.get(random).getCID(), tables.get(28).getTID(), 10, startTime5, endTime5);
         insertReservation(reservation5);
     }

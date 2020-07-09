@@ -23,15 +23,13 @@ public class TestReservation extends TestCase
 
         Customer customer0 = new Customer("Cody", "Moon", "204-115-4259");
         Reservation res0 = null;
-        try
-        {
+        try {
             res0 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res0.setRID();
+        }catch(IllegalArgumentException e){
+
         }
-        catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
+
 
         //Test creation of a basic reservation
         assertNotNull(res0);
@@ -52,17 +50,15 @@ public class TestReservation extends TestCase
 
         Reservation res0 = null;
         Reservation res1 = null;
-        try
-        {
+        try {
             res0 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res0.setRID();
             res1 = new Reservation(customer0.getCID(), 1, 1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res1.setRID(res0.getRID());
+        }catch(IllegalArgumentException e){
+
         }
-        catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
+
 
         assertEquals(res0.getRID(), res1.getRID());
         assertTrue(res0.equals(res1.getRID()));
@@ -76,15 +72,13 @@ public class TestReservation extends TestCase
         Customer customer0 = new Customer("Cody", "Moon", "204-115-4259");
 
         Reservation res2 = null;
-        try
-        {
+        try {
             res2 = new Reservation(customer0.getCID(), 2, -1, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res2.setRID();
+        }catch(IllegalArgumentException e){
+
         }
-        catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
+
 
         //testing with negative numbers of people
         assertNotNull(res2);
@@ -99,15 +93,13 @@ public class TestReservation extends TestCase
         Customer customer0 = new Customer("Cody", "Moon", "204-115-4259");
 
         Reservation res3 = null;
-        try
-        {
+        try {
             res3 = new Reservation(customer0.getCID(), -2, 6, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res3.setRID();
+        }catch(IllegalArgumentException e){
+
         }
-        catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
+
         //test negative table number
         assertNotNull(res3);
         assertEquals(6, res3.getNumPeople());
@@ -121,10 +113,11 @@ public class TestReservation extends TestCase
     public void testReservationNullTime(){
         System.out.println("\nStarting TestReservationNullTime");
         Customer customer0 = new Customer("Cody", "Moon", "204-115-4259");
-
-        Reservation res4 = new Reservation(customer0.getCID(), 5, 6, null, null);
-        res4.setRID();
-
+        Reservation res4 = null;
+        try {
+            res4 = new Reservation(customer0.getCID(), 5, 6, null, null);
+            res4.setRID();
+        }catch(IllegalArgumentException e){}
         assertNotNull(res4);
         assertNull(res4.getStartTime());
         assertNull(res4.getEndTime());
@@ -137,15 +130,10 @@ public class TestReservation extends TestCase
         System.out.println("\nStarting TestReservationNegativeCustomer");
         Customer customer0 = new Customer("Cody", "Moon", "204-115-4259");
         Reservation res5 = null;
-        try
-        {
+        try {
             res5 = new Reservation(-1, 10, 6, new DateTime(new GregorianCalendar(2020, 7, 28, 13, 00)), new DateTime(new GregorianCalendar(2020, 7, 28, 14, 00)));
             res5.setRID();
-        }
-        catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
+        }catch(IllegalArgumentException e){}
 
         assertNotNull(res5);
         assertEquals(-1, res5.getCID());

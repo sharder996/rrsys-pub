@@ -32,15 +32,13 @@ public class TestAccessReservations extends TestCase
         DateTime startTime = null;
         DateTime endTime = null;
 
-        try
-        {
-            startTime = new DateTime(new GregorianCalendar(2020,10,1,12,0));
+        try {
+            startTime = new DateTime(new GregorianCalendar(2020, 10, 1, 12, 0));
             endTime = new DateTime(new GregorianCalendar(2020, 10, 1, 13, 0));
+        }catch(IllegalArgumentException e){
+
         }
-        catch (ParseException e)
-        {
-            fail();
-        }
+
 
         assertNotNull(startTime);
         assertNotNull(endTime);

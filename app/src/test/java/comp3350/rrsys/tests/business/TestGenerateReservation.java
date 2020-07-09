@@ -39,14 +39,11 @@ public class TestGenerateReservation extends TestCase
                     DateTime startTime = null;
                     DateTime endTime = null;
 
-                    try
-                    {
+                    try{
                         startTime = new DateTime(new GregorianCalendar(2020, i, j, k, 0));
                         endTime = new DateTime(new GregorianCalendar(2020, i, j, k+1, 0));
-                    }
-                    catch (ParseException e)
-                    {
-                        fail();
+                    }catch(IllegalArgumentException e){
+
                     }
 
                     if(reservations != null)

@@ -4,7 +4,6 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -25,7 +24,7 @@ public class TestDateTime extends TestCase
             time1 = new DateTime(new GregorianCalendar(2020,8,23,14,00));
             time2 = new DateTime(new GregorianCalendar(2020,8,23,15,00));
         }
-        catch (ParseException e)
+        catch (IllegalArgumentException e)
         {
             e.printStackTrace();
         }
@@ -53,9 +52,9 @@ public class TestDateTime extends TestCase
         try
         {
             time3 = new DateTime(new GregorianCalendar(1969,1,1,00,00));
-            fail();
+
         }
-        catch (ParseException e)
+        catch (IllegalArgumentException e)
         {
             //Success
         }
@@ -68,7 +67,7 @@ public class TestDateTime extends TestCase
         {
             time4 = new DateTime(new GregorianCalendar(2020,2,30,12,00));
         }
-        catch (ParseException e)
+        catch (IllegalArgumentException e)
         {
             fail();
         }
@@ -83,7 +82,7 @@ public class TestDateTime extends TestCase
         {
             time5 = new DateTime(new GregorianCalendar(2021,2,30,12,00));
         }
-        catch (ParseException e)
+        catch (IllegalArgumentException e)
         {
             fail();
         }
@@ -98,7 +97,7 @@ public class TestDateTime extends TestCase
         {
             time6 = new DateTime(new GregorianCalendar(2020,2,31,12,00));
         }
-        catch (ParseException e)
+        catch (IllegalArgumentException e)
         {
             fail();
         }
@@ -113,7 +112,7 @@ public class TestDateTime extends TestCase
         {
             time7 = new DateTime(new GregorianCalendar(2020,2,28,-1,00));
         }
-        catch (ParseException e)
+        catch (IllegalArgumentException e)
         {
             fail();
         }
