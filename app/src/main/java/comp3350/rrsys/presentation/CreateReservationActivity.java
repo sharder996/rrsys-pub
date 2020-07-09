@@ -299,8 +299,8 @@ public class CreateReservationActivity extends Activity
                 {
                     reservationList.clear();
                     ArrayList<Reservation> suggestions = accessReservations.searchReservations(numberOfPeople, startTime, endTime);
-                    for(Reservation reservation : suggestions)
-                        reservationList.add(reservation);
+                    for(int i = 0; i < suggestions.size() && i < 5; i++)
+                        reservationList.add(suggestions.get(i));
 
                     reservationArrayAdapter.notifyDataSetChanged();
                     ListView listView = findViewById(R.id.availabilityList);

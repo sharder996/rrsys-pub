@@ -269,12 +269,25 @@ public class UpdateReservationActivity extends Activity
 
         deleted = accessReservations.getRandom(Integer.parseInt(getIntent().getStringExtra("Code")));
 
-        timeStart.setText(getIntent().getStringExtra("TimeStart"));
-        timeEnd.setText(getIntent().getStringExtra("TimeEnd"));
+        if(deleted.getStartTime().getHour() >= 12)
+            timeStart.setText(getIntent().getStringExtra("TimeStart") + " PM");
+        else
+            timeStart.setText(getIntent().getStringExtra("TimeStart") + " AM");
+        if(deleted.getEndTime().getHour() >= 12)
+            timeEnd.setText(getIntent().getStringExtra("TimeEnd") + " PM");
+        else
+            timeEnd.setText(getIntent().getStringExtra("TimeEnd") + " AM");
         date.setText(getIntent().getStringExtra("Date"));
         numPeople.setValue(deleted.getNumPeople());
-
-        accessReservations.deleteReservation(deleted.getRID());
+        setYear = deleted.getStartTime().getYear();
+        setMonth = deleted.getStartTime().getMonth();
+        setDay = deleted.getStartTime().getDate();
+        setStartHourOfDay = deleted.getStartTime().getHour();
+        setStartMinute = deleted.getStartTime().getMinutes();
+        setEndHourOfDay = deleted.getEndTime().getHour();
+        setEndMinute = deleted.getEndTime().getMinutes();
+        numberOfPeople = deleted.getNumPeople();
+        //accessReservations.deleteReservation(deleted.getRID());
     }
 
     @Override
@@ -291,7 +304,8 @@ public class UpdateReservationActivity extends Activity
 
     public void buttonConfirmOnClick(View v)
     {
-        accessReservations.insertReservation(selected);
+        accessReservations.getRandom(deleted.getRID());
+        accessReservations.updateReservation(selected);
         added = true;
 
         String time;
@@ -306,7 +320,7 @@ public class UpdateReservationActivity extends Activity
             time = selected.getStartTime().getHour() + ":0" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":" + selected.getEndTime().getMinutes();
         }
         else{
-            time = selected.getStartTime().getHour() + ":0" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":" + selected.getEndTime().getMinutes();
+            time = selected.getStartTime().getHour() + ":" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":" + selected.getEndTime().getMinutes();
         }
 
         String resDate = (selected.getStartTime().getMonth() + 1) + "/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();
@@ -343,8 +357,8 @@ public class UpdateReservationActivity extends Activity
                 {
                     reservationList.clear();
                     ArrayList<Reservation> suggestions = accessReservations.searchReservations(numberOfPeople, startTime, endTime);
-                    for(Reservation reservation : suggestions)
-                        reservationList.add(reservation);
+                    for(int i = 0; i < suggestions.size() && i < 5; i++)
+                        reservationList.add(suggestions.get(i));
 
                     reservationArrayAdapter.notifyDataSetChanged();
                     ListView listView = findViewById(R.id.availabilityList);

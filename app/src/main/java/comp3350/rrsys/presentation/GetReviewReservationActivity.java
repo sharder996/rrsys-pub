@@ -63,7 +63,7 @@ public class GetReviewReservationActivity extends Activity
                     time = selected.getStartTime().getHour() + ":0" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":" + selected.getEndTime().getMinutes();
                 }
                 else{
-                    time = selected.getStartTime().getHour() + ":0" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":" + selected.getEndTime().getMinutes();
+                    time = selected.getStartTime().getHour() + ":" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":" + selected.getEndTime().getMinutes();
                 }
 
                 String resDate = (selected.getStartTime().getMonth() + 1) + "/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();

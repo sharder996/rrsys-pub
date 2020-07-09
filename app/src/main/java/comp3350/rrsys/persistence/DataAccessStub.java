@@ -142,6 +142,9 @@ public class DataAccessStub
             pos++;
         while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) == Math.abs(r.getStartTime().getPeriod(t)) && getTableRandom(results.get(pos).getTID()).getCapacity() < getTableRandom(r.getTID()).getCapacity())
             pos++;
+        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) == Math.abs(r.getStartTime().getPeriod(t)) &&
+                getTableRandom(results.get(pos).getTID()).getCapacity() == getTableRandom(r.getTID()).getCapacity() && results.get(pos).getTID() < r.getTID())
+            pos++;
         results.add(pos, r);
     }
 
