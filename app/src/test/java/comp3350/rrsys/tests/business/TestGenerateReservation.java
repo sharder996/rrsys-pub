@@ -46,7 +46,7 @@ public class TestGenerateReservation extends TestCase
                         startTime = new DateTime(new GregorianCalendar(calendar.get(calendar.YEAR), i, j, k, 0));
                         endTime = new DateTime(new GregorianCalendar(calendar.get(calendar.YEAR), i, j, k+1, 0));
                     }
-                    catch (ParseException e)
+                    catch (IllegalArgumentException e)
                     {
                         fail();
                     }
