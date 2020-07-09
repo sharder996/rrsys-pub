@@ -68,7 +68,7 @@ public class AccessCustomers
         return dataAccess.getCustomerID(fName, lName);
     }
 
-    public int getCustomerID(int phoneNum)
+    public int getCustomerID(String phoneNum)
     {
         return dataAccess.getCustomerID(phoneNum);
     }

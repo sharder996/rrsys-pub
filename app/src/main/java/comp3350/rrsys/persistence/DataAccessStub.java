@@ -60,7 +60,9 @@ public class DataAccessStub
 
     // return an array of suggested reservations in order
     // which has the same "length" as (endTime-startTime)
+    /*
     public ArrayList<Reservation> searchReservations(int numPeople, DateTime startTime, DateTime endTime)
+
     {
         ArrayList<Reservation> results = new ArrayList<Reservation>();
         int month = startTime.getMonth();
@@ -104,15 +106,16 @@ public class DataAccessStub
         }
         return results;
     }
+     */
 
     // return the index of a date time
-    private int getIndex(DateTime time)
+    public int getIndex(DateTime time)
     {
         return (time.getHour()-Table.getStartTime())*4 + (time.getMinutes()+7)/15;
     }
 
     // return the date time corresponding to an index
-    private DateTime getDateTime(DateTime time, int index)
+    public DateTime getDateTime(DateTime time, int index)
     {
         DateTime result = null;
         try
@@ -133,7 +136,7 @@ public class DataAccessStub
 
     // ordered insert a suggested reservation into a temp array
     // ordered by how close to the startTime
-    private void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t)
+    public void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t)
     {
         int pos = 0;
         int max = results.size();
@@ -335,12 +338,12 @@ public class DataAccessStub
         return customerID;
     }
 
-    public int getCustomerID(int phoneNum)
+    public int getCustomerID(String phoneNum)
     {
         int customerID = -1;
         for(int i = 0; i < customers.size(); i++)
         {
-            if(customers.get(i).getPhoneNumber() == phoneNum)
+            if(customers.get(i).getPhoneNumber().equals(phoneNum))
             {
                 customerID = customers.get(i).getCID();
                 break;

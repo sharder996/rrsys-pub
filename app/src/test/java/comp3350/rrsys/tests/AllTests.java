@@ -3,11 +3,9 @@ package comp3350.rrsys.tests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import comp3350.rrsys.application.Main;
 import comp3350.rrsys.tests.business.TestAccessCustomers;
 import comp3350.rrsys.tests.business.TestAccessReservations;
 import comp3350.rrsys.tests.business.TestAccessTables;
-import comp3350.rrsys.tests.business.TestGenerateReservation;
 import comp3350.rrsys.tests.objects.TestCustomer;
 import comp3350.rrsys.tests.objects.TestDateTime;
 import comp3350.rrsys.tests.objects.TestReservation;
@@ -40,6 +38,6 @@ public class AllTests
         suite.addTestSuite(TestAccessCustomers.class);
         suite.addTestSuite(TestAccessReservations.class);
         suite.addTestSuite(TestAccessTables.class);
-        suite.addTestSuite(TestGenerateReservation.class);
+
     }
 }

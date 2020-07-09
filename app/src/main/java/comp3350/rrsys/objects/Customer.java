@@ -15,7 +15,7 @@ public class Customer implements Parcelable
     private final static String regExPhoneNumber = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$";
     private String firstName;
     private String lastName;
-    private long phoneNumber; //any non numerical character removed
+    private String phoneNumber; //any non numerical character removed
     private static int counter = 1;
 
     public Customer(String fName, String lName, String pNum) throws IllegalArgumentException
@@ -33,7 +33,7 @@ public class Customer implements Parcelable
             throw new IllegalArgumentException("Invalid name.");
         }
         if(!pNum.isEmpty() && pNum.matches(regExPhoneNumber)){
-            phoneNumber = Long.parseLong(pNum.replaceAll("\\D", ""));
+            phoneNumber = pNum.replaceAll("\\D", "");
         } else {
             throw new IllegalArgumentException("Invalid phone number format.");
         }
@@ -44,7 +44,7 @@ public class Customer implements Parcelable
         cID = in.readInt();
         firstName = in.readString();
         lastName = in.readString();
-        phoneNumber = in.readInt();
+        phoneNumber = in.readString();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Customer implements Parcelable
         dest.writeInt(cID);
         dest.writeString(firstName);
         dest.writeString(lastName);
-        dest.writeLong(phoneNumber);
+        dest.writeString(phoneNumber);
     }
 
     public static final Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>()
@@ -107,7 +107,7 @@ public class Customer implements Parcelable
     {
         return firstName + " " + lastName;
     }
-    public long getPhoneNumber()
+    public String getPhoneNumber()
     {
         return phoneNumber;
     }
@@ -135,7 +135,7 @@ public class Customer implements Parcelable
     public void setPhoneNumber(String newPhNum) throws IllegalArgumentException
     {
         if(!newPhNum.isEmpty() && newPhNum.matches(regExPhoneNumber))
-            phoneNumber = Integer.parseInt(newPhNum.replaceAll("\\D", ""));
+            phoneNumber = newPhNum.replaceAll("\\D", "");
         else
             throw new IllegalArgumentException("Invalid phone number format.");
     }
