@@ -50,12 +50,10 @@ public class TestAccessReservations extends TestCase
         accessReservations.getReservations(reservationsList);
         assertEquals(1, reservationsList.size());
 
-        res0.setTID(1);
-        accessReservations.updateReservation(res0);
+        accessReservations.getRandom(res0.getRID()).setTID(1);
         assertEquals(1, accessReservations.getRandom(res0.getRID()).getTID());
 
-        res0.setNumPeople(6);
-        accessReservations.updateReservation(res0);
+        accessReservations.getRandom(res0.getRID()).setNumPeople(6);
         assertEquals(6, accessReservations.getRandom(res0.getRID()).getNumPeople());
 
         accessReservations.deleteReservation(res0.getRID());
