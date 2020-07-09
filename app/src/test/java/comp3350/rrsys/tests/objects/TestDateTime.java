@@ -53,10 +53,11 @@ public class TestDateTime extends TestCase
         try
         {
             time3 = new DateTime(new GregorianCalendar(1969,1,1,00,00));
+            fail();
         }
         catch (ParseException e)
         {
-            e.printStackTrace();
+            //Success
         }
 
         assertNull(time3);
@@ -69,7 +70,7 @@ public class TestDateTime extends TestCase
         }
         catch (ParseException e)
         {
-            e.printStackTrace();
+            fail();
         }
 
         assertNotNull(time4);
@@ -84,7 +85,7 @@ public class TestDateTime extends TestCase
         }
         catch (ParseException e)
         {
-            e.printStackTrace();
+            fail();
         }
 
         assertNotNull(time4);
@@ -99,7 +100,7 @@ public class TestDateTime extends TestCase
         }
         catch (ParseException e)
         {
-            e.printStackTrace();
+            fail();
         }
 
         assertNotNull(time6);
@@ -114,7 +115,7 @@ public class TestDateTime extends TestCase
         }
         catch (ParseException e)
         {
-            e.printStackTrace();
+            fail();
         }
 
         assertNotNull(time7);
