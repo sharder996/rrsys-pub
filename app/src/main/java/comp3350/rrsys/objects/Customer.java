@@ -33,7 +33,7 @@ public class Customer implements Parcelable
             throw new IllegalArgumentException("Invalid name.");
         }
         if(!pNum.isEmpty() && pNum.matches(regExPhoneNumber)){
-            phoneNumber = Integer.parseInt(pNum.replaceAll("\\D", ""));
+            phoneNumber = Long.parseLong(pNum.replaceAll("\\D", ""));
         } else {
             throw new IllegalArgumentException("Invalid phone number format.");
         }
