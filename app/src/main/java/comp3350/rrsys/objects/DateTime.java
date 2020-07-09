@@ -32,13 +32,13 @@ public class DateTime implements Parcelable
     }
 
     public void setYear(int year){timeSlot.set(Calendar.YEAR,year);}
-    public void setMonth(int month){timeSlot.set(Calendar.MONTH,month-1);}
+    public void setMonth(int month){timeSlot.set(Calendar.MONTH,month);}
     public void setDate(int date){timeSlot.set(Calendar.DATE,date);}
     public void setHour(int hour){ timeSlot.set(Calendar.HOUR_OF_DAY,hour); }
     public void setMinutes(int minutes){timeSlot.set(Calendar.MINUTE,minutes);}
 
     public int getYear(){ return timeSlot.get(Calendar.YEAR); }
-    public int getMonth(){ return timeSlot.get(Calendar.MONTH)+1; }
+    public int getMonth(){ return timeSlot.get(Calendar.MONTH); }
     public int getDate(){ return timeSlot.get(Calendar.DATE); }
     public int getHour(){ return timeSlot.get(Calendar.HOUR_OF_DAY); }
     public int getMinutes(){ return timeSlot.get(Calendar.MINUTE); }
