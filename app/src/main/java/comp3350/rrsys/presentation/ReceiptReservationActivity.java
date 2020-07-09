@@ -27,7 +27,8 @@ public class ReceiptReservationActivity extends Activity
         textDateInfo.setText((reservation.getStartTime().getMonth()+1) + "/" + reservation.getStartTime().getDate() + "/" + reservation.getStartTime().getYear());
 
         final TextView textTimeInfo = findViewById(R.id.textTimeInfo);
-        textTimeInfo.setText(reservation.getStartTime().getHour() + ":" + reservation.getStartTime().getMinutes() + " - " + reservation.getEndTime().getHour() + ":" + reservation.getEndTime().getMinutes());
+        String timeInfo = String.format(reservation.getStartTime().getHour() + ":02d - " + reservation.getEndTime().getHour() + ":02d", reservation.getStartTime().getMinutes(), reservation.getEndTime().getMinutes());
+        textTimeInfo.setText(timeInfo);
 
         final TextView textNumberOfPeopleInfo = findViewById(R.id.textNumberOfPeopleInfo);
         textNumberOfPeopleInfo.setText("" + reservation.getNumPeople());

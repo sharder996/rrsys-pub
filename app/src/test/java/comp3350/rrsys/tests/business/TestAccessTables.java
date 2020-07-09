@@ -2,15 +2,11 @@ package comp3350.rrsys.tests.business;
 
 import junit.framework.TestCase;
 
-import org.junit.Test;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.business.AccessTables;
-import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.persistence.DataAccessStub;
 
@@ -21,8 +17,8 @@ public class TestAccessTables extends TestCase
     public void testAccessTables()
     {
         System.out.println("\nStarting TestAccessTables");
-
         Main.startUp();
+
         AccessTables accessTables = new AccessTables();
         DataAccessStub accessStub = new DataAccessStub();
         accessStub.open(Main.dbName);
@@ -44,11 +40,12 @@ public class TestAccessTables extends TestCase
                         tableList.clear();
                     }
                     tableList = accessTables.recommendTables(k, currTime.MONTH, i, j, j+1);
+
                     /*System.out.println("Request -- Num People: " + k + " Day: " + i + " Start Time: " + j);
-                    for(int l = 0; l < tableList.size(); l++){
+                    for(int l = 0; l < tableList.size(); l++)
                         System.out.println(tableList.get(l).toString());
-                    }
                     System.out.println("===================");*/
+
                     assertTrue(tableList.size() > 0);
                 }
             }
