@@ -1,106 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="comp3350.rrsys.presentation.ReceiptReservationActivity">
 
-    <TextView
-        android:id="@+id/textReservationDetails"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textThankYouMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reservation_thank_you"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/textReservationCodeMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/reservation_code_message"
+            android:textAlignment="center"
+            android:layout_centerVertical="true"
+            android:layout_below="@+id/textThankYouMsg"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/textReservationCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_below="@+id/textReservationCodeMsg"
+            android:layout_marginTop="20dp"
+            android:text="123456"
+            android:textAlignment="center"
+            android:textSize="40sp" />
+    </RelativeLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/reservation_updates"
-        android:textSize="22sp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:columnCount="2"
+        android:rowCount="5">
 
-    <TextView
-        android:id="@+id/textDateLabel"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textReservationDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reservation_updates"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_columnSpan="2"/>
+
+        <TextView
+            android:id="@+id/textDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_date"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/textDateInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*date info*"
+            android:layout_marginStart="25dp"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/textTimeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/textTimeInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*time info*"
+            android:layout_marginStart="25dp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/textNumberOfPeopleLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/number_of_people"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/textNumberOfPeopleInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*# people*"
+            android:layout_marginStart="25dp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+    </GridLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pick_date"
-        android:textSize="18sp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="@+id/textReservationDetails"
-        app:layout_constraintTop_toTopOf="@+id/textReservationDetails"/>
+        android:layout_marginTop="10dp">
 
-    <TextView
-        android:id="@+id/textDateInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="*date info*"
-        android:textSize="18sp"
-        android:layout_marginStart="25dp"
-        app:layout_constraintStart_toEndOf="@+id/textDateLabel"
-        app:layout_constraintTop_toTopOf="@+id/textDateLabel"/>
+        <Button
+            android:id="@+id/buttonDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/done"
+            android:onClick="buttonHomeOnClick" />
+    </RelativeLayout>
 
-
-    <TextView
-        android:id="@+id/textTimeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/time"
-        android:textSize="18sp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="@+id/textReservationDetails"
-        app:layout_constraintTop_toTopOf="@+id/textDateLabel"/>
-
-    <TextView
-        android:id="@+id/textTimeInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="*time info*"
-        android:textSize="18sp"
-        android:layout_marginStart="25dp"
-        app:layout_constraintStart_toEndOf="@+id/textTimeLabel"
-        app:layout_constraintTop_toTopOf="@+id/textTimeLabel"/>
-
-    <TextView
-        android:id="@+id/textNumberOfPeopleLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/number_of_people"
-        android:textSize="18sp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="@+id/textReservationDetails"
-        app:layout_constraintTop_toTopOf="@+id/textTimeLabel"/>
-
-    <TextView
-        android:id="@+id/textNumberOfPeopleInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="*# people*"
-        android:textSize="18sp"
-        android:layout_marginStart="25dp"
-        app:layout_constraintStart_toEndOf="@+id/textNumberOfPeopleLabel"
-        app:layout_constraintTop_toTopOf="@+id/textNumberOfPeopleLabel"/>
-
-    <Button
-        android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/back"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:onClick="buttonBackOnClick"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textNumberOfPeopleLabel"/>
-
-    <Button
-        android:id="@+id/buttonConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/confirm"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="20dp"
-        android:onClick="buttonConfirmOnClick"
-        app:layout_constraintTop_toBottomOf="@id/textNumberOfPeopleLabel"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

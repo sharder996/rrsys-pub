@@ -42,23 +42,38 @@ public class GetUpdateReservationActivity extends Activity {
     public void buttonEnterOnClick(View v)
     {
         Reservation selected = null;
-        EditText customer = (EditText) findViewById(R.id.editTextCustomer);
-        EditText date = (EditText) findViewById(R.id.editTextDate);
         EditText code = (EditText) findViewById(R.id.editTextReservationCode);
 
         if(code.length() != 0){
             try{
                 selected = accessReservations.getRandom(Integer.parseInt(code.getText().toString()));
 
-                String time = selected.getStartTime().getHour() +":" + selected.getStartTime().getMinutes();
+                String timeEnd;
+                String timeStart;
+
+                if(selected.getEndTime().getMinutes() <10){
+                     timeEnd = selected.getEndTime().getHour() +":0" + selected.getEndTime().getMinutes();
+                }
+                else {
+                    timeEnd = selected.getEndTime().getHour() +":" + selected.getEndTime().getMinutes();
+                }
+
+                if(selected.getStartTime().getMinutes() <10) {
+                    timeStart = selected.getStartTime().getHour() + ":0" + selected.getStartTime().getMinutes();
+                }
+                else {
+                    timeStart = selected.getStartTime().getHour() + ":" + selected.getStartTime().getMinutes();
+                }
+
                 String resDate = selected.getStartTime().getMonth() +"/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();
 
                 Intent confirmIntent = new Intent(GetUpdateReservationActivity.this, UpdateReservationActivity.class);
                 GetUpdateReservationActivity.this.startActivity(confirmIntent);
                 confirmIntent.putExtra("Date", resDate);
-                confirmIntent.putExtra("Time", time);
-                confirmIntent.putExtra("Code", selected.getRID());
-                confirmIntent.putExtra("People", selected.getNumPeople());
+                confirmIntent.putExtra("TimeStart", timeStart);
+                confirmIntent.putExtra("TimeEnd", timeEnd);
+                confirmIntent.putExtra("Code", selected.getRID()+ "");
+                confirmIntent.putExtra("People", selected.getNumPeople()+ "");
                 GetUpdateReservationActivity.this.startActivity(confirmIntent);
             }
             catch (Exception e) {
@@ -66,41 +81,9 @@ public class GetUpdateReservationActivity extends Activity {
                 e.printStackTrace();
             }
         }
-        else if(customer.length() != 0 && date.length() != 0){
-            try{
-                String[] monthDayYear = date.getText().toString().split("/");
-                List<Reservation> options = accessReservations.getSequential(Integer.parseInt(customer.getText().toString()));
-                for(int i = 0; i < options.size(); i++){
-                    if(options.get(i).getStartTime().getMonth() == Integer.parseInt(monthDayYear[0]) && options.get(i).getStartTime().getDate() == Integer.parseInt(monthDayYear[1]) && options.get(i).getStartTime().getYear() == Integer.parseInt(monthDayYear[2])){
-                        selected = options.get(i);
-                        break;
-                    }
-                }
-
-                String time = selected.getStartTime().getHour() +":" + selected.getStartTime().getMinutes();
-                String resDate = selected.getStartTime().getMonth() +"/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();
-
-                Intent confirmIntent = new Intent(GetUpdateReservationActivity.this, UpdateReservationActivity.class);
-                confirmIntent.putExtra("Date", selected.getStartTime());
-                confirmIntent.putExtra("Time", selected.getStartTime());
-                confirmIntent.putExtra("Code", selected.getRID());
-                confirmIntent.putExtra("People", selected.getNumPeople());
-                GetUpdateReservationActivity.this.startActivity(confirmIntent);
-            }
-            catch (Exception e) {
-                customer.setError("Sorry we found no reservation with that customer ID and date");
-                e.printStackTrace();
-            }
-        }
         else{
-            if(customer.length() == 0){
-                customer.setError("Enter customer ID");
-            }
             if(code.length() ==0) {
-                date.setError("Enter date");
-            }
-            if(date.length() ==0) {
-                code.setError("Enter reservation code");
+                code.setError("Enter date");
             }
         }
     }

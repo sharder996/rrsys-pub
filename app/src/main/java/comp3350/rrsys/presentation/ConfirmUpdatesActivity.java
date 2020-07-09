@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import comp3350.rrsys.R;
+import comp3350.rrsys.objects.Reservation;
 
 public class ConfirmUpdatesActivity extends Activity
 {
@@ -15,6 +17,18 @@ public class ConfirmUpdatesActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_updates);
+
+        final TextView textReservationCode = findViewById(R.id.textReservationCode);
+        textReservationCode.setText(getIntent().getStringExtra("Code"));
+
+        final TextView textDateInfo = findViewById(R.id.textDateInfo);
+        textDateInfo.setText(getIntent().getStringExtra("Date"));
+
+        final TextView textTimeInfo = findViewById(R.id.textTimeInfo);
+        textTimeInfo.setText(getIntent().getStringExtra("Time"));
+
+        final TextView textNumberOfPeopleInfo = findViewById(R.id.textNumberOfPeopleInfo);
+        textNumberOfPeopleInfo.setText(getIntent().getStringExtra("People"));
     }
 
     @Override
@@ -24,15 +38,9 @@ public class ConfirmUpdatesActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    public void buttonBackOnClick(View v)
+    public void buttonHomeOnClick(View v)
     {
-        Intent backPageIntent = new Intent(ConfirmUpdatesActivity.this,UpdateReservationActivity.class);
-        ConfirmUpdatesActivity.this.startActivity(backPageIntent);
-    }
-
-    public void buttonConfirmOnClick(View v)
-    {
-        Intent confirmUpdatesIntent = new Intent(ConfirmUpdatesActivity.this, HomeActivity.class);
-        ConfirmUpdatesActivity.this.startActivity(confirmUpdatesIntent);
+        Intent returnHomeIntent = new Intent(ConfirmUpdatesActivity.this, HomeActivity.class);
+        ConfirmUpdatesActivity.this.startActivity(returnHomeIntent);
     }
 }
