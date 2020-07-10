@@ -42,26 +42,24 @@ public class GetUpdateReservationActivity extends Activity {
         Reservation selected = null;
         EditText code = (EditText) findViewById(R.id.editTextReservationCode);
 
-        if(code.length() != 0){
-            try{
+        if(code.length() != 0)
+        {
+            try
+            {
                 selected = accessReservations.getRandom(Integer.parseInt(code.getText().toString()));
 
                 String timeEnd;
                 String timeStart;
 
-                if(selected.getEndTime().getMinutes() <10){
+                if(selected.getEndTime().getMinutes() <10)
                      timeEnd = selected.getEndTime().getHour() +":0" + selected.getEndTime().getMinutes();
-                }
-                else {
+                else
                     timeEnd = selected.getEndTime().getHour() +":" + selected.getEndTime().getMinutes();
-                }
 
-                if(selected.getStartTime().getMinutes() <10) {
+                if(selected.getStartTime().getMinutes() <10)
                     timeStart = selected.getStartTime().getHour() + ":0" + selected.getStartTime().getMinutes();
-                }
-                else {
+                else
                     timeStart = selected.getStartTime().getHour() + ":" + selected.getStartTime().getMinutes();
-                }
 
                 String resDate = (selected.getStartTime().getMonth()+1) +"/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();
 
@@ -73,15 +71,16 @@ public class GetUpdateReservationActivity extends Activity {
                 confirmIntent.putExtra("People", selected.getNumPeople()+ "");
                 GetUpdateReservationActivity.this.startActivity(confirmIntent);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 code.setError("Sorry we found no reservation with that reservation code");
                 e.printStackTrace();
             }
         }
-        else{
-            if(code.length() ==0) {
+        else
+        {
+            if(code.length() ==0)
                 code.setError("Enter date");
-            }
         }
     }
 }

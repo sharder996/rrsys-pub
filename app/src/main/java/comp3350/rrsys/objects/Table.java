@@ -11,11 +11,16 @@ public class Table
 
     public Table(int tID, int capacity) throws IllegalArgumentException
     {
-        if(tID < 0) {
+        if(tID < 0)
+        {
             throw new IllegalArgumentException("tID must be positive integer.");
-        } else if (capacity <= 0) {
+        }
+        else if (capacity <= 0)
+        {
             throw new IllegalArgumentException("Table capacity must be positive integer.");
-        } else {
+        }
+        else
+        {
             this.tID = tID;
             this.capacity = capacity;
             available = new boolean[12][31][numIncrement];

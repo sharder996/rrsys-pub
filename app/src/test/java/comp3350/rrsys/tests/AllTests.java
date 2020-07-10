@@ -38,6 +38,5 @@ public class AllTests
         suite.addTestSuite(TestAccessCustomers.class);
         suite.addTestSuite(TestAccessReservations.class);
         suite.addTestSuite(TestAccessTables.class);
-
     }
 }

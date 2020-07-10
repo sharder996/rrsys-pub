@@ -42,23 +42,21 @@ public class GetReviewReservationActivity extends Activity
         Reservation selected = null;
         EditText code = (EditText) findViewById(R.id.editTextReservationCode);
 
-        if(code.length() != 0) {
-            try {
+        if(code.length() != 0)
+        {
+            try
+            {
                 selected = accessReservations.getRandom(Integer.parseInt(code.getText().toString()));
                 String time;
 
-                if(selected.getEndTime().getMinutes() < 10 && selected.getStartTime().getMinutes() < 10){
+                if(selected.getEndTime().getMinutes() < 10 && selected.getStartTime().getMinutes() < 10)
                     time = selected.getStartTime().getHour() + ":0" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":0" + selected.getEndTime().getMinutes();
-                }
-                else if(selected.getEndTime().getMinutes() < 10 ){
+                else if(selected.getEndTime().getMinutes() < 10 )
                     time = selected.getStartTime().getHour() + ":" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":0" + selected.getEndTime().getMinutes();
-                }
-                else if(selected.getStartTime().getMinutes() < 10){
+                else if(selected.getStartTime().getMinutes() < 10)
                     time = selected.getStartTime().getHour() + ":0" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":" + selected.getEndTime().getMinutes();
-                }
-                else{
+                else
                     time = selected.getStartTime().getHour() + ":" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":" + selected.getEndTime().getMinutes();
-                }
 
                 String resDate = (selected.getStartTime().getMonth() + 1) + "/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();
 
@@ -68,7 +66,9 @@ public class GetReviewReservationActivity extends Activity
                 confirmIntent.putExtra("Code", selected.getRID() + "");
                 confirmIntent.putExtra("People", selected.getNumPeople() + "");
                 GetReviewReservationActivity.this.startActivity(confirmIntent);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 code.setError("Sorry we found no reservation with that reservation code");
                 e.printStackTrace();
             }
@@ -76,9 +76,7 @@ public class GetReviewReservationActivity extends Activity
         else
         {
             if(code.length() ==0)
-            {
                 code.setError("Enter reservation code");
-            }
         }
     }
 }

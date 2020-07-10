@@ -290,18 +290,14 @@ public class UpdateReservationActivity extends Activity
 
         String time;
 
-        if(selected.getEndTime().getMinutes() < 10 && selected.getStartTime().getMinutes() < 10){
+        if(selected.getEndTime().getMinutes() < 10 && selected.getStartTime().getMinutes() < 10)
             time = selected.getStartTime().getHour() + ":0" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":0" + selected.getEndTime().getMinutes();
-        }
-        else if(selected.getEndTime().getMinutes() < 10 ){
+        else if(selected.getEndTime().getMinutes() < 10 )
             time = selected.getStartTime().getHour() + ":" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":0" + selected.getEndTime().getMinutes();
-        }
-        else if(selected.getStartTime().getMinutes() < 10){
+        else if(selected.getStartTime().getMinutes() < 10)
             time = selected.getStartTime().getHour() + ":0" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":" + selected.getEndTime().getMinutes();
-        }
-        else{
+        else
             time = selected.getStartTime().getHour() + ":" + selected.getStartTime().getMinutes() + " - " + selected.getEndTime().getHour() + ":" + selected.getEndTime().getMinutes();
-        }
 
         String resDate = (selected.getStartTime().getMonth() + 1) + "/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();
 

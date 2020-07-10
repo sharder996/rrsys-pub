@@ -41,11 +41,6 @@ public class TestAccessTables extends TestCase
                     }
                     tableList = accessTables.recommendTables(k, currTime.MONTH, i, j, j+1);
 
-                    /*System.out.println("Request -- Num People: " + k + " Day: " + i + " Start Time: " + j);
-                    for(int l = 0; l < tableList.size(); l++)
-                        System.out.println(tableList.get(l).toString());
-                    System.out.println("===================");*/
-
                     assertTrue(tableList.size() > 0);
                 }
             }

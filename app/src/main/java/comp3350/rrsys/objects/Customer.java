@@ -22,21 +22,20 @@ public class Customer implements Parcelable
     {
         cID = counter++;
 
-        if(!fName.isEmpty() && !containsDigitInString(fName) && fName.split("\\s+").length == 1){
+        if(!fName.isEmpty() && !containsDigitInString(fName) && fName.split("\\s+").length == 1)
             firstName = titleCaseConversion(fName);
-        } else {
+        else
             throw new IllegalArgumentException("Invalid name.");
-        }
-        if(!lName.isEmpty() && !containsDigitInString(lName) && lName.split("\\s+").length == 1){
+
+        if(!lName.isEmpty() && !containsDigitInString(lName) && lName.split("\\s+").length == 1)
             lastName = titleCaseConversion(lName);
-        } else {
+        else
             throw new IllegalArgumentException("Invalid name.");
-        }
-        if(!pNum.isEmpty() && pNum.matches(regExPhoneNumber)){
+
+        if(!pNum.isEmpty() && pNum.matches(regExPhoneNumber))
             phoneNumber = pNum.replaceAll("\\D", "");
-        } else {
+        else
             throw new IllegalArgumentException("Invalid phone number format.");
-        }
     }
 
     private Customer(Parcel in)

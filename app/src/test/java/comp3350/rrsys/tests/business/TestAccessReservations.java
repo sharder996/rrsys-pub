@@ -17,23 +17,27 @@ public class TestAccessReservations extends TestCase
     private AccessReservations accessReservations;
     public TestAccessReservations(String arg0) { super(arg0); }
 
-    public void setUp(){
+    public void setUp()
+    {
         System.out.println("\nStarting TestAccessReservations");
         Main.startUp();
         accessReservations = new AccessReservations();
     }
 
-    public void tearDown(){
+    public void tearDown()
+    {
         Main.shutDown();
         System.out.println("\nEnd TestAccessReservations");
     }
 
-    public void testAccessReservationConnection(){
+    public void testAccessReservationConnection()
+    {
         assertNotNull(accessReservations);
     }
 
 
-    public void testCreateInvalidReservation(){
+    public void testCreateInvalidReservation()
+    {
         DateTime startTime = null;
         DateTime endTime = null;
 
@@ -64,13 +68,15 @@ public class TestAccessReservations extends TestCase
         assertEquals(result3, "fail");
     }
 
-    public void testCreateNull(){
+    public void testCreateNull()
+    {
         String result = accessReservations.insertReservation(null);
         assertEquals(result, "fail");
     }
 
 
-    public void testCreateValidReservations() {
+    public void testCreateValidReservations()
+    {
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
 
@@ -79,10 +85,13 @@ public class TestAccessReservations extends TestCase
         DateTime startTime = null;
         DateTime endTime = null;
 
-        try {
+        try
+        {
             startTime = new DateTime(new GregorianCalendar(2020, 10, 1, 12, 0));
             endTime = new DateTime(new GregorianCalendar(2020, 10, 1, 13, 0));
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             fail();
         }
 
@@ -109,17 +118,21 @@ public class TestAccessReservations extends TestCase
 
     }
 
-    public void testUpdateInvalidReservation(){
+    public void testUpdateInvalidReservation()
+    {
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
 
         DateTime startTime = null;
         DateTime endTime = null;
 
-        try {
+        try
+        {
             startTime = new DateTime(new GregorianCalendar(2020, 10, 1, 12, 0));
             endTime = new DateTime(new GregorianCalendar(2020, 10, 1, 13, 0));
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             fail();
         }
 
@@ -134,17 +147,21 @@ public class TestAccessReservations extends TestCase
         assertEquals("fail", result);
     }
 
-    public void testUpdateValidReservation(){
+    public void testUpdateValidReservation()
+    {
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
 
         DateTime startTime = null;
         DateTime endTime = null;
 
-        try {
+        try
+        {
             startTime = new DateTime(new GregorianCalendar(2020, 10, 1, 12, 0));
             endTime = new DateTime(new GregorianCalendar(2020, 10, 1, 13, 0));
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             fail();
         }
 
@@ -159,10 +176,13 @@ public class TestAccessReservations extends TestCase
         accessReservations.updateReservation(res0);
         assertEquals(3, accessReservations.getRandom(res0.getRID()).getNumPeople());
 
-        try {
+        try
+        {
             startTime = new DateTime(new GregorianCalendar(2020, 10, 2, 12, 0));
             endTime = new DateTime(new GregorianCalendar(2020, 10, 2, 13, 0));
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             fail();
         }
 
@@ -172,8 +192,8 @@ public class TestAccessReservations extends TestCase
         assertEquals(endTime, accessReservations.getRandom(res0.getRID()).getEndTime());
     }
 
-    public void testDeleteInvalidReservation(){
-
+    public void testDeleteInvalidReservation()
+    {
         String result = accessReservations.deleteReservation(2);
         assertEquals(result, "fail");
 
@@ -184,17 +204,21 @@ public class TestAccessReservations extends TestCase
         assertEquals(result, "fail");
     }
 
-    public void testDeleteValidReservation(){
+    public void testDeleteValidReservation()
+    {
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
 
         DateTime startTime = null;
         DateTime endTime = null;
 
-        try {
+        try
+        {
             startTime = new DateTime(new GregorianCalendar(2020, 10, 1, 12, 0));
             endTime = new DateTime(new GregorianCalendar(2020, 10, 1, 13, 0));
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             fail();
         }
 

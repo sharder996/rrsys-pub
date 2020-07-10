@@ -44,13 +44,19 @@ public class AccessTables
                     if (startTime + 1 != endTime) {
                         if (!allTables.get(i).getAvailable(month, date, j)) {
                             break;
-                        } else {
+                        }
+                        else
+                        {
                             continue;
                         }
-                    } else {
+                    }
+                    else
+                    {
                         if (allTables.get(i).getAvailable(month, date, j)) {
                             result.add(allTables.get(i));
-                        } else {
+                        }
+                        else
+                        {
                             break;
                         }
                     }

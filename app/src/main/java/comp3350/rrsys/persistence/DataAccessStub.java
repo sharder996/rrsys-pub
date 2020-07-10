@@ -3,7 +3,6 @@ package comp3350.rrsys.persistence;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
@@ -150,7 +149,7 @@ public class DataAccessStub
                 break;
             }
         }
-        if(found == false) {
+        if(!found) {
             return "fail";
         }
         return "success";
@@ -281,24 +280,17 @@ public class DataAccessStub
             char[] last = new char[length + 2];
 
             for (int i = 0; i < length; i++)
-            {
                 first[i] = name.charAt(rand.nextInt(name.length()));
-            }
 
             for (int i = 0; i < length; i++)
-            {
                 last[i] = name.charAt(rand.nextInt(name.length()));
-            }
 
             for (int i = 0; i < first.length; i++)
-            {
                 randomfirstName += first[i];
-            }
 
             for (int i = 0; i < last.length; i++)
-            {
                     randomlastName += last[i];
-            }
+
             ///////////////////////////////////////////////////////////////////////////
             // generate random phone numbers
             int num1 = (rand.nextInt(7) + 1) * 100 + (rand.nextInt(8) * 10) + rand.nextInt(8);
