@@ -34,12 +34,6 @@ public class AccessReservations
         return SuggestReservations(startTime, endTime, numPeople);
     }
 
-    public ArrayList<Reservation> getSequential(int customerID)
-    {
-        reservations = dataAccess.getReservations(customerID);
-        return reservations;
-    }
-
     public Reservation getRandom(int reservationID)
     {
         reservation = dataAccess.getReservation(reservationID);
@@ -59,11 +53,6 @@ public class AccessReservations
             return dataAccess.updateReservation(newReservation.getRID(), newReservation);
     }
 
-    public String deleteReservation(Reservation currentReservation)
-    {
-        return dataAccess.deleteReservation(currentReservation);
-    }
-
     public String deleteReservation(int reservationID)
     {
         return dataAccess.deleteReservation(reservationID);
@@ -73,7 +62,6 @@ public class AccessReservations
     // which has the same "length" as (endTime-startTime)
     public static ArrayList<Reservation> SuggestReservations(DateTime startTime, DateTime endTime, int numPeople)
     {
-
         ArrayList<Reservation> results = new ArrayList<Reservation>();
         int month = startTime.getMonth();
         int day = startTime.getDate();
@@ -115,7 +103,6 @@ public class AccessReservations
                 }
             }
         }
-
         return results;
     }
 
