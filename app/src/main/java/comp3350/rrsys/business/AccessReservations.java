@@ -1,12 +1,9 @@
 package comp3350.rrsys.business;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import comp3350.rrsys.R;
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
-import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
@@ -18,7 +15,6 @@ public class AccessReservations
     private DataAccessStub dataAccess;
     private ArrayList<Reservation> reservations;
     private Reservation reservation;
-    private int currentReservation;
 
     public AccessReservations()
     {
@@ -36,12 +32,6 @@ public class AccessReservations
     public ArrayList<Reservation> searchReservations(int numPeople, DateTime startTime, DateTime endTime)
     {
         return SuggestReservations(startTime, endTime, numPeople);
-    }
-
-    public ArrayList<Reservation> getSequential(int customerID)
-    {
-        reservations = dataAccess.getReservations(customerID);
-        return reservations;
     }
 
     public Reservation getRandom(int reservationID)
@@ -63,11 +53,6 @@ public class AccessReservations
             return dataAccess.updateReservation(newReservation.getRID(), newReservation);
     }
 
-    public String deleteReservation(Reservation currentReservation)
-    {
-        return dataAccess.deleteReservation(currentReservation);
-    }
-
     public String deleteReservation(int reservationID)
     {
         return dataAccess.deleteReservation(reservationID);
@@ -77,7 +62,6 @@ public class AccessReservations
     // which has the same "length" as (endTime-startTime)
     public static ArrayList<Reservation> SuggestReservations(DateTime startTime, DateTime endTime, int numPeople)
     {
-
         ArrayList<Reservation> results = new ArrayList<Reservation>();
         int month = startTime.getMonth();
         int day = startTime.getDate();
@@ -119,15 +103,7 @@ public class AccessReservations
                 }
             }
         }
-
         return results;
-        /*
-        ArrayList<Reservation> result = new ArrayList<>();
-        result.add(new Reservation(0, 0, numberOfPeople, start, end));
-
-        return result;
-
-         */
     }
 
     public static int getIndex(DateTime time)

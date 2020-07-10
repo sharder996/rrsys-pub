@@ -52,7 +52,6 @@ public class UpdateReservationActivity extends Activity
 
     private Calendar calendar;
     private String amPm;
-    private boolean added = false;
     private boolean dateEdited = false;
     private boolean timeInEdited = false;
     private boolean timeOutEdited = false;
@@ -288,7 +287,6 @@ public class UpdateReservationActivity extends Activity
     {
         accessReservations.getRandom(deleted.getRID());
         accessReservations.updateReservation(selected);
-        added = true;
 
         String time;
 

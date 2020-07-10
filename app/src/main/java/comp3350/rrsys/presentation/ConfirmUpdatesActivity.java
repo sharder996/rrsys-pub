@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import comp3350.rrsys.R;
-import comp3350.rrsys.objects.Reservation;
 
 public class ConfirmUpdatesActivity extends Activity
 {

@@ -53,7 +53,7 @@ public class CreateConfirmReservationActivity extends Activity
         final TextView editEndTimeInfo = findViewById(R.id.textEndTimeInfo);
         String endTime;
 
-        if(reservation.getStartTime().getMinutes() < 10) {
+        if(reservation.getEndTime().getMinutes() < 10) {
             endTime = String.format(reservation.getEndTime().getHour() + ":0%d", reservation.getEndTime().getMinutes());
         }
         else{
