@@ -27,6 +27,7 @@
     <string name="done">Done</string>
     <string name="length_of_stay">Length of stay: </string>
     <string name="reservation_details">Reservation details: </string>
+    <string name="order_details">Order details: </string>
     <string name="reservation_updates">Updated reservation details: </string>
     <string name="reservation_code">Reservation code: </string>
     <string name="cancel">Cancel reservation</string>
