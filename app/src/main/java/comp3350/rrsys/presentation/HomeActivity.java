@@ -23,6 +23,7 @@ public class HomeActivity extends Activity
     {
         super.onCreate(savedInstanceState);
 
+        copyDatabaseToDevice();
         Main.startUp();
 
         setContentView(R.layout.activity_home);

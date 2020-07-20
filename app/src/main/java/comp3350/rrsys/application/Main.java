@@ -3,7 +3,7 @@ package comp3350.rrsys.application;
 public class Main
 {
     public static final String dbName = "RR";
-    private static String dbPathName = "database/SC";
+    private static String dbPathName = "database/RR";
 
     public static void main(String[] args)
     {
@@ -27,5 +27,12 @@ public class Main
     public static void setDBPathName(String pathName) {
         System.out.println("Setting DB path to: " + pathName);
         dbPathName = pathName;
+    }
+
+    public static String getDBPathName() {
+        if (dbPathName == null)
+            return dbName;
+        else
+            return dbPathName;
     }
 }
