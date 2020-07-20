@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
 import comp3350.rrsys.objects.Table;
-import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.persistence.DataAccessStub;
 
 public class AccessTables
 {
     private DataAccessStub dataAccess;
-    private ArrayList<Customer> tables;
+    private ArrayList<Table> tables;
 
     public AccessTables()
     {

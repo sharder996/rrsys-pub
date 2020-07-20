@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Menu {
     private ArrayList<Item> menu;
-    //private ArrayList<Item> drink;
 
     public Menu()
     {
@@ -16,4 +15,15 @@ public class Menu {
     }
 
     public ArrayList<Item> getMenu() { return menu; }
+
+    public ArrayList<Item> getType(String type)
+    {
+        ArrayList<Item> items = new ArrayList<>();
+        for(int i = 0; i < menu.size(); i++)
+        {
+            if(menu.get(i).getType().equals(type))
+                items.add(menu.get(i));
+        }
+        return items;
+    }
 }

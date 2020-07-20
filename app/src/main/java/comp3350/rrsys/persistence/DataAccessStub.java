@@ -11,6 +11,8 @@ import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.Table;
+import comp3350.rrsys.objects.Item;
+import comp3350.rrsys.objects.Order;
 
 public class DataAccessStub
 {
@@ -21,6 +23,8 @@ public class DataAccessStub
     private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
+    private ArrayList<Item> menu;
+    private ArrayList<Order> orders;
 
     public DataAccessStub(String dbName)
     {
@@ -37,6 +41,8 @@ public class DataAccessStub
         customers = new ArrayList<Customer>();
         tables = new ArrayList<Table>();
         reservations = new ArrayList<Reservation>();
+        menu = new ArrayList<Item>();
+        orders = new ArrayList<Order>();
 
         generateFakeData();
     }
@@ -303,5 +309,29 @@ public class DataAccessStub
             String phoneNumber = df3.format(num1) + "-" + df3.format(num2) + "-" + df4.format(num3);
             insertCustomer(randomfirstName, randomlastName, phoneNumber);
         }
+    }
+
+    public String insertItem(Item newItem)
+    {
+        menu.add(newItem);
+        return null;
+    }
+
+
+    public String getMenuSequential(ArrayList<Item> menuResult)
+    {
+        menuResult.addAll(menu);
+        return null;
+    }
+
+    public ArrayList<Item> getType(String type)
+    {
+        ArrayList<Item> items = new ArrayList<>();
+        for(int i = 0; i < menu.size(); i++)
+        {
+            if(menu.get(i).getType().equals(type))
+                items.add(menu.get(i));
+        }
+        return items;
     }
 }

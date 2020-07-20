@@ -20,8 +20,9 @@ public class Reservation implements Parcelable
     private DateTime startTime;
     private DateTime endTime;
     private static int counter = 1;
+    private int orderID;
 
-    // constructor for insert a reservation or search suggested reservations
+    // constructor for inserting a reservation
     public Reservation(int customerID, int tableID, int numPeople, DateTime startTime, DateTime endTime)
     {
         this.customerID = customerID;
@@ -29,9 +30,11 @@ public class Reservation implements Parcelable
         this.numPeople = numPeople;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.reservationID = -1;
+        reservationID = -1;
+        orderID = -1;
     }
 
+    // constructor for suggested reservations
     public Reservation(int tableID, int numPeople, DateTime startTime, DateTime endTime)
     {
         this.customerID = -1;
@@ -39,7 +42,8 @@ public class Reservation implements Parcelable
         this.numPeople = numPeople;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.reservationID = -1;
+        reservationID = -1;
+        orderID = -1;
     }
 
     private Reservation(Parcel in)
@@ -59,6 +63,7 @@ public class Reservation implements Parcelable
     public void setTID(int tableID) { this.tableID = tableID; }
     public void setNumPeople(int num) { numPeople = num; }
     public void setCustomerID(int customerID) { this.customerID = customerID; }
+    public void setOrderID(int orderID) { this.orderID = orderID; }
 
     public void setTime(DateTime startTime, DateTime endTime)
     {
@@ -73,6 +78,7 @@ public class Reservation implements Parcelable
     public int getNumPeople() { return numPeople; }
     public DateTime getStartTime(){ return startTime; }
     public DateTime getEndTime() { return endTime; }
+    public int getOrderID() { return orderID; }
 
     public boolean equals(int reservationID)
     {

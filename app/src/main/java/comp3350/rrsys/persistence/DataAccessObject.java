@@ -15,6 +15,9 @@ import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
+import comp3350.rrsys.objects.Item;
+import comp3350.rrsys.objects.Menu;
+import comp3350.rrsys.objects.Order;
 
 public class DataAccessObject implements DataAccess {
 
@@ -28,6 +31,8 @@ public class DataAccessObject implements DataAccess {
     private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
+    private Menu menu;
+    private ArrayList<Order> orders;
 
     private String cmdString;
     private int updateCount;
@@ -120,13 +125,13 @@ public class DataAccessObject implements DataAccess {
 
     public Reservation getReservation(int reservationID){
         Reservation reservation;
-        int resID, custID, tableID, numPeople;
+        int resID, custID, tableID, numPeople, orderID;
         DateTime startTime, endTime;
         reservations = new ArrayList<Reservation>();
 
         try {
 
-            cmdString = "SELECT * from RESERVATION where RID=" + reservationID;
+            cmdString = "SELECT * from RESERVATIONS where RID=" + reservationID;
             rs2 = st0.executeQuery(cmdString);
 
             while(rs2.next()) {
@@ -134,6 +139,7 @@ public class DataAccessObject implements DataAccess {
                 custID = rs2.getInt("CID");
                 tableID = rs2.getInt("TID");
                 numPeople = rs2.getInt("NUMPEOPLE");
+                orderID = rs2.getInt("OID");
                 Calendar cal = new GregorianCalendar();
                 cal.setTime(rs2.getDate("STARTTIME"));
                 startTime = new DateTime(cal);
@@ -141,6 +147,7 @@ public class DataAccessObject implements DataAccess {
                 endTime = new DateTime(cal);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(resID);
+                reservation.setOrderID(orderID);
                 reservations.add(reservation);
             }
 
@@ -159,7 +166,7 @@ public class DataAccessObject implements DataAccess {
         result = null;
 
         try {
-            cmdString = "DELETE from RESERVATION where RID=" + rID;
+            cmdString = "DELETE from RESERVATIONS where RID=" + rID;
             updateCount = st0.executeUpdate(cmdString);
             result = checkWarning(st0, updateCount);
         } catch (Exception e) {
