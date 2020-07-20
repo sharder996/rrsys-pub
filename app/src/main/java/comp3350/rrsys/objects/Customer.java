@@ -138,4 +138,12 @@ public class Customer implements Parcelable
         else
             throw new IllegalArgumentException("Invalid phone number format.");
     }
+
+    public void setCID(int id) throws IllegalArgumentException
+    {
+        if(id >= 0)
+            cID = id;
+        else
+            throw new IllegalArgumentException("Invalid cID.");
+    }
 }
