@@ -24,6 +24,6 @@ public class AccessMenu {
 
     public ArrayList<Item> getMenuByType(String type)
     {
-        return dataAccess.getType(type);
+        return dataAccess.getMenuByType(type);
     }
 }

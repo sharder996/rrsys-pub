@@ -324,7 +324,7 @@ public class DataAccessStub
         return null;
     }
 
-    public ArrayList<Item> getType(String type)
+    public ArrayList<Item> getMenuByType(String type)
     {
         ArrayList<Item> items = new ArrayList<>();
         for(int i = 0; i < menu.size(); i++)

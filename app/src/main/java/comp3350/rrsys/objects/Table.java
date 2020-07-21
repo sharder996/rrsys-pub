@@ -33,6 +33,18 @@ public class Table
         }
     }
 
+    public Table(int tID, int capacity, boolean[][][] available) {
+        this.tID = tID;
+        this.capacity = capacity;
+        this.available = new boolean[12][31][numIncrement];
+        for (int month = 1; month <= available.length; month++) {
+            for (int day = 1; day <= available[0].length; day++) {
+                for (int time = 0; time < available[0][0].length; time++)
+                    this.available[month - 1][day - 1][time] = available[month - 1][day - 1][time];
+            }
+        }
+    }
+
     public boolean equals(int tID)
     {
         return this.tID == tID;
@@ -46,7 +58,11 @@ public class Table
     public static int getNumIncrement() { return numIncrement; }
 
     public boolean getAvailable(int month, int day, int time) { return available[month-1][day-1][time]; }
+    public boolean[][][] getAvailable() { return available; }
     public void setAvailable(int month, int day, int time, boolean bool) { available[month-1][day-1][time] = bool; }
+    public void setAvailable(boolean[][][] available) {
+        this.available = available;
+    }
 
     @Override
     public String toString()

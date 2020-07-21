@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLWarning;
 import java.sql.DatabaseMetaData;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -16,7 +17,6 @@ import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.objects.Item;
-import comp3350.rrsys.objects.Menu;
 import comp3350.rrsys.objects.Order;
 
 public class DataAccessObject implements DataAccess {
@@ -31,7 +31,7 @@ public class DataAccessObject implements DataAccess {
     private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
-    private Menu menu;
+    private ArrayList<Item> menu;
     private ArrayList<Order> orders;
 
     private String cmdString;
@@ -131,7 +131,7 @@ public class DataAccessObject implements DataAccess {
 
         try {
 
-            cmdString = "SELECT * from RESERVATIONS where RID=" + reservationID;
+            cmdString = "SELECT * from RESERVATIONS where RID='" + reservationID +"'";
             rs2 = st0.executeQuery(cmdString);
 
             while(rs2.next()) {
@@ -141,9 +141,9 @@ public class DataAccessObject implements DataAccess {
                 numPeople = rs2.getInt("NUMPEOPLE");
                 orderID = rs2.getInt("OID");
                 Calendar cal = new GregorianCalendar();
-                cal.setTime(rs2.getDate("STARTTIME"));
+                cal.setTime(rs2.getTimestamp("STARTTIME"));
                 startTime = new DateTime(cal);
-                cal.setTime(rs2.getDate("ENDTIME"));
+                cal.setTime(rs2.getTimestamp("ENDTIME"));
                 endTime = new DateTime(cal);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(resID);
@@ -163,17 +163,72 @@ public class DataAccessObject implements DataAccess {
     }
 
     public String deleteReservation(int rID) {
-        result = null;
+        String values;
+        String where;
 
+        result = null;
         try {
-            cmdString = "DELETE from RESERVATIONS where RID=" + rID;
+            cmdString = "DELETE from RESERVATIONS where RID='" + rID + "'";
             updateCount = st0.executeUpdate(cmdString);
             result = checkWarning(st0, updateCount);
+
+            Reservation reservation = getReservation(rID);
+            DateTime start = reservation.getStartTime();
+            DateTime end = reservation.getEndTime();
+            int TID = reservation.getTID();
+            boolean[][][] available = getTableRandom(TID).getAvailable();
+            setTable(available, start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
+
+            values = "AVAILABLE='" + arrayToString(available) +"'";
+            where = "where TID='" + TID + "'";
+            cmdString = "Update TABLES " +" Set " + values + " " + where;
+            updateCount = st0.executeUpdate(cmdString);
+            result = checkWarning(st0, updateCount);
+
         } catch (Exception e) {
             result = processSQLError(e);
         }
 
         return result;
+    }
+
+    public int getIndex(DateTime time)
+    {
+        return (time.getHour()-Table.getStartTime())*4 + (time.getMinutes()+7)/15;
+    }
+
+    private void setTable(boolean[][][] available, int month, int day, int startIndex, int endIndex, boolean bool)
+    {
+        for(int time = startIndex; time < endIndex; time++)
+            available[month][day][time] = bool;
+    }
+
+    private String arrayToString(boolean[][][] available)
+    {
+        String resultString = "";
+        for (int month = 1; month <= available.length; month++) {
+            for (int day = 1; day <= available[0].length; day++) {
+                for (int time = 0; time < available[0][0].length; time++) {
+                    if (available[month - 1][day - 1][time])
+                        resultString += "1";
+                    else
+                        resultString += "0";
+                }
+            }
+        }
+        return resultString;
+    }
+
+    private boolean[][][] stringToArray(String available)
+    {
+        int time = Table.getNumIncrement();
+        boolean[][][] resultArray = new boolean[12][31][Table.getNumIncrement()];
+        for(int i = 0; i < available.length(); i++)
+        {
+            if(available.charAt(i) == '1')
+                resultArray[i / (31 * time)][(i % (31 * time)) / time][i % time] = true;
+        }
+        return resultArray;
     }
 
     public String updateReservation(int rID, Reservation curr) {
@@ -182,17 +237,35 @@ public class DataAccessObject implements DataAccess {
 
         result = null;
         try {
+            Reservation prev = getReservation(rID);
+            DateTime prevStart = prev.getStartTime();
+            DateTime prevEnd = prev.getEndTime();
+            DateTime currStart = curr.getStartTime();
+            DateTime currEnd = curr.getEndTime();
+            int TID = prev.getTID();
+            boolean[][][] available = getTableRandom(TID).getAvailable();
+            setTable(available, prevStart.getMonth(), prevStart.getDate(), getIndex(prevStart), getIndex(prevEnd), true);
+            setTable(available, currStart.getMonth(), currStart.getDate(), getIndex(currStart), getIndex(currEnd), false);
+
+            values = "AVAILABLE='" + arrayToString(available) +"'";
+            where = "where TID='" + TID + "'";
+            cmdString = "Update TABLES " +" Set " + values + " " + where;
+            updateCount = st0.executeUpdate(cmdString);
+            result = checkWarning(st0, updateCount);
+
             values = "CID='" + curr.getCID()
                     +"', TID='" + curr.getTID()
                     +"', NUMPEOPLE='" + curr.getNumPeople()
+                    +"', OID='" + curr.getOrderID()
                     +"', STARTTIME='" + curr.getStartTime().toString()
                     +"', ENDTIME='" + curr.getEndTime().toString()
                     +"'";
-            where = "where RID=" + rID;
-            cmdString = "UPDATE RESERVATION " +"SET " +values +" " +where;
+            where = "where RID='" + rID + "'";
+            cmdString = "UPDATE RESERVATION " +"SET " + values + " " + where;
             //System.out.println(cmdString);
             updateCount = st0.executeUpdate(cmdString);
             result = checkWarning(st0, updateCount);
+
         } catch (Exception e) {
             result = processSQLError(e);
         }
@@ -200,15 +273,101 @@ public class DataAccessObject implements DataAccess {
         return result;
     }
 
+    // return the date time corresponding to an index
+    public DateTime getDateTime(DateTime time, int index)
+    {
+        DateTime result = null;
+        try
+        {
+            result = new DateTime(Calendar.getInstance());
+            result.setYear(time.getYear());
+            result.setMonth(time.getMonth());
+            result.setDate(time.getDate());
+            result.setHour(Table.getStartTime() + index / 4);
+            result.setMinutes(index % 4 * 15);
+        }
+        catch (IllegalArgumentException pe)
+        {
+            System.out.println(pe);
+        }
+        return result;
+    }
+
+    // ordered insert a suggested reservation into a temp array
+    // ordered by how close to the startTime
+    public void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t)
+    {
+        int pos = 0;
+        int max = results.size();
+        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) < Math.abs(r.getStartTime().getPeriod(t)))
+            pos++;
+        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) == Math.abs(r.getStartTime().getPeriod(t)) && getTableRandom(results.get(pos).getTID()).getCapacity() < getTableRandom(r.getTID()).getCapacity())
+            pos++;
+        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) == Math.abs(r.getStartTime().getPeriod(t)) &&
+                getTableRandom(results.get(pos).getTID()).getCapacity() == getTableRandom(r.getTID()).getCapacity() && results.get(pos).getTID() < r.getTID())
+            pos++;
+        results.add(pos, r);
+    }
+
+    public String insertReservation(Reservation r)
+    {
+        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0){
+            return "fail";
+        }
+        String values, where;
+        int resID, custID, tableID, numPeople, orderID;
+        DateTime startTime, endTime;
+
+        result = null;
+        try{
+            r.setRID();
+            resID = r.getRID();
+            custID = r.getCID();
+            tableID = r.getTID();
+            numPeople = r.getNumPeople();
+            orderID = r.getOrderID();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            startTime = r.getStartTime();
+            endTime = r.getEndTime();
+
+            values =  "'" + resID
+                    +"', '" + custID
+                    +"', '" + tableID
+                    +"', '" + numPeople
+                    +"', '" + orderID
+                    +"', '" + sdf.format(r.getStartTime())
+                    +"', '" + sdf.format(r.getEndTime())
+                    +"'";
+            cmdString = "INSERT into RESERVATIONS " +" Values(" +values +")";
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
+
+            int TID = r.getTID();
+            boolean[][][] available = getTableRandom(TID).getAvailable();
+            setTable(available, startTime.getMonth(), startTime.getDate(), getIndex(startTime), getIndex(endTime), false);
+
+            values = "AVAILABLE='" + arrayToString(available) +"'";
+            where = "where TID='" + TID + "'";
+            cmdString = "Update TABLES " +" Set " + values + " " + where;
+            updateCount = st0.executeUpdate(cmdString);
+            result = checkWarning(st0, updateCount);
+        } catch (Exception e) {
+            result = processSQLError(e);
+        }
+
+        return result;
+
+    }
+
     public String getReservationSequential(List<Reservation> reservationResult){
         Reservation reservation;
-        int resID, custID, tableID, numPeople;
+        int resID, custID, tableID, numPeople, orderID;
         DateTime startTime, endTime;
 
         result = null;
         try {
 
-            cmdString = "SELECT * from RESERVATION";
+            cmdString = "SELECT * from RESERVATIONS";
             rs2 = st0.executeQuery(cmdString);
 
             while(rs2.next()) {
@@ -216,13 +375,15 @@ public class DataAccessObject implements DataAccess {
                 custID = rs2.getInt("CID");
                 tableID = rs2.getInt("TID");
                 numPeople = rs2.getInt("NUMPEOPLE");
+                orderID = rs2.getInt("OID");
                 Calendar cal = new GregorianCalendar();
-                cal.setTime(rs2.getDate("STARTTIME"));
+                cal.setTime(rs2.getTimestamp("STARTTIME"));
                 startTime = new DateTime(cal);
-                cal.setTime(rs2.getDate("ENDTIME"));
+                cal.setTime(rs2.getTimestamp("ENDTIME"));
                 endTime = new DateTime(cal);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(resID);
+                reservation.setOrderID(orderID);
                 reservationResult.add(reservation);
             }
 
@@ -236,6 +397,7 @@ public class DataAccessObject implements DataAccess {
     public ArrayList<Table> getTableSequential(){
         Table table;
         int tableID, capacity;
+        boolean[][][] available;
         ArrayList<Table> tableResult = new ArrayList<Table>();
 
         try {
@@ -246,7 +408,8 @@ public class DataAccessObject implements DataAccess {
             while(rs2.next()) {
                 tableID = rs2.getInt("TID");
                 capacity = rs2.getInt("CAPACITY");
-                table = new Table(tableID, capacity);
+                available = stringToArray(rs2.getString("AVAILABLE"));
+                table = new Table(tableID, capacity, available);
                 tableResult.add(table);
             }
 
@@ -260,17 +423,18 @@ public class DataAccessObject implements DataAccess {
     public Table getTableRandom(int tableID) {
         Table table;
         int tID, capacity;
+        boolean[][][] available;
         tables = new ArrayList<Table>();
 
         try {
 
-            cmdString = "SELECT * from TABLES where RID=" + tableID;
+            cmdString = "SELECT * from TABLES where TID='" +tableID +"'";
             rs2 = st0.executeQuery(cmdString);
 
             while(rs2.next()) {
-                tID = rs2.getInt("TID");
                 capacity = rs2.getInt("CAPACITY");
-                table = new Table(tID, capacity);
+                available = stringToArray(rs2.getString("AVAILABLE"));
+                table = new Table(tableID, capacity, available);
                 tables.add(table);
             }
 
@@ -287,11 +451,15 @@ public class DataAccessObject implements DataAccess {
 
     public String addTable(int tableID, int size){
         String values;
+        String available = "";
 
         result = null;
         try{
+            for(int i = 0; i < 365*12*Table.getNumIncrement(); i++)
+                available += "1";
             values =  "'" + tableID
                     +"', '" + size
+                    +"', '" + available
                     +"'";
             cmdString = "INSERT into TABLES " +" Values(" +values +")";
             updateCount = st1.executeUpdate(cmdString);
@@ -311,7 +479,7 @@ public class DataAccessObject implements DataAccess {
         result = null;
         try {
 
-            cmdString = "SELECT * from CUSTOMER";
+            cmdString = "SELECT * from CUSTOMERS";
             rs2 = st0.executeQuery(cmdString);
 
             while(rs2.next()) {
@@ -331,7 +499,8 @@ public class DataAccessObject implements DataAccess {
         return result;
     }
 
-    public String insertCustomer(Customer customer) {
+    public String insertCustomer(Customer customer)
+    {
         String values;
 
         result = null;
@@ -340,7 +509,7 @@ public class DataAccessObject implements DataAccess {
                     +"', '" + customer.getLastName()
                     +"', '" + customer.getPhoneNumber()
                     +"'";
-            cmdString = "INSERT into CUSTOMER" +" Values(" +values +")";
+            cmdString = "INSERT into CUSTOMERS" +" Values(" +values +")";
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         } catch (Exception e) {
@@ -350,7 +519,8 @@ public class DataAccessObject implements DataAccess {
         return result;
     }
 
-    public String insertCustomer(String firstName, String lastName, String phoneNumber) {
+    public String insertCustomer(String firstName, String lastName, String phoneNumber)
+    {
         String values;
 
         result = null;
@@ -359,7 +529,7 @@ public class DataAccessObject implements DataAccess {
                     +"', '" + lastName
                     +"', '" + phoneNumber
                     +"'";
-            cmdString = "INSERT into CUSTOMER" +" Values(" +values +")";
+            cmdString = "INSERT into CUSTOMERS" +" Values(" +values +")";
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         } catch (Exception e) {
@@ -369,4 +539,109 @@ public class DataAccessObject implements DataAccess {
         return result;
     }
 
+    public String insertItem(Item newItem)
+    {
+        String values;
+
+        result = null;
+        try{
+            values =  "'" + newItem.getIID()
+                    +"', '" + newItem.getName()
+                    +"', '" + newItem.getType()
+                    +"', '" + newItem.getDetail()
+                    +"', '" + newItem.getPrice()
+                    +"'";
+            cmdString = "INSERT into ITEMS" +" Values(" +values +")";
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
+        } catch (Exception e) {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+    public String insertItem(int IID, String name, String type, String detail, double price)
+    {
+        String values;
+
+        result = null;
+        try{
+            values =  "'" + IID
+                    +"', '" + name
+                    +"', '" + type
+                    +"', '" + detail
+                    +"', '" + price
+                    +"'";
+            cmdString = "INSERT into MENU" +" Values(" +values +")";
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
+        } catch (Exception e) {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+    public String getMenuSequential(ArrayList<Item> menuResult)
+    {
+        Item item;
+        int IID;
+        String name, type, detail;
+        double price;
+
+        tables = new ArrayList<Table>();
+        try {
+
+            cmdString = "SELECT * from MENU";
+            rs2 = st0.executeQuery(cmdString);
+
+            while(rs2.next()) {
+                IID = rs2.getInt("IID");
+                name = rs2.getString("NAME");
+                type = rs2.getString("TYPE");
+                detail = rs2.getString("DETAIL");
+                price = rs2.getDouble("PRICE");
+                item = new Item(name, type, detail, price);
+                item.setIID(IID);
+                menuResult.add(item);
+            }
+
+        } catch (Exception e) {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+
+    public ArrayList<Item> getMenuByType(String type)
+    {
+        Item item;
+        int IID;
+        String name, detail;
+        double price;
+
+        menu = new ArrayList<Item>();
+        try {
+
+            cmdString = "SELECT * from MENU where type='" + type +"'";
+            rs2 = st0.executeQuery(cmdString);
+
+            while(rs2.next()) {
+                IID = rs2.getInt("IID");
+                name = rs2.getString("NAME");
+                detail = rs2.getString("DETAIL");
+                price = rs2.getDouble("PRICE");
+                item = new Item(name, type, detail, price);
+                item.setIID(IID);
+                menu.add(item);
+            }
+
+        } catch (Exception e) {
+            result = processSQLError(e);
+        }
+
+        return menu;
+    }
 }

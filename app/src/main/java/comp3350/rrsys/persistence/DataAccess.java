@@ -6,6 +6,7 @@ import java.util.List;
 
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.DateTime;
+import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
 
@@ -28,6 +29,8 @@ public interface DataAccess {
 
     String getReservationSequential(List<Reservation> reservationResult);
 
+    String insertReservation(Reservation r);
+
     ArrayList<Table> getTableSequential();
 
     Table getTableRandom(int tableID);
@@ -40,6 +43,13 @@ public interface DataAccess {
 
     String addTable(int tableID, int size);
 
+    String insertItem(Item newItem);
 
+    String insertItem(int IID, String name, String type, String detail, double price);
 
+    String getMenuSequential(ArrayList<Item> menuResult);
+
+    ArrayList<Item> getMenuByType(String type);
+
+    void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
 }
