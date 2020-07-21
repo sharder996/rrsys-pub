@@ -58,7 +58,7 @@ public class DateTime implements Parcelable
     public String toString()
     {
         String s = "";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         s += sdf.format(timeSlot.getTime());
         return s;

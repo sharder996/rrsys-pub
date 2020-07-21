@@ -545,7 +545,7 @@ public class DataAccessObject implements DataAccess {
 
         result = null;
         try{
-            values =  "'" + newItem.getIID()
+            values =  "'" + newItem.getItemID()
                     +"', '" + newItem.getName()
                     +"', '" + newItem.getType()
                     +"', '" + newItem.getDetail()
@@ -603,7 +603,7 @@ public class DataAccessObject implements DataAccess {
                 detail = rs2.getString("DETAIL");
                 price = rs2.getDouble("PRICE");
                 item = new Item(name, type, detail, price);
-                item.setIID(IID);
+                item.setItemID(IID);
                 menuResult.add(item);
             }
 
@@ -634,7 +634,7 @@ public class DataAccessObject implements DataAccess {
                 detail = rs2.getString("DETAIL");
                 price = rs2.getDouble("PRICE");
                 item = new Item(name, type, detail, price);
-                item.setIID(IID);
+                item.setItemID(IID);
                 menu.add(item);
             }
 
