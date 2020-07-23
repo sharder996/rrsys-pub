@@ -334,4 +334,15 @@ public class DataAccessStub
         }
         return items;
     }
+
+    public ArrayList<String> getMenuTypes(){
+        ArrayList<String> types = new ArrayList<String>();
+
+        types.add("Drinks");
+        types.add("Sandwiches");
+        types.add("Salads");
+        types.add("Desserts");
+
+        return types;
+    }
 }

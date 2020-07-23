@@ -26,4 +26,6 @@ public class AccessMenu {
     {
         return dataAccess.getMenuByType(type);
     }
+
+    public ArrayList<String> getMenuTypes() { return dataAccess.getMenuTypes(); }
 }

@@ -51,5 +51,7 @@ public interface DataAccess {
 
     ArrayList<Item> getMenuByType(String type);
 
+    ArrayList<String> getMenuTypes();
+
     void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
 }
