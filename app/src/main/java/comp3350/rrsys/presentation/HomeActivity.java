@@ -69,6 +69,12 @@ public class HomeActivity extends Activity
         HomeActivity.this.startActivity(reviewReservationIntent);
     }
 
+    public void buttonMenuOnClick(View v)
+    {
+        Intent menuIntent = new Intent(HomeActivity.this, MenuActivity.class);
+        HomeActivity.this.startActivity(menuIntent);
+    }
+
     private void copyDatabaseToDevice() {
         final String DB_PATH = "db";
 

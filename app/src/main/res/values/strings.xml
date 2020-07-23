@@ -35,6 +35,7 @@
     <string name="first_name">First name: </string>
     <string name="last_name">Last name: </string>
     <string name="phone_number">Phone Number: </string>
+    <string name="view_menu">View Menu </string>
 
     <string name="phone_number_hint">999-999-9999</string>
     <string name="date_hint">MM/dd/yyyy</string>
