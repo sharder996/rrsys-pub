@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import java.text.NumberFormat;
 
+import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.Item;
 
 public class TestItem extends TestCase{
@@ -46,15 +47,72 @@ public class TestItem extends TestCase{
         assertEquals("Burger" , dish.getDetail());
         assertEquals(12.25, dish.getPrice());
 
-        double d = 2.3d;
-        NumberFormat formatter = NumberFormat.getCurrencyInstance();
-        String output = formatter.format(d);
-        System.out.println(output);
 
         System.out.println("\nEnding testItemSetter");
     }
 
     public void testItemNegativePrice(){
+        System.out.println("\nStarting testItemNegativePrice");
+        Item dish = null;
+
+        try
+        {
+            dish = new Item("Turkey", "lunch", "Sandwich", -13.25);
+            fail();
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertNull(dish);
+        }
+
+        try
+        {
+            dish = new Item("Turkey", "lunch", "Sandwich", -4.25);
+            fail();
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertNull(dish);
+        }
+
+        try
+        {
+            dish = new Item("Turkey", "lunch", "Sandwich", 1000.25);
+            fail();
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertNull(dish);
+        }
+
+        try
+        {
+            dish = new Item("Turkey", "lunch", "Sandwich", 500.25);
+            fail();
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertNull(dish);
+        }
+
+        dish = new Item("Turkey", "lunch", "Sandwich", 70.25);
+
+        try{
+            dish.setPrice(-20000.574856);
+            fail();
+        }catch(IllegalArgumentException e){
+            assertNotNull(dish);
+        }
+
+        try{
+            dish.setPrice(5000.574856);
+            fail();
+        }catch(IllegalArgumentException e){
+            assertNotNull(dish);
+        }
+
+
+        System.out.println("\nEnding testItemNegativePrice");
 
     }
 

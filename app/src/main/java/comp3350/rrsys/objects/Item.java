@@ -1,6 +1,7 @@
 package comp3350.rrsys.objects;
 
 import java.text.DecimalFormat;
+import comp3350.rrsys.objects.Type;
 
 public class Item {
     private int itemID;
@@ -18,14 +19,42 @@ public class Item {
         this.detail = detail;
 
 
-//        if(price < 0.05 || price > 1000) {
-//            throw new IllegalArgumentException("Invalid Price.");
-//        }else{
-//            DecimalFormat formatter = new DecimalFormat("#0.00");
-//            this.price = Double.parseDouble(formatter.format(price));
-//
-//
-//        }
+        if(price < 0.05 || price > 500) {
+            throw new IllegalArgumentException("Invalid Price.");
+        }else{
+            if(price % 1 == 0){//there is no decimal place in price
+                DecimalFormat formatter = new DecimalFormat("#0.00");
+                this.price = Double.parseDouble(formatter.format(price));
+            }else{
+                String strPrice = String.valueOf(price);
+
+                int round = strPrice.charAt(strPrice.indexOf('.')+2) - '0';//get 10th decimal place
+                DecimalFormat formatter = new DecimalFormat("#0.0");
+                strPrice = formatter.format(price);
+
+                if(round >= 5 && round < 7){
+                    //formatter = new DecimalFormat("#.##");
+                    strPrice = strPrice.substring(0,strPrice.length()-1);
+                    strPrice = strPrice + "5";
+                    this.price = Double.parseDouble(strPrice);
+                }
+                else if(round >=7) {
+                    formatter = new DecimalFormat("#.#");
+                    strPrice = formatter.format(price);
+                    strPrice = strPrice + "0";
+                    this.price = Double.parseDouble(strPrice);
+                }else if(round >= 3 && round < 5){
+                    strPrice = strPrice.substring(0,strPrice.length()-1);
+                    strPrice = strPrice + "5";
+                    this.price = Double.parseDouble(strPrice);
+                }else{
+                    strPrice = strPrice.substring(0,strPrice.length()-1);
+                    strPrice = strPrice + "0";
+                    this.price = Double.parseDouble(strPrice);
+                }
+            }
+
+        }
 
         this.price = price;
     }
@@ -41,5 +70,41 @@ public class Item {
     public void setName(String name) { this.name = name; }
     public void setType(String type) { this.type = type; }
     public void setDetail(String detail) { this.detail = detail; }
-    public void setPrice(double price) { this.price = price; }
+    public void setPrice(double price) {
+        if(price < 0.05 || price > 500) {
+            throw new IllegalArgumentException("Invalid Price.");
+        }else{
+            if(price % 1 == 0){//there is no decimal place in price
+                DecimalFormat formatter = new DecimalFormat("#0.00");
+                    this.price = Double.parseDouble(formatter.format(price));
+                }else{
+                    String strPrice = String.valueOf(price);
+
+                    int round = strPrice.charAt(strPrice.indexOf('.')+2) - '0';//get 10th decimal place
+                    DecimalFormat formatter = new DecimalFormat("#0.0");
+                    strPrice = formatter.format(price);
+
+                    if(round >= 5 && round < 7){
+                        //formatter = new DecimalFormat("#.##");
+                        strPrice = strPrice.substring(0,strPrice.length()-1);
+                        strPrice = strPrice + "5";
+                    this.price = Double.parseDouble(strPrice);
+                }
+                else if(round >=7) {
+                    formatter = new DecimalFormat("#.#");
+                    strPrice = formatter.format(price);
+                    strPrice = strPrice + "0";
+                    this.price = Double.parseDouble(strPrice);
+                }else if(round >= 3 && round < 5){
+                    strPrice = strPrice.substring(0,strPrice.length()-1);
+                    strPrice = strPrice + "5";
+                    this.price = Double.parseDouble(strPrice);
+                }else{
+                    strPrice = strPrice.substring(0,strPrice.length()-1);
+                    strPrice = strPrice + "0";
+                    this.price = Double.parseDouble(strPrice);
+                }
+            }
+
+        }}
 }
