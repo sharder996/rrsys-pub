@@ -14,7 +14,7 @@ import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Order;
 
-public class DataAccessStub
+public class DataAccessStub implements DataAccess
 {
     private String dbName;
     private String dbType = "stub";
@@ -317,7 +317,6 @@ public class DataAccessStub
         return null;
     }
 
-
     public String getMenuSequential(ArrayList<Item> menuResult)
     {
         menuResult.addAll(menu);
@@ -344,5 +343,10 @@ public class DataAccessStub
         types.add("Desserts");
 
         return types;
+    }
+
+    //needs to be implemented
+    public String insertItem(int IID, String name, String type, String detail, double price) {
+        return null;
     }
 }

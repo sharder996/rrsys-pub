@@ -380,8 +380,9 @@ public class DataAccessObject implements DataAccess {
             while (rs2.next()) {
                 tableID = rs2.getInt("TID");
                 capacity = rs2.getInt("CAPACITY");
-                available = stringToArray(rs2.getString("AVAILABLE"));
-                table = new Table(tableID, capacity, available);
+                //available = stringToArray(rs2.getString("AVAILABLE")); -- removed as VARBINARY not in hsqldb 1.8
+                //table = new Table(tableID, capacity, available);
+                table = new Table(tableID, capacity);
                 tableResult.add(table);
             }
 
