@@ -1,13 +1,13 @@
 package comp3350.rrsys.objects;
 
 import java.text.DecimalFormat;
-import comp3350.rrsys.objects.Type;
 
 public class Item {
     private int itemID;
     private String name;    // the name of the item
     private String type;    // the type of the item, e.g., breakfast, lunch, dinner, drink
     private String detail;  // the detail/description of the item
+
     // ArrayList<String> ingredients；
     private double price;   // the price of the item
     private static int counter = 0;
