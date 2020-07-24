@@ -77,17 +77,18 @@ public class AccessReservations
             if(table.getCapacity() >= numPeople)
             {
                 // within +- half hour of the start time
+                boolean[] available = dataAccessStatic.getAvailable(t+1, startTime);
                 int i = Math.max(index-2, 0);
                 while(i <= index+2 && i < maxIndex)
                 {
-                    while(i <= index+2 && i < maxIndex && !table.getAvailable(month, day, i))
+                    while(i <= index+2 && i < maxIndex && !available[i])
                         i++;
                     if (i <= index + 2 && i < maxIndex)
                     {
                         int numIncrement = 1;
                         for (int time = i + 1; time < i + totalIncrement; time++)
                         {
-                            if (time < maxIndex && table.getAvailable(month, day, time))
+                            if (time < maxIndex && available[time])
                                 numIncrement++;
                             else
                                 break;

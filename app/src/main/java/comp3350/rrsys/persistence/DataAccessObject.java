@@ -118,7 +118,6 @@ public class DataAccessObject implements DataAccess {
             rs2 = st0.executeQuery(cmdString);
 
             while (rs2.next()) {
-                resID = rs2.getInt("RID");
                 custID = rs2.getInt("CID");
                 tableID = rs2.getInt("TID");
                 numPeople = rs2.getInt("NUMPEOPLE");
@@ -129,8 +128,8 @@ public class DataAccessObject implements DataAccess {
                 cal.setTime(rs2.getTimestamp("ENDTIME"));
                 endTime = new DateTime(cal);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
-                reservation.setRID(resID);
-                reservation.setOrderID(orderID);
+                reservation.setRID(reservationID);
+                reservation.setOID(orderID);
                 reservations.add(reservation);
             }
 
@@ -154,20 +153,6 @@ public class DataAccessObject implements DataAccess {
             cmdString = "DELETE from RESERVATIONS where RID='" + rID + "'";
             updateCount = st0.executeUpdate(cmdString);
             result = checkWarning(st0, updateCount);
-
-            Reservation reservation = getReservation(rID);
-            DateTime start = reservation.getStartTime();
-            DateTime end = reservation.getEndTime();
-            int TID = reservation.getTID();
-            boolean[][][] available = getTableRandom(TID).getAvailable();
-            setTable(available, start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
-
-            values = "AVAILABLE='" + arrayToString(available) + "'";
-            where = "where TID='" + TID + "'";
-            cmdString = "Update TABLES " + " Set " + values + " " + where;
-            updateCount = st0.executeUpdate(cmdString);
-            result = checkWarning(st0, updateCount);
-
         } catch (Exception e) {
             result = processSQLError(e);
         }
@@ -179,68 +164,20 @@ public class DataAccessObject implements DataAccess {
         return (time.getHour() - Table.getStartTime()) * 4 + (time.getMinutes() + 7) / 15;
     }
 
-    private void setTable(boolean[][][] available, int month, int day, int startIndex, int endIndex, boolean bool) {
-        for (int time = startIndex; time < endIndex; time++)
-            available[month][day][time] = bool;
-    }
-
-    private String arrayToString(boolean[][][] available) {
-        String resultString = "";
-        for (int month = 1; month <= available.length; month++) {
-            for (int day = 1; day <= available[0].length; day++) {
-                for (int time = 0; time < available[0][0].length; time++) {
-                    if (available[month - 1][day - 1][time])
-                        resultString += "1";
-                    else
-                        resultString += "0";
-                }
-            }
-        }
-        return resultString;
-    }
-
-    private boolean[][][] stringToArray(String available) {
-        int time = Table.getNumIncrement();
-        boolean[][][] resultArray = new boolean[12][31][Table.getNumIncrement()];
-        for (int i = 0; i < available.length(); i++) {
-            if (available.charAt(i) == '1')
-                resultArray[i / (31 * time)][(i % (31 * time)) / time][i % time] = true;
-        }
-        return resultArray;
-    }
-
     public String updateReservation(int rID, Reservation curr) {
         String values;
         String where;
 
         result = null;
         try {
-            Reservation prev = getReservation(rID);
-            DateTime prevStart = prev.getStartTime();
-            DateTime prevEnd = prev.getEndTime();
-            DateTime currStart = curr.getStartTime();
-            DateTime currEnd = curr.getEndTime();
-            int TID = prev.getTID();
-            boolean[][][] available = getTableRandom(TID).getAvailable();
-            setTable(available, prevStart.getMonth(), prevStart.getDate(), getIndex(prevStart), getIndex(prevEnd), true);
-            setTable(available, currStart.getMonth(), currStart.getDate(), getIndex(currStart), getIndex(currEnd), false);
-
-            values = "AVAILABLE='" + arrayToString(available) + "'";
-            where = "where TID='" + TID + "'";
-            cmdString = "Update TABLES " + " Set " + values + " " + where;
-            updateCount = st0.executeUpdate(cmdString);
-            result = checkWarning(st0, updateCount);
-
             values = "CID='" + curr.getCID()
                     + "', TID='" + curr.getTID()
                     + "', NUMPEOPLE='" + curr.getNumPeople()
-                    + "', OID='" + curr.getOrderID()
                     + "', STARTTIME='" + curr.getStartTime().toString()
                     + "', ENDTIME='" + curr.getEndTime().toString()
                     + "'";
             where = "where RID='" + rID + "'";
             cmdString = "UPDATE RESERVATION " + "SET " + values + " " + where;
-            //System.out.println(cmdString);
             updateCount = st0.executeUpdate(cmdString);
             result = checkWarning(st0, updateCount);
 
@@ -297,7 +234,7 @@ public class DataAccessObject implements DataAccess {
             custID = r.getCID();
             tableID = r.getTID();
             numPeople = r.getNumPeople();
-            orderID = r.getOrderID();
+            orderID = r.getOID();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             startTime = r.getStartTime();
             endTime = r.getEndTime();
@@ -313,16 +250,6 @@ public class DataAccessObject implements DataAccess {
             cmdString = "INSERT into RESERVATIONS " + " Values(" + values + ")";
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
-
-            int TID = r.getTID();
-            boolean[][][] available = getTableRandom(TID).getAvailable();
-            setTable(available, startTime.getMonth(), startTime.getDate(), getIndex(startTime), getIndex(endTime), false);
-
-            values = "AVAILABLE='" + arrayToString(available) + "'";
-            where = "where TID='" + TID + "'";
-            cmdString = "Update TABLES " + " Set " + values + " " + where;
-            updateCount = st0.executeUpdate(cmdString);
-            result = checkWarning(st0, updateCount);
         } catch (Exception e) {
             result = processSQLError(e);
         }
@@ -355,7 +282,7 @@ public class DataAccessObject implements DataAccess {
                 endTime = new DateTime(cal);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(resID);
-                reservation.setOrderID(orderID);
+                reservation.setOID(orderID);
                 reservationResult.add(reservation);
             }
 
@@ -380,8 +307,6 @@ public class DataAccessObject implements DataAccess {
             while (rs2.next()) {
                 tableID = rs2.getInt("TID");
                 capacity = rs2.getInt("CAPACITY");
-                //available = stringToArray(rs2.getString("AVAILABLE")); -- removed as VARBINARY not in hsqldb 1.8
-                //table = new Table(tableID, capacity, available);
                 table = new Table(tableID, capacity);
                 tableResult.add(table);
             }
@@ -406,8 +331,7 @@ public class DataAccessObject implements DataAccess {
 
             while (rs2.next()) {
                 capacity = rs2.getInt("CAPACITY");
-                available = stringToArray(rs2.getString("AVAILABLE"));
-                table = new Table(tableID, capacity, available);
+                table = new Table(tableID, capacity);
                 tables.add(table);
             }
 
