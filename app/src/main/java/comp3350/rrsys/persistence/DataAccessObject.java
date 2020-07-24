@@ -473,14 +473,21 @@ public class DataAccessObject implements DataAccess {
     }
 
     public String insertCustomer(Customer customer) {
+        ArrayList<Customer> customers = new ArrayList<>();
         String values;
+        int currID;
 
+        getCustomerSequential(customers);
         result = null;
         try {
-            values = "'" + customer.getFirstName()
+            currID = customers.get(customers.size()-1).getCID(); //may need a better way to get new ID
+            currID++;
+            values = "'" + currID
+                    + "', '" + customer.getFirstName()
                     + "', '" + customer.getLastName()
                     + "', '" + customer.getPhoneNumber()
                     + "'";
+            System.out.println(values);
             cmdString = "INSERT into CUSTOMERS" + " Values(" + values + ")";
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
@@ -492,11 +499,17 @@ public class DataAccessObject implements DataAccess {
     }
 
     public String insertCustomer(String firstName, String lastName, String phoneNumber) {
+        ArrayList<Customer> customers = new ArrayList<>();
         String values;
+        int currID;
 
+        getCustomerSequential(customers);
         result = null;
         try {
-            values = "'" + firstName
+            currID = customers.get(customers.size()-1).getCID();
+            currID++;
+            values = "'" + currID
+                    + "', '" + firstName
                     + "', '" + lastName
                     + "', '" + phoneNumber
                     + "'";

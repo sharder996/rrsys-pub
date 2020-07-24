@@ -58,6 +58,27 @@ public class DataAccessTest extends TestCase {
         assertEquals("2049990123", customer.getPhoneNumber());
         // ... add more for customer functions in DataAccessObject
 
+        //Adding existing customer -- should still allow to be added with new Primary Key
+        result = dataAccess.insertCustomer(customer);
+        assertNull(result);
+        customers.clear();
+        result = dataAccess.getCustomerSequential(customers);
+        assertNull(result);
+        assertEquals(5, customers.size());
+
+        //Adding new customer
+        String firstName = "Jane", lastName = "Public", phoneNumber = "3065550123";
+        result = dataAccess.insertCustomer(firstName, lastName, phoneNumber);
+        assertNull(result);
+        customers.clear();
+        result = dataAccess.getCustomerSequential(customers);
+        assertNull(result);
+        assertEquals(6, customers.size());
+        customer = customers.get(5);
+        assertEquals(firstName, customer.getFirstName());
+        assertEquals(lastName, customer.getLastName());
+        assertEquals(phoneNumber, customer.getPhoneNumber());
+
         System.out.println("End test of table CUSTOMERS");
     }
 
