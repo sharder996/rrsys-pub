@@ -28,7 +28,7 @@ public class AccessTables
         return dataAccess.getTableRandom(tID).getCapacity();
     }
 
-    public ArrayList<Table> recommendTables(int numPeople, int month, int date, int startTime, int endTime)
+    /*public ArrayList<Table> recommendTables(int numPeople, int month, int date, int startTime, int endTime)
     {
         ArrayList<Table> result = new ArrayList<>();
         ArrayList<Table> allTables;
@@ -63,5 +63,5 @@ public class AccessTables
             }
         }
         return result;
-    }
+    }*/
 }

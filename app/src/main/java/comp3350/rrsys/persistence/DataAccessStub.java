@@ -94,21 +94,6 @@ public class DataAccessStub implements DataAccess
         results.add(pos, r);
     }
 
-    // set the availability of a table
-    private void setTable(int tID, int month, int day, int startIndex, int endIndex, boolean bool)
-    {
-        Table table;
-        for(int i = 0; i < tables.size(); i++)
-        {
-            table = tables.get(i);
-            if(table.getTID() == tID)
-            {
-                for(int time = startIndex; time < endIndex; time++)
-                    table.setAvailable(month, day, time, bool);
-            }
-        }
-    }
-
     // insert a reservation
     public String insertReservation(Reservation r)
     {
@@ -119,7 +104,6 @@ public class DataAccessStub implements DataAccess
         DateTime endTime = r.getEndTime();
         r.setRID();
         reservations.add(r);
-        setTable(r.getTID(), startTime.getMonth(), startTime.getDate(), getIndex(startTime), getIndex(endTime), false);
         return "success";
     }
 
@@ -149,7 +133,6 @@ public class DataAccessStub implements DataAccess
             {
                 DateTime start = reservations.get(i).getStartTime();
                 DateTime end = reservations.get(i).getEndTime();
-                setTable(reservations.get(i).getTID(), start.getMonth(), start.getDate(), getIndex(start), getIndex(end), true);
                 reservations.remove(i);
                 found = true;
                 break;
@@ -177,8 +160,6 @@ public class DataAccessStub implements DataAccess
                 DateTime currStart = curr.getStartTime();
                 DateTime currEnd = curr.getEndTime();
                 curr.setRID(prev.getRID());
-                setTable(prev.getTID(), prevStart.getMonth(), prevStart.getDate(), getIndex(prevStart), getIndex(prevEnd), true);
-                setTable(curr.getTID(), currStart.getMonth(), currStart.getDate(), getIndex(currStart), getIndex(currEnd), false);
                 curr.setRID(prev.getRID());
                 reservations.set(i, curr);
             }
@@ -348,5 +329,20 @@ public class DataAccessStub implements DataAccess
     //needs to be implemented
     public String insertItem(int IID, String name, String type, String detail, double price) {
         return null;
+    }
+
+    public boolean[] getAvailable(int TID, DateTime time) {
+        boolean[] available = new boolean[Table.getNumIncrement()];
+        for(int i = 0; i < available.length; i++)
+            available[i] = true;
+        for(int i = 0; i < reservations.size(); i++) {
+            if(reservations.get(i).getTID() == TID && reservations.get(i).getStartTime().getYear() == time.getYear() && reservations.get(i).getStartTime().getMonth() == time.getMonth() && reservations.get(i).getStartTime().getDate() == time.getDate()) {
+                int startIndex = getIndex(reservations.get(i).getStartTime());
+                int endIndex = getIndex(reservations.get(i).getEndTime());
+                for(int j = startIndex; j < endIndex; j++)
+                    available[j] = false;
+            }
+        }
+        return available;
     }
 }

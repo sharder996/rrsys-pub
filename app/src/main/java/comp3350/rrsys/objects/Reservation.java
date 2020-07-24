@@ -63,7 +63,7 @@ public class Reservation implements Parcelable
     public void setTID(int tableID) { this.tableID = tableID; }
     public void setNumPeople(int num) { numPeople = num; }
     public void setCustomerID(int customerID) { this.customerID = customerID; }
-    public void setOrderID(int orderID) { this.orderID = orderID; }
+    public void setOID(int orderID) { this.orderID = orderID; }
 
     public void setTime(DateTime startTime, DateTime endTime)
     {
@@ -78,7 +78,7 @@ public class Reservation implements Parcelable
     public int getNumPeople() { return numPeople; }
     public DateTime getStartTime(){ return startTime; }
     public DateTime getEndTime() { return endTime; }
-    public int getOrderID() { return orderID; }
+    public int getOID() { return orderID; }
 
     public boolean equals(int reservationID)
     {
