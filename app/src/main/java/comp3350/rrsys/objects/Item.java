@@ -106,5 +106,14 @@ public class Item {
                 }
             }
 
-        }}
+        }
+    }
+    public boolean equal(Item newItem){
+        boolean result = false;
+        if(newItem.getName().equals(this.name) && newItem.getType().equals(this.type)
+        && newItem.getDetail().equals(this.detail) && newItem.getPrice() == this.price){
+            result = true;
+        }
+        return result;
+    }
 }

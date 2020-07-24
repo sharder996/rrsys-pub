@@ -11,7 +11,17 @@ public class Menu {
     }
 
     public void addItem(Item newItem){
-        menu.add(newItem);
+        boolean duplicate = false;
+        for(int i = 0; i < menu.size(); i++){
+            if(menu.get(i).equal(newItem)){
+                duplicate = true;
+                break;
+            }
+        }
+
+        if(!duplicate) {
+            menu.add(newItem);
+        }
     }
 
     public ArrayList<Item> getMenu() { return menu; }
