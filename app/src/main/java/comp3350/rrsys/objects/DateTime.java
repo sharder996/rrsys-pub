@@ -31,7 +31,15 @@ public class DateTime implements Parcelable
         timeSlot = new GregorianCalendar(in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
     }
 
-    public void setYear(int year){timeSlot.set(Calendar.YEAR,year);}
+    public void setYear(int year){
+        int CurrYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        if(!(year >= CurrYear &&  year <= CurrYear+1))
+            throw new IllegalArgumentException("Invalid Year.");
+
+
+        timeSlot.set(Calendar.YEAR,year);
+    }
     public void setMonth(int month){timeSlot.set(Calendar.MONTH,month);}
     public void setDate(int date){timeSlot.set(Calendar.DATE,date);}
     public void setHour(int hour){ timeSlot.set(Calendar.HOUR_OF_DAY,hour); }
