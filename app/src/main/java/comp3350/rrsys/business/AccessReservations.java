@@ -1,5 +1,6 @@
 package comp3350.rrsys.business;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import comp3350.rrsys.application.Main;
@@ -8,18 +9,21 @@ import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.persistence.DataAccessStub;
+import comp3350.rrsys.persistence.DataAccess;
 
 public class AccessReservations
 {
-    private static DataAccessStub dataAccessStatic;
-    private DataAccessStub dataAccess;
+    //private static DataAccessStub dataAccessStatic;
+    //private DataAccessStub dataAccess;
+    private static DataAccess dataAccessStatic;
+    private DataAccess dataAccess;
     private ArrayList<Reservation> reservations;
     private Reservation reservation;
 
     public AccessReservations()
     {
-        dataAccess = (DataAccessStub) Services.getDataAccess(Main.dbName);
-        dataAccessStatic = (DataAccessStub) Services.getDataAccess(Main.dbName);
+        dataAccess = Services.getDataAccess(Main.dbName);
+        dataAccessStatic = Services.getDataAccess(Main.dbName);
         reservations = null;
     }
 
@@ -27,11 +31,6 @@ public class AccessReservations
     {
         reservations.clear();
         return dataAccess.getReservationSequential(reservations);
-    }
-
-    public ArrayList<Reservation> searchReservations(int numPeople, DateTime startTime, DateTime endTime)
-    {
-        return SuggestReservations(startTime, endTime, numPeople);
     }
 
     public Reservation getRandom(int reservationID)
@@ -60,15 +59,14 @@ public class AccessReservations
 
     // return an array of suggested reservations in order
     // which has the same "length" as (endTime-startTime)
-    public static ArrayList<Reservation> SuggestReservations(DateTime startTime, DateTime endTime, int numPeople)
+    public static ArrayList<Reservation> suggestReservations(DateTime startTime, DateTime endTime, int numPeople)
     {
         ArrayList<Reservation> results = new ArrayList<Reservation>();
-        int month = startTime.getMonth();
-        int day = startTime.getDate();
         int index = getIndex(startTime);
         int totalIncrement = (startTime.getPeriod(endTime)+7)/15; // total num of increments
         int maxIndex = Table.getNumIncrement(); // max index
-        ArrayList<Table> tables = dataAccessStatic.getTableSequential();
+        ArrayList<Table> tables = new ArrayList<>();
+        dataAccessStatic.getTableSequential(tables);
 
         Table table;
         for(int t = 0; t < tables.size(); t++)

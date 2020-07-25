@@ -21,37 +21,36 @@ public interface DataAccess {
     //private void setTable(int tID, int month, int day, int startIndex, int endIndex, boolean bool)
     //String insertReservation(Reservation r);
 
-    Reservation getReservation(int reservationID);
+    Reservation getReservation(int rID);
 
     String deleteReservation(int rID);
 
     String updateReservation(int rID, Reservation curr);
 
-    String getReservationSequential(List<Reservation> reservationResult);
-
     String insertReservation(Reservation r);
 
-    ArrayList<Table> getTableSequential();
+    String getReservationSequential(List<Reservation> reservationResult);
 
-    Table getTableRandom(int tableID);
+    String getTableSequential(ArrayList<Table> tableResult);
 
     String getCustomerSequential(List<Customer> customerResult);
 
     String insertCustomer(Customer customer);
 
-    String insertCustomer(String firstName, String lastName, String phoneNumber);
+    DateTime getDateTime(DateTime time, int index);
+
+    Table getTableRandom(int tableID);
+
+    boolean[] getAvailable(int TID, DateTime time);
+
+    void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
+
+    ArrayList<String> getMenuTypes();
+
 
     String addTable(int tableID, int size);
 
     String insertItem(Item newItem);
 
-    String insertItem(int IID, String name, String type, String detail, double price);
-
-    String getMenuSequential(ArrayList<Item> menuResult);
-
     ArrayList<Item> getMenuByType(String type);
-
-    ArrayList<String> getMenuTypes();
-
-    void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
 }

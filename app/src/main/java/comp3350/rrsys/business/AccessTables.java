@@ -6,21 +6,24 @@ import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
 import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.persistence.DataAccessStub;
+import comp3350.rrsys.persistence.DataAccess;
 
 public class AccessTables
 {
-    private DataAccessStub dataAccess;
+    //private DataAccessStub dataAccess;
+    private DataAccess dataAccess;
     private ArrayList<Table> tables;
 
     public AccessTables()
     {
-        dataAccess = (DataAccessStub)Services.createDataAccess(Main.dbName);
+        dataAccess = Services.createDataAccess(Main.dbName);
         tables = null;
     }
 
     public ArrayList<Table> getTables()
     {
-        return dataAccess.getTableSequential();
+        dataAccess.getTableSequential(tables);
+        return tables;
     }
 
     public int getTableCapacity(int tID)

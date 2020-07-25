@@ -6,20 +6,15 @@ import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
 import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.persistence.DataAccessStub;
+import comp3350.rrsys.persistence.DataAccess;
 
 public class AccessMenu {
-    private DataAccessStub dataAccess;
+    //private DataAccessStub dataAccess;
+    private DataAccess dataAccess;
 
     public AccessMenu()
     {
-        dataAccess = (DataAccessStub)Services.getDataAccess(Main.dbName);
-    }
-
-    public ArrayList<Item> getMenu(ArrayList<Item> menu)
-    {
-        menu.clear();
-        dataAccess.getMenuSequential(menu);
-        return menu;
+        dataAccess = Services.getDataAccess(Main.dbName);
     }
 
     public ArrayList<Item> getMenuByType(String type)

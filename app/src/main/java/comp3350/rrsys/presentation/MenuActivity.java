@@ -33,7 +33,7 @@ public class MenuActivity extends Activity
         setContentView(R.layout.activity_menu);
 
         accessMenu = new AccessMenu();
-        menuItems = new ArrayList<Item>();
+        menuItems = new ArrayList<>();
         final ListView listMenu = (ListView) findViewById(R.id.menuList);
         Adapter adapter = new Adapter();
 

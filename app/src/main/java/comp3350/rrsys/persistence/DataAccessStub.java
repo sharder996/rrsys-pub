@@ -100,8 +100,6 @@ public class DataAccessStub implements DataAccess
         if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0){
             return "fail";
         }
-        DateTime startTime = r.getStartTime();
-        DateTime endTime = r.getEndTime();
         r.setRID();
         reservations.add(r);
         return "success";
@@ -173,11 +171,10 @@ public class DataAccessStub implements DataAccess
         return null;
     }
 
-    public ArrayList<Table> getTableSequential()
+    public String getTableSequential(ArrayList<Table> tableResult)
     {
-        ArrayList<Table> result = new ArrayList<Table>();
-        result.addAll(tables);
-        return result;
+        tableResult.addAll(tables);
+        return null;
     }
 
     public Table getTableRandom(int tableID)
@@ -249,6 +246,103 @@ public class DataAccessStub implements DataAccess
                 size += 2;
         }
 
+        // generate items in menu
+        //Item(String name, String type, String detail, double price)
+        Item salad, sandwich, burger, main, dessert, drink;
+        salad = new Item("SPECIAL SALAD", "Salads", "romaine lettuce, arugula, red cabbage, carrot, red onion & toasted sunflower seeds.", 9.95);
+        insertItem(salad);
+        salad = new Item("SPINACH SALAD", "Salads", "tender spinach leaves, toasted almonds, orange slices & tangy chutney dressing.", 10.95);
+        insertItem(salad);
+        salad = new Item("KALE SALAD", "Salads", "kale, tomato, goat cheese, red onion, dried cranberries, pepitas, avocado & balsamic vinaigrette.", 10.95);
+        insertItem(salad);
+        salad = new Item("CAESAR SALAD", "Salads", "romaine lettuce, creamy garlic dressing, croutons & grated parmesan cheese.", 10.95);
+        insertItem(salad);
+        salad = new Item("ARUGULA SALAD", "Salads", "arugula, green peas, sugar snap peas, radish, feta cheese & agave basil vinaigrette.", 11.95);
+        insertItem(salad);
+        salad = new Item("AVOCADO SALAD", "Salads", "avocado, brussels sprouts, radish, alfalfa sprouts, chickpeas, dried cranberries & pepitas.", 12.95);
+        insertItem(salad);
+
+        sandwich = new Item("VEGETARIAN", "Sandwiches", "vegetable patty, hummus, cream cheese, alfalfa sprouts, tomato & cucumber.", 12.95);
+        insertItem(sandwich);
+        sandwich = new Item("SAUSAGE", "Sandwiches", "whole sausage, peppers, onions, sauerkraut, chili, lettuce, tomato& BBQ sauce.", 13.95);
+        insertItem(sandwich);
+        sandwich = new Item("BACON", "Sandwiches", "bacon, lettuce, creamy havarti cheese, ripe tomato & mayonnaise on toasted multi-grain.", 13.95);
+        insertItem(sandwich);
+        sandwich = new Item("TOASTED TUNA", "Sandwiches", "beef, green onion, mushroom, cucumber, lettuce, ripe tomato & mayonnaise.", 13.95);
+        insertItem(sandwich);
+        sandwich = new Item("ROAST CHICKEN", "Sandwiches", "oven roasted chicken, Stella’s cranberry sauce, lettuce & mayonnaise on multigrain.", 14.95);
+        insertItem(sandwich);
+        sandwich = new Item("BEEF", "Sandwiches", "toasted tuna, celery, green onion, sourdough, dill pickle, lettuce tomato & mayonnaise.", 14.95);
+        insertItem(sandwich);
+        sandwich = new Item("SMOKED SALMON", "Sandwiches", "smoked salmon, cream cheese, capers, lettuce & a squeeze of lemon on a flaky croissant.", 15.95);
+        insertItem(sandwich);
+        sandwich = new Item("CLUB", "Sandwiches", "oven roasted chicken, crisp bacon, cheddar cheese, lettuce, tomato & mayonnaise.", 15.95);
+        insertItem(sandwich);
+
+        burger = new Item("GARDON", "Burgers", "chickpea patty, alfalfa sprouts, tomato, mayonnaise, crispy onions, peach chutney & cilantro sauce.", 13.95);
+        insertItem(burger);
+        burger = new Item("GARBANZO", "Burgers", "garbanzo patty, onion, aged cheddar, basil mayo, lettuce, pickle, tomato & mayonnaise.", 13.95);
+        insertItem(burger);
+        burger = new Item("QUINOA", "Burgers", "quinoa, mayonnaise, caramelized onion, arugula, tomato, dill pickle & caesar dressing.", 13.95);
+        insertItem(burger);
+        burger = new Item("CHICKEN", "Burgers", "marinated chicken breast, tomato, lettuce, mayonnaise, crispy onions & a dollop of cilantro sauce.", 14.95);
+        insertItem(burger);
+        burger = new Item("BEEF", "Burgers", "beef patty, mayonnaise, caramelized onion, arugula, tomato, pickle & tomato relish.", 14.95);
+        insertItem(burger);
+        burger = new Item("SALMON FILLET", "Burgers", "salmon fillet grilled with lemon & fresh parsley with lettuce, tomato & crispy onions.", 15.95);
+        insertItem(burger);
+        burger = new Item("MUSHROOM", "Burgers", "beef patty with all of the fixings, garlic mushrooms, havarti cheese & mayonnaise.", 15.95);
+        insertItem(burger);
+        burger = new Item("GUACAMOLE & BACON", "Burgers", "beef patty with all of the fixings, two strips of bacon & scoop of guacamole.", 16.95);
+        insertItem(burger);
+
+        main = new Item("RATATOUILLE", "Mains", "oven roasted zucchini, eggplant, tomato, peppers, onion, garlic & fresh herbs over steamed quinoa.", 14.95);
+        insertItem(main);
+        main = new Item("PAD THAI", "Mains", "rice noodles, mushrooms, red peppers, cabbage, snap peas & bean sprouts in sweet soy tamarind sauce.", 14.95);
+        insertItem(main);
+        main = new Item("CREAM LINGUINE", "Mains", "spinach, mushrooms, eggplant, tomato, red pepper & linguine in pesto cream sauce.", 15.95);
+        insertItem(main);
+        main = new Item("DRAGON BOWL", "Mains", "spicy chili garlic tamarind sauce, eggplant, mushrooms & cabbage over quinoa and brown basmati rice.", 14.95);
+        insertItem(main);
+        main = new Item("VEGGIE LASAGNA", "Mains", "mushrooms, zucchini, spinach, asiago, mozzarella, cottage cheese & Stella's marinara sauce.", 15.95);
+        insertItem(main);
+        main = new Item("EGGPLANT PARMESAN", "Mains", "parmesan crusted eggplant slices with linguine, roasted garlic marinara & sourdough garlic toast.", 15.95);
+        insertItem(main);
+        main = new Item("FISH TACOS", "Mains", "three corn tortillas, crispy cod fillets, avocado, black beans, cilantro sauce & spicy curtido.", 15.95);
+        insertItem(main);
+        main = new Item("JAMBALAYA", "Mains", "chorizo sausage, shrimp, chicken, onion, tomato, garlic, peppers, celery, rice & special sause.", 16.95);
+        insertItem(main);
+
+        dessert = new Item("CHOCOLATE CAKE", "Desserts", "double-stacked dark chocolate cake frosted with chocolate icing.", 8.00);
+        insertItem(dessert);
+        dessert = new Item("CHOCOLATE TORTE", "Desserts", "velvety, dark chocolate flourless cake topped with raspberry sauce & whipped cream.", 8.00);
+        insertItem(dessert);
+        dessert = new Item("CARROT CAKE", "Desserts", "two layers of delicious coconut carrot cake with vanilla cream cheese icing.", 8.00);
+        insertItem(dessert);
+        dessert = new Item("CHEESECAKE", "Desserts", "half chocolate, half vanilla cheesecake with a chocolate cookie crust.", 8.00);
+        insertItem(dessert);
+        dessert = new Item("APPLE CROSTADA", "Desserts", "fresh Chudleigh Farms heirloom apples & drizzled with caramel.", 8.00);
+        insertItem(dessert);
+        dessert = new Item("PECAN BLONDIE", "Desserts", "nuts, topped with ice cream, glazed pecans & maple-flavored cream cheese sauce", 9.00);
+        insertItem(dessert);
+
+        drink = new Item("PINK LEMONADE", "Drinks", "non-alcoholic lemon juice & a splash of grenadine.", 7.00);
+        insertItem(drink);
+        drink = new Item("FRUIT PUNCH", "Drinks", "cranberry, orange, and pineapple juice, sour mix and a splash of grenadine.", 7.00);
+        insertItem(drink);
+        drink = new Item("SHIRLEY TEMPLE","Drinks", "orange juice & ginger ale with a splash of grenadine.", 7.00);
+        insertItem(drink);
+        drink = new Item("BLUE HAWAIIAN","Drinks", "malibu rum, blue curacao, pineapple juice with a slice of lemon.", 8.00);
+        insertItem(drink);
+        drink = new Item("CAESAR", "Drinks", "vodka & a mixture of seasoning served in true sarnia style  with a dill pickle", 8.00);
+        insertItem(drink);
+        drink = new Item("MOJITO", "Drinks", "malibu rum, suger water, sprite and served with fresh mint leaves and slice of lime.", 8.00);
+        insertItem(drink);
+        drink = new Item("LONG ISLAND ICE TEA", "Drinks", "vodka, rum, gin, tequila, triple sec, coke, sour mix & a slice of lemon.", 9.00);
+        insertItem(drink);
+        drink = new Item("MARGARITA", "Drinks", "tequila, lime juice with salted rimmed glass & a slice of lemon.", 9.00);
+        insertItem(drink);
+
         //generate customer informations
         //assume there are 100 customers.
         Random rand = new Random();
@@ -298,12 +392,6 @@ public class DataAccessStub implements DataAccess
         return null;
     }
 
-    public String getMenuSequential(ArrayList<Item> menuResult)
-    {
-        menuResult.addAll(menu);
-        return null;
-    }
-
     public ArrayList<Item> getMenuByType(String type)
     {
         ArrayList<Item> items = new ArrayList<>();
@@ -316,19 +404,16 @@ public class DataAccessStub implements DataAccess
     }
 
     public ArrayList<String> getMenuTypes(){
-        ArrayList<String> types = new ArrayList<String>();
+        ArrayList<String> types = new ArrayList<>();
 
-        types.add("Drinks");
-        types.add("Sandwiches");
         types.add("Salads");
+        types.add("Sandwiches");
+        types.add("Burgers");
+        types.add("Mains");
         types.add("Desserts");
+        types.add("Drinks");
 
         return types;
-    }
-
-    //needs to be implemented
-    public String insertItem(int IID, String name, String type, String detail, double price) {
-        return null;
     }
 
     public boolean[] getAvailable(int TID, DateTime time) {
