@@ -6,13 +6,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="comp3350.rrsys.presentation.GetUpdateReservation2Activity">
-
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/restaurant_reservation_system" />
+    tools:context="comp3350.rrsys.presentation.GetChoiceUpdateReservationActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -38,7 +32,14 @@
             android:onClick="buttonPreorderOnClick"
             android:text="PREORDER" />
 
-
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp"
+            android:onClick="buttonBackOnClick"
+            android:text="Back" />
     </LinearLayout>
 
 </RelativeLayout>

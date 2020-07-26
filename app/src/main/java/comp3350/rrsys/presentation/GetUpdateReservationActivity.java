@@ -46,8 +46,6 @@ public class GetUpdateReservationActivity extends Activity {
         {
             try
             {
-                selected = accessReservations.getRandom(Integer.parseInt(code.getText().toString()));
-
                 String timeEnd;
                 String timeStart;
 
@@ -63,7 +61,7 @@ public class GetUpdateReservationActivity extends Activity {
 
                 String resDate = (selected.getStartTime().getMonth()+1) +"/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();
 
-                Intent confirmIntent = new Intent(GetUpdateReservationActivity.this, UpdateReservationActivity.class);
+                Intent confirmIntent = new Intent(GetUpdateReservationActivity.this, GetChoiceUpdateReservationActivity.class);
                 confirmIntent.putExtra("Date", resDate);
                 confirmIntent.putExtra("TimeStart", timeStart);
                 confirmIntent.putExtra("TimeEnd", timeEnd);
