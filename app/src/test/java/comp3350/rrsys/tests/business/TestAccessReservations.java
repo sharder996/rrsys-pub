@@ -272,7 +272,7 @@ public class TestAccessReservations extends TestCase
                     {
                         reservations.clear();
                     }
-                    reservations = accessReservations.SuggestReservations(startTime, endTime, 4);
+                    reservations = accessReservations.suggestReservations(startTime, endTime, 4);
                     assertTrue(reservations.size() > 0);
                 }
             }
