@@ -22,6 +22,7 @@ public class DataAccessTest extends TestCase {
         // Use the following statements to run with the stub database:
         //dataAccess = new DataAccessStub();
         //dataAccess.open("Stub");
+
         // or switch to the real database:
          dataAccess = new DataAccessObject(Main.dbName);
          dataAccess.open(Main.getDBPathName());
@@ -39,7 +40,7 @@ public class DataAccessTest extends TestCase {
     * - test relations?
      */
 
-    public void testCustomer() {
+    public void testCustomer() { //will split these
         ArrayList<Customer> customers;
         Customer customer;
         String result;
@@ -51,7 +52,7 @@ public class DataAccessTest extends TestCase {
         assertNull(result);
         assertEquals(4, customers.size());
         customer = customers.get(0);
-        assertEquals(100, customer.getCID());
+        assertEquals(1, customer.getCID());
         assertEquals( "Gary", customer.getFirstName());
         assertEquals("Chalmers", customer.getLastName());
         assertEquals("Gary Chalmers", customer.getFullName());
@@ -89,12 +90,15 @@ public class DataAccessTest extends TestCase {
 
         System.out.println("Beginning test of table TABLES");
 
-        tables = dataAccess.getTableSequential();
+        tables = new ArrayList<>();
+        result = dataAccess.getTableSequential(tables);
         assertNotNull(tables);
-        assertEquals(4, tables.size());
+        assertEquals(30, tables.size());
         table = tables.get(0);
-        assertEquals(100, table.getTID());
+        assertEquals(1, table.getTID());
         assertEquals( 2, table.getCapacity());
+
+
         // ... add more for table functions in DataAccessObject
 
         System.out.println("End test of table TABLES");
@@ -110,11 +114,11 @@ public class DataAccessTest extends TestCase {
         reservations = new ArrayList<>();
         result = dataAccess.getReservationSequential(reservations);
         assertNull(result);
-        assertEquals(6, reservations.size());
+        assertEquals(4, reservations.size());
         reservation = reservations.get(0);
         assertEquals(1, reservation.getRID());
-        assertEquals(100, reservation.getCID());
-        assertEquals(200, reservation.getTID());
+        assertEquals(1, reservation.getCID());
+        assertEquals(2, reservation.getTID());
         assertEquals(2, reservation.getNumPeople());
         // add tests for timestamp / DateTime.toString
         // ... add more for reservation functions in DataAccessObject

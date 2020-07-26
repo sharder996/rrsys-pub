@@ -39,7 +39,7 @@ public class TestAccessTables extends TestCase
                     {
                         tableList.clear();
                     }
-                    tableList = accessTables.recommendTables(k, currTime.MONTH, i, j, j+1);
+                    //tableList = accessTables.recommendTables(k, currTime.MONTH, i, j, j+1);
 
                     assertTrue(tableList.size() > 0);
                 }

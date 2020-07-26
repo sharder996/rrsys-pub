@@ -16,11 +16,9 @@ public interface DataAccess {
 
     void close();
 
-    //dealing with datetime later -- sql has its own DateTime data type
-    //void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
     //private void setTable(int tID, int month, int day, int startIndex, int endIndex, boolean bool)
-    //String insertReservation(Reservation r);
 
+    //Reservation Functions:
     Reservation getReservation(int rID);
 
     String deleteReservation(int rID);
@@ -31,26 +29,35 @@ public interface DataAccess {
 
     String getReservationSequential(List<Reservation> reservationResult);
 
+    void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
+
+
+    //Table Functions:
     String getTableSequential(ArrayList<Table> tableResult);
-
-    String getCustomerSequential(List<Customer> customerResult);
-
-    String insertCustomer(Customer customer);
-
-    DateTime getDateTime(DateTime time, int index);
 
     Table getTableRandom(int tableID);
 
     boolean[] getAvailable(int TID, DateTime time);
 
-    void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
-
-    ArrayList<String> getMenuTypes();
-
-
     String addTable(int tableID, int size);
+
+
+    //Customer Functions:
+    String getCustomerSequential(List<Customer> customerResult);
+
+    String insertCustomer(Customer customer);
+
+    String insertCustomer(String firstName, String lastName, String phoneNumber);
+
+
+    //Menu Functions:
+    ArrayList<String> getMenuTypes();
 
     String insertItem(Item newItem);
 
     ArrayList<Item> getMenuByType(String type);
+
+
+    //DateTime Functions:
+    DateTime getDateTime(DateTime time, int index);
 }

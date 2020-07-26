@@ -386,7 +386,7 @@ public class DataAccessObject implements DataAccess {
                     + "', '" + customer.getLastName()
                     + "', '" + customer.getPhoneNumber()
                     + "'";
-            System.out.println(values);
+            //System.out.println(values);
             cmdString = "INSERT into CUSTOMERS" + " Values(" + values + ")";
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
