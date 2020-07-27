@@ -14,6 +14,7 @@ import java.util.List;
 
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.DateTime;
+import comp3350.rrsys.objects.Menu;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.objects.Item;
@@ -526,15 +527,18 @@ public class DataAccessObject implements DataAccess {
         ArrayList<String> types = new ArrayList<String>();
 
         try {
-            cmdString = "SELECT UNIQUE TYPE from MENU";
+            cmdString = "SELECT DISTINCT TYPE from MENU";
             rs3 = st0.executeQuery(cmdString);
             while (rs3.next()) {
                 types.add(rs3.getString("TYPE"));
+
             }
         } catch (Exception e) {
             result = processSQLError(e);
         }
-
+        for(int i = 0; i < types.size(); i++){
+            System.out.println(types.get(i));
+        }
         return types;
     }
 

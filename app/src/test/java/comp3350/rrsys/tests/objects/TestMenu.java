@@ -11,7 +11,7 @@ import comp3350.rrsys.objects.Item;
 public class TestMenu extends TestCase{
     public TestMenu(String arg0) { super(arg0); }
 
-    public void testMenuCreation(){
+    /*public void testMenuCreation(){
         System.out.println("\nStarting testMenuCreation");
 
         Menu list = new Menu();
@@ -62,6 +62,6 @@ public class TestMenu extends TestCase{
 
         System.out.println("\nEnding testMenuDuplicate");
 
-    }
+    }*/
 
 }

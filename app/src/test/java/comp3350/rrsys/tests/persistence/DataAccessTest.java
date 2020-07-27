@@ -1,11 +1,14 @@
 package comp3350.rrsys.tests.persistence;
 
+import android.app.ActionBar;
+
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
 
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.objects.Customer;
+import comp3350.rrsys.objects.Menu;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.persistence.DataAccess;
@@ -40,7 +43,7 @@ public class DataAccessTest extends TestCase {
     * - test relations?
      */
 
-    public void testCustomer() { //will split these
+    public void testCustomerDatabaseTable() { //will split these
         ArrayList<Customer> customers;
         Customer customer;
         String result;
@@ -57,8 +60,18 @@ public class DataAccessTest extends TestCase {
         assertEquals("Chalmers", customer.getLastName());
         assertEquals("Gary Chalmers", customer.getFullName());
         assertEquals("2049990123", customer.getPhoneNumber());
-        // ... add more for customer functions in DataAccessObject
+    }
 
+    public void testAddExistingCustomer() {
+        ArrayList<Customer> customers;
+        Customer customer;
+        String result;
+
+        customers = new ArrayList<>();
+        result = dataAccess.getCustomerSequential(customers);
+        assertNull(result);
+
+        customer = customers.get(0);
         //Adding existing customer -- should still allow to be added with new Primary Key
         result = dataAccess.insertCustomer(customer);
         assertNull(result);
@@ -66,6 +79,16 @@ public class DataAccessTest extends TestCase {
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
         assertEquals(5, customers.size());
+    }
+
+    public void testAddNewCustomer() {
+        ArrayList<Customer> customers;
+        Customer customer;
+        String result;
+
+        customers = new ArrayList<>();
+        result = dataAccess.getCustomerSequential(customers);
+        assertNull(result);
 
         //Adding new customer
         String firstName = "Jane", lastName = "Public", phoneNumber = "3065550123";
@@ -83,7 +106,7 @@ public class DataAccessTest extends TestCase {
         System.out.println("End test of table CUSTOMERS");
     }
 
-    public void testTables(){
+    public void testTablesDatabaseTable() {
         ArrayList<Table> tables;
         Table table;
         String result;
@@ -96,10 +119,16 @@ public class DataAccessTest extends TestCase {
         assertEquals(30, tables.size());
         table = tables.get(0);
         assertEquals(1, table.getTID());
-        assertEquals( 2, table.getCapacity());
+        assertEquals(2, table.getCapacity());
 
+    }
 
-        // ... add more for table functions in DataAccessObject
+    public void testAddNewTable() {
+        ArrayList<Table> tables;
+        Table table;
+        String result;
+
+        table = new Table(31, 8);
 
         System.out.println("End test of table TABLES");
     }
@@ -124,6 +153,16 @@ public class DataAccessTest extends TestCase {
         // ... add more for reservation functions in DataAccessObject
 
         System.out.println("End test of table RESERVATIONS");
+    }
+
+    public void testMenuGetTypes() {
+        System.out.println("Beginning test of table MENU");
+        ArrayList<String> menuTypes;
+        String result;
+
+        menuTypes = dataAccess.getMenuTypes();
+
+        System.out.println("End test of table MENU");
     }
 
 }
