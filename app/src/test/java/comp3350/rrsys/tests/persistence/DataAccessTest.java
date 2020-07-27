@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.objects.Customer;
+import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Menu;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
@@ -39,8 +40,9 @@ public class DataAccessTest extends TestCase {
     /*TODO:
     * - modify database > RR.script with variable types that work with DBMS for table availability
     * - add more tests for each table
+    *       - table needs tests for availability
     * - add tests for menu, order
-    * - test relations?
+    * - test relations? (INNER JOIN, for example)
      */
 
     public void testCustomerDatabaseTable() { //will split these
@@ -118,6 +120,20 @@ public class DataAccessTest extends TestCase {
 
     }
 
+    public void testGetTableExists(){
+        Table table = null;
+
+        table = dataAccess.getTableRandom(1);
+        assertNotNull(table);
+    }
+
+    public void testGetTableNotExists(){
+        Table table = null;
+
+        table = dataAccess.getTableRandom(-1);
+        assertNull(table);
+    }
+
     public void testAddNewTable() {
         ArrayList<Table> tables;
         Table table = null;
@@ -136,6 +152,24 @@ public class DataAccessTest extends TestCase {
         assertEquals(31, table.getTID());
         assertEquals(8, table.getCapacity());
 
+    }
+
+    public void testAddDuplicateTable(){
+        ArrayList<Table> tables;
+        Table table = null;
+        String result = null;
+
+        table = dataAccess.getTableRandom(1);
+        assertNotNull(table);
+
+        result = dataAccess.addTable(table.getTID(), table.getCapacity());
+        assertNotNull(result);
+
+        tables = new ArrayList<>();
+        result = dataAccess.getTableSequential(tables);
+        assertNull(result);
+
+        assertEquals(31, tables.size());
     }
 
     public void testReservations() {
@@ -165,6 +199,22 @@ public class DataAccessTest extends TestCase {
         menuTypes = dataAccess.getMenuTypes();
         assertNotNull(menuTypes);
 
+    }
+
+    public void testMenuGetByType() {
+        ArrayList<Item> menuItems;
+        ArrayList<String> menuTypes;
+
+        menuTypes = new ArrayList<>();
+        menuTypes = dataAccess.getMenuTypes();
+        assertNotNull(menuTypes);
+
+        menuItems = null;
+        for(int i = 0; i < menuTypes.size(); i++){
+            menuItems = dataAccess.getMenuByType(menuTypes.get(i));
+            assertNotNull(menuItems);
+            menuItems.clear();
+        }
     }
 
 }
