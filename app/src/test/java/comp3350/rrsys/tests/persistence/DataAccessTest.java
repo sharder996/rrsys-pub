@@ -48,8 +48,6 @@ public class DataAccessTest extends TestCase {
         Customer customer;
         String result;
 
-        System.out.println("Beginning test of table CUSTOMERS");
-
         customers = new ArrayList<>();
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
@@ -103,15 +101,12 @@ public class DataAccessTest extends TestCase {
         assertEquals(lastName, customer.getLastName());
         assertEquals(phoneNumber, customer.getPhoneNumber());
 
-        System.out.println("End test of table CUSTOMERS");
     }
 
     public void testTablesDatabaseTable() {
         ArrayList<Table> tables;
         Table table;
         String result;
-
-        System.out.println("Beginning test of table TABLES");
 
         tables = new ArrayList<>();
         result = dataAccess.getTableSequential(tables);
@@ -125,20 +120,28 @@ public class DataAccessTest extends TestCase {
 
     public void testAddNewTable() {
         ArrayList<Table> tables;
-        Table table;
+        Table table = null;
         String result;
 
-        table = new Table(31, 8);
+        result = null;
+        result = dataAccess.addTable(31, 8);
+        assertNull(result);
 
-        System.out.println("End test of table TABLES");
+        tables = new ArrayList<>();
+        result = dataAccess.getTableSequential(tables);
+        assertNull(result);
+        assertEquals(31, tables.size());
+
+        table = tables.get(31);
+        assertEquals(31, table.getTID());
+        assertEquals(8, table.getCapacity());
+
     }
 
     public void testReservations() {
         ArrayList<Reservation> reservations;
         Reservation reservation;
         String result;
-
-        System.out.println("Beginning test of table RESERVATIONS");
 
         reservations = new ArrayList<>();
         result = dataAccess.getReservationSequential(reservations);
@@ -152,17 +155,16 @@ public class DataAccessTest extends TestCase {
         // add tests for timestamp / DateTime.toString
         // ... add more for reservation functions in DataAccessObject
 
-        System.out.println("End test of table RESERVATIONS");
     }
 
     public void testMenuGetTypes() {
-        System.out.println("Beginning test of table MENU");
         ArrayList<String> menuTypes;
         String result;
 
+        menuTypes = null;
         menuTypes = dataAccess.getMenuTypes();
+        assertNotNull(menuTypes);
 
-        System.out.println("End test of table MENU");
     }
 
 }

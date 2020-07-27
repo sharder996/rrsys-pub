@@ -536,9 +536,7 @@ public class DataAccessObject implements DataAccess {
         } catch (Exception e) {
             result = processSQLError(e);
         }
-        for(int i = 0; i < types.size(); i++){
-            System.out.println(types.get(i));
-        }
+
         return types;
     }
 
