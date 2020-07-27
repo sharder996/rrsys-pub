@@ -10,14 +10,13 @@ public class Item {
 
     // ArrayList<String> ingredients；
     private double price;   // the price of the item
-    private static int counter = 0;
 
-    public Item(String name, String type, String detail, double price) throws IllegalArgumentException
+    public Item(int itemID, String name, String type, String detail, double price) throws IllegalArgumentException
     {
+        this.itemID = itemID;
         this.name = name;
         this.type = type;
         this.detail = detail;
-
 
         if(price < 0.05 || price > 500) {
             throw new IllegalArgumentException("Invalid Price.");
@@ -65,8 +64,6 @@ public class Item {
     public String getDetail() { return detail; }
     public double getPrice() { return price; }
 
-    public void setItemID() { itemID = counter++; }
-    public void setItemID(int itemID) { this.itemID = itemID; }
     public void setName(String name) { this.name = name; }
     public void setType(String type) { this.type = type; }
     public void setDetail(String detail) { this.detail = detail; }
