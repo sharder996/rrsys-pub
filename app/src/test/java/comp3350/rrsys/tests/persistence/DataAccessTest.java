@@ -52,8 +52,10 @@ public class DataAccessTest extends TestCase {
 
         customers = new ArrayList<>();
         result = dataAccess.getCustomerSequential(customers);
+
         assertNull(result);
-        assertEquals(4, customers.size());
+
+        assertEquals(5, customers.size());
         customer = customers.get(0);
         assertEquals(1, customer.getCID());
         assertEquals( "Gary", customer.getFirstName());
@@ -78,7 +80,7 @@ public class DataAccessTest extends TestCase {
         customers.clear();
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
-        assertEquals(5, customers.size());
+        assertEquals(6, customers.size());
     }
 
     public void testAddNewCustomer() {
@@ -124,6 +126,7 @@ public class DataAccessTest extends TestCase {
         Table table = null;
 
         table = dataAccess.getTableRandom(1);
+        System.out.println(table.toString());
         assertNotNull(table);
     }
 
@@ -217,4 +220,41 @@ public class DataAccessTest extends TestCase {
         }
     }
 
+    public void testAddExistingMenu(){
+        ArrayList<Item> menuItems;
+        ArrayList<String> menuTypes;
+
+        menuTypes = new ArrayList<>();
+        menuTypes = dataAccess.getMenuTypes();
+        assertNotNull(menuTypes);
+
+        menuItems = dataAccess.getMenu();
+
+        assertEquals(44, menuItems.size());
+
+        menuItems.add(menuItems.get(0));
+
+        assertEquals(44, menuItems.size());
+
+    }
+
+    public void testAddNewMenu(){
+        ArrayList<Item> menuItems;
+        ArrayList<String> menuTypes;
+
+        menuTypes = new ArrayList<>();
+        menuTypes = dataAccess.getMenuTypes();
+        assertNotNull(menuTypes);
+
+        menuItems = dataAccess.getMenu();
+
+        assertEquals(44, menuItems.size());
+        Item newitem = new Item(45, "Turkey Sandwiches", "Sandwiches", "Turkey",12.22);
+        menuItems.add(newitem);
+
+        assertEquals(45, menuItems.size());
+        assertTrue(menuItems.get(44).equal(newitem));
+
+
+    }
 }

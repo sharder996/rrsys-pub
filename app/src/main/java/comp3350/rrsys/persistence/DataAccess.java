@@ -31,7 +31,6 @@ public interface DataAccess {
 
     void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
 
-
     //Table Functions:
     String getTableSequential(ArrayList<Table> tableResult);
 
@@ -52,6 +51,8 @@ public interface DataAccess {
 
     //Menu Functions:
     ArrayList<String> getMenuTypes();
+
+    ArrayList<Item> getMenu();
 
     String insertItem(Item newItem);
 

@@ -430,7 +430,7 @@ public class DataAccessObject implements DataAccess {
                     + "', '" + newItem.getType()
                     + "', '" + newItem.getDetail()
                     + "', " + newItem.getPrice();
-            cmdString = "INSERT into ITEMS" + " Values(" + values + ")";
+            cmdString = "INSERT into MENU" + " Values(" + values + ")";
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         } catch (Exception e) {
@@ -481,6 +481,35 @@ public class DataAccessObject implements DataAccess {
             result = processSQLError(e);
         }
         return types;
+    }
+
+    public ArrayList<Item> getMenu(){
+        Item item;
+        int IID;
+        String name, detail;
+        String type;
+        double price;
+
+        menu = new ArrayList<>();
+        try {
+
+            cmdString = "SELECT * from MENU";
+            rs2 = st0.executeQuery(cmdString);
+            while (rs2.next()) {
+                IID = rs2.getInt("IID");
+                name = rs2.getString("NAME");
+                type = rs2.getString("TYPE");
+                detail = rs2.getString("DETAIL");
+                price = rs2.getDouble("PRICE");
+                item = new Item(IID, name, type, detail, price);
+                menu.add(item);
+            }
+            rs2.close();
+        } catch (Exception e) {
+            processSQLError(e);
+        }
+
+        return menu;
     }
 
     public boolean[] getAvailable(int TID, DateTime time) {

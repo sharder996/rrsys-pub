@@ -416,6 +416,10 @@ public class DataAccessStub implements DataAccess
         return types;
     }
 
+    public ArrayList<Item> getMenu()
+    {
+        return menu;
+    }
     public boolean[] getAvailable(int TID, DateTime time) {
         boolean[] available = new boolean[Table.getNumIncrement()];
         for(int i = 0; i < available.length; i++)

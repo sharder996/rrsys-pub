@@ -8,6 +8,8 @@ import comp3350.rrsys.tests.business.TestAccessReservations;
 import comp3350.rrsys.tests.business.TestAccessTables;
 import comp3350.rrsys.tests.objects.TestCustomer;
 import comp3350.rrsys.tests.objects.TestDateTime;
+import comp3350.rrsys.tests.objects.TestItem;
+import comp3350.rrsys.tests.objects.TestMenu;
 import comp3350.rrsys.tests.objects.TestReservation;
 import comp3350.rrsys.tests.objects.TestTable;
 import comp3350.rrsys.tests.persistence.DataAccessTest;
@@ -33,6 +35,8 @@ public class AllTests
         suite.addTestSuite(TestCustomer.class);
         suite.addTestSuite(TestDateTime.class);
         suite.addTestSuite(TestTable.class);
+        suite.addTestSuite(TestItem.class);
+        suite.addTestSuite(TestMenu.class);
     }
 
     private static void testBusiness()
