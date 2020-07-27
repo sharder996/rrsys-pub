@@ -10,7 +10,7 @@ public class Menu {
         menu = new ArrayList<>();
     }
 
-    public void addItem(Item newItem){
+    public void addItem(Item newItem) throws Exception {
         boolean duplicate = false;
         for(int i = 0; i < menu.size(); i++){
             if(menu.get(i).equal(newItem)){
@@ -21,6 +21,8 @@ public class Menu {
 
         if(!duplicate) {
             menu.add(newItem);
+        }else{
+            throw new Exception("Duplicate Item");
         }
     }
 

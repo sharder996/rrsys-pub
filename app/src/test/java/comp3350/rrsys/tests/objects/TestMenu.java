@@ -11,24 +11,34 @@ import comp3350.rrsys.objects.Item;
 public class TestMenu extends TestCase{
     public TestMenu(String arg0) { super(arg0); }
 
-    /*public void testMenuCreation(){
+    public void testMenuCreation(){
         System.out.println("\nStarting testMenuCreation");
 
         Menu list = new Menu();
 
         assertNotNull(list);
 
-        Item dish = new Item("broth", "Mains", "clear soup", 7.75);
-        Item dish1 = new Item("broth", "Sandwiches", "clear soup", 7.75);
+        Item dish = new Item(0, "Turkey Burger", "Sandwiches", "Turkey",12.91 );
 
-        list.addItem(dish);
+        Item dish1 = new Item(1, "Turkey Burger", "Burgers", "Turkey",7.75 );
 
-        ArrayList<Item> MainsList = list.getType("Mains");
+
+        try {
+            list.addItem(dish);
+        } catch (Exception e) {
+           assertNull(list.getMenu());
+        }
+
+        ArrayList<Item> MainsList = list.getType("Sandwiches");
         assertTrue(MainsList.get(0).equals(dish));
 
-        list.addItem(dish1);
+        try {
+            list.addItem(dish1);
+        } catch (Exception e) {
+            assertNotSame(dish1,list.getMenu().get(0));
+        }
         ArrayList<Item> SandwichList = list.getType("Sandwiches");
-        assertTrue(SandwichList.get(0).equals(dish1));
+        assertTrue(SandwichList.get(0).equals(dish));
 
         ArrayList<Item> menu = list.getMenu();
         assertNotNull(menu);
@@ -40,28 +50,33 @@ public class TestMenu extends TestCase{
     public void testMenuDuplicate(){
         System.out.println("\nStarting testMenuDuplicate");
 
-        Item dish = new Item("broth", "Mains", "clear soup", 7.75);
-        Item dish1 = new Item("broth", "Sandwiches", "clear soup", 7.75);
-        Item dish2 = new Item("broth", "Mains", "clear soup", 7.75);
+        Item dish = new Item(0, "Turkey Burger", "Sandwiches", "Turkey",12.91 );
+        Item dish1 = new Item(1, "Turkey Burger", "Burgers", "Turkey",7.75 );
+        Item dish2 = new Item(0, "Turkey Burger", "Sandwiches", "Turkey",12.91 );
 
         Menu list = new Menu();
 
         assertNotNull(list);
+        assertEquals(0, list.getMenu().size());
 
-        list.addItem(dish);
-        list.addItem(dish1);
-        list.addItem(dish2);
+        try {
+            list.addItem(dish);
+            list.addItem(dish1);
+            list.addItem(dish2);
+        } catch (Exception e) {
+            assertEquals(2, list.getMenu().size());
+        }
+
 
         ArrayList<Item> menu = list.getMenu();
 
-        assertEquals(2,menu.size());
+        assertEquals(2,menu.size()); //dish2 is not added to the menu list.
         assertTrue(menu.get(0).equal(dish));
         assertTrue(menu.get(1).equal(dish1));
-        //assert(menu.get(2));
         assertTrue(menu.get(0).equal(dish2));
 
         System.out.println("\nEnding testMenuDuplicate");
 
-    }*/
+    }
 
 }
