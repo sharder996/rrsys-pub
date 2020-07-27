@@ -6,14 +6,13 @@ import comp3350.rrsys.persistence.DataAccessStub;
 
 public class Services
 {
-    //private static DataAccessStub dataAccessService = null;
     private static DataAccess dataAccessService = null;
 
     public static DataAccess createDataAccess(String dbName)
     {
         if(dataAccessService == null)
         {
-           //dataAccessService = new DataAccessStub(dbName);
+            //dataAccessService = new DataAccessStub(dbName);
             dataAccessService = new DataAccessObject(dbName);
             dataAccessService.open(Main.dbName);
         }
