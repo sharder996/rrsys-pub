@@ -55,7 +55,7 @@ public class DataAccessTest extends TestCase {
 
         assertNull(result);
 
-        assertEquals(5, customers.size());
+        assertEquals(6, customers.size());
         customer = customers.get(0);
         assertEquals(1, customer.getCID());
         assertEquals( "Gary", customer.getFirstName());
@@ -99,14 +99,15 @@ public class DataAccessTest extends TestCase {
         customers.clear();
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
-        assertEquals(6, customers.size());
-        customer = customers.get(5);
+        assertEquals(7, customers.size());
+        customer = customers.get(6);
         assertEquals(firstName, customer.getFirstName());
         assertEquals(lastName, customer.getLastName());
         assertEquals(phoneNumber, customer.getPhoneNumber());
 
     }
 
+    //should allow duplicate table with new TID
     public void testTablesDatabaseTable() {
         ArrayList<Table> tables;
         Table table;
@@ -115,7 +116,7 @@ public class DataAccessTest extends TestCase {
         tables = new ArrayList<>();
         result = dataAccess.getTableSequential(tables);
         assertNotNull(tables);
-        assertEquals(30, tables.size());
+        assertEquals(31, tables.size());
         table = tables.get(0);
         assertEquals(1, table.getTID());
         assertEquals(2, table.getCapacity());
@@ -151,7 +152,7 @@ public class DataAccessTest extends TestCase {
         assertNull(result);
         assertEquals(31, tables.size());
 
-        table = tables.get(31);
+        table = tables.get(tables.size()-1);
         assertEquals(31, table.getTID());
         assertEquals(8, table.getCapacity());
 
@@ -234,7 +235,7 @@ public class DataAccessTest extends TestCase {
 
         menuItems.add(menuItems.get(0));
 
-        assertEquals(44, menuItems.size());
+        assertEquals(45, menuItems.size());
 
     }
 

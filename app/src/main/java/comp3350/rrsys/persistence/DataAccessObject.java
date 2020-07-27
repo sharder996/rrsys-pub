@@ -333,7 +333,7 @@ public class DataAccessObject implements DataAccess {
             values = tableID
                     + ", " + size;
             cmdString = "INSERT into TABLES " + " Values(" + values + ")";
-            System.out.println(cmdString);
+            //System.out.println(cmdString);
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         } catch (Exception e) {
