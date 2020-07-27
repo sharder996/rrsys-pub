@@ -335,6 +335,7 @@ public class DataAccessObject implements DataAccess {
                     + "', '" + available
                     + "'";
             cmdString = "INSERT into TABLES " + " Values(" + values + ")";
+            System.out.println(cmdString);
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         } catch (Exception e) {
