@@ -11,7 +11,7 @@ public class TestItem extends TestCase{
 
     public TestItem(String arg0) { super(arg0); }
 
-    public void testItemCreation(){
+    /*public void testItemCreation(){
 
         System.out.println("\nStarting testItemCreation");
 
@@ -114,6 +114,6 @@ public class TestItem extends TestCase{
 
         System.out.println("\nEnding testItemNegativePrice");
 
-    }
+    }*/
 
 }
