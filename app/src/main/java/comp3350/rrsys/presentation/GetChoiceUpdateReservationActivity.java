@@ -25,6 +25,7 @@ public class GetChoiceUpdateReservationActivity extends AppCompatActivity
         confirmIntent.putExtra("TimeEnd", getIntent().getStringExtra("Date"));
         confirmIntent.putExtra("Code", getIntent().getStringExtra("Code"));
         confirmIntent.putExtra("People", getIntent().getStringExtra("People"));
+
     }
 
     public void buttonPreorderOnClick(View view)

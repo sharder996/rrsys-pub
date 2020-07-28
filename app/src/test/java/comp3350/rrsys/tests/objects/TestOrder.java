@@ -10,7 +10,7 @@ public class TestOrder extends TestCase {
 
     public void TestOrderCreation(){
 
-        Order newOrder = new Order();
+        Order newOrder = new Order( 1);
 
         assertNotNull(newOrder);
 

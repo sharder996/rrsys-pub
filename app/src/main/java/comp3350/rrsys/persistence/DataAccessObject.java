@@ -563,7 +563,7 @@ public class DataAccessObject implements DataAccess
         String type;
         double price;
 
-        menu = new ArrayList<>();
+        ArrayList<Item> returnMenu = new ArrayList<>();
         try
         {
             cmdString = "SELECT * from MENU";
@@ -576,7 +576,7 @@ public class DataAccessObject implements DataAccess
                 detail = rs2.getString("DETAIL");
                 price = rs2.getDouble("PRICE");
                 item = new Item(IID, name, type, detail, price);
-                menu.add(item);
+                returnMenu.add(item);
             }
             rs2.close();
         }
@@ -585,9 +585,33 @@ public class DataAccessObject implements DataAccess
             processSQLError(e);
         }
 
-        return menu;
+        return returnMenu;
     }
+    public ArrayList<Item> getOrder(){
+        int OID;
+        double price;
+        String note;
+        ArrayList<Item> returnOrders = new ArrayList<>();
+        try
+        {
+            cmdString = "SELECT * from ORDERS";
+            rs2 = st0.executeQuery(cmdString);
+            while(rs2.next())
+            {
+                OID = rs2.getInt("OID");
+                price = rs2.getDouble("PRICE");
+                note = rs2.getString("NOTE");
 
+                //returnOrders.add(item);
+            }
+            rs2.close();
+        }
+        catch(Exception e)
+        {
+            processSQLError(e);
+        }
+        return returnOrders;
+    }
     public boolean[] getAvailable(int TID, DateTime time)
     {
         getReservationSequential(reservations);
