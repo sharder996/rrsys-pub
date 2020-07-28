@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
 import comp3350.rrsys.objects.Item;
-import comp3350.rrsys.objects.Order;
 import comp3350.rrsys.persistence.DataAccess;
 
 public class AccessOrders {
@@ -37,7 +36,7 @@ public class AccessOrders {
     }
 
     public double getPrice(){
-        return dataAccess.getprice();
+        return dataAccess.getPrice();
     }
 
     public int getSize(){

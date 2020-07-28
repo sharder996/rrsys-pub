@@ -640,7 +640,7 @@ public class DataAccessObject implements DataAccess
 
     public String deletedSelectedItem(Item newItem){return null;}
 
-    public double getprice(){return -1;}
+    public double getPrice(){return -1;}
 
     public int getSize(){return -1;}
 

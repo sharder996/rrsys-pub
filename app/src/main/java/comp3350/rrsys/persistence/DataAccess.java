@@ -67,7 +67,7 @@ public interface DataAccess
 
     String deletedSelectedItem(Item newItem);
 
-    double getprice();
+    double getPrice();
 
     int getSize();
 
