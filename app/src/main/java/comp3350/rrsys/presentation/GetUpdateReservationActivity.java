@@ -39,7 +39,7 @@ public class GetUpdateReservationActivity extends Activity
 
     public void buttonEnterOnClick(View v)
     {
-        Reservation selected = null;
+        Reservation selected;
         EditText code = findViewById(R.id.editTextReservationCode);
 
         if(code.length() != 0)
@@ -48,6 +48,7 @@ public class GetUpdateReservationActivity extends Activity
             {
                 String timeEnd;
                 String timeStart;
+                selected = accessReservations.getRandom(Integer.parseInt(code.getText().toString()));
 
                 if(selected.getEndTime().getMinutes() <10)
                      timeEnd = selected.getEndTime().getHour() +":0" + selected.getEndTime().getMinutes();
@@ -78,7 +79,7 @@ public class GetUpdateReservationActivity extends Activity
         else
         {
             if(code.length() ==0)
-                code.setError("Enter date");
+                code.setError("Enter reservation code");
         }
     }
 }
