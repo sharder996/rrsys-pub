@@ -23,7 +23,7 @@ import comp3350.rrsys.objects.Order;
 public class DataAccessObject implements DataAccess {
 
     private Statement st0, st1, st2;
-    private Connection c0;
+    private Connection c1;
     private ResultSet rs0, rs1, rs2, rs3;
 
     private String dbName;
@@ -51,10 +51,10 @@ public class DataAccessObject implements DataAccess {
             dbType = "HSQL";
             Class.forName("org.hsqldb.jdbcDriver").newInstance();
             url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
-            c0 = DriverManager.getConnection(url, "SA", "");
-            st0 = c0.createStatement();
-            st1 = c0.createStatement();
-            st2 = c0.createStatement();
+            c1 = DriverManager.getConnection(url, "SA", "");
+            st0 = c1.createStatement();
+            st1 = c1.createStatement();
+            st2 = c1.createStatement();
         } catch (Exception e) {
             processSQLError(e);
         }
@@ -65,7 +65,7 @@ public class DataAccessObject implements DataAccess {
         try {    // commit all changes to the database
             cmdString = "shutdown compact";
             rs1 = st0.executeQuery(cmdString);
-            c0.close();
+            c1.close();
         } catch (Exception e) {
             processSQLError(e);
         }
@@ -333,7 +333,7 @@ public class DataAccessObject implements DataAccess {
             values = tableID
                     + ", " + size;
             cmdString = "INSERT into TABLES " + " Values(" + values + ")";
-            System.out.println(cmdString);
+            //System.out.println(cmdString);
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         } catch (Exception e) {

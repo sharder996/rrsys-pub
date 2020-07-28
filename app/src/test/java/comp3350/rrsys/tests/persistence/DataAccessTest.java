@@ -18,7 +18,12 @@ import comp3350.rrsys.persistence.DataAccessStub;
 
 public class DataAccessTest extends TestCase {
 
-    private DataAccess dataAccess;
+    private DataAccess dataAccess = null;
+
+    public DataAccessTest(String arg0)
+    {
+        super(arg0);
+    }
 
     public void setUp() {
         System.out.println("\nStarting Persistence test DataAccess (using db)");
@@ -29,7 +34,9 @@ public class DataAccessTest extends TestCase {
 
         // or switch to the real database:
          dataAccess = new DataAccessObject(Main.dbName);
-         dataAccess.open(Main.getDBPathName());
+
+        dataAccess.open(Main.getDBPathName());
+
         // Note the increase in test execution time.
     }
 
@@ -80,7 +87,7 @@ public class DataAccessTest extends TestCase {
         customers.clear();
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
-        assertEquals(6, customers.size());
+        assertEquals(5, customers.size());
     }
 
     public void testAddNewCustomer() {
@@ -107,6 +114,7 @@ public class DataAccessTest extends TestCase {
 
     }
 
+    //should allow duplicate table with new TID
     public void testTablesDatabaseTable() {
         ArrayList<Table> tables;
         Table table;
@@ -115,7 +123,7 @@ public class DataAccessTest extends TestCase {
         tables = new ArrayList<>();
         result = dataAccess.getTableSequential(tables);
         assertNotNull(tables);
-        assertEquals(30, tables.size());
+        assertEquals(31, tables.size());
         table = tables.get(0);
         assertEquals(1, table.getTID());
         assertEquals(2, table.getCapacity());
@@ -151,7 +159,7 @@ public class DataAccessTest extends TestCase {
         assertNull(result);
         assertEquals(31, tables.size());
 
-        table = tables.get(31);
+        table = tables.get(tables.size()-1);
         assertEquals(31, table.getTID());
         assertEquals(8, table.getCapacity());
 
@@ -234,7 +242,7 @@ public class DataAccessTest extends TestCase {
 
         menuItems.add(menuItems.get(0));
 
-        assertEquals(44, menuItems.size());
+        assertEquals(45, menuItems.size());
 
     }
 

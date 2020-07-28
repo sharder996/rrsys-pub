@@ -10,13 +10,21 @@ public class Services
 
     public static DataAccess createDataAccess(String dbName)
     {
-        if(dataAccessService == null)
+        if (dataAccessService == null)
         {
-            //dataAccessService = new DataAccessStub(dbName);
             dataAccessService = new DataAccessObject(dbName);
-            dataAccessService.open(Main.dbName);
+            dataAccessService.open(Main.getDBPathName());
         }
+        return dataAccessService;
+    }
 
+    public static DataAccess createDataAccess(DataAccess alternateDataAccessService)
+    {
+        if (dataAccessService == null)
+        {
+            dataAccessService = alternateDataAccessService;
+            dataAccessService.open(Main.getDBPathName());
+        }
         return dataAccessService;
     }
 
