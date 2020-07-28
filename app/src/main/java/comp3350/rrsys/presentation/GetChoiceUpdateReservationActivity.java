@@ -18,26 +18,26 @@ public class GetChoiceUpdateReservationActivity extends AppCompatActivity
 
     public void buttonUpdateOnClick(View view)
     {
-        Intent confirmIntent = new Intent(GetChoiceUpdateReservationActivity.this, GetUpdateReservationActivity.class);
+        Intent confirmIntent = new Intent(GetChoiceUpdateReservationActivity.this, UpdateReservationActivity.class);
 
         confirmIntent.putExtra("Date", getIntent().getStringExtra("Date"));
-        confirmIntent.putExtra("TimeStart", getIntent().getStringExtra("Date"));
-        confirmIntent.putExtra("TimeEnd", getIntent().getStringExtra("Date"));
+        confirmIntent.putExtra("TimeStart", getIntent().getStringExtra("TimeStart"));
+        confirmIntent.putExtra("TimeEnd", getIntent().getStringExtra("TimeEnd"));
         confirmIntent.putExtra("Code", getIntent().getStringExtra("Code"));
         confirmIntent.putExtra("People", getIntent().getStringExtra("People"));
 
+        GetChoiceUpdateReservationActivity.this.startActivity(confirmIntent);
     }
 
     public void buttonPreorderOnClick(View view)
     {
-        Intent getMenu = new Intent(GetChoiceUpdateReservationActivity.this, CreateOrderActivity.class);
-        getMenu.putExtra("Code", getIntent().getStringExtra("Code"));
-        GetChoiceUpdateReservationActivity.this.startActivity(getMenu);
+        Intent GetMenu = new Intent(GetChoiceUpdateReservationActivity.this, MenuActivity.class);
+        GetChoiceUpdateReservationActivity.this.startActivity(GetMenu);
     }
 
     public void buttonBackOnClick(View view)
     {
-        Intent backPageIntent = new Intent(GetChoiceUpdateReservationActivity.this, HomeActivity.class);
+        Intent backPageIntent = new Intent(GetChoiceUpdateReservationActivity.this, GetUpdateReservationActivity.class);
         GetChoiceUpdateReservationActivity.this.startActivity(backPageIntent);
     }
 }
