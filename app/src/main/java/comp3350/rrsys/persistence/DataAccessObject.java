@@ -615,6 +615,8 @@ public class DataAccessObject implements DataAccess
 //    }
     public boolean[] getAvailable(int TID, DateTime time)
     {
+        reservations = new ArrayList<>();
+        reservations = new ArrayList<>();
         getReservationSequential(reservations);
         boolean[] available = new boolean[Table.INTERVALS_PER_DAY];
         for(int i = 0; i < available.length; i++)
@@ -634,7 +636,7 @@ public class DataAccessObject implements DataAccess
 
     public ArrayList<Item> getOrder(){ return null;}
 
-    public String insertselectedItem(Item newItem){return null;}
+    public String insertSelectedItem(Item newItem){return null;}
 
     public String deletedSelectedItem(Item newItem){return null;}
 

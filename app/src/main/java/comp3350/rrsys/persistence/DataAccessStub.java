@@ -14,7 +14,7 @@ import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Order;
 
-public class DataAccessStub implements DataAccess
+public class DataAccessStub //implements DataAccess
 {
     private String dbName;
     private static String dbType = "stub";
