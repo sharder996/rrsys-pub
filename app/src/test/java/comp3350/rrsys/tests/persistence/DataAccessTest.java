@@ -172,15 +172,19 @@ public class DataAccessTest extends TestCase {
 
         table = dataAccess.getTableRandom(1);
         assertNotNull(table);
-
-        result = dataAccess.addTable(table.getTID(), table.getCapacity());
+        try {
+            result = dataAccess.addTable(table.getTID(), table.getCapacity());
+            fail();
+        }catch(IllegalArgumentException e){
+            assertNull(result);
+        }
         assertNotNull(result);
 
         tables = new ArrayList<>();
         result = dataAccess.getTableSequential(tables);
         assertNull(result);
 
-        assertEquals(31, tables.size());
+        assertEquals(30, tables.size());
     }
 
     public void testReservations() {
@@ -243,7 +247,6 @@ public class DataAccessTest extends TestCase {
         menuItems.add(menuItems.get(0));
 
         assertEquals(45, menuItems.size());//this should be 44.
-
     }
 
     public void testAddNewMenu(){
@@ -262,7 +265,5 @@ public class DataAccessTest extends TestCase {
 
         assertEquals(45, menuItems.size());
         assertTrue(menuItems.get(44).equal(newitem));
-
-
     }
 }

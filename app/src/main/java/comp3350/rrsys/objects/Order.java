@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Order
 {
-    private int oID;    // order ID
+    private int orderID;    // order ID
     private ArrayList<Item> order;
     private double price;
     //TODO: remove this if not being used this iteration
@@ -19,10 +19,10 @@ public class Order
     public ArrayList<Item> getOrder() { return order; }
     public String getNote() { return note; }
     public double getPrice() { return price; }
-    public int getOID() { return oID; }
+    public int getOrderID() { return orderID; }
 
     public void setNote(String note) { this.note = note; }
-    public void setOID(int oID) { this.oID = oID; }
+    public void setOID(int orderID) { this.orderID = orderID; }
 
     public void addItem(Item newItem)
     {
@@ -34,5 +34,8 @@ public class Order
     {
         if(order.remove(item))
             price -= item.getPrice();
+    }
+    public int size(){
+        return order.size();
     }
 }
