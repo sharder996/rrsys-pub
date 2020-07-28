@@ -432,4 +432,24 @@ public class DataAccessStub implements DataAccess
         }
         return available;
     }
+
+    public ArrayList<Item> getOrder() {
+        return null;
+    }
+
+    public String insertSelectedItem(Item newItem) {
+        return null;
+    }
+
+    public String deletedSelectedItem(Item newItem) {
+        return null;
+    }
+
+    public double getPrice() {
+        return 0;
+    }
+
+    public int getSize() {
+        return 0;
+    }
 }
