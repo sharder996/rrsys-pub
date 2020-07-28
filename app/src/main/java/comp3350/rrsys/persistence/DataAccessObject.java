@@ -136,11 +136,12 @@ public class DataAccessObject implements DataAccess
                 tableID = rs2.getInt("TID");
                 numPeople = rs2.getInt("NUMPEOPLE");
                 orderID = rs2.getInt("OID");
-                Calendar cal = new GregorianCalendar();
-                cal.setTime(rs2.getTimestamp("STARTTIME"));
-                startTime = new DateTime(cal);
-                cal.setTime(rs2.getTimestamp("ENDTIME"));
-                endTime = new DateTime(cal);
+                Calendar calStart = new GregorianCalendar();
+                calStart.setTime(rs2.getTimestamp("STARTTIME"));
+                startTime = new DateTime(calStart);
+                Calendar calEnd = new GregorianCalendar();
+                calEnd.setTime(rs2.getTimestamp("ENDTIME"));
+                endTime = new DateTime(calEnd);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(reservationID);
                 reservation.setOID(orderID);
