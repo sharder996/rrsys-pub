@@ -43,20 +43,10 @@ public class MenuActivity extends Activity
             adapter.addSeparatorItem(types.get(i));
             ArrayList<Item> items = accessMenu.getMenuByType(types.get(i));
             for (int j = 0; j < items.size(); j++) {
-                adapter.addItem(items.get(j).getName());
+                adapter.addItem(items.get(j).getName()+ "\n" +items.get(j).getPrice() + ", " + items.get(j).getDetail());
             }
         }
         listMenu.setAdapter(adapter);
-
-       // mAdapter = new MyAdapter();
-//        for (int i = 1; i < 50; i++) {
-//            mAdapter.addItem("Menu Item List " + i);
-//            if (i % 4 == 0) {
-//                mAdapter.addSeparatorItem("Menu " + i);
-//            }
-//        }
-//        setListAdapter(mAdapter);
-
     }
 
     public void buttonBackOnClick(View v)
