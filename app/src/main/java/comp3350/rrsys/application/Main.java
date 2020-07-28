@@ -24,12 +24,14 @@ public class Main
         Services.closeDataAccess();
     }
 
-    public static void setDBPathName(String pathName) {
+    public static void setDBPathName(String pathName)
+    {
         System.out.println("Setting DB path to: " + pathName);
         dbPathName = pathName;
     }
 
-    public static String getDBPathName() {
+    public static String getDBPathName()
+    {
         if (dbPathName == null)
             return dbName;
         else

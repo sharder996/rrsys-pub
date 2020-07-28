@@ -1,6 +1,5 @@
 package comp3350.rrsys.business;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import comp3350.rrsys.application.Main;
@@ -8,13 +7,10 @@ import comp3350.rrsys.application.Services;
 import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
-import comp3350.rrsys.persistence.DataAccessStub;
 import comp3350.rrsys.persistence.DataAccess;
 
 public class AccessReservations
 {
-    //private static DataAccessStub dataAccessStatic;
-    //private DataAccessStub dataAccess;
     private static DataAccess dataAccessStatic;
     private DataAccess dataAccess;
     private ArrayList<Reservation> reservations;
@@ -64,7 +60,7 @@ public class AccessReservations
         ArrayList<Reservation> results = new ArrayList<Reservation>();
         int index = getIndex(startTime);
         int totalIncrement = (startTime.getPeriod(endTime)+7)/15; // total num of increments
-        int maxIndex = Table.getNumIncrement(); // max index
+        int maxIndex = Table.INTERVALS_PER_DAY; // max index
         ArrayList<Table> tables = new ArrayList<>();
         dataAccessStatic.getTableSequential(tables);
 
@@ -81,12 +77,12 @@ public class AccessReservations
                 {
                     while(i <= index+2 && i < maxIndex && !available[i])
                         i++;
-                    if (i <= index + 2 && i < maxIndex)
+                    if(i <= index + 2 && i < maxIndex)
                     {
                         int numIncrement = 1;
-                        for (int time = i + 1; time < i + totalIncrement; time++)
+                        for(int time = i + 1; time < i + totalIncrement; time++)
                         {
-                            if (time < maxIndex && available[time])
+                            if(time < maxIndex && available[time])
                                 numIncrement++;
                             else
                                 break;
@@ -107,6 +103,6 @@ public class AccessReservations
 
     public static int getIndex(DateTime time)
     {
-        return (time.getHour()-Table.getStartTime())*4 + (time.getMinutes()+7)/15;
+        return (time.getHour()-Table.START_TIME)*4 + (time.getMinutes()+7)/15;
     }
 }

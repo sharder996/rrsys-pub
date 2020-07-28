@@ -2,7 +2,7 @@ package comp3350.rrsys.persistence;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
@@ -17,9 +17,10 @@ import comp3350.rrsys.objects.Order;
 public class DataAccessStub implements DataAccess
 {
     private String dbName;
-    private String dbType = "stub";
+    private static String dbType = "stub";
 
-    //private int customerID; // the customer ID of current customer (logged in)
+    //TODO: remove this variable?
+    //private int customerID;
     private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
@@ -55,7 +56,7 @@ public class DataAccessStub implements DataAccess
     // return the index of a date time
     public int getIndex(DateTime time)
     {
-        return (time.getHour()-Table.getStartTime())*4 + (time.getMinutes()+7)/15;
+        return (time.getHour()-Table.START_TIME)*4 + (time.getMinutes()+7)/15;
     }
 
     // return the date time corresponding to an index
@@ -64,22 +65,16 @@ public class DataAccessStub implements DataAccess
         DateTime result = null;
         try
         {
-            result = new DateTime(Calendar.getInstance());
-            result.setYear(time.getYear());
-            result.setMonth(time.getMonth());
-            result.setDate(time.getDate());
-            result.setHour(Table.getStartTime() + index / 4);
-            result.setMinutes(index % 4 * 15);
+            result = new DateTime(new GregorianCalendar(time.getYear(), time.getMonth(), time.getDate(), Table.START_TIME + index / 4, index % 4 * 15));
         }
-        catch (IllegalArgumentException pe)
+        catch(IllegalArgumentException pe)
         {
             System.out.println(pe);
         }
         return result;
     }
 
-    // ordered insert a suggested reservation into a temp array
-    // ordered by how close to the startTime
+    // ordered insert a suggested reservation into a temp array by how close to the startTime
     public void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t)
     {
         int pos = 0;
@@ -97,15 +92,14 @@ public class DataAccessStub implements DataAccess
     // insert a reservation
     public String insertReservation(Reservation r)
     {
-        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0){
+        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0)
             return "fail";
-        }
+
         r.setRID();
         reservations.add(r);
         return "success";
     }
 
-    // get a reservation
     // get a reservation by reservationID
     public Reservation getReservation(int reservationID)
     {
@@ -127,27 +121,25 @@ public class DataAccessStub implements DataAccess
         boolean found = false;
         for(int i = 0; i < reservations.size(); i++)
         {
-            if (reservations.get(i).equals(rID))
+            if(reservations.get(i).equals(rID))
             {
-                DateTime start = reservations.get(i).getStartTime();
-                DateTime end = reservations.get(i).getEndTime();
                 reservations.remove(i);
                 found = true;
                 break;
             }
         }
-        if(!found) {
+        if(!found)
             return "fail";
-        }
+
         return "success";
     }
 
     // update a reservation with rID to curr
     public String updateReservation(int rID, Reservation curr)
     {
-        if(curr.getNumPeople() < 0 || curr.getTID() < 0 ){
+        if(curr.getNumPeople() < 0 || curr.getTID() < 0 )
             return "fail";
-        }
+
         for(int i = 0; i < reservations.size(); i++)
         {
             if (reservations.get(i).equals(rID))
@@ -212,7 +204,7 @@ public class DataAccessStub implements DataAccess
             customers.add(new Customer(firstName, lastName, phoneNumber));
             return null;
         }
-        catch (IllegalArgumentException e)
+        catch(IllegalArgumentException e)
         {
             return e.getMessage();
         }
@@ -221,7 +213,7 @@ public class DataAccessStub implements DataAccess
     //adds a new table object by raw data types
     public String addTable(int tableID, int size)
     {
-        for (int i = 0; i < tables.size(); i++)
+        for(int i = 0; i < tables.size(); i++)
         {
             if(tableID == tables.get(i).getTID())
             {
@@ -234,8 +226,8 @@ public class DataAccessStub implements DataAccess
 
     public void generateFakeData()
     {
-        //generate tables in the restaurant.
-        //assume there are 30 tables
+        // generate tables in the restaurant.
+        // assume there are 30 tables
         // Table ID will be 1 to 30.
         // 5 tables each for 2, 4, 6, 8, 10, 12 people, totally 30 tables
         int size = 2;
@@ -343,8 +335,8 @@ public class DataAccessStub implements DataAccess
         drink = new Item(44, "MARGARITA", "Drinks", "tequila, lime juice with salted rimmed glass & a slice of lemon.", 9.00);
         insertItem(drink);
 
-        //generate customer informations
-        //assume there are 100 customers.
+        // generate customer information
+        // assume there are 100 customers
         Random rand = new Random();
         String name = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -354,8 +346,9 @@ public class DataAccessStub implements DataAccess
         int length = 4;
 
         for(int k = 1000; k <1100; k++)
-        { // k is last four digits in phone number. (100 customers)
-            ///////////////////////////////////////////////////////////////////////////
+        {
+            // k is last four digits in phone number. (100 customers)
+            //-------------------------------------------------------------------------
             // generate random names
             char[] first = new char[length];
             char[] last = new char[length + 2];
@@ -372,7 +365,7 @@ public class DataAccessStub implements DataAccess
             for (int i = 0; i < last.length; i++)
                     randomlastName += last[i];
 
-            ///////////////////////////////////////////////////////////////////////////
+            //-------------------------------------------------------------------------
             // generate random phone numbers
             int num1 = (rand.nextInt(7) + 1) * 100 + (rand.nextInt(8) * 10) + rand.nextInt(8);
             int num2 = rand.nextInt(743);
@@ -420,12 +413,17 @@ public class DataAccessStub implements DataAccess
     {
         return menu;
     }
-    public boolean[] getAvailable(int TID, DateTime time) {
-        boolean[] available = new boolean[Table.getNumIncrement()];
+
+    public boolean[] getAvailable(int TID, DateTime time)
+    {
+        boolean[] available = new boolean[Table.INTERVALS_PER_DAY];
         for(int i = 0; i < available.length; i++)
             available[i] = true;
-        for(int i = 0; i < reservations.size(); i++) {
-            if(reservations.get(i).getTID() == TID && reservations.get(i).getStartTime().getYear() == time.getYear() && reservations.get(i).getStartTime().getMonth() == time.getMonth() && reservations.get(i).getStartTime().getDate() == time.getDate()) {
+        for(int i = 0; i < reservations.size(); i++)
+        {
+            if(reservations.get(i).getTID() == TID && reservations.get(i).getStartTime().getYear() == time.getYear() && reservations.get(i).getStartTime().getMonth() == time.getMonth()
+                    && reservations.get(i).getStartTime().getDate() == time.getDate())
+            {
                 int startIndex = getIndex(reservations.get(i).getStartTime());
                 int endIndex = getIndex(reservations.get(i).getEndTime());
                 for(int j = startIndex; j < endIndex; j++)

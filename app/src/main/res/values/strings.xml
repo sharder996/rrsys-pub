@@ -16,6 +16,7 @@
     <string name="reservation_code_message">Here is your reservation code to be presented upon arrival: </string>
     <string name="enter_reservation_info_msg">Enter the reservation code for the reservation you wish to review: </string>
     <string name="enter_reservation_info_msg_update">Enter the reservation code for the reservation you wish to update: </string>
+    <string name="confirmation_instructions">Press RETURN to go back to the main menu or press PRE-ORDER to pre-order food for your reservation</string>
 
     <string name="number_of_people">Number of people: </string>
     <string name="pick_date">Date: </string>
@@ -24,13 +25,16 @@
     <string name="time">Time: </string>
     <string name="confirm">Confirm</string>
     <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
     <string name="done">Done</string>
+    <string name="returnToMain">Return</string>
+    <string name="preOrder">Pre-order</string>
     <string name="length_of_stay">Length of stay: </string>
     <string name="reservation_details">Reservation details: </string>
     <string name="order_details">Order details: </string>
     <string name="reservation_updates">Updated reservation details: </string>
     <string name="reservation_code">Reservation code: </string>
-    <string name="cancel">Cancel reservation</string>
+    <string name="cancelReservation">Cancel reservation</string>
     <string name="name">Name: </string>
     <string name="first_name">First name: </string>
     <string name="last_name">Last name: </string>

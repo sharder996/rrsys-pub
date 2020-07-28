@@ -3,14 +3,6 @@ package comp3350.rrsys.objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/*
-    reservation object accepts
-        - reservationID (reservation ID)
-        - customerID (customer ID)
-        - tableID (table ID)
-        - numPeople
-        - startTime & endTime
- */
 public class Reservation implements Parcelable
 {
     private int reservationID;
@@ -21,6 +13,10 @@ public class Reservation implements Parcelable
     private DateTime endTime;
     private static int counter = 1;
     private int orderID;
+    public static final int MAX_PEOPLE = 12;
+    public static final int MIN_PEOPLE = 1;
+    public static final int MAX_TIME = 180;
+    public static final int MIN_TIME = 30;
 
     // constructor for inserting a reservation
     public Reservation(int customerID, int tableID, int numPeople, DateTime startTime, DateTime endTime)

@@ -8,15 +8,16 @@ import android.os.Parcelable;
  * Customer stub database object. Holds unique ID (enforced by Database object), customer name (first
  * and last) and phone number;
  */
+
 public class Customer implements Parcelable
 {
     private int cID;
-    //enforces format: 9999999999, 1-999-999-9999 and 999-999-9999
-    private final static String regExPhoneNumber = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$";
     private String firstName;
     private String lastName;
-    private String phoneNumber; //any non numerical character removed
+    private String phoneNumber;
     private static int counter = 1;
+    // enforces format: 9999999999, 1-999-999-9999 and 999-999-9999
+    private final static String regExPhoneNumber = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$";
 
     public Customer(String fName, String lName, String pNum) throws IllegalArgumentException
     {
@@ -70,11 +71,11 @@ public class Customer implements Parcelable
     private boolean containsDigitInString(String input)
     {
         boolean containsDigit = false;
-        if (input != null && !input.isEmpty())
+        if(input != null && !input.isEmpty())
         {
-            for (char c : input.toCharArray())
+            for(char c : input.toCharArray())
             {
-                if (containsDigit = Character.isDigit(c))
+                if(containsDigit = Character.isDigit(c))
                     break;
             }
         }
@@ -94,26 +95,11 @@ public class Customer implements Parcelable
     @Override
     public String toString() { return "Name: " + this.getFullName() + " -- Ph. num.: " + this.getPhoneNumber(); }
 
-    public String getFirstName()
-    {
-        return firstName;
-    }
-    public String getLastName()
-    {
-        return lastName;
-    }
-    public String getFullName()
-    {
-        return firstName + " " + lastName;
-    }
-    public String getPhoneNumber()
-    {
-        return phoneNumber;
-    }
-    public int getCID()
-    {
-        return cID;
-    }
+    public String getFirstName() { return firstName; }
+    public String getLastName() { return lastName; }
+    public String getFullName() { return firstName + " " + lastName; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public int getCID() { return cID; }
 
     public void setFirstName(String newFirstName) throws IllegalArgumentException
     {

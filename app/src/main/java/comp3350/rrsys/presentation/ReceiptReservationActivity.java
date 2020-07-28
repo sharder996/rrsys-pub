@@ -18,7 +18,7 @@ public class ReceiptReservationActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_receipt);
-        Reservation reservation = (Reservation)getIntent().getParcelableExtra("reservation");
+        Reservation reservation = getIntent().getParcelableExtra("reservation");
 
         final TextView textReservationCode = findViewById(R.id.textReservationCode);
         textReservationCode.setText("" + reservation.getRID());
@@ -60,5 +60,11 @@ public class ReceiptReservationActivity extends Activity
     {
         Intent returnHomeIntent = new Intent(ReceiptReservationActivity.this, HomeActivity.class);
         ReceiptReservationActivity.this.startActivity(returnHomeIntent);
+    }
+
+    public void buttonPreOrderOnClick(View v)
+    {
+        Intent preOrderIntent = new Intent(ReceiptReservationActivity.this, PreOrderMenuActivity.class);
+        ReceiptReservationActivity.this.startActivity(preOrderIntent);
     }
 }

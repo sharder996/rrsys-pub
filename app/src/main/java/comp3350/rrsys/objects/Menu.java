@@ -2,7 +2,12 @@ package comp3350.rrsys.objects;
 
 import java.util.ArrayList;
 
-public class Menu {
+//TODO: not sure why we need a menu object just to hold a list of items...
+// if the purpose of this class is for the menu UI objects wouldn't it be simple enough
+// to just query the database and get the list of menu items from there?
+
+public class Menu
+{
     private ArrayList<Item> menu;
 
     public Menu()
@@ -10,18 +15,24 @@ public class Menu {
         menu = new ArrayList<>();
     }
 
-    public void addItem(Item newItem) throws Exception {
+    public void addItem(Item newItem) throws Exception
+    {
         boolean duplicate = false;
-        for(int i = 0; i < menu.size(); i++){
-            if(menu.get(i).equal(newItem)){
+        for(int i = 0; i < menu.size(); i++)
+        {
+            if(menu.get(i).equal(newItem))
+            {
                 duplicate = true;
                 break;
             }
         }
 
-        if(!duplicate) {
+        if(!duplicate)
+        {
             menu.add(newItem);
-        }else{
+        }
+        else
+        {
             throw new Exception("Duplicate Item");
         }
     }
@@ -38,5 +49,4 @@ public class Menu {
         }
         return items;
     }
-
 }

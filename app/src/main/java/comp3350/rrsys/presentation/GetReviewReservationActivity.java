@@ -40,7 +40,7 @@ public class GetReviewReservationActivity extends Activity
     public void buttonEnterOnClick(View v)
     {
         Reservation selected = null;
-        EditText code = (EditText) findViewById(R.id.editTextReservationCode);
+        EditText code = findViewById(R.id.editTextReservationCode);
 
         if(code.length() != 0)
         {
@@ -67,7 +67,7 @@ public class GetReviewReservationActivity extends Activity
                 confirmIntent.putExtra("People", selected.getNumPeople() + "");
                 GetReviewReservationActivity.this.startActivity(confirmIntent);
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 code.setError("Sorry we found no reservation with that reservation code");
                 e.printStackTrace();

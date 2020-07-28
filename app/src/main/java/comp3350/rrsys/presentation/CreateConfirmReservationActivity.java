@@ -146,7 +146,7 @@ public class CreateConfirmReservationActivity extends Activity
         {
             customer = new Customer(firstName, lastName, phoneNumber);
         }
-        catch (Exception e)
+        catch(Exception e)
         {
             Messages.warning(this, "Error: " + e.getMessage());
         }

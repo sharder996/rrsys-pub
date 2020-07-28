@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
 import comp3350.rrsys.objects.Table;
-import comp3350.rrsys.persistence.DataAccessStub;
 import comp3350.rrsys.persistence.DataAccess;
 
 public class AccessTables
 {
-    //private DataAccessStub dataAccess;
     private DataAccess dataAccess;
     private ArrayList<Table> tables;
 
@@ -31,6 +29,7 @@ public class AccessTables
         return dataAccess.getTableRandom(tID).getCapacity();
     }
 
+    // TODO
     /*public ArrayList<Table> recommendTables(int numPeople, int month, int date, int startTime, int endTime)
     {
         ArrayList<Table> result = new ArrayList<>();

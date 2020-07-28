@@ -10,18 +10,21 @@ import java.util.GregorianCalendar;
 /*
     accepts "yyyy-mm-ddTHH:mm" this format
  */
+
 public class DateTime implements Parcelable
 {
-    Calendar timeSlot; //Calendar library
+    private Calendar timeSlot;
+    private static final int MAX_DAYS_DIFFERENCE = 30;
 
-    //Calendar cal = new GregorianCalendar(2013,7,28,13,24);
-    //DateTime reservation = new DateTime(cal);
+    // Calendar cal = new GregorianCalendar(2013,7,28,13,24);
+    // DateTime reservation = new DateTime(cal);
     public DateTime(Calendar timeInfo) throws IllegalArgumentException
     {
-        int CurrYear = Calendar.getInstance().get(Calendar.YEAR);
-        //check valid year
-        if(!(timeInfo.get(Calendar.YEAR) >= CurrYear &&  timeInfo.get(Calendar.YEAR) <= CurrYear+1))
-            throw new IllegalArgumentException("Invalid Year.");
+        Calendar currDate = Calendar.getInstance();
+
+        int differenceDays = (int)((timeInfo.getTimeInMillis() - currDate.getTimeInMillis()) / 1000 / 3600 / 24);
+        if(differenceDays > MAX_DAYS_DIFFERENCE || differenceDays < 0)
+            throw new IllegalArgumentException("Invalid date.");
 
         timeSlot = timeInfo;
     }
@@ -31,25 +34,12 @@ public class DateTime implements Parcelable
         timeSlot = new GregorianCalendar(in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
     }
 
-    public void setYear(int year){
-        int CurrYear = Calendar.getInstance().get(Calendar.YEAR);
-
-        if(!(year >= CurrYear &&  year <= CurrYear+1))
-            throw new IllegalArgumentException("Invalid Year.");
-
-
-        timeSlot.set(Calendar.YEAR,year);
-    }
-    public void setMonth(int month){timeSlot.set(Calendar.MONTH,month);}
-    public void setDate(int date){timeSlot.set(Calendar.DATE,date);}
-    public void setHour(int hour){ timeSlot.set(Calendar.HOUR_OF_DAY,hour); }
-    public void setMinutes(int minutes){timeSlot.set(Calendar.MINUTE,minutes);}
-
     public int getYear(){ return timeSlot.get(Calendar.YEAR); }
     public int getMonth(){ return timeSlot.get(Calendar.MONTH); }
     public int getDate(){ return timeSlot.get(Calendar.DATE); }
     public int getHour(){ return timeSlot.get(Calendar.HOUR_OF_DAY); }
     public int getMinutes(){ return timeSlot.get(Calendar.MINUTE); }
+    public Calendar getCalendar(){ return timeSlot; }
 
     // return how long between two date time in minutes
     public boolean equals(DateTime compare)
@@ -57,6 +47,7 @@ public class DateTime implements Parcelable
         return compare.getYear() == timeSlot.get(Calendar.YEAR) && compare.getMonth() == timeSlot.get(Calendar.MONTH) && compare.getDate() == timeSlot.get(Calendar.DATE) &&
                 compare.getHour() == timeSlot.get(Calendar.HOUR_OF_DAY) && compare.getMinutes() == timeSlot.get(Calendar.MINUTE);
     }
+
     public int getPeriod(DateTime other)
     {
         return (other.getHour()-this.getHour())*60 + other.getMinutes()-this.getMinutes();

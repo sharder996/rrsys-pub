@@ -21,7 +21,7 @@ public class TestDateTime extends TestCase
             time1 = new DateTime(new GregorianCalendar(2020,8,23,14,0));
             time2 = new DateTime(new GregorianCalendar(2020,8,23,15,0));
         }
-        catch (IllegalArgumentException e)
+        catch(IllegalArgumentException e)
         {
             fail();
         }
@@ -35,13 +35,34 @@ public class TestDateTime extends TestCase
         assertNotNull(time2);
         assertFalse(time1.equals(time2));
 
-        time2.setHour(14);
+        try
+        {
+            time2 = new DateTime(new GregorianCalendar(2020, 8, 23, 14, 0));
+        }
+        catch(IllegalArgumentException e)
+        {
+            fail();
+        }
         assertTrue(time1.equals(time2));
 
-        time2.setDate(24);
+        try
+        {
+            time2 = new DateTime(new GregorianCalendar(2020, 8, 24, 14, 0));
+        }
+        catch(IllegalArgumentException e)
+        {
+            fail();
+        }
         assertFalse(time1.equals(time2));
 
-        time1.setDate(24);
+        try
+        {
+            time1 = new DateTime(new GregorianCalendar(2020, 8, 24, 14, 0));
+        }
+        catch(IllegalArgumentException e)
+        {
+            fail();
+        }
         assertTrue(time1.equals(time2));
 
         System.out.println("\nEnding testDateTimeCreationAndEquals");

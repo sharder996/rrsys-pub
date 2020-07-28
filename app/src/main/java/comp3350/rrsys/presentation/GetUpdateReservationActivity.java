@@ -11,8 +11,8 @@ import comp3350.rrsys.R;
 import comp3350.rrsys.business.AccessReservations;
 import comp3350.rrsys.objects.Reservation;
 
-public class GetUpdateReservationActivity extends Activity {
-
+public class GetUpdateReservationActivity extends Activity
+{
     private AccessReservations accessReservations;
 
     @Override
@@ -40,7 +40,7 @@ public class GetUpdateReservationActivity extends Activity {
     public void buttonEnterOnClick(View v)
     {
         Reservation selected = null;
-        EditText code = (EditText) findViewById(R.id.editTextReservationCode);
+        EditText code = findViewById(R.id.editTextReservationCode);
 
         if(code.length() != 0)
         {
@@ -69,7 +69,7 @@ public class GetUpdateReservationActivity extends Activity {
                 confirmIntent.putExtra("People", selected.getNumPeople()+ "");
                 GetUpdateReservationActivity.this.startActivity(confirmIntent);
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 code.setError("Sorry we found no reservation with that reservation code");
                 e.printStackTrace();

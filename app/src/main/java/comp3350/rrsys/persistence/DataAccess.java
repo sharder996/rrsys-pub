@@ -10,15 +10,16 @@ import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
 
-public interface DataAccess {
-
+public interface DataAccess
+{
     void open(String string);
 
     void close();
 
+    //TODO: dead code?
     //private void setTable(int tID, int month, int day, int startIndex, int endIndex, boolean bool)
 
-    //Reservation Functions:
+    // Reservation Functions:
     Reservation getReservation(int rID);
 
     String deleteReservation(int rID);
@@ -31,7 +32,7 @@ public interface DataAccess {
 
     void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
 
-    //Table Functions:
+    // Table Functions:
     String getTableSequential(ArrayList<Table> tableResult);
 
     Table getTableRandom(int tableID);
@@ -40,16 +41,14 @@ public interface DataAccess {
 
     String addTable(int tableID, int size);
 
-
-    //Customer Functions:
+    // Customer Functions:
     String getCustomerSequential(List<Customer> customerResult);
 
     String insertCustomer(Customer customer);
 
     String insertCustomer(String firstName, String lastName, String phoneNumber);
 
-
-    //Menu Functions:
+    // Menu Functions:
     ArrayList<String> getMenuTypes();
 
     ArrayList<Item> getMenu();
@@ -58,7 +57,6 @@ public interface DataAccess {
 
     ArrayList<Item> getMenuByType(String type);
 
-
-    //DateTime Functions:
+    // DateTime Functions:
     DateTime getDateTime(DateTime time, int index);
 }

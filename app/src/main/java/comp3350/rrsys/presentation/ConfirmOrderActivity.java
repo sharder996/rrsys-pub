@@ -7,21 +7,25 @@ import android.view.View;
 
 import comp3350.rrsys.R;
 
-public class ConfirmOrderActivity extends Activity {
+public class ConfirmOrderActivity extends Activity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
     }
 
-    public void buttonBackOnClick(View v) {
+    public void buttonBackOnClick(View v)
+    {
         Intent backPageIntent = new Intent(ConfirmOrderActivity.this, CreateOrderActivity.class);
         ConfirmOrderActivity.this.startActivity(backPageIntent);
     }
 
     public void buttonConfirmOnClick(View v)
     {
-        Intent backPageIntent = new Intent(ConfirmOrderActivity.this, HomeActivity.class);//Change to proper place once added in to UI
+        // TODO: Change to proper place once added in to UI
+        Intent backPageIntent = new Intent(ConfirmOrderActivity.this, HomeActivity.class);
         ConfirmOrderActivity.this.startActivity(backPageIntent);
     }
 }

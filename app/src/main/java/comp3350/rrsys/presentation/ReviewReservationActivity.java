@@ -17,10 +17,10 @@ public class ReviewReservationActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_reservation);
 
-        TextView date = (TextView) findViewById(R.id.textDateInfo);
-        TextView time = (TextView) findViewById(R.id.textTimeInfo);
-        TextView code = (TextView) findViewById(R.id.textReservationCodeInfo);
-        TextView numPeople = (TextView) findViewById(R.id.textNumberOfPeopleInfo);
+        TextView date = findViewById(R.id.textDateInfo);
+        TextView time = findViewById(R.id.textTimeInfo);
+        TextView code = findViewById(R.id.textReservationCodeInfo);
+        TextView numPeople = findViewById(R.id.textNumberOfPeopleInfo);
 
         code.setText(getIntent().getStringExtra("Code"));
         time.setText(getIntent().getStringExtra("Time"));

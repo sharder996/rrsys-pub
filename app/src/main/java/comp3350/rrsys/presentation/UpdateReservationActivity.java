@@ -34,11 +34,6 @@ import comp3350.rrsys.objects.Table;
 
 public class UpdateReservationActivity extends Activity
 {
-    private final int MAX_PEOPLE = 12;
-    private final int MIN_PEOPLE = 1;
-    private final int MIN_TIME = 30;
-    private final int MAX_TIME = 180;
-
     private ArrayList<Reservation> reservationList;
     private AccessReservations accessReservations;
     private AccessTables accessTables;
@@ -48,7 +43,7 @@ public class UpdateReservationActivity extends Activity
     private Reservation selected;
     private Reservation deleted;
     private int setYear, setMonth, setDay, setStartHourOfDay, setStartMinute, setEndHourOfDay, setEndMinute;
-    private int numberOfPeople = MIN_PEOPLE;
+    private int numberOfPeople = Reservation.MIN_PEOPLE;
 
     private Calendar calendar;
     private String amPm;
@@ -234,8 +229,8 @@ public class UpdateReservationActivity extends Activity
         });
 
         final NumberPicker numberPicker = findViewById(R.id.editNumberOfPeople);
-        numberPicker.setMinValue(MIN_PEOPLE);
-        numberPicker.setMaxValue(MAX_PEOPLE);
+        numberPicker.setMinValue(Reservation.MIN_PEOPLE);
+        numberPicker.setMaxValue(Reservation.MAX_PEOPLE);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
         {
             @Override
@@ -244,10 +239,11 @@ public class UpdateReservationActivity extends Activity
                 numberOfPeople = next;
             }
         });
-        EditText date = (EditText) findViewById(R.id.editTextDate);
-        EditText timeStart = (EditText) findViewById(R.id.editTextTime);
-        EditText timeEnd = (EditText) findViewById(R.id.editLengthOfStay);
-        NumberPicker numPeople = (NumberPicker) findViewById(R.id.editNumberOfPeople);
+
+        EditText date = findViewById(R.id.editTextDate);
+        EditText timeStart = findViewById(R.id.editTextTime);
+        EditText timeEnd = findViewById(R.id.editLengthOfStay);
+        NumberPicker numPeople = findViewById(R.id.editNumberOfPeople);
 
         deleted = accessReservations.getRandom(Integer.parseInt(getIntent().getStringExtra("Code")));
 
@@ -331,8 +327,8 @@ public class UpdateReservationActivity extends Activity
         {
             if (startTime != null && endTime != null)
             {
-                if (startTime.getHour() >= Table.getStartTime() && (endTime.getHour() < Table.getEndTime() || (endTime.getHour() == Table.getEndTime() && endTime.getMinutes() == 0))
-                        && startTime.getPeriod(endTime) >= MIN_TIME && startTime.getPeriod(endTime) <= MAX_TIME)
+                if (startTime.getHour() >= Table.START_TIME && (endTime.getHour() < Table.END_TIME || (endTime.getHour() == Table.END_TIME && endTime.getMinutes() == 0))
+                        && startTime.getPeriod(endTime) >= Reservation.MIN_TIME && startTime.getPeriod(endTime) <= Reservation.MAX_TIME)
                 {
                     reservationList.clear();
                     ArrayList<Reservation> suggestions = accessReservations.suggestReservations(startTime, endTime, numberOfPeople);
@@ -346,8 +342,8 @@ public class UpdateReservationActivity extends Activity
                     if(suggestions.isEmpty())
                         Messages.warning(this, "Error: No openings found.");
                 }
-                else if (startTime.getPeriod(endTime) < MIN_TIME || startTime.getPeriod(endTime) > MAX_TIME)
-                    Messages.warning(this, "Error: Reservation must be between " + MIN_TIME + " minutes and " + MAX_TIME + " minutes.");
+                else if (startTime.getPeriod(endTime) < Reservation.MIN_TIME || startTime.getPeriod(endTime) > Reservation.MAX_TIME)
+                    Messages.warning(this, "Error: Reservation must be between " + Reservation.MIN_TIME + " minutes and " + Reservation.MAX_TIME + " minutes.");
                 else
                     Messages.warning(this, "Error: Our restaurant is open from 7:00 AM to 23:00 PM.");
             }
