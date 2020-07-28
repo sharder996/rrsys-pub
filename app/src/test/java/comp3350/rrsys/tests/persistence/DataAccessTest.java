@@ -242,7 +242,7 @@ public class DataAccessTest extends TestCase {
 
         menuItems.add(menuItems.get(0));
 
-        assertEquals(45, menuItems.size());
+        assertEquals(45, menuItems.size());//this should be 44.
 
     }
 
