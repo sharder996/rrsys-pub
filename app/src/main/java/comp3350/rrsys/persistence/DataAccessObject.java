@@ -587,31 +587,31 @@ public class DataAccessObject implements DataAccess
 
         return returnMenu;
     }
-    public ArrayList<Item> getOrder(){
-        int OID;
-        double price;
-        String note;
-        ArrayList<Item> returnOrders = new ArrayList<>();
-        try
-        {
-            cmdString = "SELECT * from ORDERS";
-            rs2 = st0.executeQuery(cmdString);
-            while(rs2.next())
-            {
-                OID = rs2.getInt("OID");
-                price = rs2.getDouble("PRICE");
-                note = rs2.getString("NOTE");
-
-                //returnOrders.add(item);
-            }
-            rs2.close();
-        }
-        catch(Exception e)
-        {
-            processSQLError(e);
-        }
-        return returnOrders;
-    }
+//    public ArrayList<Item> getOrder(){
+//        int OID;
+//        double price;
+//        String note;
+//        ArrayList<Item> returnOrders = new ArrayList<>();
+//        try
+//        {
+//            cmdString = "SELECT * from ORDERS";
+//            rs2 = st0.executeQuery(cmdString);
+//            while(rs2.next())
+//            {
+//                OID = rs2.getInt("OID");
+//                price = rs2.getDouble("PRICE");
+//                note = rs2.getString("NOTE");
+//
+//                //returnOrders.add(item);
+//            }
+//            rs2.close();
+//        }
+//        catch(Exception e)
+//        {
+//            processSQLError(e);
+//        }
+//        return returnOrders;
+//    }
     public boolean[] getAvailable(int TID, DateTime time)
     {
         getReservationSequential(reservations);
@@ -630,4 +630,15 @@ public class DataAccessObject implements DataAccess
         }
         return available;
     }
+
+    public ArrayList<Item> getOrder(){ return null;}
+
+    public String insertselectedItem(Item newItem){return null;}
+
+    public String deletedSelectedItem(Item newItem){return null;}
+
+    public double getprice(){return -1;}
+
+    public int getSize(){return -1;}
+
 }

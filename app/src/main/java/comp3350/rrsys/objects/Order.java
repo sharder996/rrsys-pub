@@ -6,19 +6,19 @@ public class Order
 {
     private int OID;    // order ID
     private ArrayList<Item> order;
-    private double price;
+    private double totalPrice;
     //TODO: remove this if not being used this iteration
     private String note;    // dietary requirements, etc.
 
     public Order(int OID)
     {
         order = new ArrayList<>();
-        price = 0;
+        totalPrice = 0;
     }
 
     public ArrayList<Item> getOrder() { return order; }
     public String getNote() { return note; }
-    public double getPrice() { return price; }
+    public double getPrice() { return totalPrice; }
     public int getOID() { return OID; }
 
     public void setNote(String note) { this.note = note; }
@@ -27,13 +27,13 @@ public class Order
     public void addItem(Item newItem)
     {
         order.add(newItem);
-        price += newItem.getPrice();
+        totalPrice += newItem.getPrice();
     }
 
     public void deleteItem(Item item)
     {
         if(order.remove(item))
-            price -= item.getPrice();
+            totalPrice -= item.getPrice();
     }
     public int size(){
         return order.size();
