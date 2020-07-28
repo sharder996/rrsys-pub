@@ -72,7 +72,7 @@ public class CreateReservationActivity extends Activity
 
                 TextView text1 = view.findViewById(android.R.id.text1);
 
-                text1.setText(reservationList.get(position).getStartTime() + " - " + reservationList.get(position).getEndTime().toString().substring(12)
+                text1.setText(reservationList.get(position).getStartTime() + " - " + reservationList.get(position).getEndTime().toString().substring(11)
                         + " Table " + reservationList.get(position).getTID() + " Capacity " + accessTables.getTableCapacity(reservationList.get(position).getTID()));
 
                 return view;

@@ -42,10 +42,7 @@ public class AccessReservations
 
     public String updateReservation(Reservation newReservation)
     {
-        if(reservation != null)
-            return dataAccess.updateReservation(reservation.getRID(), newReservation);
-        else
-            return dataAccess.updateReservation(newReservation.getRID(), newReservation);
+        return dataAccess.updateReservation(newReservation.getRID(), newReservation);
     }
 
     public String deleteReservation(int reservationID)
@@ -57,7 +54,7 @@ public class AccessReservations
     // which has the same "length" as (endTime-startTime)
     public static ArrayList<Reservation> suggestReservations(DateTime startTime, DateTime endTime, int numPeople)
     {
-        ArrayList<Reservation> results = new ArrayList<Reservation>();
+        ArrayList<Reservation> results = new ArrayList<>();
         int index = getIndex(startTime);
         int totalIncrement = (startTime.getPeriod(endTime)+7)/15; // total num of increments
         int maxIndex = Table.INTERVALS_PER_DAY; // max index

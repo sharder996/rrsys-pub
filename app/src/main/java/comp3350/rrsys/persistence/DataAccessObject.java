@@ -136,11 +136,12 @@ public class DataAccessObject implements DataAccess
                 tableID = rs2.getInt("TID");
                 numPeople = rs2.getInt("NUMPEOPLE");
                 orderID = rs2.getInt("OID");
-                Calendar cal = new GregorianCalendar();
-                cal.setTime(rs2.getTimestamp("STARTTIME"));
-                startTime = new DateTime(cal);
-                cal.setTime(rs2.getTimestamp("ENDTIME"));
-                endTime = new DateTime(cal);
+                Calendar start = new GregorianCalendar();
+                start.setTime(rs2.getTimestamp("STARTTIME"));
+                startTime = new DateTime(start);
+                Calendar end = new GregorianCalendar();
+                end.setTime(rs2.getTimestamp("ENDTIME"));
+                endTime = new DateTime(end);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(reservationID);
                 reservation.setOID(orderID);
@@ -196,10 +197,9 @@ public class DataAccessObject implements DataAccess
                     + "', ENDTIME='" + curr.getEndTime().toString()
                     + "'";
             where = "where RID=" + RID;
-            cmdString = "UPDATE RESERVATION" + " SET " + values + " " + where;
+            cmdString = "UPDATE RESERVATIONS " + " SET " + values + " " + where;
             updateCount = st0.executeUpdate(cmdString);
             result = checkWarning(st0, updateCount);
-
         }
         catch(Exception e)
         {
@@ -290,11 +290,12 @@ public class DataAccessObject implements DataAccess
                 tableID = rs2.getInt("TID");
                 numPeople = rs2.getInt("NUMPEOPLE");
                 orderID = rs2.getInt("OID");
-                Calendar cal = new GregorianCalendar();
-                cal.setTime(rs2.getTimestamp("STARTTIME"));
-                startTime = new DateTime(cal);
-                cal.setTime(rs2.getTimestamp("ENDTIME"));
-                endTime = new DateTime(cal);
+                Calendar start = new GregorianCalendar();
+                start.setTime(rs2.getTimestamp("STARTTIME"));
+                startTime = new DateTime(start);
+                Calendar end = new GregorianCalendar();
+                end.setTime(rs2.getTimestamp("ENDTIME"));
+                endTime = new DateTime(end);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(resID);
                 reservation.setOID(orderID);
@@ -590,6 +591,7 @@ public class DataAccessObject implements DataAccess
 
     public boolean[] getAvailable(int TID, DateTime time)
     {
+        reservations = new ArrayList<>();
         getReservationSequential(reservations);
         boolean[] available = new boolean[Table.INTERVALS_PER_DAY];
         for(int i = 0; i < available.length; i++)
