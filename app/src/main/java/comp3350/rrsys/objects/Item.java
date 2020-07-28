@@ -66,7 +66,7 @@ public class Item
                 }
                 else
                 {
-                    int round = strPrice.charAt(strPrice.indexOf('.') + 1) - '0';//get 10th decimal place
+                    int round = strPrice.charAt(strPrice.indexOf('.') + 2) - '0';//get 10th decimal place
 
                     DecimalFormat formatter = new DecimalFormat("#.##");
                     strPrice = formatter.format(price);

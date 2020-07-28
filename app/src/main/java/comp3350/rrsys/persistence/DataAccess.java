@@ -59,4 +59,16 @@ public interface DataAccess
 
     // DateTime Functions:
     DateTime getDateTime(DateTime time, int index);
+
+    //Order Functions:
+    ArrayList<Item> getOrder();
+
+    String insertSelectedItem(Item newItem);
+
+    String deletedSelectedItem(Item newItem);
+
+    double getprice();
+
+    int getSize();
+
 }

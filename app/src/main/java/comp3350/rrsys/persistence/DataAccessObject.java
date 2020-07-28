@@ -136,12 +136,12 @@ public class DataAccessObject implements DataAccess
                 tableID = rs2.getInt("TID");
                 numPeople = rs2.getInt("NUMPEOPLE");
                 orderID = rs2.getInt("OID");
-                Calendar start = new GregorianCalendar();
-                start.setTime(rs2.getTimestamp("STARTTIME"));
-                startTime = new DateTime(start);
-                Calendar end = new GregorianCalendar();
-                end.setTime(rs2.getTimestamp("ENDTIME"));
-                endTime = new DateTime(end);
+                Calendar calStart = new GregorianCalendar();
+                calStart.setTime(rs2.getTimestamp("STARTTIME"));
+                startTime = new DateTime(calStart);
+                Calendar calEnd = new GregorianCalendar();
+                calEnd.setTime(rs2.getTimestamp("ENDTIME"));
+                endTime = new DateTime(calEnd);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(reservationID);
                 reservation.setOID(orderID);
@@ -197,9 +197,10 @@ public class DataAccessObject implements DataAccess
                     + "', ENDTIME='" + curr.getEndTime().toString()
                     + "'";
             where = "where RID=" + RID;
-            cmdString = "UPDATE RESERVATIONS " + " SET " + values + " " + where;
+            cmdString = "UPDATE RESERVATION" + " SET " + values + " " + where;
             updateCount = st0.executeUpdate(cmdString);
             result = checkWarning(st0, updateCount);
+
         }
         catch(Exception e)
         {
@@ -290,12 +291,11 @@ public class DataAccessObject implements DataAccess
                 tableID = rs2.getInt("TID");
                 numPeople = rs2.getInt("NUMPEOPLE");
                 orderID = rs2.getInt("OID");
-                Calendar start = new GregorianCalendar();
-                start.setTime(rs2.getTimestamp("STARTTIME"));
-                startTime = new DateTime(start);
-                Calendar end = new GregorianCalendar();
-                end.setTime(rs2.getTimestamp("ENDTIME"));
-                endTime = new DateTime(end);
+                Calendar cal = new GregorianCalendar();
+                cal.setTime(rs2.getTimestamp("STARTTIME"));
+                startTime = new DateTime(cal);
+                cal.setTime(rs2.getTimestamp("ENDTIME"));
+                endTime = new DateTime(cal);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(resID);
                 reservation.setOID(orderID);
@@ -564,7 +564,7 @@ public class DataAccessObject implements DataAccess
         String type;
         double price;
 
-        menu = new ArrayList<>();
+        ArrayList<Item> returnMenu = new ArrayList<>();
         try
         {
             cmdString = "SELECT * from MENU";
@@ -577,7 +577,7 @@ public class DataAccessObject implements DataAccess
                 detail = rs2.getString("DETAIL");
                 price = rs2.getDouble("PRICE");
                 item = new Item(IID, name, type, detail, price);
-                menu.add(item);
+                returnMenu.add(item);
             }
             rs2.close();
         }
@@ -586,12 +586,35 @@ public class DataAccessObject implements DataAccess
             processSQLError(e);
         }
 
-        return menu;
+        return returnMenu;
     }
-
+//    public ArrayList<Item> getOrder(){
+//        int OID;
+//        double price;
+//        String note;
+//        ArrayList<Item> returnOrders = new ArrayList<>();
+//        try
+//        {
+//            cmdString = "SELECT * from ORDERS";
+//            rs2 = st0.executeQuery(cmdString);
+//            while(rs2.next())
+//            {
+//                OID = rs2.getInt("OID");
+//                price = rs2.getDouble("PRICE");
+//                note = rs2.getString("NOTE");
+//
+//                //returnOrders.add(item);
+//            }
+//            rs2.close();
+//        }
+//        catch(Exception e)
+//        {
+//            processSQLError(e);
+//        }
+//        return returnOrders;
+//    }
     public boolean[] getAvailable(int TID, DateTime time)
     {
-        reservations = new ArrayList<>();
         getReservationSequential(reservations);
         boolean[] available = new boolean[Table.INTERVALS_PER_DAY];
         for(int i = 0; i < available.length; i++)
@@ -608,4 +631,15 @@ public class DataAccessObject implements DataAccess
         }
         return available;
     }
+
+    public ArrayList<Item> getOrder(){ return null;}
+
+    public String insertselectedItem(Item newItem){return null;}
+
+    public String deletedSelectedItem(Item newItem){return null;}
+
+    public double getprice(){return -1;}
+
+    public int getSize(){return -1;}
+
 }

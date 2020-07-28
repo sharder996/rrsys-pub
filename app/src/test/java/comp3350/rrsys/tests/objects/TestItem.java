@@ -83,12 +83,12 @@ public class TestItem extends TestCase{
 
         System.out.println("\nStarting testItemPrice");
 
-        Item dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",12.91 );
-        Item dish1 = new Item(0, "Turkey Burger", "Sandwich", "Turkey",12.57 );
-        Item dish2 = new Item(0, "Turkey Burger", "Sandwich", "Turkey",12.99 );
-        Item dish3 = new Item(0, "Turkey Burger", "Sandwich", "Turkey",12.77 );
-        Item dish4 = new Item(0, "Turkey Burger", "Sandwich", "Turkey",12.73 );
-        Item dish5 = new Item(0, "Turkey Burger", "Sandwich", "Turkey",12.22 );
+        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
+        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
+        Item dish2 = new Item(3, "Turkey Burger", "Sandwich", "Turkey",12.99 );
+        Item dish3 = new Item(4, "Turkey Burger", "Sandwich", "Turkey",12.77 );
+        Item dish4 = new Item(5, "Turkey Burger", "Sandwich", "Turkey",12.73 );
+        Item dish5 = new Item(6, "Turkey Burger", "Sandwich", "Turkey",12.22 );
 
         assertNotNull(dish);
         assertNotNull(dish1);

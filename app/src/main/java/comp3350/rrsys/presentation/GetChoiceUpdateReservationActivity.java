@@ -31,7 +31,8 @@ public class GetChoiceUpdateReservationActivity extends AppCompatActivity
 
     public void buttonPreorderOnClick(View view)
     {
-        Intent GetMenu = new Intent(GetChoiceUpdateReservationActivity.this, MenuActivity.class);
+        Intent GetMenu = new Intent(GetChoiceUpdateReservationActivity.this, CreateOrderActivity.class);
+        GetMenu.putExtra("Code",getIntent().getStringExtra("Code"));
         GetChoiceUpdateReservationActivity.this.startActivity(GetMenu);
     }
 
