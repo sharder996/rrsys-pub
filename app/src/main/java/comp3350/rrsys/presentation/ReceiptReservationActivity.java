@@ -64,7 +64,7 @@ public class ReceiptReservationActivity extends Activity
 
     public void buttonPreOrderOnClick(View v)
     {
-        Intent preOrderIntent = new Intent(ReceiptReservationActivity.this, PreOrderMenuActivity.class);
+        Intent preOrderIntent = new Intent(ReceiptReservationActivity.this, CreateOrderActivity.class);
         ReceiptReservationActivity.this.startActivity(preOrderIntent);
     }
 }

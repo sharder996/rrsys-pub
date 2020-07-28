@@ -325,9 +325,9 @@ public class UpdateReservationActivity extends Activity
             Messages.warning(this, "Error: Please enter a date that is not in the past.");
         else
         {
-            if (startTime != null && endTime != null)
+            if(startTime != null && endTime != null)
             {
-                if (startTime.getHour() >= Table.START_TIME && (endTime.getHour() < Table.END_TIME || (endTime.getHour() == Table.END_TIME && endTime.getMinutes() == 0))
+                if(startTime.getHour() >= Table.START_TIME && (endTime.getHour() < Table.END_TIME || (endTime.getHour() == Table.END_TIME && endTime.getMinutes() == 0))
                         && startTime.getPeriod(endTime) >= Reservation.MIN_TIME && startTime.getPeriod(endTime) <= Reservation.MAX_TIME)
                 {
                     reservationList.clear();
@@ -342,7 +342,7 @@ public class UpdateReservationActivity extends Activity
                     if(suggestions.isEmpty())
                         Messages.warning(this, "Error: No openings found.");
                 }
-                else if (startTime.getPeriod(endTime) < Reservation.MIN_TIME || startTime.getPeriod(endTime) > Reservation.MAX_TIME)
+                else if(startTime.getPeriod(endTime) < Reservation.MIN_TIME || startTime.getPeriod(endTime) > Reservation.MAX_TIME)
                     Messages.warning(this, "Error: Reservation must be between " + Reservation.MIN_TIME + " minutes and " + Reservation.MAX_TIME + " minutes.");
                 else
                     Messages.warning(this, "Error: Our restaurant is open from 7:00 AM to 23:00 PM.");
