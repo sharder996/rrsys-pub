@@ -634,7 +634,7 @@ public class DataAccessObject implements DataAccess
         return available;
     }
 
-    public ArrayList<Item> getOrder(int oID)
+    public ArrayList<Item> getOrder(int rID)
     {
         ArrayList<Item> items;
         ArrayList<Integer> itemID;
@@ -647,7 +647,7 @@ public class DataAccessObject implements DataAccess
         items = new ArrayList<>();
         try
         {
-            cmdString = "SELECT * from ORDERS where OID=" + oID;
+            cmdString = "SELECT * from ORDERS where RID=" + rID;
             rs2 = st0.executeQuery(cmdString);
 
             while(rs2.next())
@@ -688,18 +688,18 @@ public class DataAccessObject implements DataAccess
         return items;
     }
 
-    public String insertSelectedItem(Item newItem, int oID, int quantity, String note)
+    public String insertSelectedItem(Item newItem, int reservationID, int quantity, String note)
     {
         String values;
 
         result = null;
         try
         {
-            values = oID
-                    + ", " + newItem.getItemID()
-                    + ", " + quantity
-                    + ", '" + note
-                    + "' ";
+            values = reservationID
+                + ", " + newItem.getItemID()
+                + ", " + quantity
+                + ", '" + note
+                + "' ";
             cmdString = "INSERT into ORDERS VALUES(" + values + ")";
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
@@ -712,12 +712,12 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
-    public String deletedSelectedItem(Item newItem, int oID)
+    public String deletedSelectedItem(Item newItem, int reservationID)
     {
         result = null;
         try
         {
-            cmdString = "DELETE FROM ORDERS WHERE OID=" + oID + " AND IID=" + newItem.getItemID();
+            cmdString = "DELETE FROM ORDERS WHERE RID=" + reservationID + " AND IID=" + newItem.getItemID();
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         }
@@ -729,12 +729,12 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
-    public double getPrice(int oID)
+    public double getPrice(int reservationID)
     {
         ArrayList<Item> items;
         double totalPrice = 0.0;
 
-        items = getOrder(oID);
+        items = getOrder(reservationID);
         for(Item item : items)
         {
                totalPrice += item.getPrice();
@@ -743,9 +743,9 @@ public class DataAccessObject implements DataAccess
         return totalPrice;
     }
 
-    public int getSize(int oID)
+    public int getSize(int reservationID)
     {
-        ArrayList<Item> items = getOrder(oID);
+        ArrayList<Item> items = getOrder(reservationID);
 
         return items.size();
     }

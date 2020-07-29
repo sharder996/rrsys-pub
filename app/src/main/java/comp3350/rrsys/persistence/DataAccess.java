@@ -61,14 +61,14 @@ public interface DataAccess
     DateTime getDateTime(DateTime time, int index);
 
     //Order Functions:
-    ArrayList<Item> getOrder(int oID);
+    ArrayList<Item> getOrder(int reservationID);
 
-    String insertSelectedItem(Item newItem, int oID, int quantity, String note);
+    String insertSelectedItem(Item newItem, int reservationID, int quantity, String note);
 
-    String deletedSelectedItem(Item newItem, int oID);
+    String deletedSelectedItem(Item newItem, int reservationID);
 
-    double getPrice(int oID);
+    double getPrice(int ReservationID);
 
-    int getSize(int oID);
+    int getSize(int ReservationID);
 
 }

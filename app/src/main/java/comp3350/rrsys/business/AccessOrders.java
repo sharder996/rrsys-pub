@@ -23,27 +23,28 @@ public class AccessOrders
     public String insertOrder(Order order)
     {
         // TODO: implement this method that puts an order in the database
+
         return null;
     }
 
-    public String insertSelectedItem(Item newItem, int oID, int quantity, String note)
+    public String insertSelectedItem(Item newItem, int reservationID, int quantity, String note)
     {
-        return dataAccess.insertSelectedItem(newItem, oID, quantity, note);
+        return dataAccess.insertSelectedItem(newItem, reservationID, quantity, note);
     }
 
-    public String deleteSelectedItem(Item newItem, int oID)
+    public String deleteSelectedItem(Item newItem, int reservationID)
     {
-        return dataAccess.deletedSelectedItem(newItem, oID);
+        return dataAccess.deletedSelectedItem(newItem, reservationID);
     }
 
-    public ArrayList<Item> getOrder(int oID)
+    public ArrayList<Item> getOrder(int reservationID)
     {
-        this.order = dataAccess.getOrder(oID);
-        return dataAccess.getOrder(oID);
+        this.order = dataAccess.getOrder(reservationID);
+        return dataAccess.getOrder(reservationID);
     }
 
-    public double getPrice(int oID) { return dataAccess.getPrice(oID); }
+    public double getPrice(int reservationID) { return dataAccess.getPrice(reservationID); }
 
-    public int getSize(int oID) { return dataAccess.getSize(oID); }
+    public int getSize(int reservationID) { return dataAccess.getSize(reservationID); }
 }
 
