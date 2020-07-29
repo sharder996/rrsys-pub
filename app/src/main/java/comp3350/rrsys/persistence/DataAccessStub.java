@@ -433,15 +433,9 @@ public class DataAccessStub //implements DataAccess
         return available;
     }
 
+    public String insertOrder(){return null;}
+
     public ArrayList<Item> getOrder() {
-        return null;
-    }
-
-    public String insertSelectedItem(Item newItem) {
-        return null;
-    }
-
-    public String deletedSelectedItem(Item newItem) {
         return null;
     }
 

@@ -296,7 +296,7 @@ public class DataAccessTest extends TestCase {
         }
         System.out.println();
     }
-
+/*
     public void testInsertIntoExistingOrder()
     {
         ArrayList<Item> order;
@@ -368,7 +368,7 @@ public class DataAccessTest extends TestCase {
         price = dataAccess.getPrice(1);
         System.out.printf("Price: $%4.2f\n",  price);
     }
-
+*/
     public void testOrderSize()
     {
         int size = dataAccess.getSize(1);

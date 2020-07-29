@@ -13,28 +13,20 @@ public class AccessOrders
     private static DataAccess dataAccessStatic;
     private DataAccess dataAccess;
     private ArrayList<Item> order;
+    Order newOrder;
 
     public AccessOrders()
     {
         dataAccess = Services.getDataAccess(Main.dbName);
         dataAccessStatic = Services.getDataAccess(Main.dbName);
+
     }
 
     public String insertOrder(Order order)
     {
         // TODO: implement this method that puts an order in the database
 
-        return null;
-    }
-
-    public String insertSelectedItem(Item newItem, int reservationID, int quantity, String note)
-    {
-        return dataAccess.insertSelectedItem(newItem, reservationID, quantity, note);
-    }
-
-    public String deleteSelectedItem(Item newItem, int reservationID)
-    {
-        return dataAccess.deletedSelectedItem(newItem, reservationID);
+        return dataAccess.insertOrder(order);
     }
 
     public ArrayList<Item> getOrder(int reservationID)

@@ -7,6 +7,7 @@ import java.util.List;
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Item;
+import comp3350.rrsys.objects.Order;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
 
@@ -63,9 +64,7 @@ public interface DataAccess
     //Order Functions:
     ArrayList<Item> getOrder(int reservationID);
 
-    String insertSelectedItem(Item newItem, int reservationID, int quantity, String note);
-
-    String deletedSelectedItem(Item newItem, int reservationID);
+    String insertOrder(Order order);
 
     double getPrice(int ReservationID);
 

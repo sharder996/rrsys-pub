@@ -44,7 +44,7 @@ public class CreateOrderActivity extends Activity
         setContentView(R.layout.activity_order);
 
         accessMenu = new AccessMenu();
-        String r = getIntent().getStringExtra("reservationID");
+        //String r = getIntent().getStringExtra("reservationID"); //dead code?
         order = new Order(Integer.parseInt(getIntent().getStringExtra("reservationID")));
 
         List<String> parentList = accessMenu.getMenuTypes();
