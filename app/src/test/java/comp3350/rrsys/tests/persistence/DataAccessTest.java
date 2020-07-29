@@ -1,15 +1,11 @@
 package comp3350.rrsys.tests.persistence;
 
-import android.app.ActionBar;
-
 import junit.framework.TestCase;
-
 import java.util.ArrayList;
 
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.Item;
-import comp3350.rrsys.objects.Menu;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.persistence.DataAccess;
