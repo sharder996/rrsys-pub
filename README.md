@@ -49,28 +49,40 @@ The test package contains all of the test classes which test the implemented met
 
 ## Major Features
 
-### Creating a Reservation
+### 1st Iteration
+
+#### Creating a Reservation
 
 Selecting `CREATE A RESERVATION` from the home screen of the application will start the flow which guides the user through creating a reservation. Next, select a date, an arrival time, a departure time, and specify the number of people that will be coming. Once all the fields have been populated, the `CHECK AVAILABILITY` button will be enabled. Upon pressing the button, a list of suggested reservations with times will be shown to the user in the form of a list. Tapping a reservation and pressing the `DONE` button will allow you to proceed further through the flow. Next, details regarding the reservation will be shown and the user will be asked to fill in some information about themselves. Fill in the required information and proceed to the next page. Lastly, a final screen will be shown to the user will all the required details concerning the reservation that they made.
 
-### Reviewing a Reservation
+#### Reviewing a Reservation
 
 Selecting `REVIEWING A RESERVATION` from the home screen of the application will guide the user to a screen where they can enter in either their reservation code or their name and date of their reservation. Pressing the `ENTER` key will search the database for the reservation and either return details about the reservation to the user or notify the user that no reservation was found.
 
-### Updating a Reservation
+#### Updating a Reservation
 
 Selecting `UPDATING A RESERVATION` from the home screen of the application will guide the user to a screen where they can eneter in either their reservation code or their name and date of their reservation. Pressing the `ENTER` key will search the database for the reservation and either allow the user to proceed to the next screen or notify the user that no reservation was found. If a reservation was found, then the user will be able to select a new set of dates and times for a reservation. Selecting a new reservation will remove the user's previous reservation and replace with the selected one. Finally, the user will be shown details concerning their new reservation.
+
+### 2nd Iteration
+
+#### Pre-ordering before a Reservation
+
+As of the second iteration, the ability to preorder food before your reservation has now been added. Ordering can be done either through the `CREATE A RESERVATION` flow or through the `UPDATING A RESERVATION` flow. Ordering is restricted by the amount of time between the current time and the start time of the reservation. To add an order to a reservation, navigate to the end of the `CREATE A RESERVATION` flow and before returning to the home menu press the `PRE-ORDER` button. Alternatively, proceeding through the `UPDATING A RESERVATION` flow will allow an identical method of ordering food for a reservation.
+
+#### Database stub replaced with HSQLDB
+
+The database stub has now been replaced with an HSQLDB.
 
 ## Overview of System Architecture
 
 <pre>
-/--------------\                /----------\                /-------------\             /----------------\
-| presentation | <------------> | business | <------------> | persistance | <---------> | DataAccessStub |
-\--------------/                \----------/                \-------------/             \----------------/
+/--------------\                /----------\                /-------------\                /--------\
+| presentation | <------------> | business | <------------> | persistance | <------------> | HSQLDB |
+\--------------/                \----------/                \-------------/                \--------/
        |                             |                             |
-       |                             |                             |
-       |                            \ /                            |
-       |                        /---------\                        |
+       |                             |                             |                   /----------------\
+       |                            \ /                            |                   | DataAccessStub |
+       |                        /---------\                        |                   \----------------/
        \----------------------> | objects | <----------------------/
                                 \---------/
 </pre>
