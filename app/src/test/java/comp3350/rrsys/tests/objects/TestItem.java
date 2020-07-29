@@ -8,11 +8,13 @@ import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Table;
 
-public class TestItem extends TestCase{
+public class TestItem extends TestCase
+{
 
     public TestItem(String arg0) { super(arg0); }
 
-    public void testItemCreation(){
+    public void testItemCreation()
+    {
 
         System.out.println("\nStarting testItemCreation");
 
@@ -28,13 +30,11 @@ public class TestItem extends TestCase{
         System.out.println("\nEnding testItemCreation");
     }
 
-
-    public void testItemSetter(){
-
+    public void testItemSetter()
+    {
         System.out.println("\nStarting testItemSetter");
 
         Item dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",12.95 );
-
 
         dish.setItemID(5);
         dish.setName("Turkey Sandwich");
@@ -48,10 +48,11 @@ public class TestItem extends TestCase{
         assertEquals("Sandwich" , dish.getDetail());
         assertEquals(12.30, dish.getPrice());
 
-
         System.out.println("\nEnding testItemSetter");
     }
-    public void testNegativeItemID(){
+
+    public void testNegativeItemID()
+    {
         System.out.println("\nStarting testNegativeItemID");
         Item dish = null;
         try
@@ -74,13 +75,11 @@ public class TestItem extends TestCase{
             assertNull(dish);
         }
 
-
-
-
         System.out.println("\nEnding testNegativeItemID");
     }
-    public void testItemPrice(){
 
+    public void testItemPrice()
+    {
         System.out.println("\nStarting testItemPrice");
 
         Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
@@ -121,7 +120,8 @@ public class TestItem extends TestCase{
         System.out.println("\nEnding testItemPrice");
     }
 
-    public void testItemInvalidPriceEntries(){
+    public void testItemInvalidPriceEntries()
+    {
         System.out.println("\nStarting testItemInvalidPriceEntries");
         Item dish = null;
 
@@ -167,19 +167,26 @@ public class TestItem extends TestCase{
 
         dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",70.25 );
 
-        try{
+        try
+        {
             dish.setPrice(-20000.574856);
             fail();
-        }catch(IllegalArgumentException e){
+        }
+        catch(IllegalArgumentException e)
+        {
             assertNotNull(dish);
         }
 
-        try{
+        try
+        {
             dish.setPrice(5000.574856);
             fail();
-        }catch(IllegalArgumentException e){
+        }
+        catch(IllegalArgumentException e)
+        {
             assertNotNull(dish);
         }
+
         System.out.println("\nEnding testItemInvalidPriceEntries");
     }
 }
