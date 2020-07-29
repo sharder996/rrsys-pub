@@ -32,6 +32,8 @@ public interface DataAccess
 
     void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
 
+    int getNextReservationID();
+
     // Table Functions:
     String getTableSequential(ArrayList<Table> tableResult);
 

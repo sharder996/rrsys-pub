@@ -121,7 +121,7 @@ public class DataAccessObject implements DataAccess
     public Reservation getReservation(int reservationID)
     {
         Reservation reservation;
-        int custID, tableID, numPeople, orderID;
+        int custID, tableID, numPeople;
         DateTime startTime, endTime;
         reservations = new ArrayList<>();
 
@@ -135,7 +135,6 @@ public class DataAccessObject implements DataAccess
                 custID = rs2.getInt("CID");
                 tableID = rs2.getInt("TID");
                 numPeople = rs2.getInt("NUMPEOPLE");
-                orderID = rs2.getInt("OID");
                 Calendar calStart = new GregorianCalendar();
                 calStart.setTime(rs2.getTimestamp("STARTTIME"));
                 startTime = new DateTime(calStart);
@@ -144,7 +143,6 @@ public class DataAccessObject implements DataAccess
                 endTime = new DateTime(calEnd);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(reservationID);
-                reservation.setOID(orderID);
                 reservations.add(reservation);
             }
             rs2.close();
@@ -240,6 +238,28 @@ public class DataAccessObject implements DataAccess
                 getTableRandom(results.get(pos).getTID()).getCapacity() == getTableRandom(r.getTID()).getCapacity() && results.get(pos).getTID() < r.getTID())
             pos++;
         results.add(pos, r);
+    }
+
+    public int getNextReservationID()
+    {
+        Reservation reservation;
+        int next = 0;
+        try
+        {
+            reservation = getReservation(1);
+            System.out.println(reservation.getRID());
+            cmdString = "SELECT MAX(RID) as RID from RESERVATIONS";
+            rs2 = st0.executeQuery(cmdString);
+            rs2.next();
+            next = rs2.getInt("RID") + 1;
+            rs2.close();
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return next;
     }
 
     public String insertReservation(Reservation r)
@@ -588,31 +608,7 @@ public class DataAccessObject implements DataAccess
 
         return returnMenu;
     }
-//    public ArrayList<Item> getOrder(){
-//        int OID;
-//        double price;
-//        String note;
-//        ArrayList<Item> returnOrders = new ArrayList<>();
-//        try
-//        {
-//            cmdString = "SELECT * from ORDERS";
-//            rs2 = st0.executeQuery(cmdString);
-//            while(rs2.next())
-//            {
-//                OID = rs2.getInt("OID");
-//                price = rs2.getDouble("PRICE");
-//                note = rs2.getString("NOTE");
-//
-//                //returnOrders.add(item);
-//            }
-//            rs2.close();
-//        }
-//        catch(Exception e)
-//        {
-//            processSQLError(e);
-//        }
-//        return returnOrders;
-//    }
+
     public boolean[] getAvailable(int TID, DateTime time)
     {
         reservations = new ArrayList<>();

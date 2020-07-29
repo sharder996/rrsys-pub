@@ -87,7 +87,7 @@ public class DataAccessTest extends TestCase {
         customers.clear();
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
-        assertEquals(5, customers.size());
+        assertEquals(4, customers.size());
     }
 
     public void testAddNewCustomer() {
@@ -206,7 +206,14 @@ public class DataAccessTest extends TestCase {
 
     }
 
-    public void testMenuGetTypes() {
+    public void testGetNextResID()
+    {
+        int nextID = dataAccess.getNextReservationID();
+        assertEquals(5, nextID);
+    }
+
+    public void testMenuGetTypes()
+    {
         ArrayList<String> menuTypes;
         String result;
 
