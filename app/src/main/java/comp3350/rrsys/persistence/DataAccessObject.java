@@ -609,7 +609,6 @@ public class DataAccessObject implements DataAccess
     public boolean[] getAvailable(int TID, DateTime time)
     {
         reservations = new ArrayList<>();
-        reservations = new ArrayList<>();
         getReservationSequential(reservations);
         boolean[] available = new boolean[Table.INTERVALS_PER_DAY];
         for(int i = 0; i < available.length; i++)
