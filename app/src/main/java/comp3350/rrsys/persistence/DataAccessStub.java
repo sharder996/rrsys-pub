@@ -493,4 +493,6 @@ public class DataAccessStub //implements DataAccess
         }
         return size;
     }
+
+    public int getNextReservationID(){return -1;}
 }

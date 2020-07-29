@@ -625,6 +625,34 @@ public class DataAccessObject implements DataAccess
         }
         return available;
     }
+    public String insertOrder(Order order)
+    {
+        ArrayList<Item> items;
+        items = order.getOrder();
+
+        String values;
+        result = null;
+
+        try
+        {
+            for(int i  = 0 ; i < items.size(); i++)
+            {
+                values = order.getReservationID()
+                        + ", " + items.get(i).getItemID()
+                        + ", " + order.size()
+                        + ", '" + order.getNote()
+                        + "' ";
+
+                cmdString = "INSERT into ORDERS VALUES(" + values + ")";
+                updateCount = st1.executeUpdate(cmdString);
+                result = checkWarning(st1, updateCount);
+            }
+        }catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+        return result;
+    }
 
     public ArrayList<Item> getOrder(int rID)
     {
@@ -679,48 +707,7 @@ public class DataAccessObject implements DataAccess
 
         return items;
     }
-
-    public String insertSelectedItem(Item newItem, int reservationID, int quantity, String note)
-    {
-        String values;
-
-        result = null;
-        try
-        {
-            values = reservationID
-                + ", " + newItem.getItemID()
-                + ", " + quantity
-                + ", '" + note
-                + "' ";
-            cmdString = "INSERT into ORDERS VALUES(" + values + ")";
-            updateCount = st1.executeUpdate(cmdString);
-            result = checkWarning(st1, updateCount);
-        }
-        catch(Exception e)
-        {
-            result = processSQLError(e);
-        }
-
-        return result;
-    }
-
-    public String deletedSelectedItem(Item newItem, int reservationID)
-    {
-        result = null;
-        try
-        {
-            cmdString = "DELETE FROM ORDERS WHERE RID=" + reservationID + " AND IID=" + newItem.getItemID();
-            updateCount = st1.executeUpdate(cmdString);
-            result = checkWarning(st1, updateCount);
-        }
-        catch(Exception e)
-        {
-            result = processSQLError(e);
-        }
-
-        return result;
-    }
-
+    //GetPrice and size method should be used in confirmation page - Cody
     public double getPrice(int reservationID)
     {
         ArrayList<Item> items;
@@ -729,7 +716,7 @@ public class DataAccessObject implements DataAccess
         items = getOrder(reservationID);
         for(Item item : items)
         {
-               totalPrice += item.getPrice();
+            totalPrice += item.getPrice();
         }
 
         return totalPrice;
@@ -741,5 +728,4 @@ public class DataAccessObject implements DataAccess
 
         return items.size();
     }
-
 }
