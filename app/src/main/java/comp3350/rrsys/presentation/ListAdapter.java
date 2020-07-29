@@ -9,16 +9,18 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import comp3350.rrsys.R;
+import comp3350.rrsys.objects.Item;
+
 import java.util.List;
 import java.util.Map;
 
 public class ListAdapter extends BaseExpandableListAdapter
 {
     private Activity context;
-    private Map<String, List<String>> parentListItems;
+    private Map<String, List<Item>> parentListItems;
     private List<String> items;
 
-    public ListAdapter(Activity context, List<String> items, Map<String, List<String>> parentListItems)
+    public ListAdapter(Activity context, List<String> items, Map<String, List<Item>> parentListItems)
     {
         this.context = context;
         this.parentListItems = parentListItems;
@@ -58,7 +60,7 @@ public class ListAdapter extends BaseExpandableListAdapter
 
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View view, ViewGroup parent)
     {
-        final String childName = (String)getChild(groupPosition, childPosition);
+        final Item childName = (Item)getChild(groupPosition, childPosition);
         LayoutInflater inflater = context.getLayoutInflater();
 
         if(view == null)
@@ -67,7 +69,7 @@ public class ListAdapter extends BaseExpandableListAdapter
         }
 
         TextView textView = view.findViewById(R.id.textView1);
-        textView.setText(childName);
+        textView.setText(childName.toString());
         return view;
     }
 }

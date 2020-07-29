@@ -13,12 +13,14 @@ import comp3350.rrsys.objects.Reservation;
 
 public class ReceiptReservationActivity extends Activity
 {
+    Reservation reservation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_receipt);
-        Reservation reservation = getIntent().getParcelableExtra("reservation");
+        reservation = getIntent().getParcelableExtra("reservation");
 
         final TextView textReservationCode = findViewById(R.id.textReservationCode);
         textReservationCode.setText("" + reservation.getRID());
@@ -65,6 +67,8 @@ public class ReceiptReservationActivity extends Activity
     public void buttonPreOrderOnClick(View v)
     {
         Intent preOrderIntent = new Intent(ReceiptReservationActivity.this, CreateOrderActivity.class);
+        preOrderIntent.putExtra("activity", "ReceiptReservationActivity");
+        preOrderIntent.putExtra("reservationID", reservation.getRID());
         ReceiptReservationActivity.this.startActivity(preOrderIntent);
     }
 }

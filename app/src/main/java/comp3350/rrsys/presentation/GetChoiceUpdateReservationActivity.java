@@ -1,19 +1,19 @@
 package comp3350.rrsys.presentation;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import comp3350.rrsys.R;
 
-public class GetChoiceUpdateReservationActivity extends AppCompatActivity
+public class GetChoiceUpdateReservationActivity extends Activity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_choiceupdate_reservation);
+        setContentView(R.layout.activity_get_choice_update_reservation);
     }
 
     public void buttonUpdateOnClick(View view)
@@ -29,11 +29,13 @@ public class GetChoiceUpdateReservationActivity extends AppCompatActivity
         GetChoiceUpdateReservationActivity.this.startActivity(confirmIntent);
     }
 
-    public void buttonPreorderOnClick(View view)
+    public void buttonPreOrderOnClick(View view)
     {
-        Intent GetMenu = new Intent(GetChoiceUpdateReservationActivity.this, CreateOrderActivity.class);
-        GetMenu.putExtra("Code",getIntent().getStringExtra("Code"));
-        GetChoiceUpdateReservationActivity.this.startActivity(GetMenu);
+        Intent getMenu = new Intent(GetChoiceUpdateReservationActivity.this, CreateOrderActivity.class);
+        getMenu.putExtra("activity", "GetChoiceUpdateReservationActivity");
+        String r = getIntent().getStringExtra("ReservationID");
+        getMenu.putExtra("reservationID", getIntent().getStringExtra("ReservationID"));
+        GetChoiceUpdateReservationActivity.this.startActivity(getMenu);
     }
 
     public void buttonBackOnClick(View view)

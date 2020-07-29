@@ -102,4 +102,9 @@ public class Item
         return newItem.getItemID() == this.itemID && newItem.getName().equals(this.name) && newItem.getType().equals(this.type)
                 && newItem.getDetail().equals(this.detail) && newItem.getPrice() == this.price;
     }
+
+    public String toString()
+    {
+        return name + "\n" + price + ", " + detail;
+    }
 }

@@ -50,6 +50,7 @@ public class Reservation implements Parcelable
         numPeople = in.readInt();
         startTime = in.readParcelable(DateTime.class.getClassLoader());
         endTime = in.readParcelable(DateTime.class.getClassLoader());
+        orderID = in.readInt();
     }
 
     // setter
@@ -101,6 +102,7 @@ public class Reservation implements Parcelable
         dest.writeInt(numPeople);
         dest.writeParcelable(startTime, flags);
         dest.writeParcelable(endTime, flags);
+        dest.writeInt(orderID);
     }
 
     public static final Parcelable.Creator<Reservation> CREATOR = new Parcelable.Creator<Reservation>()

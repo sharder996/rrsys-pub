@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
 import comp3350.rrsys.objects.Item;
+import comp3350.rrsys.objects.Order;
 import comp3350.rrsys.persistence.DataAccess;
 
-public class AccessOrders {
-
+public class AccessOrders
+{
     private static DataAccess dataAccessStatic;
     private DataAccess dataAccess;
     private ArrayList<Item> order;
@@ -17,6 +18,12 @@ public class AccessOrders {
     {
         dataAccess = Services.getDataAccess(Main.dbName);
         dataAccessStatic = Services.getDataAccess(Main.dbName);
+    }
+
+    public String insertOrder(Order order)
+    {
+        // TODO: implement this method that puts an order in the database
+        return null;
     }
 
     public String insertSelectedItem(Item newItem, int oID, int quantity, String note)
@@ -35,9 +42,7 @@ public class AccessOrders {
         return dataAccess.getOrder(oID);
     }
 
-    public double getPrice(int oID){
-        return dataAccess.getPrice(oID);
-    }
+    public double getPrice(int oID) { return dataAccess.getPrice(oID); }
 
     public int getSize(int oID) { return dataAccess.getSize(oID); }
 }

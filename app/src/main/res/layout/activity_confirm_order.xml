@@ -32,7 +32,7 @@
         android:text="@string/confirm"
         android:layout_margin="25dp"
         android:layout_marginBottom="25dp"
-        android:onClick="buttonBackOnClick"
+        android:onClick="buttonCancelOnClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

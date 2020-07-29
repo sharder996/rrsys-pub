@@ -36,7 +36,6 @@ public class GetUpdateReservationActivity extends Activity
         GetUpdateReservationActivity.this.startActivity(returnHomeIntent);
     }
 
-
     public void buttonEnterOnClick(View v)
     {
         Reservation selected;
@@ -63,6 +62,7 @@ public class GetUpdateReservationActivity extends Activity
                 String resDate = (selected.getStartTime().getMonth()+1) +"/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();
 
                 Intent confirmIntent = new Intent(GetUpdateReservationActivity.this, GetChoiceUpdateReservationActivity.class);
+                confirmIntent.putExtra("ReservationID", Integer.toString(selected.getRID()));
                 confirmIntent.putExtra("Date", resDate);
                 confirmIntent.putExtra("TimeStart", timeStart);
                 confirmIntent.putExtra("TimeEnd", timeEnd);
@@ -78,7 +78,7 @@ public class GetUpdateReservationActivity extends Activity
         }
         else
         {
-            if(code.length() ==0)
+            if(code.length() == 0)
                 code.setError("Enter reservation code");
         }
     }

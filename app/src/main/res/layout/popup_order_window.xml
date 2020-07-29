@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#9F9494"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textAddItemToOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="25dp"
+        android:text="@string/add_item_to_order"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/buttonPopupConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="25dp"
+        android:text="@string/confirm" />
+
+</RelativeLayout>

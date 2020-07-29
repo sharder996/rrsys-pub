@@ -89,6 +89,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="comp3350.rrsys.presentation.MenuActivity" />
         </activity>
+        <activity
+            android:name=".presentation.CreateOrderActivity"
+            android:label="@string/restaurant_reservation_system"
+            android:windowSoftInputMode="adjustNothing">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="comp3350.rrsys.presentation.CreateOrderActivity" />
+        </activity>
     </application>
 
 </manifest>

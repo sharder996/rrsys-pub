@@ -18,7 +18,7 @@ import comp3350.rrsys.objects.Item;
 public class MenuActivity extends Activity
 {
     private AccessMenu accessMenu;
-    private Map<String, List<String>> parentListItems;
+    private Map<String, List<Item>> parentListItems;
     private ExpandableListView menuItemsListView;
 
     @Override
@@ -35,11 +35,7 @@ public class MenuActivity extends Activity
         for (String parent : parentList)
         {
             ArrayList<Item> items = accessMenu.getMenuByType(parent);
-            ArrayList<String> itemsString = new ArrayList<>();
-            for (Item item : items)
-                itemsString.add(item.getName() + "\n" + item.getPrice() + ", " + item.getDetail());
-
-            parentListItems.put(parent, itemsString);
+            parentListItems.put(parent, items);
         }
 
         menuItemsListView = findViewById(R.id.menuList);
