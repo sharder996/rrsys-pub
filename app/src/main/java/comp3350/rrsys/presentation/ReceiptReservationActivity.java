@@ -73,7 +73,8 @@ public class ReceiptReservationActivity extends Activity
         {
             Intent preOrderIntent = new Intent(ReceiptReservationActivity.this, CreateOrderActivity.class);
             preOrderIntent.putExtra("activity", "ReceiptReservationActivity");
-            preOrderIntent.putExtra("reservationID", Integer.toString(reservation.getRID()));
+            preOrderIntent.putExtra("ReservationID", Integer.toString(reservation.getRID()));
+            preOrderIntent.putExtra("reservation", getIntent().getParcelableExtra("reservation"));
             ReceiptReservationActivity.this.startActivity(preOrderIntent);
         }
         else
