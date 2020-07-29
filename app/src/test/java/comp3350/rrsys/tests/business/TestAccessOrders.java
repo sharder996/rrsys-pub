@@ -68,12 +68,12 @@ public class TestAccessOrders extends TestCase
         newOrder.addItem(dish4);
         newOrder.addItem(dish5);
 
-        newOrder.addItem(dish);
-        newOrder.addItem(dish5);
+        newOrder1.addItem(dish);
+        newOrder1.addItem(dish5);
 
-        newOrder.addItem(dish);
-        newOrder.addItem(dish3);
-        newOrder.addItem(dish5);
+        newOrder2.addItem(dish);
+        newOrder2.addItem(dish3);
+        newOrder2.addItem(dish5);
 
         String result = accessStub.insertOrder(newOrder);
         assertEquals(result, "success");
@@ -100,7 +100,7 @@ public class TestAccessOrders extends TestCase
 
         selectedItems = accessStub.getOrder(3);
         assertEquals(3, selectedItems.size());
-        assertEquals(dish1, selectedItems.get(0));
+        assertEquals(dish, selectedItems.get(0));
         assertEquals(dish3, selectedItems.get(1));
         assertEquals(dish5, selectedItems.get(2));
 
