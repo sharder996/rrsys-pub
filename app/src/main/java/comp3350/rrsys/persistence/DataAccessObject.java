@@ -634,14 +634,120 @@ public class DataAccessObject implements DataAccess
         return available;
     }
 
-    public ArrayList<Item> getOrder(){ return null;}
+    public ArrayList<Item> getOrder(int oID)
+    {
+        ArrayList<Item> items;
+        ArrayList<Integer> itemID;
+        Item item;
+        int iID, quantity;
+        String name, type, detail;
+        double price;
 
-    public String insertSelectedItem(Item newItem){return null;}
+        itemID = new ArrayList<>();
+        items = new ArrayList<>();
+        try
+        {
+            cmdString = "SELECT * from ORDERS where OID=" + oID;
+            rs2 = st0.executeQuery(cmdString);
 
-    public String deletedSelectedItem(Item newItem){return null;}
+            while(rs2.next())
+            {
+                quantity = rs2.getInt("QUANTITY");
+                for(int i = 0; i < quantity; i++)
+                {
+                    iID = rs2.getInt("IID");
+                    itemID.add(iID);
+                }
+            }
+            rs2.close();
 
-    public double getPrice(){return -1;}
 
-    public int getSize(){return -1;}
+            for(int i = 0; i < itemID.size(); i++)
+            {
+                cmdString = "SELECT * from MENU where IID=" + itemID.get(i);
+                rs1 = st0.executeQuery(cmdString);
+
+                while(rs1.next())
+                {
+                    name = rs1.getString("NAME");
+                    type = rs1.getString("TYPE");
+                    detail = rs1.getString("DETAIL");
+                    price = rs1.getDouble("PRICE");
+                    item = new Item(itemID.get(i), name, type, detail, price);
+                    items.add(item);
+                }
+                rs1.close();
+            }
+
+        }
+        catch(Exception e)
+        {
+            processSQLError(e);
+        }
+
+        return items;
+    }
+
+    public String insertSelectedItem(Item newItem, int oID, int quantity, String note)
+    {
+        String values;
+
+        result = null;
+        try
+        {
+            values = oID
+                    + ", " + newItem.getItemID()
+                    + ", " + quantity
+                    + ", '" + note
+                    + "' ";
+            cmdString = "INSERT into ORDERS VALUES(" + values + ")";
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+    public String deletedSelectedItem(Item newItem, int oID)
+    {
+        result = null;
+        try
+        {
+            cmdString = "DELETE FROM ORDERS WHERE OID=" + oID + " AND IID=" + newItem.getItemID();
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+    public double getPrice(int oID)
+    {
+        ArrayList<Item> items;
+        double totalPrice = 0.0;
+
+        items = getOrder(oID);
+        for(Item item : items)
+        {
+               totalPrice += item.getPrice();
+        }
+
+        return totalPrice;
+    }
+
+    public int getSize(int oID)
+    {
+        ArrayList<Item> items = getOrder(oID);
+
+        return items.size();
+    }
 
 }

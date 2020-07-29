@@ -18,7 +18,7 @@ import comp3350.rrsys.persistence.DataAccessStub;
 
 public class DataAccessTest extends TestCase {
 
-    private DataAccess dataAccess = null;
+    private DataAccess dataAccess;
 
     public DataAccessTest(String arg0)
     {
@@ -33,7 +33,7 @@ public class DataAccessTest extends TestCase {
         //dataAccess.open("Stub");
 
         // or switch to the real database:
-         dataAccess = new DataAccessObject(Main.dbName);
+        dataAccess = new DataAccessObject(Main.dbName);
 
         dataAccess.open(Main.getDBPathName());
 
@@ -266,4 +266,113 @@ public class DataAccessTest extends TestCase {
         assertEquals(45, menuItems.size());
         assertTrue(menuItems.get(44).equal(newitem));
     }
+
+    public void testGetOrder() //to be changed
+    {
+        ArrayList<Item> order;
+
+        order = dataAccess.getOrder(1);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.get(i).getName());
+        }
+        System.out.println();
+        order = dataAccess.getOrder(2);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.get(i).getName());
+        }
+        System.out.println();
+        order = dataAccess.getOrder(3);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.get(i).getName());
+        }
+        System.out.println();
+        order = dataAccess.getOrder(4);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.get(i).getName());
+        }
+        System.out.println();
+    }
+
+    public void testInsertIntoExistingOrder()
+    {
+        ArrayList<Item> order;
+        Item item;
+        String result;
+
+        order = dataAccess.getOrder(1);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.get(i).getName());
+        }
+        System.out.println();
+        item = dataAccess.getMenu().get(0);
+        result = dataAccess.insertSelectedItem(item, 1, 1, "");
+        assertNull(result);
+
+        order = dataAccess.getOrder(1);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.get(i).getName());
+        }
+        System.out.println();
+    }
+
+    public void testDeleteFromExistingOrder()
+    {
+        ArrayList<Item> order;
+        Item item;
+        String result;
+
+        order = dataAccess.getOrder(1);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.get(i).getName());
+        }
+        System.out.println();
+
+        item = dataAccess.getMenu().get(0);
+        result = dataAccess.insertSelectedItem(item, 1, 1, "");
+        assertNull(result);
+
+        order = dataAccess.getOrder(1);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.get(i).getName());
+        }
+        System.out.println();
+
+        result = dataAccess.deletedSelectedItem(item, 1);
+        assertNull(result);
+
+        order = dataAccess.getOrder(1);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.get(i).getName());
+        }
+        System.out.println();
+    }
+
+    public void testGetPrice()
+    {
+        double price;
+        ArrayList<Item> order;
+        order = dataAccess.getOrder(1);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.get(i).getName());
+        }
+        price = dataAccess.getPrice(1);
+        System.out.printf("Price: $%4.2f\n",  price);
+    }
+
+    public void testOrderSize()
+    {
+        int size = dataAccess.getSize(1);
+        System.out.println(size);
+    }
+
 }

@@ -19,28 +19,26 @@ public class AccessOrders {
         dataAccessStatic = Services.getDataAccess(Main.dbName);
     }
 
-    public String insertSelectedItem(Item newItem)
+    public String insertSelectedItem(Item newItem, int oID, int quantity, String note)
     {
-        //order = newItem;
-        return dataAccess.insertSelectedItem(newItem);
+        return dataAccess.insertSelectedItem(newItem, oID, quantity, note);
     }
 
-    public String deleteSelectedItem(Item newItem){
-
-        return dataAccess.deletedSelectedItem(newItem);
+    public String deleteSelectedItem(Item newItem, int oID)
+    {
+        return dataAccess.deletedSelectedItem(newItem, oID);
     }
 
-    public ArrayList<Item> getOrder(){
-        this.order = dataAccess.getOrder();
-        return dataAccess.getOrder();
+    public ArrayList<Item> getOrder(int oID)
+    {
+        this.order = dataAccess.getOrder(oID);
+        return dataAccess.getOrder(oID);
     }
 
-    public double getPrice(){
-        return dataAccess.getPrice();
+    public double getPrice(int oID){
+        return dataAccess.getPrice(oID);
     }
 
-    public int getSize(){
-        return dataAccess.getSize();
-    }
+    public int getSize(int oID) { return dataAccess.getSize(oID); }
 }
 
