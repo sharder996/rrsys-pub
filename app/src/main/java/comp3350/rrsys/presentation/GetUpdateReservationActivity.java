@@ -62,6 +62,8 @@ public class GetUpdateReservationActivity extends Activity
                 String resDate = (selected.getStartTime().getMonth()+1) +"/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();
 
                 Intent confirmIntent = new Intent(GetUpdateReservationActivity.this, GetChoiceUpdateReservationActivity.class);
+
+                confirmIntent.putExtra("StartTime", selected.getStartTime());
                 confirmIntent.putExtra("ReservationID", Integer.toString(selected.getRID()));
                 confirmIntent.putExtra("Date", resDate);
                 confirmIntent.putExtra("TimeStart", timeStart);
