@@ -113,16 +113,17 @@
             android:textSize="16sp"
             android:layout_marginTop="20dp"/>
 
-        <TextView
-            android:id="@+id/confirmationInstructions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/confirmation_instructions"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            tools:layout_columnSpan="2" />
     </GridLayout>
+
+    <TextView
+        android:id="@+id/confirmationInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/confirmation_instructions"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        tools:layout_columnSpan="2" />
 
     <RelativeLayout
         android:layout_width="match_parent"
