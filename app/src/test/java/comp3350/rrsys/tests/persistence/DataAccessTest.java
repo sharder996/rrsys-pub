@@ -272,22 +272,26 @@ public class DataAccessTest extends TestCase {
         ArrayList<Item> order;
 
         order = dataAccess.getOrder(1);
-        for(int i = 0; i < order.size(); i++){
+        for(int i = 0; i < order.size(); i++)
+        {
             System.out.println(order.get(i).getName());
         }
         System.out.println();
         order = dataAccess.getOrder(2);
-        for(int i = 0; i < order.size(); i++){
+        for(int i = 0; i < order.size(); i++)
+        {
             System.out.println(order.get(i).getName());
         }
         System.out.println();
         order = dataAccess.getOrder(3);
-        for(int i = 0; i < order.size(); i++){
+        for(int i = 0; i < order.size(); i++)
+        {
             System.out.println(order.get(i).getName());
         }
         System.out.println();
         order = dataAccess.getOrder(4);
-        for(int i = 0; i < order.size(); i++){
+        for(int i = 0; i < order.size(); i++)
+        {
             System.out.println(order.get(i).getName());
         }
         System.out.println();
@@ -300,7 +304,8 @@ public class DataAccessTest extends TestCase {
         String result;
 
         order = dataAccess.getOrder(1);
-        for(int i = 0; i < order.size(); i++){
+        for(int i = 0; i < order.size(); i++)
+        {
             System.out.println(order.get(i).getName());
         }
         System.out.println();
@@ -309,7 +314,8 @@ public class DataAccessTest extends TestCase {
         assertNull(result);
 
         order = dataAccess.getOrder(1);
-        for(int i = 0; i < order.size(); i++){
+        for(int i = 0; i < order.size(); i++)
+        {
             System.out.println(order.get(i).getName());
         }
         System.out.println();
@@ -322,7 +328,8 @@ public class DataAccessTest extends TestCase {
         String result;
 
         order = dataAccess.getOrder(1);
-        for(int i = 0; i < order.size(); i++){
+        for(int i = 0; i < order.size(); i++)
+        {
             System.out.println(order.get(i).getName());
         }
         System.out.println();
@@ -332,7 +339,8 @@ public class DataAccessTest extends TestCase {
         assertNull(result);
 
         order = dataAccess.getOrder(1);
-        for(int i = 0; i < order.size(); i++){
+        for(int i = 0; i < order.size(); i++)
+        {
             System.out.println(order.get(i).getName());
         }
         System.out.println();
@@ -341,7 +349,8 @@ public class DataAccessTest extends TestCase {
         assertNull(result);
 
         order = dataAccess.getOrder(1);
-        for(int i = 0; i < order.size(); i++){
+        for(int i = 0; i < order.size(); i++)
+        {
             System.out.println(order.get(i).getName());
         }
         System.out.println();
@@ -352,7 +361,8 @@ public class DataAccessTest extends TestCase {
         double price;
         ArrayList<Item> order;
         order = dataAccess.getOrder(1);
-        for(int i = 0; i < order.size(); i++){
+        for(int i = 0; i < order.size(); i++)
+        {
             System.out.println(order.get(i).getName());
         }
         price = dataAccess.getPrice(1);
@@ -363,7 +373,6 @@ public class DataAccessTest extends TestCase {
     {
         int size = dataAccess.getSize(1);
         System.out.println(size);
-
     }
 
 }

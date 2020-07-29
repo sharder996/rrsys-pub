@@ -653,7 +653,8 @@ public class DataAccessObject implements DataAccess
             while(rs2.next())
             {
                 quantity = rs2.getInt("QUANTITY");
-                for(int i = 0; i < quantity; i++) {
+                for(int i = 0; i < quantity; i++)
+                {
                     iID = rs2.getInt("IID");
                     itemID.add(iID);
                 }
@@ -661,11 +662,13 @@ public class DataAccessObject implements DataAccess
             rs2.close();
 
 
-            for(int i = 0; i < itemID.size(); i++){
+            for(int i = 0; i < itemID.size(); i++)
+            {
                 cmdString = "SELECT * from MENU where IID=" + itemID.get(i);
                 rs1 = st0.executeQuery(cmdString);
 
-                while(rs1.next()){
+                while(rs1.next())
+                {
                     name = rs1.getString("NAME");
                     type = rs1.getString("TYPE");
                     detail = rs1.getString("DETAIL");
