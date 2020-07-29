@@ -44,8 +44,7 @@ public class CreateOrderActivity extends Activity
         setContentView(R.layout.activity_order);
 
         accessMenu = new AccessMenu();
-        //String r = getIntent().getStringExtra("reservationID"); //dead code?
-        order = new Order(Integer.parseInt(getIntent().getStringExtra("reservationID")));
+        order = new Order(Integer.parseInt(getIntent().getStringExtra("ReservationID")));
 
         List<String> parentList = accessMenu.getMenuTypes();
         parentListItems = new LinkedHashMap<>();
@@ -183,16 +182,27 @@ public class CreateOrderActivity extends Activity
         });
     }
 
-    public void buttonCancelOnClick(View v)
-    {
+    public void buttonCancelOnClick(View v) {
         Intent intent = getIntent();
         String activity = intent.getStringExtra("activity");
 
         Intent backPageIntent;
-        if(activity.equals("GetChoiceUpdateReservationActivity"))
+        if (activity.equals("GetChoiceUpdateReservationActivity")) {
             backPageIntent = new Intent(CreateOrderActivity.this, GetChoiceUpdateReservationActivity.class);
+            backPageIntent.putExtra("ReservationID", getIntent().getStringExtra("ReservationID"));
+            backPageIntent.putExtra("StartTime", getIntent().getParcelableExtra("StartTime"));
+            backPageIntent.putExtra("Date", getIntent().getStringExtra("Date"));
+            backPageIntent.putExtra("TimeStart", getIntent().getStringExtra("TimeStart"));
+            backPageIntent.putExtra("TimeEnd", getIntent().getStringExtra("TimeEnd"));
+            backPageIntent.putExtra("Code", getIntent().getStringExtra("Code"));
+            backPageIntent.putExtra("People", getIntent().getStringExtra("People"));
+        }
         else
+        {
             backPageIntent = new Intent(CreateOrderActivity.this, ReceiptReservationActivity.class);
+            backPageIntent.putExtra("ReservationID", getIntent().getStringExtra("ReservationID"));
+            backPageIntent.putExtra("reservation", getIntent().getParcelableExtra("reservation"));
+        }
 
         CreateOrderActivity.this.startActivity(backPageIntent);
     }

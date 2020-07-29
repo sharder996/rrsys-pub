@@ -9,7 +9,7 @@ import android.os.Parcelable;
  * and last) and phone number;
  */
 
-public class Customer implements Parcelable
+public class Customer
 {
     private int cID;
     private String firstName;
@@ -38,35 +38,6 @@ public class Customer implements Parcelable
         else
             throw new IllegalArgumentException("Invalid phone number format.");
     }
-
-    private Customer(Parcel in)
-    {
-        cID = in.readInt();
-        firstName = in.readString();
-        lastName = in.readString();
-        phoneNumber = in.readString();
-    }
-
-    @Override
-    public int describeContents() { return 0; }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
-        dest.writeInt(cID);
-        dest.writeString(firstName);
-        dest.writeString(lastName);
-        dest.writeString(phoneNumber);
-    }
-
-    public static final Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>()
-    {
-        @Override
-        public Customer createFromParcel(Parcel source) { return new Customer(source); }
-
-        @Override
-        public Customer[] newArray(int size) { return new Customer[size]; }
-    };
 
     private boolean containsDigitInString(String input)
     {

@@ -40,8 +40,13 @@ public class GetChoiceUpdateReservationActivity extends Activity
         {
             Intent getMenu = new Intent(GetChoiceUpdateReservationActivity.this, CreateOrderActivity.class);
             getMenu.putExtra("activity", "GetChoiceUpdateReservationActivity");
-            String r = getIntent().getStringExtra("ReservationID");
-            getMenu.putExtra("reservationID", getIntent().getStringExtra("ReservationID"));
+            getMenu.putExtra("ReservationID", getIntent().getStringExtra("ReservationID"));
+            getMenu.putExtra("Date", getIntent().getStringExtra("Date"));
+            getMenu.putExtra("TimeStart", getIntent().getStringExtra("TimeStart"));
+            getMenu.putExtra("StartTime", getIntent().getParcelableExtra("StartTime"));
+            getMenu.putExtra("TimeEnd", getIntent().getStringExtra("TimeEnd"));
+            getMenu.putExtra("Code", getIntent().getStringExtra("Code"));
+            getMenu.putExtra("People", getIntent().getStringExtra("People"));
             GetChoiceUpdateReservationActivity.this.startActivity(getMenu);
         }
         else
