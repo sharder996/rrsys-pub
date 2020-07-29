@@ -11,6 +11,7 @@ public class Order
     //TODO: remove this if not being used this iteration
     private String note;    // dietary requirements, etc.
     private static int counter = 1;
+    public static int PREPARATION_TIME = 1000 * 3600 * 1;  // amount of time required for order preparation
 
     public Order(int reservationID)
     {

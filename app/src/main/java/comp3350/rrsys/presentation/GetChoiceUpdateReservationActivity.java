@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import java.util.Calendar;
+
 import comp3350.rrsys.R;
+import comp3350.rrsys.objects.DateTime;
+import comp3350.rrsys.objects.Order;
 
 public class GetChoiceUpdateReservationActivity extends Activity
 {
@@ -31,11 +35,19 @@ public class GetChoiceUpdateReservationActivity extends Activity
 
     public void buttonPreOrderOnClick(View view)
     {
-        Intent getMenu = new Intent(GetChoiceUpdateReservationActivity.this, CreateOrderActivity.class);
-        getMenu.putExtra("activity", "GetChoiceUpdateReservationActivity");
-        String r = getIntent().getStringExtra("ReservationID");
-        getMenu.putExtra("reservationID", getIntent().getStringExtra("ReservationID"));
-        GetChoiceUpdateReservationActivity.this.startActivity(getMenu);
+        DateTime startTime = getIntent().getParcelableExtra("StartTime");
+        if(startTime.getCalendar().getTimeInMillis() - Calendar.getInstance().getTimeInMillis() > Order.PREPARATION_TIME)
+        {
+            Intent getMenu = new Intent(GetChoiceUpdateReservationActivity.this, CreateOrderActivity.class);
+            getMenu.putExtra("activity", "GetChoiceUpdateReservationActivity");
+            String r = getIntent().getStringExtra("ReservationID");
+            getMenu.putExtra("reservationID", getIntent().getStringExtra("ReservationID"));
+            GetChoiceUpdateReservationActivity.this.startActivity(getMenu);
+        }
+        else
+        {
+            Messages.warning(this, "Error: Not enough time till reservation");
+        }
     }
 
     public void buttonBackOnClick(View view)

@@ -8,7 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import comp3350.rrsys.R;
+import comp3350.rrsys.objects.Order;
 import comp3350.rrsys.objects.Reservation;
 
 public class ReceiptReservationActivity extends Activity
@@ -66,9 +69,16 @@ public class ReceiptReservationActivity extends Activity
 
     public void buttonPreOrderOnClick(View v)
     {
-        Intent preOrderIntent = new Intent(ReceiptReservationActivity.this, CreateOrderActivity.class);
-        preOrderIntent.putExtra("activity", "ReceiptReservationActivity");
-        preOrderIntent.putExtra("reservationID", reservation.getRID());
-        ReceiptReservationActivity.this.startActivity(preOrderIntent);
+        if(reservation.getStartTime().getCalendar().getTimeInMillis() - Calendar.getInstance().getTimeInMillis() > Order.PREPARATION_TIME)
+        {
+            Intent preOrderIntent = new Intent(ReceiptReservationActivity.this, CreateOrderActivity.class);
+            preOrderIntent.putExtra("activity", "ReceiptReservationActivity");
+            preOrderIntent.putExtra("reservationID", Integer.toString(reservation.getRID()));
+            ReceiptReservationActivity.this.startActivity(preOrderIntent);
+        }
+        else
+        {
+            Messages.warning(this, "Error: Not enough time till reservation");
+        }
     }
 }
