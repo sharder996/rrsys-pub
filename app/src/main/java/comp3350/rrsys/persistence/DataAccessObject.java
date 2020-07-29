@@ -242,12 +242,9 @@ public class DataAccessObject implements DataAccess
 
     public int getNextReservationID()
     {
-        Reservation reservation;
         int next = 0;
         try
         {
-            reservation = getReservation(1);
-            System.out.println(reservation.getRID());
             cmdString = "SELECT MAX(RID) as RID from RESERVATIONS";
             rs2 = st0.executeQuery(cmdString);
             rs2.next();
