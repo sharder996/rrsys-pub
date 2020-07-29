@@ -21,7 +21,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="buttonUpdateOnClick"
-            android:text="CHANGE A RESERVATION" />
+            android:text="@string/change_reservation" />
 
         <Button
             android:id="@+id/buttonPreorder"
@@ -30,7 +30,8 @@
             android:layout_marginTop="60dp"
             android:layout_marginBottom="60dp"
             android:onClick="buttonPreOrderOnClick"
-            android:text="PREORDER" />
+            android:enabled="true"
+            android:text="@string/preOrder" />
 
         <Button
             android:id="@+id/buttonBack"
@@ -38,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
             android:onClick="buttonBackOnClick"
-            android:text="Back" />
+            android:text="@string/back" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -10,6 +10,7 @@
     <string name="create">Create a reservation</string>
     <string name="update">Update a reservation</string>
     <string name="review">Review a reservation</string>
+    <string name="view_menu">View Menu </string>
     <string name="check_availability">Check availability</string>
 
     <string name="reservation_thank_you">Thank you for making a reservation with us!</string>
@@ -42,7 +43,7 @@
     <string name="first_name">First name: </string>
     <string name="last_name">Last name: </string>
     <string name="phone_number">Phone Number: </string>
-    <string name="view_menu">View Menu </string>
+    <string name="change_reservation">CHANGE THE RESERVATION</string>
 
     <string name="phone_number_hint">999-999-9999</string>
     <string name="date_hint">MM/dd/yyyy</string>
