@@ -1,5 +1,6 @@
 package comp3350.rrsys.persistence;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -433,17 +434,63 @@ public class DataAccessStub //implements DataAccess
         return available;
     }
 
-    public String insertOrder(){return null;}
+    public String insertOrder(Order newOrder)
+    {
+        if(newOrder == null || newOrder.getReservationID() == -1)
+            return "fail";
 
-    public ArrayList<Item> getOrder() {
-        return null;
+        if(newOrder.getReservationID() < 0)
+            return "fail";
+
+        orders.add(newOrder);
+        return "success";
     }
 
-    public double getPrice() {
-        return 0;
+    public ArrayList<Item> getOrder(int reservationID) {
+        if(reservationID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        ArrayList<Item> ord = null;
+
+        for(int i =0; i<orders.size(); i++)
+        {
+            if(orders.get(i).getReservationID() == reservationID)
+            {
+                ord = orders.get(i).getOrder();
+            }
+        }
+        return ord;
     }
 
-    public int getSize() {
-        return 0;
+    public double getPrice(int reservationID) {
+        if(reservationID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        double totalPrice = 0.0;
+
+        for(int i=0; i < orders.size(); i++)
+        {
+            if(orders.get(i).getReservationID() == reservationID)
+            {
+                totalPrice = orders.get(i).getPrice();
+            }
+        }
+        return totalPrice;
+    }
+
+    public int getSize(int reservationID)
+    {
+        if(reservationID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        int size = 0;
+        for(int i=0; i < orders.size(); i++)
+        {
+            if(orders.get(i).getReservationID() == reservationID)
+            {
+                size = orders.get(i).size();
+            }
+        }
+        return size;
     }
 }

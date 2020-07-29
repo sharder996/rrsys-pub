@@ -5,17 +5,19 @@ import java.util.ArrayList;
 public class Order
 {
     private int reservationID;
-    private int orderID;
     private ArrayList<Item> order;
     private double totalPrice;
     //TODO: remove this if not being used this iteration
     private String note;    // dietary requirements, etc.
-    private static int counter = 1;
+    public static int PREPARATION_TIME = 1000 * 3600 * 1;  // amount of time required for order preparation
 
     public Order(int reservationID)
     {
+        if(reservationID < 0)
+        {
+            throw new IllegalArgumentException("Invalid reservationID");
+        }
         this.reservationID = reservationID;
-        orderID = counter++;
         order = new ArrayList<>();
         totalPrice = 0;
     }
@@ -23,22 +25,26 @@ public class Order
     public ArrayList<Item> getOrder() { return order; }
     public String getNote() { return note; }
     public double getPrice() { return totalPrice; }
-    public int getOrderID() { return orderID; }
     public int getReservationID() { return reservationID; }
 
     public void setNote(String note) { this.note = note; }
-    public void setOrderID(int orderID) { this.orderID = orderID; }
 
     public void addItem(Item newItem)
     {
-        order.add(newItem);
-        totalPrice += newItem.getPrice();
+        if(newItem != null)
+        {
+            order.add(newItem);
+            totalPrice += newItem.getPrice();
+        }
     }
 
     public void deleteItem(Item item)
     {
-        if(order.remove(item))
+        if(order.contains(item))
+        {
+            order.remove(item);
             totalPrice -= item.getPrice();
+        }
     }
 
     public int size() { return order.size(); }

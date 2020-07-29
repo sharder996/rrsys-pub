@@ -24,8 +24,6 @@ public class AccessOrders
 
     public String insertOrder(Order order)
     {
-        // TODO: implement this method that puts an order in the database
-
         return dataAccess.insertOrder(order);
     }
 
