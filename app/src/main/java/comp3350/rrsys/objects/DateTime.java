@@ -15,7 +15,7 @@ import java.util.GregorianCalendar;
 public class DateTime implements Parcelable
 {
     private Calendar timeSlot;
-    private static final int MAX_DAYS_DIFFERENCE = 30;
+    public static final int MAX_DAYS_DIFFERENCE = 30;
 
     // Calendar cal = new GregorianCalendar(2013,7,28,13,24);
     // DateTime reservation = new DateTime(cal);
@@ -23,7 +23,7 @@ public class DateTime implements Parcelable
     {
         Calendar currDate = Calendar.getInstance();
 
-        int differenceDays = (int)((timeInfo.getTimeInMillis() - currDate.getTimeInMillis()) / 1000 / 3600 / 24);
+        double differenceDays = (timeInfo.getTimeInMillis() - currDate.getTimeInMillis()) / 1000.0 / 3600.0 / 24.0;
         if(differenceDays > MAX_DAYS_DIFFERENCE || differenceDays < 0)
             throw new IllegalArgumentException("Invalid date.");
 
