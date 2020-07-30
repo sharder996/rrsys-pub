@@ -14,18 +14,15 @@ import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Order;
 
-public class DataAccessStub //implements DataAccess
+public class DataAccessStub
 {
     private String dbName;
-    private static String dbType = "stub";
-
-    //TODO: remove this variable?
-    //private int customerID;
     private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
     private ArrayList<Item> menu;
     private ArrayList<Order> orders;
+    private static String dbType = "stub";
 
     public DataAccessStub(String dbName)
     {
@@ -145,10 +142,6 @@ public class DataAccessStub //implements DataAccess
             if (reservations.get(i).equals(rID))
             {
                 Reservation prev = reservations.get(i);
-                DateTime prevStart = prev.getStartTime();
-                DateTime prevEnd = prev.getEndTime();
-                DateTime currStart = curr.getStartTime();
-                DateTime currEnd = curr.getEndTime();
                 curr.setRID(prev.getRID());
                 curr.setRID(prev.getRID());
                 reservations.set(i, curr);
@@ -239,7 +232,7 @@ public class DataAccessStub //implements DataAccess
         }
 
         // generate items in menu
-        //Item(String name, String type, String detail, double price)
+        // Item(String name, String type, String detail, double price)
         Item salad, sandwich, burger, main, dessert, drink;
         salad = new Item(1, "SPECIAL SALAD", "Salads", "romaine lettuce, arugula, red cabbage, carrot, red onion & toasted sunflower seeds.", 9.95);
         insertItem(salad);
@@ -340,8 +333,8 @@ public class DataAccessStub //implements DataAccess
         Random rand = new Random();
         String name = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        String randomfirstName = "";
-        String randomlastName = "";
+        String randomFirstName = "";
+        String randomLastName = "";
 
         int length = 4;
 
@@ -360,10 +353,10 @@ public class DataAccessStub //implements DataAccess
                 last[i] = name.charAt(rand.nextInt(name.length()));
 
             for (int i = 0; i < first.length; i++)
-                randomfirstName += first[i];
+                randomFirstName += first[i];
 
             for (int i = 0; i < last.length; i++)
-                    randomlastName += last[i];
+                    randomLastName += last[i];
 
             //-------------------------------------------------------------------------
             // generate random phone numbers
@@ -371,11 +364,11 @@ public class DataAccessStub //implements DataAccess
             int num2 = rand.nextInt(743);
             int num3 = rand.nextInt(10000);
 
-            DecimalFormat df3 = new DecimalFormat("000"); // 3 zeros
-            DecimalFormat df4 = new DecimalFormat("0000"); // 4 zeros
+            DecimalFormat df3 = new DecimalFormat("000");   // 3 zeros
+            DecimalFormat df4 = new DecimalFormat("0000");  // 4 zeros
 
             String phoneNumber = df3.format(num1) + "-" + df3.format(num2) + "-" + df4.format(num3);
-            insertCustomer(randomfirstName, randomlastName, phoneNumber);
+            insertCustomer(randomFirstName, randomLastName, phoneNumber);
         }
     }
 

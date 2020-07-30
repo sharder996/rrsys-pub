@@ -22,21 +22,15 @@ public class DataAccessObject implements DataAccess
 {
     private Statement st0, st1, st2;
     private Connection c1;
-    private ResultSet rs0, rs1, rs2, rs3;
-
+    private ResultSet rs1, rs2, rs3;
     private String dbName;
     private String dbType;
-
-    private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
     private ArrayList<Item> menu;
-    private ArrayList<Order> orders;
-
     private String cmdString;
     private int updateCount;
     private String result;
-    private static String EOF = "  ";
 
     public DataAccessObject(String dbName)
     {
@@ -67,7 +61,8 @@ public class DataAccessObject implements DataAccess
     public void close()
     {
         try
-        {    // commit all changes to the database
+        {
+            // commit all changes to the database
             cmdString = "shutdown compact";
             rs1 = st0.executeQuery(cmdString);
             c1.close();
@@ -109,14 +104,6 @@ public class DataAccessObject implements DataAccess
 
         return result;
     }
-
-    /*
-        TODO:
-        public void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t)
-        private void setTable(int tID, int month, int day, int startIndex, int endIndex, boolean bool)
-        public String insertReservation(Reservation r)
-     */
-
 
     public Reservation getReservation(int reservationID)
     {
@@ -395,7 +382,6 @@ public class DataAccessObject implements DataAccess
             values = tableID
                     + ", " + size;
             cmdString = "INSERT into TABLES " + " Values(" + values + ")";
-            //System.out.println(cmdString);
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         }
@@ -667,7 +653,8 @@ public class DataAccessObject implements DataAccess
                 updateCount = st1.executeUpdate(cmdString);
                 result = checkWarning(st1, updateCount);
             }
-        }catch(Exception e)
+        }
+        catch(Exception e)
         {
             result = processSQLError(e);
         }
@@ -727,6 +714,7 @@ public class DataAccessObject implements DataAccess
 
         return items;
     }
+
     //GetPrice and size method should be used in confirmation page - Cody
     public double getPrice(int reservationID)
     {
