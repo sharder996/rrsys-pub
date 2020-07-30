@@ -4,6 +4,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import comp3350.rrsys.tests.business.TestAccessCustomers;
+import comp3350.rrsys.tests.business.TestAccessMenu;
 import comp3350.rrsys.tests.business.TestAccessOrders;
 import comp3350.rrsys.tests.business.TestAccessReservations;
 import comp3350.rrsys.tests.business.TestAccessTables;
@@ -44,6 +45,7 @@ public class AllTests
     {
         suite.addTestSuite(TestAccessCustomers.class);
         suite.addTestSuite(TestAccessReservations.class);
+        suite.addTestSuite(TestAccessMenu.class);
         suite.addTestSuite(TestAccessTables.class);
         suite.addTestSuite(TestAccessOrders.class);
     }

@@ -253,14 +253,12 @@ public class DataAccessObject implements DataAccess
         result = null;
         try
         {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
             values = r.getRID()
                     + ", " + r.getCID()
                     + ", " + r.getTID()
                     + ", " + r.getNumPeople()
-                    + ", '" + sdf.format(r.getStartTime())
-                    + ", '" + sdf.format(r.getEndTime())
+                    + ", '" + r.getStartTime().toString()
+                    + "', '" + r.getEndTime().toString()
                     + "'";
             cmdString = "INSERT into RESERVATIONS " + " Values(" + values + ")";
             updateCount = st1.executeUpdate(cmdString);
