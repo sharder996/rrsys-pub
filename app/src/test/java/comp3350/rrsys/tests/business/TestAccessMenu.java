@@ -50,7 +50,7 @@ public class TestAccessMenu extends TestCase
 
         System.out.println("\nEnding testAccessMenuGetMenuByType");
     }
-
+  
     public void testAccessCertainTypeMenu()
     {
         System.out.println("\nStarting testAccessCertainTypeMenu");
