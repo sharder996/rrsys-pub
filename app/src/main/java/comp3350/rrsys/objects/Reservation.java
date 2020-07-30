@@ -12,7 +12,6 @@ public class Reservation implements Parcelable
     private DateTime startTime;
     private DateTime endTime;
     private static int counter = 1;
-    private int orderID;
     public static final int MAX_PEOPLE = 12;
     public static final int MIN_PEOPLE = 1;
     public static final int MAX_TIME = 180;
@@ -27,7 +26,6 @@ public class Reservation implements Parcelable
         this.startTime = startTime;
         this.endTime = endTime;
         reservationID = -1;
-        orderID = -1;
     }
 
     // constructor for suggested reservations
@@ -39,7 +37,6 @@ public class Reservation implements Parcelable
         this.startTime = startTime;
         this.endTime = endTime;
         reservationID = -1;
-        orderID = -1;
     }
 
     private Reservation(Parcel in)
@@ -50,7 +47,6 @@ public class Reservation implements Parcelable
         numPeople = in.readInt();
         startTime = in.readParcelable(DateTime.class.getClassLoader());
         endTime = in.readParcelable(DateTime.class.getClassLoader());
-        orderID = in.readInt();
     }
 
     // setter
@@ -60,7 +56,6 @@ public class Reservation implements Parcelable
     public void setTID(int tableID) { this.tableID = tableID; }
     public void setNumPeople(int num) { numPeople = num; }
     public void setCustomerID(int customerID) { this.customerID = customerID; }
-    public void setOID(int orderID) { this.orderID = orderID; }
 
     public void setTime(DateTime startTime, DateTime endTime)
     {
@@ -75,7 +70,6 @@ public class Reservation implements Parcelable
     public int getNumPeople() { return numPeople; }
     public DateTime getStartTime(){ return startTime; }
     public DateTime getEndTime() { return endTime; }
-    public int getOID() { return orderID; }
 
     public boolean equals(int reservationID)
     {
@@ -102,7 +96,6 @@ public class Reservation implements Parcelable
         dest.writeInt(numPeople);
         dest.writeParcelable(startTime, flags);
         dest.writeParcelable(endTime, flags);
-        dest.writeInt(orderID);
     }
 
     public static final Parcelable.Creator<Reservation> CREATOR = new Parcelable.Creator<Reservation>()

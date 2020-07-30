@@ -273,7 +273,6 @@ public class DataAccessObject implements DataAccess
                     + ", " + r.getCID()
                     + ", " + r.getTID()
                     + ", " + r.getNumPeople()
-                    + ", " + r.getOID()
                     + ", '" + sdf.format(r.getStartTime())
                     + ", '" + sdf.format(r.getEndTime())
                     + "'";
@@ -292,7 +291,7 @@ public class DataAccessObject implements DataAccess
     public String getReservationSequential(List<Reservation> reservationResult)
     {
         Reservation reservation;
-        int resID, custID, tableID, numPeople, orderID;
+        int resID, custID, tableID, numPeople;
         DateTime startTime, endTime;
 
         result = null;
@@ -307,7 +306,6 @@ public class DataAccessObject implements DataAccess
                 custID = rs2.getInt("CID");
                 tableID = rs2.getInt("TID");
                 numPeople = rs2.getInt("NUMPEOPLE");
-                orderID = rs2.getInt("OID");
                 Calendar cal = new GregorianCalendar();
                 cal.setTime(rs2.getTimestamp("STARTTIME"));
                 startTime = new DateTime(cal);
@@ -315,7 +313,6 @@ public class DataAccessObject implements DataAccess
                 endTime = new DateTime(cal);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(resID);
-                reservation.setOID(orderID);
                 reservationResult.add(reservation);
             }
             rs2.close();
