@@ -258,9 +258,17 @@ public class CreateReservationActivity extends Activity
 
     public void buttonConfirmOnClick(View v)
     {
-        Intent confirmReservationIntent = new Intent(CreateReservationActivity.this, CreateConfirmReservationActivity.class);
-        confirmReservationIntent.putExtra("reservation", selected);
-        CreateReservationActivity.this.startActivity(confirmReservationIntent);
+        Intent createReservationIntent = new Intent(CreateReservationActivity.this, CreateConfirmReservationActivity.class);
+        createReservationIntent.putExtra("tableID", selected.getTID()+"");
+        createReservationIntent.putExtra("numPeople", selected.getNumPeople()+ "");
+        createReservationIntent.putExtra("year", selected.getStartTime().getYear()+ "");
+        createReservationIntent.putExtra("month", selected.getStartTime().getMonth()+ "");
+        createReservationIntent.putExtra("day", selected.getStartTime().getDate()+ "");
+        createReservationIntent.putExtra("startHour", selected.getStartTime().getHour()+ "");
+        createReservationIntent.putExtra("startMinute", selected.getStartTime().getMinutes()+ "");
+        createReservationIntent.putExtra("endHour", selected.getEndTime().getHour()+ "");
+        createReservationIntent.putExtra("endMinute", selected.getEndTime().getMinutes()+ "");
+        CreateReservationActivity.this.startActivity(createReservationIntent);
     }
 
     public void selectTimeAtPosition(int position)
@@ -291,7 +299,7 @@ public class CreateReservationActivity extends Activity
             if(startTime != null && endTime != null)
             {
                 if(startTime.getHour() >= Table.START_TIME && (endTime.getHour() < Table.END_TIME || (endTime.getHour() == Table.END_TIME && endTime.getMinutes() == 0))
-                    && startTime.getPeriod(endTime) >= Reservation.MIN_TIME && startTime.getPeriod(endTime) <= Reservation.MAX_TIME)
+                        && startTime.getPeriod(endTime) >= Reservation.MIN_TIME && startTime.getPeriod(endTime) <= Reservation.MAX_TIME)
                 {
                     reservationList.clear();
                     ArrayList<Reservation> suggestions = accessReservations.suggestReservations(startTime, endTime, numberOfPeople);
