@@ -2,7 +2,6 @@ package comp3350.rrsys.tests.business;
 
 import junit.framework.TestCase;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import comp3350.rrsys.application.Main;
@@ -15,7 +14,7 @@ import comp3350.rrsys.persistence.DataAccessStub;
 public class TestAccessOrders extends TestCase
 {
     private AccessOrders accessOrders;
-    DataAccessStub accessStub;
+    private DataAccessStub accessStub;
     public TestAccessOrders(String arg0) { super(arg0); }
 
     public void setUp()
