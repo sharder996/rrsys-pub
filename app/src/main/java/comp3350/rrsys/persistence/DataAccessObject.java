@@ -722,7 +722,6 @@ public class DataAccessObject implements DataAccess
     public int getSize(int reservationID)
     {
         ArrayList<Item> items = getOrder(reservationID);
-
         return items.size();
     }
 }
