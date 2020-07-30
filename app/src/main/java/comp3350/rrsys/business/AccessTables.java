@@ -1,69 +1,20 @@
 package comp3350.rrsys.business;
 
-import java.util.ArrayList;
-
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
-import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.persistence.DataAccess;
 
 public class AccessTables
 {
     private DataAccess dataAccess;
-    private ArrayList<Table> tables;
 
     public AccessTables()
     {
         dataAccess = Services.createDataAccess(Main.dbName);
-        tables = null;
-    }
-
-    public ArrayList<Table> getTables()
-    {
-        dataAccess.getTableSequential(tables);
-        return tables;
     }
 
     public int getTableCapacity(int tID)
     {
         return dataAccess.getTableRandom(tID).getCapacity();
     }
-
-    // TODO
-    /*public ArrayList<Table> recommendTables(int numPeople, int month, int date, int startTime, int endTime)
-    {
-        ArrayList<Table> result = new ArrayList<>();
-        ArrayList<Table> allTables;
-        allTables = getTables();
-
-        for(int i = 0; i < allTables.size() && result.size() < 5; i++)
-        {
-            if (allTables.get(i).getCapacity() >= numPeople)
-            {
-                for (int j = startTime; j < endTime; j++)
-                {
-                    if (startTime + 1 != endTime) {
-                        if (!allTables.get(i).getAvailable(month, date, j)) {
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        if (allTables.get(i).getAvailable(month, date, j)) {
-                            result.add(allTables.get(i));
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        return result;
-    }*/
 }

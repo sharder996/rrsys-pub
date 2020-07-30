@@ -7,7 +7,6 @@ public class Order
     private int reservationID;
     private ArrayList<Item> order;
     private double totalPrice;
-    //TODO: remove this if not being used this iteration
     private String note;    // dietary requirements, etc.
     public static int PREPARATION_TIME = 1000 * 3600 * 1;  // amount of time required for order preparation
 

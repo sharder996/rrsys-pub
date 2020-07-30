@@ -1,8 +1,5 @@
 package comp3350.rrsys.objects;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /* Class: Customer
  *
  * Customer stub database object. Holds unique ID (enforced by Database object), customer name (first

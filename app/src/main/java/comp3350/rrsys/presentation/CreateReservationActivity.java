@@ -291,7 +291,7 @@ public class CreateReservationActivity extends Activity
             if(startTime != null && endTime != null)
             {
                 if(startTime.getHour() >= Table.START_TIME && (endTime.getHour() < Table.END_TIME || (endTime.getHour() == Table.END_TIME && endTime.getMinutes() == 0))
-                && startTime.getPeriod(endTime) >= Reservation.MIN_TIME && startTime.getPeriod(endTime) <= Reservation.MAX_TIME)
+                    && startTime.getPeriod(endTime) >= Reservation.MIN_TIME && startTime.getPeriod(endTime) <= Reservation.MAX_TIME)
                 {
                     reservationList.clear();
                     ArrayList<Reservation> suggestions = accessReservations.suggestReservations(startTime, endTime, numberOfPeople);

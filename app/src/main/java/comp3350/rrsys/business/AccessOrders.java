@@ -10,16 +10,11 @@ import comp3350.rrsys.persistence.DataAccess;
 
 public class AccessOrders
 {
-    private static DataAccess dataAccessStatic;
     private DataAccess dataAccess;
-    private ArrayList<Item> order;
-    Order newOrder;
 
     public AccessOrders()
     {
         dataAccess = Services.getDataAccess(Main.dbName);
-        dataAccessStatic = Services.getDataAccess(Main.dbName);
-
     }
 
     public String insertOrder(Order order)
@@ -29,12 +24,17 @@ public class AccessOrders
 
     public ArrayList<Item> getOrder(int reservationID)
     {
-        this.order = dataAccess.getOrder(reservationID);
         return dataAccess.getOrder(reservationID);
     }
 
-    public double getPrice(int reservationID) { return dataAccess.getPrice(reservationID); }
+    public double getPrice(int reservationID)
+    {
+        return dataAccess.getPrice(reservationID);
+    }
 
-    public int getSize(int reservationID) { return dataAccess.getSize(reservationID); }
+    public int getSize(int reservationID)
+    {
+        return dataAccess.getSize(reservationID);
+    }
 }
 

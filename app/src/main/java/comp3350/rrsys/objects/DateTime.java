@@ -7,8 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-/*
-    accepts "yyyy-mm-ddTHH:mm" this format
+/* Class: DateTime
+ *
+ * Custom Calendar object that provides custom behavior so that valid times can be restricted
  */
 
 public class DateTime implements Parcelable

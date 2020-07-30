@@ -24,7 +24,6 @@ public class ConfirmOrderActivity extends Activity
 
     public void buttonConfirmOnClick(View v)
     {
-        // TODO: Change to proper place once added in to UI
         Intent backPageIntent = new Intent(ConfirmOrderActivity.this, HomeActivity.class);
         ConfirmOrderActivity.this.startActivity(backPageIntent);
     }

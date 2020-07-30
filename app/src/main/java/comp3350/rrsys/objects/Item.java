@@ -8,9 +8,6 @@ public class Item
     private String name;    // the name of the item
     private String type;    // the type of the item, e.g., breakfast, lunch, dinner, drink
     private String detail;  // the detail/description of the item
-
-    // TODO: remember to remove this if not used this iteration
-    // ArrayList<String> ingredients；
     private double price;   // the price of the item
     private static final double MIN_PRICE = 0.05;
     private static final double MAX_PRICE = 500;
@@ -107,6 +104,7 @@ public class Item
                 && newItem.getDetail().equals(this.detail) && newItem.getPrice() == this.price;
     }
 
+    @Override
     public String toString()
     {
         return name + "\n" + price + ", " + detail;
