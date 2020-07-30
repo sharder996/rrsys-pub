@@ -1,5 +1,7 @@
 package comp3350.rrsys.persistence;
 
+import android.provider.ContactsContract;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -14,7 +16,7 @@ import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Order;
 
-public class DataAccessStub
+public class DataAccessStub implements DataAccess
 {
     private String dbName;
     private ArrayList<Customer> customers;

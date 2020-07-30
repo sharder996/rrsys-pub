@@ -13,6 +13,8 @@ public class AccessMenu
 
     public AccessMenu() { dataAccess = Services.getDataAccess(Main.dbName); }
 
+    public AccessMenu(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
+
     public ArrayList<Item> getMenuByType(String type) { return dataAccess.getMenuByType(type); }
 
     public ArrayList<String> getMenuTypes() { return dataAccess.getMenuTypes(); }

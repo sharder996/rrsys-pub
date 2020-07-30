@@ -17,6 +17,8 @@ public class AccessOrders
         dataAccess = Services.getDataAccess(Main.dbName);
     }
 
+    public AccessOrders(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
+
     public Boolean insertOrder(Order order)
     {
         return dataAccess.insertOrder(order);

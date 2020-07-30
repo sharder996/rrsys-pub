@@ -54,6 +54,8 @@ public interface DataAccess
 
     ArrayList<Item> getMenuByType(String type);
 
+    String insertItem(Item item);
+
     // DateTime Functions:
     DateTime getDateTime(DateTime time, int index);
 

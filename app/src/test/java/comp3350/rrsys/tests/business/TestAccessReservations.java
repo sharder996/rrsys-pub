@@ -7,26 +7,27 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import comp3350.rrsys.application.Main;
+import comp3350.rrsys.application.Services;
 import comp3350.rrsys.business.AccessReservations;
 import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Reservation;
+import comp3350.rrsys.persistence.DataAccess;
 import comp3350.rrsys.persistence.DataAccessStub;
 
 public class TestAccessReservations extends TestCase
 {
     private AccessReservations accessReservations;
+
     public TestAccessReservations(String arg0) { super(arg0); }
 
     public void setUp()
     {
         System.out.println("\nStarting TestAccessReservations");
-        Main.startUp();
-        accessReservations = new AccessReservations();
+        accessReservations = new AccessReservations(new DataAccessStub(Main.dbName));
     }
 
     public void tearDown()
     {
-        Main.shutDown();
         System.out.println("\nEnd TestAccessReservations");
     }
 
@@ -38,13 +39,14 @@ public class TestAccessReservations extends TestCase
 
     public void testCreateInvalidReservation()
     {
+        Calendar currDate = Calendar.getInstance();
         DateTime startTime = null;
         DateTime endTime = null;
 
         try
         {
-            startTime = new DateTime(new GregorianCalendar(2020,10,20,12,0));
-            endTime = new DateTime(new GregorianCalendar(2020, 10, 20, 13, 0));
+            startTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1,12,0));
+            endTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 13, 0));
         }
         catch (IllegalArgumentException e)
         {
@@ -82,13 +84,14 @@ public class TestAccessReservations extends TestCase
 
         assertEquals(0, reservationsList.size());
 
+        Calendar currDate = Calendar.getInstance();
         DateTime startTime = null;
         DateTime endTime = null;
 
         try
         {
-            startTime = new DateTime(new GregorianCalendar(2020, 10, 1, 12, 0));
-            endTime = new DateTime(new GregorianCalendar(2020, 10, 1, 13, 0));
+            startTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 12, 0));
+            endTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 13, 0));
         }
         catch (IllegalArgumentException e)
         {
@@ -120,16 +123,18 @@ public class TestAccessReservations extends TestCase
 
     public void testUpdateInvalidReservation()
     {
+        Services.createDataAccess(new DataAccessStub(Main.dbName));
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
 
+        Calendar currDate = Calendar.getInstance();
         DateTime startTime = null;
         DateTime endTime = null;
 
         try
         {
-            startTime = new DateTime(new GregorianCalendar(2020, 10, 1, 12, 0));
-            endTime = new DateTime(new GregorianCalendar(2020, 10, 1, 13, 0));
+            startTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 12, 0));
+            endTime= new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 14, 0));
         }
         catch (IllegalArgumentException e)
         {
@@ -152,13 +157,14 @@ public class TestAccessReservations extends TestCase
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
 
+        Calendar currDate = Calendar.getInstance();
         DateTime startTime = null;
         DateTime endTime = null;
 
         try
         {
-            startTime = new DateTime(new GregorianCalendar(2020, 10, 1, 12, 0));
-            endTime = new DateTime(new GregorianCalendar(2020, 10, 1, 13, 0));
+            startTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 12, 0));
+            endTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 13, 0));
         }
         catch (IllegalArgumentException e)
         {
@@ -178,8 +184,8 @@ public class TestAccessReservations extends TestCase
 
         try
         {
-            startTime = new DateTime(new GregorianCalendar(2020, 10, 2, 12, 0));
-            endTime = new DateTime(new GregorianCalendar(2020, 10, 2, 13, 0));
+            startTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 2, 12, 0));
+            endTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 2, 13, 0));
         }
         catch (IllegalArgumentException e)
         {
@@ -194,10 +200,10 @@ public class TestAccessReservations extends TestCase
 
     public void testDeleteInvalidReservation()
     {
-        String result = accessReservations.deleteReservation(2);
+        String result = accessReservations.deleteReservation(100);
         assertEquals(result, "fail");
 
-        result = accessReservations.deleteReservation(20000);
+        result = accessReservations.deleteReservation(20000000);
         assertEquals(result, "fail");
 
         result = accessReservations.deleteReservation(-1);
@@ -209,13 +215,15 @@ public class TestAccessReservations extends TestCase
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
 
+        Calendar currDate = Calendar.getInstance();
         DateTime startTime = null;
         DateTime endTime = null;
 
+
         try
         {
-            startTime = new DateTime(new GregorianCalendar(2020, 10, 1, 12, 0));
-            endTime = new DateTime(new GregorianCalendar(2020, 10, 1, 13, 0));
+            startTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 12, 0));
+            endTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 13, 0));
         }
         catch (IllegalArgumentException e)
         {

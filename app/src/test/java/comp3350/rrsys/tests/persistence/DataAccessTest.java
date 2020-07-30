@@ -2,6 +2,7 @@ package comp3350.rrsys.tests.persistence;
 
 import junit.framework.TestCase;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import comp3350.rrsys.application.Main;
@@ -33,10 +34,8 @@ public class DataAccessTest extends TestCase
 
         // or switch to the real database:
         dataAccess = new DataAccessObject(Main.dbName);
-
         dataAccess.open(Main.getDBPathName());
 
-        // Note the increase in test execution time.
     }
 
     public void tearDown()
@@ -44,16 +43,10 @@ public class DataAccessTest extends TestCase
         System.out.println("Finished Persistence test DataAccess (using db)");
     }
 
-    /*TODO:
-    * - modify database > RR.script with variable types that work with DBMS for table availability
-    * - add more tests for each table
-    *       - table needs tests for availability
-    * - add tests for menu, order
-    * - test relations? (INNER JOIN, for example)
-     */
+
 
     public void testCustomerDatabaseTable()
-    { //will split these
+    {
         ArrayList<Customer> customers;
         Customer customer;
         String result;
@@ -89,7 +82,7 @@ public class DataAccessTest extends TestCase
         customers.clear();
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
-        assertEquals(4, customers.size());
+        assertEquals(5, customers.size());
     }
 
     public void testAddNewCustomer()
@@ -138,7 +131,6 @@ public class DataAccessTest extends TestCase
         Table table = null;
 
         table = dataAccess.getTableRandom(1);
-        System.out.println(table.toString());
         assertNotNull(table);
     }
 
@@ -175,22 +167,25 @@ public class DataAccessTest extends TestCase
         ArrayList<Table> tables;
         Table table = null;
         String result = null;
-
-        table = dataAccess.getTableRandom(1);
-        assertNotNull(table);
-        try {
-            result = dataAccess.addTable(table.getTID(), table.getCapacity());
-            fail();
-        }catch(IllegalArgumentException e){
-            assertNull(result);
-        }
-        assertNotNull(result);
+        int numTables;
 
         tables = new ArrayList<>();
         result = dataAccess.getTableSequential(tables);
         assertNull(result);
+        numTables = tables.size();
 
-        assertEquals(30, tables.size());
+        table = dataAccess.getTableRandom(1);
+        assertNotNull(table);
+
+        result = dataAccess.addTable(table.getTID(), table.getCapacity());
+        assertNotNull(result);
+
+        tables.clear();
+        tables = new ArrayList<>();
+        result = dataAccess.getTableSequential(tables);
+        assertNull(result);
+
+        assertEquals(numTables, tables.size());
     }
 
     public void testReservations()
@@ -202,7 +197,8 @@ public class DataAccessTest extends TestCase
         reservations = new ArrayList<>();
         result = dataAccess.getReservationSequential(reservations);
         assertNull(result);
-        assertEquals(4, reservations.size());
+        //assertEquals(4, reservations.size()); //if this test is being done independently
+        assertEquals(5, reservations.size()); //if this test is being done in a suite
         reservation = reservations.get(0);
         assertEquals(1, reservation.getRID());
         assertEquals(1, reservation.getCID());
@@ -251,19 +247,23 @@ public class DataAccessTest extends TestCase
     {
         ArrayList<Item> menuItems;
         ArrayList<String> menuTypes;
+        Item item;
+        String result = null;
 
         menuTypes = new ArrayList<>();
         menuTypes = dataAccess.getMenuTypes();
         assertNotNull(menuTypes);
 
         menuItems = dataAccess.getMenu();
-
         assertEquals(44, menuItems.size());
 
-        menuItems.add(menuItems.get(0));
+        item = menuItems.get(0);
+        result = dataAccess.insertItem(item);
+        assertNotNull(result);
 
+        menuItems = dataAccess.getMenu();
         assertEquals(44, menuItems.size());//this should be 44.
-}
+    }
 
     public void testAddNewMenu()
     {
@@ -290,23 +290,24 @@ public class DataAccessTest extends TestCase
         Item item, item1;
         String result;
         Reservation newReservation = null;
+        Calendar currDate = Calendar.getInstance();
+
         try
         {
-            DateTime startTime = new DateTime(new GregorianCalendar(2020, 10, 2, 12, 0));
-            DateTime endTime= new DateTime(new GregorianCalendar(2020, 10, 2, 14, 0));
+            DateTime startTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 12, 0));
+            DateTime endTime= new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 14, 0));
             newReservation = new Reservation(4,10,4, startTime, endTime);
         }
         catch(IllegalArgumentException e)
         {
-        //    assertNotNull(newReservation);
+            fail();
         }
 
-       // assertNotNull(newReservation);
+        assertNotNull(newReservation);
 
         newReservation.setRID(5);
         result = dataAccess.insertReservation(newReservation);
         assertNull(result);
-
 
         newOrder = new Order(newReservation.getRID());
 
@@ -323,8 +324,8 @@ public class DataAccessTest extends TestCase
         ArrayList<Item> selectedItem = dataAccess.getOrder(5);
 
         assertEquals(2, selectedItem.size());
-        assertEquals(item, selectedItem.get(0));
-        assertEquals(item1, selectedItem.get(1));
+        assertTrue(item.equal(selectedItem.get(0)));
+        assertTrue(item1.equal(selectedItem.get(1)));
 
     }
     public void testGetOrder()
@@ -333,31 +334,21 @@ public class DataAccessTest extends TestCase
         ArrayList<Item> menuItems = dataAccess.getMenu();
 
         /* RR.script // order(ReservationID, ItemID, Quantity, Note)
-        INSERT INTO ORDERS VALUES(1,1,2,'null') -> item1 is "SPECIAL SALAD"
-        INSERT INTO ORDERS VALUES(1,2,2,'null') -> item 2 is "SPINACH SALAD"
-        INSERT INTO ORDERS VALUES(1,4,1,'') -> item 3 is "CAESAR SALAD"
-        INSERT INTO ORDERS VALUES(1,12,1,'') -> item 4 is"BEEF"
+        INSERT INTO ORDERS VALUES(1, 12, 1, '')
+        INSERT INTO ORDERS VALUES(1, 4, 1, '')
          */
         order = dataAccess.getOrder(1);
 
-        assertEquals(1, order.get(0).getItemID());
-        assertEquals(1, order.get(1).getItemID());
-        assertEquals(2, order.get(2).getItemID());
-        assertEquals(2, order.get(3).getItemID());
-        assertEquals(4, order.get(4).getItemID());
-        assertEquals(12, order.get(5).getItemID());
+        assertEquals(4, order.get(0).getItemID());
+        assertEquals(12, order.get(1).getItemID());
 
-        assertEquals("SPECIAL SALAD", order.get(0).getName());
-        assertEquals("SPECIAL SALAD", order.get(1).getName());
-        assertEquals("SPINACH SALAD", order.get(2).getName());
-        assertEquals("SPINACH SALAD", order.get(3).getName());
-        assertEquals("CAESAR SALAD", order.get(4).getName());
-        assertEquals("BEEF", order.get(5).getName());
+        assertEquals("CAESAR SALAD", order.get(0).getName());
+        assertEquals("BEEF", order.get(1).getName());
 
          /* RR.script // order(ReservationID, ItemID, Quantity, Note)
-        INSERT INTO ORDERS VALUES(2,29,1,'Extra hot sauce') -> item 29 is "Fish Tacos"
-        INSERT INTO ORDERS VALUES(2,34,1,'') -> item 34 is "CHEESECAKE"
-        INSERT INTO ORDERS VALUES(2,41,2,'Spicy') -> item 41 is "CAESAR"
+            INSERT INTO ORDERS VALUES(2, 29, 1, 'Extra hot sauce')
+            INSERT INTO ORDERS VALUES(2, 34, 1, '')
+            INSERT INTO ORDERS VALUES(2, 41, 2, 'Spicy')
          */
         order = dataAccess.getOrder(2);
 
@@ -372,7 +363,7 @@ public class DataAccessTest extends TestCase
         assertEquals("CAESAR", order.get(3).getName());
 
          /* RR.script // order(ReservationID, ItemID, Quantity, Note)
-        INSERT INTO ORDERS VALUES(3,5,1,'') -> item 5 is "ARUGULA SALAD"
+            INSERT INTO ORDERS VALUES(3, 5, 1, '')
          */
         order = dataAccess.getOrder(3);
 
@@ -381,8 +372,8 @@ public class DataAccessTest extends TestCase
         assertEquals("ARUGULA SALAD", order.get(0).getName());
 
          /* RR.script // order(ReservationID, ItemID, Quantity, Note)
-        INSERT INTO ORDERS VALUES(4,19,2,'No cheese on one burger') -> item19 is "BEEF"
-        INSERT INTO ORDERS VALUES(4,43,2,'') -> item43 is "LONG ISLAND ICE TEA"
+            INSERT INTO ORDERS VALUES(4, 19, 2, 'No cheese on one burger')
+            INSERT INTO ORDERS VALUES(4, 43, 2, '')
          */
         order = dataAccess.getOrder(4);
 
@@ -418,9 +409,9 @@ public class DataAccessTest extends TestCase
 
     public void testOrderSize()
     {
-        int size = dataAccess.getSize(1);//bring all orders corresponding to reservationID 2.
+        int size = dataAccess.getSize(1);//bring all orders corresponding to reservationID 1.
 
-        assertEquals(6, size); //Count quantities of item. Don't get confused.
+        assertEquals(2, size); //Count quantities of item. Don't get confused.
 
         size = dataAccess.getSize(2);
         assertEquals(4, size);

@@ -13,6 +13,8 @@ public class AccessTables
         dataAccess = Services.createDataAccess(Main.dbName);
     }
 
+    public AccessTables(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
+
     public int getTableCapacity(int tID)
     {
         return dataAccess.getTableRandom(tID).getCapacity();

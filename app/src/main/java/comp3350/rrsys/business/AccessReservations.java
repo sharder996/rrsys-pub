@@ -18,6 +18,8 @@ public class AccessReservations
         dataAccess = Services.getDataAccess(Main.dbName);
     }
 
+    public AccessReservations(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
+
     public String getReservations(ArrayList<Reservation> reservations)
     {
         reservations.clear();

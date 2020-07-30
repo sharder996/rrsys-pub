@@ -18,16 +18,14 @@ public class TestAccessMenu extends TestCase
     public void setUp()
     {
         System.out.println("/nStarting TestAccessMenu");
-        Main.startUp();
-        accessMenu = new AccessMenu();
+        accessMenu = new AccessMenu(new DataAccessStub(Main.dbName));
         accessStub = new DataAccessStub();
         accessStub.open(Main.dbName);
     }
 
     public void tearDown()
     {
-        Main.shutDown();
-        System.out.println("\nTestAccessOrders");
+        System.out.println("\nTestAccessMenu");
     }
 
     public void testAccessOrdersConnection()

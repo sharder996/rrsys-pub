@@ -12,14 +12,15 @@ import comp3350.rrsys.persistence.DataAccessStub;
 
 public class TestAccessTables extends TestCase
 {
+    private AccessTables accessTables;
+
     public TestAccessTables(String arg0) { super(arg0); }
 
     public void testAccessTables()
     {
         System.out.println("\nStarting TestAccessTables");
-        Main.startUp();
 
-        AccessTables accessTables = new AccessTables();
+        accessTables = new AccessTables(new DataAccessStub(Main.dbName));
         DataAccessStub accessStub = new DataAccessStub();
         accessStub.open(Main.dbName);
         accessStub.generateFakeData();

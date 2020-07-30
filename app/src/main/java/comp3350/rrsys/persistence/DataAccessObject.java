@@ -653,7 +653,7 @@ public class DataAccessObject implements DataAccess
         {
             result = processSQLError(e);
         }
-        return result != null;
+        return result == null;
     }
 
     public ArrayList<Item> getOrder(int rID)

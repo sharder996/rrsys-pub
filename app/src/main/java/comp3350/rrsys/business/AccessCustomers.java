@@ -13,6 +13,8 @@ public class AccessCustomers
 
     public AccessCustomers() { dataAccess = Services.getDataAccess(Main.dbName); }
 
+    public AccessCustomers(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
+
     public String getCustomers(ArrayList<Customer> customers)
     {
         customers.clear();
