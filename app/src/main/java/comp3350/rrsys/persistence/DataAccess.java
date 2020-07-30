@@ -1,6 +1,5 @@
 package comp3350.rrsys.persistence;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +15,6 @@ public interface DataAccess
     void open(String string);
 
     void close();
-
-    //TODO: dead code?
-    //private void setTable(int tID, int month, int day, int startIndex, int endIndex, boolean bool)
 
     // Reservation Functions:
     Reservation getReservation(int rID);
@@ -56,8 +52,6 @@ public interface DataAccess
 
     ArrayList<Item> getMenu();
 
-    String insertItem(Item newItem);
-
     ArrayList<Item> getMenuByType(String type);
 
     // DateTime Functions:
@@ -71,5 +65,4 @@ public interface DataAccess
     double getPrice(int ReservationID);
 
     int getSize(int ReservationID);
-
 }
