@@ -11,9 +11,15 @@ public class AccessCustomers
 {
     private DataAccess dataAccess;
 
-    public AccessCustomers() { dataAccess = Services.getDataAccess(Main.dbName); }
+    public AccessCustomers()
+    {
+        dataAccess = Services.getDataAccess(Main.dbName);
+    }
 
-    public AccessCustomers(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
+    public AccessCustomers(DataAccess altDataAccessService)
+    {
+        dataAccess = Services.createDataAccess(altDataAccessService);
+    }
 
     public String getCustomers(ArrayList<Customer> customers)
     {
@@ -21,5 +27,8 @@ public class AccessCustomers
         return dataAccess.getCustomerSequential(customers);
     }
 
-    public String insertCustomer(Customer currentCustomer) { return dataAccess.insertCustomer(currentCustomer); }
+    public String insertCustomer(Customer currentCustomer)
+    {
+        return dataAccess.insertCustomer(currentCustomer);
+    }
 }

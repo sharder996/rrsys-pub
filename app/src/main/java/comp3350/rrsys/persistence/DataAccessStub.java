@@ -1,7 +1,5 @@
 package comp3350.rrsys.persistence;
 
-import android.provider.ContactsContract;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -348,16 +346,16 @@ public class DataAccessStub implements DataAccess
             char[] first = new char[length];
             char[] last = new char[length + 2];
 
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
                 first[i] = name.charAt(rand.nextInt(name.length()));
 
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
                 last[i] = name.charAt(rand.nextInt(name.length()));
 
-            for (int i = 0; i < first.length; i++)
+            for(int i = 0; i < first.length; i++)
                 randomFirstName += first[i];
 
-            for (int i = 0; i < last.length; i++)
+            for(int i = 0; i < last.length; i++)
                     randomLastName += last[i];
 
             //-------------------------------------------------------------------------
@@ -391,7 +389,8 @@ public class DataAccessStub implements DataAccess
         return items;
     }
 
-    public ArrayList<String> getMenuTypes(){
+    public ArrayList<String> getMenuTypes()
+    {
         ArrayList<String> types = new ArrayList<>();
 
         types.add("Salads");
@@ -437,7 +436,8 @@ public class DataAccessStub implements DataAccess
         return true;
     }
 
-    public ArrayList<Item> getOrder(int reservationID) {
+    public ArrayList<Item> getOrder(int reservationID)
+    {
         if(reservationID < 0)
             throw new IllegalArgumentException("Invalid reservationID");
 
@@ -453,7 +453,8 @@ public class DataAccessStub implements DataAccess
         return ord;
     }
 
-    public double getPrice(int reservationID) {
+    public double getPrice(int reservationID)
+    {
         if(reservationID < 0)
             throw new IllegalArgumentException("Invalid reservationID");
 
@@ -485,5 +486,5 @@ public class DataAccessStub implements DataAccess
         return size;
     }
 
-    public int getNextReservationID(){return -1;}
+    public int getNextReservationID() { return -1; }
 }

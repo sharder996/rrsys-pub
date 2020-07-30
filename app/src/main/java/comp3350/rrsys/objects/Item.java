@@ -21,7 +21,8 @@ public class Item
         setPrice(price);
     }
 
-    public boolean equals(Item other) {
+    public boolean equals(Item other)
+    {
         return this.itemID == other.itemID;
     }
 
