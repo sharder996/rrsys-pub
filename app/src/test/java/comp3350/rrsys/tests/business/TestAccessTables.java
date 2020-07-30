@@ -13,42 +13,32 @@ import comp3350.rrsys.persistence.DataAccessStub;
 public class TestAccessTables extends TestCase
 {
     private AccessTables accessTables;
+    private DataAccessStub accessStub;
 
     public TestAccessTables(String arg0) { super(arg0); }
 
-    public void testAccessTables()
+    public void setUp()
     {
         System.out.println("\nStarting TestAccessTables");
-
         accessTables = new AccessTables(new DataAccessStub(Main.dbName));
-        DataAccessStub accessStub = new DataAccessStub();
+        accessStub = new DataAccessStub();
         accessStub.open(Main.dbName);
         accessStub.generateFakeData();
+    }
 
-        int openTime = 8;
-        int closeTime = 22;
-
-        ArrayList<Table> tableList = null;
-        Calendar currTime = Calendar.getInstance();
-        for(int i = 1; i <= 31; i++)
-        {
-            for(int j = openTime; j <= closeTime; j++)
-            {
-                for(int k = 1; k <= 10; k++)
-                {
-                    if(tableList != null)
-                    {
-                        tableList.clear();
-                    }
-                    //tableList = accessTables.recommendTables(k, currTime.MONTH, i, j, j+1);
-
-                    assertTrue(tableList.size() > 0);
-                }
-            }
-        }
-
+    public void tearDown()
+    {
         accessStub.close();
-        Main.shutDown();
         System.out.println("\nEnd TestAccessTables");
+    }
+
+    public void testAccessTables()
+    {
+        assertEquals(2, accessTables.getTableCapacity(1));
+        assertEquals(4, accessTables.getTableCapacity(6));
+        assertEquals(6, accessTables.getTableCapacity(11));
+        assertEquals(8, accessTables.getTableCapacity(16));
+        assertEquals(10, accessTables.getTableCapacity(21));
+        assertEquals(12, accessTables.getTableCapacity(26));
     }
 }
