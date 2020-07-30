@@ -437,53 +437,5 @@ public class DataAccessStub implements DataAccess
         return true;
     }
 
-    public ArrayList<Item> getOrder(int reservationID) {
-        if(reservationID < 0)
-            throw new IllegalArgumentException("Invalid reservationID");
-
-        ArrayList<Item> ord = null;
-
-        for(int i =0; i<orders.size(); i++)
-        {
-            if(orders.get(i).getReservationID() == reservationID)
-            {
-                ord = orders.get(i).getOrder();
-            }
-        }
-        return ord;
-    }
-
-    public double getPrice(int reservationID) {
-        if(reservationID < 0)
-            throw new IllegalArgumentException("Invalid reservationID");
-
-        double totalPrice = 0.0;
-
-        for(int i=0; i < orders.size(); i++)
-        {
-            if(orders.get(i).getReservationID() == reservationID)
-            {
-                totalPrice = orders.get(i).getPrice();
-            }
-        }
-        return totalPrice;
-    }
-
-    public int getSize(int reservationID)
-    {
-        if(reservationID < 0)
-            throw new IllegalArgumentException("Invalid reservationID");
-
-        int size = 0;
-        for(int i=0; i < orders.size(); i++)
-        {
-            if(orders.get(i).getReservationID() == reservationID)
-            {
-                size = orders.get(i).size();
-            }
-        }
-        return size;
-    }
-
     public int getNextReservationID(){return -1;}
 }
