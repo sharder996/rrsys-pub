@@ -29,6 +29,10 @@ public class AccessReservations
         return dataAccess.getReservation(reservationID);
     }
 
+    public int getNextReservationID(){
+        return  dataAccess.getNextReservationID();
+    }
+
     public String insertReservation(Reservation currentReservation)
     {
         return dataAccess.insertReservation(currentReservation);

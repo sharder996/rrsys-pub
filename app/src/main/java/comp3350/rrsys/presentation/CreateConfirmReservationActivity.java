@@ -155,6 +155,7 @@ public class CreateConfirmReservationActivity extends Activity
         {
             accessCustomers.insertCustomer(customer);
             reservation.setCustomerID(customer.getCID());
+            reservation.setRID(accessReservations.getNextReservationID());
             accessReservations.insertReservation(reservation);
 
             Intent confirmReservationIntent = new Intent(CreateConfirmReservationActivity.this, ReceiptReservationActivity.class);

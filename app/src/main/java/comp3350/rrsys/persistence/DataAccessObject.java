@@ -253,7 +253,6 @@ public class DataAccessObject implements DataAccess
         result = null;
         try
         {
-            r.setRID();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             values = r.getRID()
