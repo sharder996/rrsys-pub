@@ -10,7 +10,6 @@ import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Order;
 import comp3350.rrsys.persistence.DataAccessStub;
 
-
 public class TestAccessOrders extends TestCase
 {
     private AccessOrders accessOrders;
@@ -19,7 +18,7 @@ public class TestAccessOrders extends TestCase
 
     public void setUp()
     {
-        System.out.println("/nStarting TestAccessorders");
+        System.out.println("/nStarting TestAccessOrders");
         Main.startUp();
         accessOrders = new AccessOrders();
         accessStub = new DataAccessStub();
@@ -40,14 +39,12 @@ public class TestAccessOrders extends TestCase
     public void testInsertNullOrder()
     {
         Order newOrder = null;
-
-        String result = accessStub.insertOrder(newOrder);
-        assertEquals(result, "fail");
+        assertFalse(accessStub.insertOrder(newOrder));
     }
 
-    public void testgetOrder()
+    public void testGetOrder()
     {
-        System.out.println("\nStarting testgetOrder");
+        System.out.println("\nStarting testGetOrder");
 
         Order newOrder = new Order(1);
         Order newOrder1 = new Order(2);
@@ -74,14 +71,9 @@ public class TestAccessOrders extends TestCase
         newOrder2.addItem(dish3);
         newOrder2.addItem(dish5);
 
-        String result = accessStub.insertOrder(newOrder);
-        assertEquals(result, "success");
-
-        result = accessStub.insertOrder(newOrder1);
-        assertEquals(result, "success");
-
-        result = accessStub.insertOrder(newOrder2);
-        assertEquals(result, "success");
+        assertTrue(accessStub.insertOrder(newOrder));
+        assertTrue(accessStub.insertOrder(newOrder1));
+        assertTrue(accessStub.insertOrder(newOrder2));
 
         ArrayList<Item> selectedItems = accessStub.getOrder(1);
         assertEquals(6, selectedItems.size());
@@ -103,12 +95,12 @@ public class TestAccessOrders extends TestCase
         assertEquals(dish3, selectedItems.get(1));
         assertEquals(dish5, selectedItems.get(2));
 
-        System.out.println("\nEnding testgetOrder");
+        System.out.println("\nEnding testGetOrder");
     }
 
-    public void testgetOrderNegativeValue()
+    public void testGetOrderNegativeValue()
     {
-        System.out.println("\nStarting testgetOrderNegativeValue");
+        System.out.println("\nStarting testGetOrderNegativeValue");
         ArrayList<Item> selectedItems = null;
 
         try
@@ -121,14 +113,12 @@ public class TestAccessOrders extends TestCase
             assertNull(selectedItems);
         }
 
-        assertEquals(null, selectedItems);
-
-        System.out.println("\nEnding testgetOrderNegativeValue");
+        System.out.println("\nEnding testGetOrderNegativeValue");
     }
 
-    public void testgetPrice()
+    public void testGetPrice()
     {
-        System.out.println("\nStarting testgetPrice");
+        System.out.println("\nStarting testGetPrice");
 
         Order newOrder = new Order(1);
 
@@ -139,7 +129,7 @@ public class TestAccessOrders extends TestCase
         Item dish4 = new Item(5, "Turkey Burger", "Sandwich", "Turkey",12.73 );
         Item dish5 = new Item(6, "Turkey Burger", "Sandwich", "Turkey",12.22 );
 
-        double totalPrice = dish.getPrice() +dish1.getPrice() +dish2.getPrice() +dish3.getPrice() +dish4.getPrice() +dish5.getPrice();
+        double totalPrice = dish.getPrice() + dish1.getPrice() + dish2.getPrice() + dish3.getPrice() + dish4.getPrice() + dish5.getPrice();
         newOrder.addItem(dish);
         newOrder.addItem(dish1);
         newOrder.addItem(dish2);
@@ -147,14 +137,13 @@ public class TestAccessOrders extends TestCase
         newOrder.addItem(dish4);
         newOrder.addItem(dish5);
 
-        String result = accessStub.insertOrder(newOrder);
-        assertEquals(result, "success");
+        assertTrue(accessStub.insertOrder(newOrder));
 
         double price = accessStub.getPrice(1);
 
-        assertEquals(totalPrice , price);
+        assertEquals(totalPrice, price);
 
-        System.out.println("\nEnding testgetPrice");
+        System.out.println("\nEnding testGetPrice");
     }
 
     public void testInvalidEntriesGetPrice()
@@ -177,9 +166,9 @@ public class TestAccessOrders extends TestCase
         System.out.println("\nEnding testInvalidEntriesGetPrice");
     }
 
-    public void testgetSize()
+    public void testGetSize()
     {
-        System.out.println("\nStarting testgetSize");
+        System.out.println("\nStarting testGetSize");
 
         Order newOrder = new Order(1);
 
@@ -189,17 +178,15 @@ public class TestAccessOrders extends TestCase
         newOrder.addItem(dish);
         newOrder.addItem(dish1);
 
-        String result = accessStub.insertOrder(newOrder);
-        assertEquals(result, "success");
+        assertTrue(accessStub.insertOrder(newOrder));
+        assertEquals(2, accessStub.getSize(1));
 
-        assertEquals(2,accessStub.getSize(1));
-
-        System.out.println("\nEnding testgetSize");
+        System.out.println("\nEnding testGetSize");
     }
 
-    public void testInvalidEntriesgetSize()
+    public void testInvalidEntriesGetSize()
     {
-        System.out.println("\nStarting testInvalidEntriesgetSize");
+        System.out.println("\nStarting testInvalidEntriesGetSize");
 
         int size = 0;
         assertEquals(size, accessStub.getSize(10));
@@ -213,6 +200,6 @@ public class TestAccessOrders extends TestCase
         {
             assertEquals(0, size);
         }
-        System.out.println("\nEnding testInvalidEntriesgetSize");
+        System.out.println("\nEnding testInvalidEntriesGetSize");
     }
 }

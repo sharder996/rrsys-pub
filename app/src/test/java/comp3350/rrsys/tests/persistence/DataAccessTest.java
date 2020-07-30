@@ -318,8 +318,7 @@ public class DataAccessTest extends TestCase
         newOrder.addItem(item);
         newOrder.addItem(item1);
 
-        result = dataAccess.insertOrder(newOrder);
-        assertNull(result);
+        assertTrue(dataAccess.insertOrder(newOrder));
 
         ArrayList<Item> selectedItem = dataAccess.getOrder(5);
 

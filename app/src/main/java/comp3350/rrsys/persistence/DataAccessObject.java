@@ -84,10 +84,9 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
-    public String checkWarning(Statement st, int updateCount) {
-        String result;
-
-        result = null;
+    public String checkWarning(Statement st, int updateCount)
+    {
+        String result = null;
         try
         {
             SQLWarning warning = st.getWarnings();
@@ -606,7 +605,7 @@ public class DataAccessObject implements DataAccess
         return available;
     }
 
-    public String insertOrder(Order order)
+    public Boolean insertOrder(Order order)
     {
         ArrayList<Item> items;
         items = order.getOrder();
@@ -655,7 +654,7 @@ public class DataAccessObject implements DataAccess
         {
             result = processSQLError(e);
         }
-        return result;
+        return result != null;
     }
 
     public ArrayList<Item> getOrder(int rID)

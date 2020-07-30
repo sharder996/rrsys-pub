@@ -426,16 +426,13 @@ public class DataAccessStub
         return available;
     }
 
-    public String insertOrder(Order newOrder)
+    public Boolean insertOrder(Order newOrder)
     {
-        if(newOrder == null || newOrder.getReservationID() == -1)
-            return "fail";
-
-        if(newOrder.getReservationID() < 0)
-            return "fail";
+        if(newOrder == null || newOrder.getReservationID() < 0)
+            return false;
 
         orders.add(newOrder);
-        return "success";
+        return true;
     }
 
     public ArrayList<Item> getOrder(int reservationID) {

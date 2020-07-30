@@ -60,7 +60,7 @@ public interface DataAccess
     //Order Functions:
     ArrayList<Item> getOrder(int reservationID);
 
-    String insertOrder(Order order);
+    Boolean insertOrder(Order order);
 
     double getPrice(int ReservationID);
 
