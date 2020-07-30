@@ -174,14 +174,13 @@ public class DataAccessObject implements DataAccess
         result = null;
         try
         {
-            values = "CID=" + curr.getCID()
-                    + ", TID=" + curr.getTID()
+            values = "TID=" + curr.getTID()
                     + ", NUMPEOPLE=" + curr.getNumPeople()
                     + ", STARTTIME='" + curr.getStartTime().toString()
                     + "', ENDTIME='" + curr.getEndTime().toString()
                     + "'";
             where = "where RID=" + RID;
-            cmdString = "UPDATE RESERVATION" + " SET " + values + " " + where;
+            cmdString = "UPDATE RESERVATIONS " + " SET " + values + " " + where;
             updateCount = st0.executeUpdate(cmdString);
             result = checkWarning(st0, updateCount);
 
