@@ -12,3 +12,5 @@
 /captures
 .externalNativeBuild
 .cxx
+/app/database/RR.lck
+/app/database/RR.properties
