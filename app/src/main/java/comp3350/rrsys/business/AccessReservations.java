@@ -70,11 +70,11 @@ public class AccessReservations
                 boolean[] available = dataAccess.getAvailable(t+1, startTime);
                 // within +- half hour of the start time
                 int i = Math.max(index-2, 0);
-                while(i <= index+2 && i < maxIndex)
+                while(i <= index + 2 && i < maxIndex)
                 {
-                    while(i <= index+2 && i < maxIndex && !available[i])
+                    while(i <= index + 2 && i < maxIndex && !available[i])
                         i++;
-                    if(i <= index+2 && i < maxIndex)
+                    if(i <= index + 2 && i < maxIndex)
                     {
                         int numIncrement = 1;
                         for(int time = i + 1; time < i + totalIncrement; time++)
