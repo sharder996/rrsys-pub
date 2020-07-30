@@ -60,11 +60,6 @@ public interface DataAccess
     DateTime getDateTime(DateTime time, int index);
 
     //Order Functions:
-    ArrayList<Item> getOrder(int reservationID);
-
     Boolean insertOrder(Order order);
 
-    double getPrice(int ReservationID);
-
-    int getSize(int ReservationID);
 }
