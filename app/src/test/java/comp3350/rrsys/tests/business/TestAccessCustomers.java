@@ -10,25 +10,33 @@ import comp3350.rrsys.objects.Customer;
 
 public class TestAccessCustomers extends TestCase
 {
+    private AccessCustomers accessCustomers;
     public TestAccessCustomers(String arg0) { super(arg0); }
+
+    public void setUp()
+    {
+        System.out.println("\nStarting TestAccessCustomer");
+        Main.startUp();
+    }
+
+    public void tearDown()
+    {
+        Main.shutDown();
+        accessCustomers = new AccessCustomers();
+        System.out.println("\nEnd TestAccessCustomer");
+    }
+
+    public void testAccessCustomersConnection() { assertNotNull(accessCustomers); }
 
     public void testAccessCustomer()
     {
-        System.out.println("\nStarting TestAccessCustomer");
-
-        Main.startUp();
-        AccessCustomers accessCustomers = new AccessCustomers();
         ArrayList<Customer> customerList = new ArrayList<>();
 
-        assertNotNull(accessCustomers);
         assertEquals(0, customerList.size());
 
         accessCustomers.insertCustomer(new Customer("Jim", "Jam", "204-956-1203"));
         accessCustomers.getCustomers(customerList);
 
         assertTrue(customerList.size() > 0);
-
-        Main.shutDown();
-        System.out.println("\nEnd TestAccessCustomer");
     }
 }
