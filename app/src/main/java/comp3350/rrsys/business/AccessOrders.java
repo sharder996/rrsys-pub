@@ -23,20 +23,5 @@ public class AccessOrders
     {
         return dataAccess.insertOrder(order);
     }
-
-    public ArrayList<Item> getOrder(int reservationID)
-    {
-        return dataAccess.getOrder(reservationID);
-    }
-
-    public double getPrice(int reservationID)
-    {
-        return dataAccess.getPrice(reservationID);
-    }
-
-    public int getSize(int reservationID)
-    {
-        return dataAccess.getSize(reservationID);
-    }
 }
 

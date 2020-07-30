@@ -40,7 +40,7 @@ public class TestAccessOrders extends TestCase
         assertFalse(accessStub.insertOrder(newOrder));
     }
 
-    public void testGetOrder()
+    public void testGetOrderInsert()
     {
         System.out.println("\nStarting testGetOrder");
 
@@ -73,131 +73,6 @@ public class TestAccessOrders extends TestCase
         assertTrue(accessStub.insertOrder(newOrder1));
         assertTrue(accessStub.insertOrder(newOrder2));
 
-        ArrayList<Item> selectedItems = accessStub.getOrder(1);
-        assertEquals(6, selectedItems.size());
-        assertEquals(dish, selectedItems.get(0));
-        assertEquals(dish1, selectedItems.get(1));
-        assertEquals(dish2, selectedItems.get(2));
-        assertEquals(dish3, selectedItems.get(3));
-        assertEquals(dish4, selectedItems.get(4));
-        assertEquals(dish5, selectedItems.get(5));
-
-        selectedItems = accessStub.getOrder(2);
-        assertEquals(2, selectedItems.size());
-        assertEquals(dish, selectedItems.get(0));
-        assertEquals(dish5, selectedItems.get(1));
-
-        selectedItems = accessStub.getOrder(3);
-        assertEquals(3, selectedItems.size());
-        assertEquals(dish, selectedItems.get(0));
-        assertEquals(dish3, selectedItems.get(1));
-        assertEquals(dish5, selectedItems.get(2));
-
         System.out.println("\nEnding testGetOrder");
-    }
-
-    public void testGetOrderNegativeValue()
-    {
-        System.out.println("\nStarting testGetOrderNegativeValue");
-        ArrayList<Item> selectedItems = null;
-
-        try
-        {
-            selectedItems = accessStub.getOrder(-1);
-            fail();
-        }
-        catch(IllegalArgumentException e)
-        {
-            assertNull(selectedItems);
-        }
-
-        System.out.println("\nEnding testGetOrderNegativeValue");
-    }
-
-    public void testGetPrice()
-    {
-        System.out.println("\nStarting testGetPrice");
-
-        Order newOrder = new Order(1);
-
-        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
-        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
-        Item dish2 = new Item(3, "Turkey Burger", "Sandwich", "Turkey",12.99 );
-        Item dish3 = new Item(4, "Turkey Burger", "Sandwich", "Turkey",12.77 );
-        Item dish4 = new Item(5, "Turkey Burger", "Sandwich", "Turkey",12.73 );
-        Item dish5 = new Item(6, "Turkey Burger", "Sandwich", "Turkey",12.22 );
-
-        double totalPrice = dish.getPrice() + dish1.getPrice() + dish2.getPrice() + dish3.getPrice() + dish4.getPrice() + dish5.getPrice();
-        newOrder.addItem(dish);
-        newOrder.addItem(dish1);
-        newOrder.addItem(dish2);
-        newOrder.addItem(dish3);
-        newOrder.addItem(dish4);
-        newOrder.addItem(dish5);
-
-        assertTrue(accessStub.insertOrder(newOrder));
-
-        double price = accessStub.getPrice(1);
-
-        assertEquals(totalPrice, price);
-
-        System.out.println("\nEnding testGetPrice");
-    }
-
-    public void testInvalidEntriesGetPrice()
-    {
-        System.out.println("\nStarting testInvalidEntriesGetPrice");
-
-        double price = accessStub.getPrice(5);
-
-        assertEquals(0.0, price);
-        try
-        {
-            price = accessStub.getPrice(-2);
-            fail();
-        }
-        catch(IllegalArgumentException e)
-        {
-            assertEquals(0.0, price);
-        }
-
-        System.out.println("\nEnding testInvalidEntriesGetPrice");
-    }
-
-    public void testGetSize()
-    {
-        System.out.println("\nStarting testGetSize");
-
-        Order newOrder = new Order(1);
-
-        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
-        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
-
-        newOrder.addItem(dish);
-        newOrder.addItem(dish1);
-
-        assertTrue(accessStub.insertOrder(newOrder));
-        assertEquals(2, accessStub.getSize(1));
-
-        System.out.println("\nEnding testGetSize");
-    }
-
-    public void testInvalidEntriesGetSize()
-    {
-        System.out.println("\nStarting testInvalidEntriesGetSize");
-
-        int size = 0;
-        assertEquals(size, accessStub.getSize(10));
-
-        try
-        {
-            size = accessStub.getSize(-2);
-            fail();
-        }
-        catch(IllegalArgumentException e)
-        {
-            assertEquals(0, size);
-        }
-        System.out.println("\nEnding testInvalidEntriesGetSize");
     }
 }
