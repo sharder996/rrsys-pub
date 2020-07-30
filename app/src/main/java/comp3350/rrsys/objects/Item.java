@@ -24,6 +24,10 @@ public class Item
         setPrice(price);
     }
 
+    public boolean equals(Item other) {
+        return this.itemID == other.itemID;
+    }
+
     public int getItemID() { return itemID; }
     public String getName() { return name; }
     public String getType() { return type; }

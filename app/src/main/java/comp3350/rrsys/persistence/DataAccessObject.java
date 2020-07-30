@@ -622,23 +622,46 @@ public class DataAccessObject implements DataAccess
         }
         return available;
     }
+
     public String insertOrder(Order order)
     {
         ArrayList<Item> items;
         items = order.getOrder();
-
+        ArrayList<Integer> quantities = new ArrayList<>();
         String values;
         result = null;
 
+        int i = 0;
+        Item current;
+        boolean duplicate;
+        while(i < items.size())
+        {
+            current = items.get(i);
+            duplicate = false;
+            for(int j = 0; j < i && !duplicate; j++)
+            {
+                if(current.equals(items.get(j)))
+                {
+                    quantities.set(j,quantities.get(j)+1);
+                    items.remove(i);
+                    duplicate = true;
+                }
+            }
+            if(!duplicate)
+            {
+                quantities.add(1);
+                i++;
+            }
+        }
         try
         {
-            for(int i  = 0 ; i < items.size(); i++)
+            for(int k  = 0 ; k < items.size(); k++)
             {
                 values = order.getReservationID()
-                        + ", " + items.get(i).getItemID()
-                        + ", " + order.size()
+                        + ", " + items.get(k).getItemID()
+                        + ", " + quantities.get(k)
                         + ", '" + order.getNote()
-                        + "' ";
+                        + "'";
 
                 cmdString = "INSERT into ORDERS VALUES(" + values + ")";
                 updateCount = st1.executeUpdate(cmdString);
