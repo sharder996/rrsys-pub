@@ -2,6 +2,11 @@ package comp3350.rrsys.objects;
 
 import java.text.DecimalFormat;
 
+/* Class: Item
+ *
+ * Class that holds and manages food items for the menu
+ */
+
 public class Item
 {
     private int itemID;
@@ -21,7 +26,8 @@ public class Item
         setPrice(price);
     }
 
-    public boolean equals(Item other) {
+    public boolean equals(Item other)
+    {
         return this.itemID == other.itemID;
     }
 

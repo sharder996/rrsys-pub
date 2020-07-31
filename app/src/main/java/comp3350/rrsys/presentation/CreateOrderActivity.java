@@ -182,12 +182,14 @@ public class CreateOrderActivity extends Activity
         });
     }
 
-    public void buttonCancelOnClick(View v) {
+    public void buttonCancelOnClick(View v)
+    {
         Intent intent = getIntent();
         String activity = intent.getStringExtra("activity");
 
         Intent backPageIntent;
-        if (activity.equals("GetChoiceUpdateReservationActivity")) {
+        if (activity.equals("GetChoiceUpdateReservationActivity"))
+        {
             backPageIntent = new Intent(CreateOrderActivity.this, GetChoiceUpdateReservationActivity.class);
             backPageIntent.putExtra("Date", getIntent().getStringExtra("Date"));
             backPageIntent.putExtra("TimeStart", getIntent().getStringExtra("TimeStart"));

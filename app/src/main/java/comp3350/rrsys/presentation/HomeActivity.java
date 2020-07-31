@@ -86,7 +86,6 @@ public class HomeActivity extends Activity
 
         try
         {
-
             assetNames = assetManager.list(DB_PATH);
             for(int i = 0; i < assetNames.length; i++)
                 assetNames[i] = DB_PATH + "/" + assetNames[i];
@@ -94,13 +93,11 @@ public class HomeActivity extends Activity
             copyAssetsToDirectory(assetNames, dataDirectory);
 
             Main.setDBPathName(dataDirectory.toString() + "/" + Main.dbName);
-
         }
         catch(IOException ioe)
         {
             Messages.warning(this, "Unable to access application data: " + ioe.getMessage());
         }
-
     }
 
     public void copyAssetsToDirectory(String[] assets, File directory) throws IOException
@@ -116,7 +113,8 @@ public class HomeActivity extends Activity
 
             File outFile = new File(copyPath);
 
-            if(!outFile.exists()) {
+            if(!outFile.exists())
+            {
                 InputStreamReader in = new InputStreamReader(assetManager.open(asset));
                 FileWriter out = new FileWriter(outFile);
 

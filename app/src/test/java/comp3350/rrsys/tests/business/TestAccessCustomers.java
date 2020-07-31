@@ -23,7 +23,6 @@ public class TestAccessCustomers extends TestCase
 
         dataAccess = new DataAccessStub(Main.dbName);
         dataAccess.open(Main.getDBPathName());
-
     }
 
     public void tearDown()

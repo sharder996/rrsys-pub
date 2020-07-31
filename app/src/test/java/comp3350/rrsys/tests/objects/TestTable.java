@@ -7,62 +7,37 @@ public class TestTable extends TestCase
 {
     public TestTable(String arg0) { super(arg0); }
 
+    public void testTableCreate()
+    {
+        System.out.println("\nStarting TestTableCreate");
+
+        Table t0 = new Table(0, 4);
+
+        assertNotNull(t0);
+
+        assertEquals(0, t0.getTID());
+        assertEquals(4, t0.getCapacity());
+
+        System.out.println("\nEnd TestTableCreate");
+    }
+
+
     public void testTableEquality()
     {
         System.out.println("\nStarting TestTableEquality");
 
         Table t0 = new Table(0, 4);
+        Table t1 = new Table(2, 4);
 
         assertNotNull(t0);
-        assertEquals(0, t0.getTID());
-        assertEquals(4, t0.getCapacity());
+        assertNotNull(t1);
+
         assertTrue(t0.equals(0));
+        assertTrue(t1.equals(1));
+        assertFalse(t0.equals(1));
 
         System.out.println("\nEnd TestTableEquality");
     }
-
-    //TODO:
-    //check if works after tale availability modification
-   /* public void testTableAvailable()
-    {
-        System.out.println("\nStarting TestTableAvailable");
-        Table t0 = new Table(0, 4);
-        int month = 12;
-        int date = 31;
-        int openTime = 8;
-        int closeTime = 22;
-
-        for (int i = 1; i <= month; i++)
-        {
-            for (int j = 1; j <= date; j++)
-            {
-                for (int k = openTime; k <= closeTime; k++)
-                {
-                    assertTrue(t0.getAvailable(i, j, k));
-                }
-            }
-        }
-
-        t0.setAvailable(10, 10, 12, false);
-
-        for (int i = 1; i <= month; i++)
-        {
-            for (int j = 1; j <= date; j++)
-            {
-                for (int k = openTime; k <= closeTime; k++)
-                {
-                    if (i == 10 && j == 10 && k == 12)
-                    {
-                        assertFalse(t0.getAvailable(i, j, k));
-                    } else
-                    {
-                        assertTrue(t0.getAvailable(i, j, k));
-                    }
-                }
-            }
-        }
-        System.out.println("\nEnd TestTableAvailable");
-    }*/
 
     public void testTableInvalidEntries()
     {

@@ -1,5 +1,10 @@
 package comp3350.rrsys.objects;
 
+/* Class: Reservation
+ *
+ * Object to hold a reservation and all its attached information
+ */
+
 public class Reservation {
     private int reservationID;
     private int customerID;
@@ -14,7 +19,8 @@ public class Reservation {
     public static final int MIN_TIME = 30;
 
     // constructor for inserting a reservation
-    public Reservation(int customerID, int tableID, int numPeople, DateTime startTime, DateTime endTime) {
+    public Reservation(int customerID, int tableID, int numPeople, DateTime startTime, DateTime endTime)
+    {
         this.customerID = customerID;
         this.tableID = tableID;
         this.numPeople = numPeople;
@@ -24,7 +30,8 @@ public class Reservation {
     }
 
     // constructor for suggested reservations
-    public Reservation(int tableID, int numPeople, DateTime startTime, DateTime endTime) {
+    public Reservation(int tableID, int numPeople, DateTime startTime, DateTime endTime)
+    {
         this.customerID = -1;
         this.tableID = tableID;
         this.numPeople = numPeople;
@@ -55,7 +62,8 @@ public class Reservation {
         this.customerID = customerID;
     }
 
-    public void setTime(DateTime startTime, DateTime endTime) {
+    public void setTime(DateTime startTime, DateTime endTime)
+    {
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -89,7 +97,8 @@ public class Reservation {
         return this.reservationID == reservationID;
     }
 
-    public String confirmation() {
+    public String confirmation()
+    {
         String s = "";
         s += "Reservation ID: " + reservationID + "\nNumber of People: " + numPeople +
                 "\nTable ID: " + tableID + "\nTime: " + startTime.toString() + " - " + endTime.toString();

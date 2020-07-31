@@ -2,6 +2,11 @@ package comp3350.rrsys.objects;
 
 import java.util.ArrayList;
 
+/* Class: Order
+ *
+ * Class that holds orders for a reservation and manages them
+ */
+
 public class Order
 {
     private int reservationID;

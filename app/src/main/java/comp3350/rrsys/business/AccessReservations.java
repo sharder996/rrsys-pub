@@ -13,10 +13,7 @@ public class AccessReservations
 {
     private DataAccess dataAccess;
 
-    public AccessReservations()
-    {
-        dataAccess = Services.getDataAccess(Main.dbName);
-    }
+    public AccessReservations() { dataAccess = Services.getDataAccess(Main.dbName); }
 
     public AccessReservations(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
 
@@ -26,29 +23,15 @@ public class AccessReservations
         return dataAccess.getReservationSequential(reservations);
     }
 
-    public Reservation getRandom(int reservationID)
-    {
-        return dataAccess.getReservation(reservationID);
-    }
+    public Reservation getRandom(int reservationID) { return dataAccess.getReservation(reservationID); }
 
-    public int getNextReservationID(){
-        return  dataAccess.getNextReservationID();
-    }
+    public int getNextReservationID() { return  dataAccess.getNextReservationID(); }
 
-    public String insertReservation(Reservation currentReservation)
-    {
-        return dataAccess.insertReservation(currentReservation);
-    }
+    public String insertReservation(Reservation currentReservation) { return dataAccess.insertReservation(currentReservation); }
 
-    public String updateReservation(Reservation newReservation)
-    {
-        return dataAccess.updateReservation(newReservation.getRID(), newReservation);
-    }
+    public String updateReservation(Reservation newReservation) { return dataAccess.updateReservation(newReservation.getRID(), newReservation); }
 
-    public String deleteReservation(int reservationID)
-    {
-        return dataAccess.deleteReservation(reservationID);
-    }
+    public String deleteReservation(int reservationID) { return dataAccess.deleteReservation(reservationID); }
 
     // return an array of suggested reservations in order
     // which has the same "length" as (endTime-startTime)
@@ -100,8 +83,5 @@ public class AccessReservations
 
     // return the index corresponding to a date time
     // the closest index of the 15-minutes increment in the business hour of a day
-    public static int getIndex(DateTime time)
-    {
-        return (time.getHour()-Table.START_TIME)*4 + (time.getMinutes()+7)/15;
-    }
+    public static int getIndex(DateTime time) { return (time.getHour()-Table.START_TIME)*4 + (time.getMinutes()+7)/15; }
 }
