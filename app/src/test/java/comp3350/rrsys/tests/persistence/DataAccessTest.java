@@ -196,16 +196,16 @@ public class DataAccessTest extends TestCase
 
         reservations = new ArrayList<>();
         result = dataAccess.getReservationSequential(reservations);
+
         assertNull(result);
-        //assertEquals(4, reservations.size()); //if this test is being done independently
         assertEquals(5, reservations.size()); //if this test is being done in a suite
+
         reservation = reservations.get(0);
+
         assertEquals(1, reservation.getRID());
         assertEquals(1, reservation.getCID());
         assertEquals(2, reservation.getTID());
         assertEquals(2, reservation.getNumPeople());
-        // add tests for timestamp / DateTime.toString
-        // ... add more for reservation functions in DataAccessObject
     }
 
     public void testGetNextResID()
