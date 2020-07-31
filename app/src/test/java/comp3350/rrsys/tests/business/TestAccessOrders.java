@@ -11,15 +11,12 @@ import comp3350.rrsys.persistence.DataAccessStub;
 public class TestAccessOrders extends TestCase
 {
     private AccessOrders accessOrders;
-    private DataAccessStub accessStub;
     public TestAccessOrders(String arg0) { super(arg0); }
 
     public void setUp()
     {
         System.out.println("/nStarting TestAccessOrders");
         accessOrders = new AccessOrders(new DataAccessStub(Main.dbName));
-        accessStub = new DataAccessStub();
-        accessStub.open(Main.dbName);
     }
 
     public void tearDown()
@@ -35,7 +32,7 @@ public class TestAccessOrders extends TestCase
     public void testInsertNullOrder()
     {
         Order newOrder = null;
-        assertFalse(accessStub.insertOrder(newOrder));
+        assertFalse(accessOrders.insertOrder(newOrder));
     }
 
     public void testGetOrderInsert()
@@ -67,9 +64,9 @@ public class TestAccessOrders extends TestCase
         newOrder2.addItem(dish3);
         newOrder2.addItem(dish5);
 
-        assertTrue(accessStub.insertOrder(newOrder));
-        assertTrue(accessStub.insertOrder(newOrder1));
-        assertTrue(accessStub.insertOrder(newOrder2));
+        assertTrue(accessOrders.insertOrder(newOrder));
+        assertTrue(accessOrders.insertOrder(newOrder1));
+        assertTrue(accessOrders.insertOrder(newOrder2));
 
         System.out.println("\nEnding testGetOrder");
     }
