@@ -1,8 +1,5 @@
 package comp3350.rrsys.objects;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -12,7 +9,7 @@ import java.util.GregorianCalendar;
  * Custom Calendar object that provides custom behavior so that valid times can be restricted
  */
 
-public class DateTime implements Parcelable
+public class DateTime
 {
     private Calendar timeSlot;
     public static final int MAX_DAYS_DIFFERENCE = 30;
@@ -28,11 +25,6 @@ public class DateTime implements Parcelable
             throw new IllegalArgumentException("Invalid date.");
 
         timeSlot = timeInfo;
-    }
-
-    private DateTime(Parcel in)
-    {
-        timeSlot = new GregorianCalendar(in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
     }
 
     public int getYear(){ return timeSlot.get(Calendar.YEAR); }
@@ -63,32 +55,4 @@ public class DateTime implements Parcelable
         s += sdf.format(timeSlot.getTime());
         return s;
     }
-
-    @Override
-    public int describeContents() { return 0; }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
-        dest.writeInt(this.getYear());
-        dest.writeInt(this.getMonth());
-        dest.writeInt(this.getDate());
-        dest.writeInt(this.getHour());
-        dest.writeInt(this.getMinutes());
-    }
-
-    public static final Parcelable.Creator<DateTime> CREATOR = new Parcelable.Creator<DateTime>()
-    {
-        @Override
-        public DateTime createFromParcel(Parcel source)
-        {
-            return new DateTime(source);
-        }
-
-        @Override
-        public DateTime[] newArray(int size)
-        {
-            return new DateTime[size];
-        }
-    };
 }

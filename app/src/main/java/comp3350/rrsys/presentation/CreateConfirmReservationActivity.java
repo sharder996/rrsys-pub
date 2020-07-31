@@ -11,10 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import java.util.GregorianCalendar;
 
 import comp3350.rrsys.R;
 import comp3350.rrsys.business.AccessCustomers;
 import comp3350.rrsys.business.AccessReservations;
+import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.Reservation;
 
@@ -25,13 +27,25 @@ public class CreateConfirmReservationActivity extends Activity
     private boolean firstNameEdited, lastNameEdited, phoneNumberEdited;
     private AccessReservations accessReservations;
     private AccessCustomers accessCustomers;
+    private int tableID, numPeople, year, month, day, startHour, startMinute, endHour, endMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_confirm_reservation);
-        reservation = (Reservation)getIntent().getParcelableExtra("reservation");
+        tableID = Integer.parseInt(getIntent().getStringExtra("tableID"));
+        numPeople = Integer.parseInt(getIntent().getStringExtra("numPeople"));
+        year = Integer.parseInt(getIntent().getStringExtra("year"));
+        month = Integer.parseInt(getIntent().getStringExtra("month"));
+        day = Integer.parseInt(getIntent().getStringExtra("day"));
+        startHour = Integer.parseInt(getIntent().getStringExtra("startHour"));
+        startMinute = Integer.parseInt(getIntent().getStringExtra("startMinute"));
+        endHour = Integer.parseInt(getIntent().getStringExtra("endHour"));
+        endMinute = Integer.parseInt(getIntent().getStringExtra("endMinute"));
+        DateTime start = new DateTime(new GregorianCalendar(year, month, day, startHour, startMinute));
+        DateTime end = new DateTime(new GregorianCalendar(year, month, day, endHour, endMinute));
+        reservation = new Reservation(tableID, numPeople, start, end);
 
         accessReservations = new AccessReservations();
         accessCustomers = new AccessCustomers();
@@ -159,7 +173,15 @@ public class CreateConfirmReservationActivity extends Activity
             accessReservations.insertReservation(reservation);
 
             Intent confirmReservationIntent = new Intent(CreateConfirmReservationActivity.this, ReceiptReservationActivity.class);
-            confirmReservationIntent.putExtra("reservation", reservation);
+            confirmReservationIntent.putExtra("reservationID", reservation.getRID()+"");
+            confirmReservationIntent.putExtra("numPeople", numPeople+"");
+            confirmReservationIntent.putExtra("year", year+"");
+            confirmReservationIntent.putExtra("month", month+"");
+            confirmReservationIntent.putExtra("day", day+"");
+            confirmReservationIntent.putExtra("startHour", startHour+"");
+            confirmReservationIntent.putExtra("startMinute", startMinute+"");
+            confirmReservationIntent.putExtra("endHour", endHour+"");
+            confirmReservationIntent.putExtra("endMinute", endMinute+"");
             CreateConfirmReservationActivity.this.startActivity(confirmReservationIntent);
         }
     }

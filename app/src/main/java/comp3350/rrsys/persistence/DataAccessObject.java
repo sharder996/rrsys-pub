@@ -160,6 +160,8 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
+    // return the index corresponding to a date time
+    // the closest index of the 15-minutes increment in the business hour of a day
     public int getIndex(DateTime time)
     {
         return (time.getHour() - Table.START_TIME) * 4 + (time.getMinutes() + 7) / 15;
@@ -193,6 +195,7 @@ public class DataAccessObject implements DataAccess
     }
 
     // return the date time corresponding to an index
+    // set same year, month, date with input date time, set hour and minute transferred from index
     public DateTime getDateTime(DateTime time, int index)
     {
         DateTime result = null;
@@ -208,7 +211,9 @@ public class DataAccessObject implements DataAccess
     }
 
     // ordered insert a suggested reservation into a temp array
-    // ordered by how close to the startTime
+    // ordered first by how close to the startTime
+    // if same, ordered secondly by how close the table capacity to number of people
+    // if still same, ordered thirdly by table ID in ascending order
     public void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t)
     {
         int pos = 0;
@@ -287,11 +292,12 @@ public class DataAccessObject implements DataAccess
                 custID = rs2.getInt("CID");
                 tableID = rs2.getInt("TID");
                 numPeople = rs2.getInt("NUMPEOPLE");
-                Calendar cal = new GregorianCalendar();
-                cal.setTime(rs2.getTimestamp("STARTTIME"));
-                startTime = new DateTime(cal);
-                cal.setTime(rs2.getTimestamp("ENDTIME"));
-                endTime = new DateTime(cal);
+                Calendar calStart = new GregorianCalendar();
+                calStart.setTime(rs2.getTimestamp("STARTTIME"));
+                startTime = new DateTime(calStart);
+                Calendar calEnd = new GregorianCalendar();
+                calEnd.setTime(rs2.getTimestamp("ENDTIME"));
+                endTime = new DateTime(calEnd);
                 reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
                 reservation.setRID(resID);
                 reservationResult.add(reservation);
@@ -583,6 +589,8 @@ public class DataAccessObject implements DataAccess
         return returnMenu;
     }
 
+    // return an available array of a table with input TID at the date of input time
+    // the array of 15-minutes increment in the business hour of a day
     public boolean[] getAvailable(int TID, DateTime time)
     {
         reservations = new ArrayList<>();

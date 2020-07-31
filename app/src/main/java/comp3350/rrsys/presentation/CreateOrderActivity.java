@@ -44,7 +44,7 @@ public class CreateOrderActivity extends Activity
         setContentView(R.layout.activity_order);
 
         accessMenu = new AccessMenu();
-        order = new Order(Integer.parseInt(getIntent().getStringExtra("ReservationID")));
+        order = new Order(Integer.parseInt(getIntent().getStringExtra("reservationID")));
 
         List<String> parentList = accessMenu.getMenuTypes();
         parentListItems = new LinkedHashMap<>();
@@ -189,20 +189,23 @@ public class CreateOrderActivity extends Activity
         Intent backPageIntent;
         if (activity.equals("GetChoiceUpdateReservationActivity")) {
             backPageIntent = new Intent(CreateOrderActivity.this, GetChoiceUpdateReservationActivity.class);
-            backPageIntent.putExtra("ReservationID", getIntent().getStringExtra("ReservationID"));
-            backPageIntent.putExtra("StartTime", getIntent().getParcelableExtra("StartTime"));
             backPageIntent.putExtra("Date", getIntent().getStringExtra("Date"));
             backPageIntent.putExtra("TimeStart", getIntent().getStringExtra("TimeStart"));
             backPageIntent.putExtra("TimeEnd", getIntent().getStringExtra("TimeEnd"));
             backPageIntent.putExtra("Code", getIntent().getStringExtra("Code"));
-            backPageIntent.putExtra("People", getIntent().getStringExtra("People"));
         }
         else
-        {
             backPageIntent = new Intent(CreateOrderActivity.this, ReceiptReservationActivity.class);
-            backPageIntent.putExtra("ReservationID", getIntent().getStringExtra("ReservationID"));
-            backPageIntent.putExtra("reservation", getIntent().getParcelableExtra("reservation"));
-        }
+
+        backPageIntent.putExtra("reservationID", getIntent().getStringExtra("reservationID"));
+        backPageIntent.putExtra("numPeople", getIntent().getStringExtra("numPeople"));
+        backPageIntent.putExtra("year", getIntent().getStringExtra("year"));
+        backPageIntent.putExtra("month", getIntent().getStringExtra("month"));
+        backPageIntent.putExtra("day", getIntent().getStringExtra("day"));
+        backPageIntent.putExtra("startHour", getIntent().getStringExtra("startHour"));
+        backPageIntent.putExtra("startMinute", getIntent().getStringExtra("startMinute"));
+        backPageIntent.putExtra("endHour", getIntent().getStringExtra("endHour"));
+        backPageIntent.putExtra("endMinute", getIntent().getStringExtra("endMinute"));
 
         CreateOrderActivity.this.startActivity(backPageIntent);
     }
