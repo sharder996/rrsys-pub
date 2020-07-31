@@ -50,7 +50,7 @@ public class GetUpdateReservationActivity extends Activity
                 selected = accessReservations.getRandom(Integer.parseInt(code.getText().toString()));
 
                 if(selected.getEndTime().getMinutes() <10)
-                     timeEnd = selected.getEndTime().getHour() +":0" + selected.getEndTime().getMinutes();
+                    timeEnd = selected.getEndTime().getHour() +":0" + selected.getEndTime().getMinutes();
                 else
                     timeEnd = selected.getEndTime().getHour() +":" + selected.getEndTime().getMinutes();
 
@@ -62,14 +62,19 @@ public class GetUpdateReservationActivity extends Activity
                 String resDate = (selected.getStartTime().getMonth()+1) +"/" + selected.getStartTime().getDate() + "/" + selected.getStartTime().getYear();
 
                 Intent confirmIntent = new Intent(GetUpdateReservationActivity.this, GetChoiceUpdateReservationActivity.class);
-
-                confirmIntent.putExtra("StartTime", selected.getStartTime());
-                confirmIntent.putExtra("ReservationID", Integer.toString(selected.getRID()));
+                confirmIntent.putExtra("year", selected.getStartTime().getYear()+"");
+                confirmIntent.putExtra("month", selected.getStartTime().getMonth()+"");
+                confirmIntent.putExtra("day", selected.getStartTime().getDate()+"");
+                confirmIntent.putExtra("startHour", selected.getStartTime().getHour()+"");
+                confirmIntent.putExtra("startMinute", selected.getStartTime().getMinutes()+"");
+                confirmIntent.putExtra("endHour", selected.getEndTime().getHour()+"");
+                confirmIntent.putExtra("endMinute", selected.getEndTime().getMinutes()+"");
+                confirmIntent.putExtra("reservationID", Integer.toString(selected.getRID()));
                 confirmIntent.putExtra("Date", resDate);
                 confirmIntent.putExtra("TimeStart", timeStart);
                 confirmIntent.putExtra("TimeEnd", timeEnd);
                 confirmIntent.putExtra("Code", selected.getRID()+ "");
-                confirmIntent.putExtra("People", selected.getNumPeople()+ "");
+                confirmIntent.putExtra("numPeople", selected.getNumPeople()+ "");
                 GetUpdateReservationActivity.this.startActivity(confirmIntent);
             }
             catch(Exception e)

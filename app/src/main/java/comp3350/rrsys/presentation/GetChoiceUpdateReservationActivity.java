@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import comp3350.rrsys.R;
 import comp3350.rrsys.objects.DateTime;
@@ -35,18 +36,27 @@ public class GetChoiceUpdateReservationActivity extends Activity
 
     public void buttonPreOrderOnClick(View view)
     {
-        DateTime startTime = getIntent().getParcelableExtra("StartTime");
+        int year = Integer.parseInt(getIntent().getStringExtra("year"));
+        int month =  Integer.parseInt(getIntent().getStringExtra("month"));
+        int day = Integer.parseInt(getIntent().getStringExtra("day"));
+        int startHour =  Integer.parseInt(getIntent().getStringExtra("startHour"));
+        int startMinute = Integer.parseInt(getIntent().getStringExtra("startMinute"));
+        DateTime startTime = new DateTime(new GregorianCalendar(year, month, day, startHour, startMinute));
         if(startTime.getCalendar().getTimeInMillis() - Calendar.getInstance().getTimeInMillis() > Order.PREPARATION_TIME)
         {
             Intent getMenu = new Intent(GetChoiceUpdateReservationActivity.this, CreateOrderActivity.class);
+            getMenu.putExtra("year", getIntent().getStringExtra("year"));
+            getMenu.putExtra("month", getIntent().getStringExtra("month"));
+            getMenu.putExtra("day", getIntent().getStringExtra("day"));
+            getMenu.putExtra("startHour", getIntent().getStringExtra("startHour"));
+            getMenu.putExtra("startMinute", getIntent().getStringExtra("startMinute"));
+            getMenu.putExtra("reservationID", getIntent().getStringExtra("reservationID"));
             getMenu.putExtra("activity", "GetChoiceUpdateReservationActivity");
-            getMenu.putExtra("ReservationID", getIntent().getStringExtra("ReservationID"));
             getMenu.putExtra("Date", getIntent().getStringExtra("Date"));
             getMenu.putExtra("TimeStart", getIntent().getStringExtra("TimeStart"));
-            getMenu.putExtra("StartTime", getIntent().getParcelableExtra("StartTime"));
             getMenu.putExtra("TimeEnd", getIntent().getStringExtra("TimeEnd"));
             getMenu.putExtra("Code", getIntent().getStringExtra("Code"));
-            getMenu.putExtra("People", getIntent().getStringExtra("People"));
+            getMenu.putExtra("numPeople", getIntent().getStringExtra("numPeople"));
             GetChoiceUpdateReservationActivity.this.startActivity(getMenu);
         }
         else
