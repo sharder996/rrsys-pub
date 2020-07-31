@@ -13,7 +13,6 @@ import comp3350.rrsys.persistence.DataAccessStub;
 public class TestAccessTables extends TestCase
 {
     private AccessTables accessTables;
-    private DataAccessStub accessStub;
 
     public TestAccessTables(String arg0) { super(arg0); }
 
@@ -21,14 +20,11 @@ public class TestAccessTables extends TestCase
     {
         System.out.println("\nStarting TestAccessTables");
         accessTables = new AccessTables(new DataAccessStub(Main.dbName));
-        accessStub = new DataAccessStub();
-        accessStub.open(Main.dbName);
-        accessStub.generateFakeData();
+
     }
 
     public void tearDown()
     {
-        accessStub.close();
         System.out.println("\nEnd TestAccessTables");
     }
 

@@ -23,7 +23,8 @@ public class TestAccessCustomers extends TestCase
         System.out.println("\nStarting TestAccessCustomer");
 
         accessCustomers = new AccessCustomers(new DataAccessStub(Main.dbName));
-        accessStub = new DataAccessStub();
+
+        accessStub = new DataAccessStub(); //to get customer list for test
         accessStub.open(Main.dbName);
 
     }
@@ -41,7 +42,7 @@ public class TestAccessCustomers extends TestCase
 
         assertEquals(0, customerList.size());
 
-        accessStub.insertCustomer(new Customer("Jim", "Jam", "204-956-1203"));
+        accessCustomers.insertCustomer(new Customer("Jim", "Jam", "204-956-1203"));
         accessStub.getCustomerSequential(customerList);
 
         assertTrue(customerList.size() > 0);
