@@ -69,6 +69,10 @@ Selecting `UPDATING A RESERVATION` from the home screen of the application will 
 
 As of the second iteration, the ability to preorder food before your reservation has now been added. Ordering can be done either through the `CREATE A RESERVATION` flow or through the `UPDATING A RESERVATION` flow. Ordering is restricted by the amount of time between the current time and the start time of the reservation. To add an order to a reservation, navigate to the end of the `CREATE A RESERVATION` flow and before returning to the home menu press the `PRE-ORDER` button. Alternatively, proceeding through the `UPDATING A RESERVATION` flow will allow an identical method of ordering food for a reservation.
 
+#### Viewing the restaurant's menu
+
+A menu of the food offered by the restaurant can be viewed from the home screen by selecting the `MENU` button. Menu items are broken down into categories and the user can expand or collapse the categories to view the items. Below each item, the price along with a brief description of the item is displayed.
+
 #### Database stub replaced with HSQLDB
 
 The database stub has now been replaced with an HSQLDB.
