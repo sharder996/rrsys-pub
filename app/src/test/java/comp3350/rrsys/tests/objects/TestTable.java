@@ -33,7 +33,7 @@ public class TestTable extends TestCase
         assertNotNull(t1);
 
         assertTrue(t0.equals(0));
-        assertTrue(t1.equals(1));
+        assertTrue(t1.equals(2));
         assertFalse(t0.equals(1));
 
         System.out.println("\nEnd TestTableEquality");

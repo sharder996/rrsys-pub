@@ -261,21 +261,28 @@ public class TestAccessReservations extends TestCase
         int maxDaysDifference = DateTime.MAX_DAYS_DIFFERENCE;
         int daysDifference = 0;
 
-        for(int i = date + 1; i < cal.getActualMaximum(Calendar.DATE); i++) {
+        for(int i = date + 1; i < cal.getActualMaximum(Calendar.DATE); i++)
+        {
             daysDifference++;
-            if(daysDifference < maxDaysDifference) {
-                for(int j = openTime; j < closeTime; j++) {
+            if(daysDifference < maxDaysDifference)
+            {
+                for(int j = openTime; j < closeTime; j++)
+                {
                     DateTime startTime = null;
                     DateTime endTime = null;
 
-                    try {
+                    try
+                    {
                         startTime = new DateTime(new GregorianCalendar(year, month, date, j, 0));
                         endTime = new DateTime(new GregorianCalendar(year, month, date, j + 1, 0));
-                    } catch (IllegalArgumentException e) {
+                    }
+                    catch (IllegalArgumentException e)
+                    {
                         fail();
                     }
 
-                    if (reservations != null) {
+                    if (reservations != null)
+                    {
                         reservations.clear();
                     }
                     reservations = accessReservations.suggestReservations(startTime, endTime, 4);
@@ -283,24 +290,33 @@ public class TestAccessReservations extends TestCase
                 }
             }
         }
-        if(daysDifference < maxDaysDifference) {
+
+        if(daysDifference < maxDaysDifference)
+        {
             cal.set(Calendar.MONTH, month++);
             date = 1;
-            for(int i = date; i < cal.getActualMaximum(Calendar.DATE); i++) {
+            for(int i = date; i < cal.getActualMaximum(Calendar.DATE); i++)
+            {
                 daysDifference++;
-                if(daysDifference < maxDaysDifference) {
-                    for(int j = openTime; j < closeTime; j++) {
+                if(daysDifference < maxDaysDifference)
+                {
+                    for(int j = openTime; j < closeTime; j++)
+                    {
                         DateTime startTime = null;
                         DateTime endTime = null;
 
-                        try {
+                        try
+                        {
                             startTime = new DateTime(new GregorianCalendar(year, month, date, j, 0));
                             endTime = new DateTime(new GregorianCalendar(year, month, date, j + 1, 0));
-                        } catch (IllegalArgumentException e) {
+                        }
+                        catch (IllegalArgumentException e)
+                        {
                             fail();
                         }
 
-                        if (reservations != null) {
+                        if (reservations != null)
+                        {
                             reservations.clear();
                         }
                         reservations = accessReservations.suggestReservations(startTime, endTime, 4);
