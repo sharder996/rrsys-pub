@@ -28,6 +28,7 @@ public class TestAccessCustomers extends TestCase
 
     public void tearDown()
     {
+        accessStub.close();
         System.out.println("\nEnd TestAccessCustomer");
     }
 
