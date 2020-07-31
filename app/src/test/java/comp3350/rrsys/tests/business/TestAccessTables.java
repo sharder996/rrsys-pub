@@ -2,12 +2,8 @@ package comp3350.rrsys.tests.business;
 
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.business.AccessTables;
-import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.persistence.DataAccessStub;
 
 public class TestAccessTables extends TestCase
@@ -20,7 +16,6 @@ public class TestAccessTables extends TestCase
     {
         System.out.println("\nStarting TestAccessTables");
         accessTables = new AccessTables(new DataAccessStub(Main.dbName));
-
     }
 
     public void tearDown()

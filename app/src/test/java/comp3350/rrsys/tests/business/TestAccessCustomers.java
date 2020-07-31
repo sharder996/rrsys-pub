@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.business.AccessCustomers;
 import comp3350.rrsys.objects.Customer;
-import comp3350.rrsys.persistence.DataAccess;
-import comp3350.rrsys.persistence.DataAccessObject;
 import comp3350.rrsys.persistence.DataAccessStub;
 
 public class TestAccessCustomers extends TestCase
@@ -23,7 +21,6 @@ public class TestAccessCustomers extends TestCase
         System.out.println("\nStarting TestAccessCustomer");
 
         accessCustomers = new AccessCustomers(new DataAccessStub(Main.dbName));
-
         accessStub = new DataAccessStub(); //to get customer list for test
         accessStub.open(Main.dbName);
 
