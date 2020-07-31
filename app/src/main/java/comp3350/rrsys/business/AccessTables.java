@@ -8,18 +8,9 @@ public class AccessTables
 {
     private DataAccess dataAccess;
 
-    public AccessTables()
-    {
-        dataAccess = Services.createDataAccess(Main.dbName);
-    }
+    public AccessTables() { dataAccess = Services.createDataAccess(Main.dbName); }
 
-    public AccessTables(DataAccess altDataAccessService)
-    {
-        dataAccess = Services.createDataAccess(altDataAccessService);
-    }
+    public AccessTables(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
 
-    public int getTableCapacity(int tID)
-    {
-        return dataAccess.getTableRandom(tID).getCapacity();
-    }
+    public int getTableCapacity(int tID) { return dataAccess.getTableRandom(tID).getCapacity(); }
 }

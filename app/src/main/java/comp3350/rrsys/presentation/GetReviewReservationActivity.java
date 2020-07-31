@@ -75,7 +75,7 @@ public class GetReviewReservationActivity extends Activity
         }
         else
         {
-            if(code.length() ==0)
+            if(code.length() == 0)
                 code.setError("Enter reservation code");
         }
     }
