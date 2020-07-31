@@ -1,5 +1,10 @@
 package comp3350.rrsys.objects;
 
+/* Class: Table
+ *
+ * Object for a table in the restaurant that includes all table information
+ */
+
 public class Table
 {
     private int tID;
