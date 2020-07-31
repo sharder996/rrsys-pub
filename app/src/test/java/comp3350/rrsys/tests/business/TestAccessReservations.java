@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import comp3350.rrsys.application.Main;
@@ -251,37 +252,60 @@ public class TestAccessReservations extends TestCase
         accessStub.open(Main.dbName);
         accessStub.generateFakeData();
         ArrayList<Reservation> reservations = null;
-        int month = 12;
-        int date = 31;
-        int openTime = 8;
+        int openTime = 7;
         int closeTime = 22;
-        Calendar calendar = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(cal.YEAR);
+        int month = cal.get(cal.MONTH);
+        int date = cal.get(cal.DATE);
+        int maxDaysDifference = DateTime.MAX_DAYS_DIFFERENCE;
+        int daysDifference = 0;
 
-        for(int i = 1; i < month; i++)
-        {
-            for(int j = 1; j <= date; j++)
-            {
-                for(int k = openTime; k < closeTime; k++)
-                {
+        for(int i = date + 1; i < cal.getActualMaximum(Calendar.DATE); i++) {
+            daysDifference++;
+            if(daysDifference < maxDaysDifference) {
+                for(int j = openTime; j < closeTime; j++) {
                     DateTime startTime = null;
                     DateTime endTime = null;
 
-                    try
-                    {
-                        startTime = new DateTime(new GregorianCalendar(calendar.get(calendar.YEAR), i, j, k, 0));
-                        endTime = new DateTime(new GregorianCalendar(calendar.get(calendar.YEAR), i, j, k+1, 0));
-                    }
-                    catch (IllegalArgumentException e)
-                    {
+                    try {
+                        startTime = new DateTime(new GregorianCalendar(year, month, date, j, 0));
+                        endTime = new DateTime(new GregorianCalendar(year, month, date, j + 1, 0));
+                    } catch (IllegalArgumentException e) {
                         fail();
                     }
 
-                    if(reservations != null)
-                    {
+                    if (reservations != null) {
                         reservations.clear();
                     }
                     reservations = accessReservations.suggestReservations(startTime, endTime, 4);
                     assertTrue(reservations.size() > 0);
+                }
+            }
+        }
+        if(daysDifference < maxDaysDifference) {
+            cal.set(Calendar.MONTH, month++);
+            date = 1;
+            for(int i = date; i < cal.getActualMaximum(Calendar.DATE); i++) {
+                daysDifference++;
+                if(daysDifference < maxDaysDifference) {
+                    for(int j = openTime; j < closeTime; j++) {
+                        DateTime startTime = null;
+                        DateTime endTime = null;
+
+                        try {
+                            startTime = new DateTime(new GregorianCalendar(year, month, date, j, 0));
+                            endTime = new DateTime(new GregorianCalendar(year, month, date, j + 1, 0));
+                        } catch (IllegalArgumentException e) {
+                            fail();
+                        }
+
+                        if (reservations != null) {
+                            reservations.clear();
+                        }
+                        reservations = accessReservations.suggestReservations(startTime, endTime, 4);
+                        assertTrue(reservations.size() > 0);
+                    }
                 }
             }
         }
