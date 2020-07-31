@@ -13,7 +13,8 @@ import comp3350.rrsys.persistence.DataAccessStub;
 
 public class TestAccessCustomers extends TestCase
 {
-    private DataAccess dataAccess;
+    private AccessCustomers accessCustomers;
+    private DataAccessStub accessStub;
 
     public TestAccessCustomers(String arg0) { super(arg0); }
 
@@ -21,8 +22,10 @@ public class TestAccessCustomers extends TestCase
     {
         System.out.println("\nStarting TestAccessCustomer");
 
-        dataAccess = new DataAccessStub(Main.dbName);
-        dataAccess.open(Main.getDBPathName());
+        accessCustomers = new AccessCustomers(new DataAccessStub(Main.dbName));
+        accessStub = new DataAccessStub();
+        accessStub.open(Main.dbName);
+
     }
 
     public void tearDown()
@@ -30,7 +33,7 @@ public class TestAccessCustomers extends TestCase
         System.out.println("\nEnd TestAccessCustomer");
     }
 
-    public void testAccessCustomersConnection() { assertNotNull(dataAccess); }
+    public void testAccessCustomersConnection() { assertNotNull(accessCustomers); }
 
     public void testAccessCustomer()
     {
@@ -38,8 +41,8 @@ public class TestAccessCustomers extends TestCase
 
         assertEquals(0, customerList.size());
 
-        dataAccess.insertCustomer(new Customer("Jim", "Jam", "204-956-1203"));
-        dataAccess.getCustomerSequential(customerList);
+        accessStub.insertCustomer(new Customer("Jim", "Jam", "204-956-1203"));
+        accessStub.getCustomerSequential(customerList);
 
         assertTrue(customerList.size() > 0);
     }
