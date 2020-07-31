@@ -67,12 +67,12 @@ public class AccessReservations
             table = tables.get(t);
             if(table.getCapacity() >= numPeople)
             {
-                // within +- half hour of the start time
                 boolean[] available = dataAccess.getAvailable(t+1, startTime);
+                // within +- half hour of the start time
                 int i = Math.max(index-2, 0);
-                while(i <= index+2 && i < maxIndex)
+                while(i <= index + 2 && i < maxIndex)
                 {
-                    while(i <= index+2 && i < maxIndex && !available[i])
+                    while(i <= index + 2 && i < maxIndex && !available[i])
                         i++;
                     if(i <= index + 2 && i < maxIndex)
                     {
@@ -98,6 +98,8 @@ public class AccessReservations
         return results;
     }
 
+    // return the index corresponding to a date time
+    // the closest index of the 15-minutes increment in the business hour of a day
     public static int getIndex(DateTime time)
     {
         return (time.getHour()-Table.START_TIME)*4 + (time.getMinutes()+7)/15;
