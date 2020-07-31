@@ -12,15 +12,14 @@ import comp3350.rrsys.persistence.DataAccessStub;
 public class TestAccessMenu extends TestCase
 {
     private AccessMenu accessMenu;
-    private DataAccessStub accessStub;
+
     public TestAccessMenu(String arg0) { super(arg0); }
 
     public void setUp()
     {
         System.out.println("/nStarting TestAccessMenu");
         accessMenu = new AccessMenu(new DataAccessStub(Main.dbName));
-        accessStub = new DataAccessStub();
-        accessStub.open(Main.dbName);
+
     }
 
     public void tearDown()
@@ -37,7 +36,7 @@ public class TestAccessMenu extends TestCase
     {
         System.out.println("\nStarting testAccessMenuGetMenuByType");
 
-        ArrayList<String> types = accessStub.getMenuTypes();
+        ArrayList<String> types = accessMenu.getMenuTypes();
 
         assertEquals("Salads", types.get(0));
         assertEquals("Sandwiches", types.get(1));
@@ -57,14 +56,14 @@ public class TestAccessMenu extends TestCase
         There are total 44 items in database(Stub)
         6-salads, 8-Sandwiches, 8-Burgers, 8-Mains, 6-Desserts, 8-Drinks
          */
-        ArrayList<String> types = accessStub.getMenuTypes();//list of all types
+        ArrayList<String> types = accessMenu.getMenuTypes();//list of all types
 
-        ArrayList<Item> newitems = accessStub.getMenuByType(types.get(0));
-        ArrayList<Item> newitems1 = accessStub.getMenuByType(types.get(1));
-        ArrayList<Item> newitems2 = accessStub.getMenuByType(types.get(2));
-        ArrayList<Item> newitems3 = accessStub.getMenuByType(types.get(3));
-        ArrayList<Item> newitems4 = accessStub.getMenuByType(types.get(4));
-        ArrayList<Item> newitems5 = accessStub.getMenuByType(types.get(5));
+        ArrayList<Item> newitems = accessMenu.getMenuByType(types.get(0));
+        ArrayList<Item> newitems1 = accessMenu.getMenuByType(types.get(1));
+        ArrayList<Item> newitems2 = accessMenu.getMenuByType(types.get(2));
+        ArrayList<Item> newitems3 = accessMenu.getMenuByType(types.get(3));
+        ArrayList<Item> newitems4 = accessMenu.getMenuByType(types.get(4));
+        ArrayList<Item> newitems5 = accessMenu.getMenuByType(types.get(5));
 
         assertNotNull(newitems);
         assertNotNull(newitems1);
@@ -87,7 +86,7 @@ public class TestAccessMenu extends TestCase
     {
         System.out.println("\nStarting testAccessInvalidEntryTypeMenu");
 
-        ArrayList<Item> newitems = accessStub.getMenuByType("Chicken");
+        ArrayList<Item> newitems = accessMenu.getMenuByType("Chicken");
 
         assertEquals(0, newitems.size());
 
