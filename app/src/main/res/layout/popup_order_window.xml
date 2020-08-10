@@ -14,6 +14,24 @@
         android:text="@string/add_item_to_order"
         android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/textCustomizeOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textAddItemToOrder"
+        android:layout_alignStart="@+id/textAddItemToOrder"
+        android:layout_marginTop="10dp"
+        android:text="@string/customize_order" />
+
+    <EditText
+        android:layout_width="247dp"
+        android:layout_height="28dp"
+        android:layout_below="@+id/textCustomizeOrder"
+        android:layout_alignStart="@+id/textCustomizeOrder"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="25dp"
+        android:layout_toStartOf="@+id/buttonPopupConfirm" />
+
     <Button
         android:id="@+id/buttonPopupConfirm"
         android:layout_width="wrap_content"
