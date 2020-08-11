@@ -799,4 +799,9 @@ public class DataAccessObject implements DataAccess
 
         return totalPrice;
     }
+
+
+    public String getPrice(int reservationId) { ; }
+
+    public ArrayList<Item> getOrder(int reservationId) {; }
 }

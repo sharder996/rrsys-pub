@@ -101,6 +101,12 @@
         app:layout_constraintStart_toEndOf="@+id/textReservationCode"
         app:layout_constraintTop_toTopOf="@+id/textReservationCode"/>
 
+    <ExpandableListView
+        android:id="@+id/orderedList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
     <Button
         android:id="@+id/buttonDone"
         android:layout_width="wrap_content"

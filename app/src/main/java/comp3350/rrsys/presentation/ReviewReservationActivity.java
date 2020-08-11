@@ -5,9 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import comp3350.rrsys.R;
+import comp3350.rrsys.objects.Item;
+import comp3350.rrsys.business.AccessOrders;
 
 public class ReviewReservationActivity extends Activity
 {
@@ -26,6 +32,15 @@ public class ReviewReservationActivity extends Activity
         time.setText(getIntent().getStringExtra("Time"));
         date.setText(getIntent().getStringExtra("Date"));
         numPeople.setText(getIntent().getStringExtra("People"));
+
+        AccessOrders accessOrder = new AccessOrders();
+        ExpandableListView orderList = findViewById(R.id.orderedList);
+
+        HashMap<String, ArrayList<Item>> order = new HashMap<>();
+        ArrayList<Item> orderInfo = accessOrder.getOrder(Integer.parseInt(getIntent().getStringExtra("Code")));
+
+        order.put("Ordered " + orderInfo.size() + "  " + accessOrder.getPrice(Integer.parseInt(getIntent().getStringExtra("Code"))), orderInfo);
+
     }
 
     @Override
