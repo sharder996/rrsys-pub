@@ -3,6 +3,9 @@ package comp3350.rrsys.presentation;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Layout;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,10 +14,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -98,6 +103,18 @@ public class CreateOrderActivity extends Activity
                     }
                 });
 
+                final NumberPicker numberPicker = popupView.findViewById(R.id.editQuantity);
+                numberPicker.setMinValue(Item.MIN_QUANTITY);
+                numberPicker.setMaxValue(Item.MAX_QUANTITY);
+                numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
+                {
+                    @Override
+                    public void onValueChange(NumberPicker numberPicker, int i, int i1)
+                    {
+                        selected.setQuantity(i1);
+                    }
+                });
+
                 return true;
             }
         });
@@ -147,7 +164,7 @@ public class CreateOrderActivity extends Activity
                 final Item selected = orderArrayAdapter.getItem(i);
 
                 LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popupView = inflater.inflate(R.layout.popup_order_window, null);
+                View popupView = inflater.inflate(R.layout.popup_remove_item, null);
 
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 int height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -163,9 +180,6 @@ public class CreateOrderActivity extends Activity
                         return true;
                     }
                 });
-
-                TextView textView = popupView.findViewById(R.id.textAddItemToOrder);
-                textView.setText(R.string.remove_item_from_order);
 
                 final Button confirmButton = popupView.findViewById(R.id.buttonPopupConfirm);
                 confirmButton.setOnClickListener(new View.OnClickListener()
@@ -214,10 +228,52 @@ public class CreateOrderActivity extends Activity
 
     public void buttonConfirmOrderOnClick(View v)
     {
-        AccessOrders accessOrders = new AccessOrders();
-        accessOrders.insertOrder(order);
+        final LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = inflater.inflate(R.layout.popup_order_note_confirm, null);
 
-        Intent homeIntent = new Intent(CreateOrderActivity.this, HomeActivity.class);
-        CreateOrderActivity.this.startActivity(homeIntent);
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
+        popupWindow.showAtLocation(menuItemsListView, Gravity.CENTER, 0, 0);
+
+        popupView.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent)
+            {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
+
+        final EditText editTextInstructions = popupView.findViewById((R.id.editTextInstructions));
+        editTextInstructions.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                order.setNote(editTextInstructions.getText().toString());
+            }
+        });
+
+        final Button confirmButton = popupView.findViewById(R.id.buttonPopupConfirm);
+        confirmButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                AccessOrders accessOrders = new AccessOrders();
+                accessOrders.insertOrder(order);
+
+                Intent homeIntent = new Intent(CreateOrderActivity.this, HomeActivity.class);
+                CreateOrderActivity.this.startActivity(homeIntent);
+            }
+        });
     }
 }

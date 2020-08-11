@@ -24,6 +24,7 @@ public class Order
         this.reservationID = reservationID;
         order = new ArrayList<>();
         totalPrice = 0;
+        note = "";
     }
 
     public ArrayList<Item> getOrder() { return order; }
