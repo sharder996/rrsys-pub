@@ -11,8 +11,7 @@ public class Order
 {
     private int reservationID;
     private ArrayList<Item> order;
-    private double totalPrice;
-    private String note;    // dietary requirements, etc.
+    private int lineItem; //only ever incremented, same functionality as database
     public static int PREPARATION_TIME = 1000 * 3600 * 1;  // amount of time required for order preparation
 
     public Order(int reservationID)
@@ -23,34 +22,83 @@ public class Order
         }
         this.reservationID = reservationID;
         order = new ArrayList<>();
-        totalPrice = 0;
-        note = "";
+        lineItem = 0;
     }
 
     public ArrayList<Item> getOrder() { return order; }
-    public String getNote() { return note; }
-    public double getPrice() { return totalPrice; }
     public int getReservationID() { return reservationID; }
+    public int size() { return order.size(); }
 
-    public void setNote(String note) { this.note = note; }
-
-    public void addItem(Item newItem)
+    public void addItem(Item newItem, String note)
     {
         if(newItem != null)
         {
+            newItem.setLineItem(lineItem++);
+            newItem.setNote(note);
             order.add(newItem);
-            totalPrice += newItem.getPrice();
         }
     }
 
-    public void deleteItem(Item item)
+    public void deleteItem(int lineItem)
     {
-        if(order.contains(item))
+        for(int i = 0; i < getOrder().size(); i++)
         {
-            order.remove(item);
-            totalPrice -= item.getPrice();
+            if(getOrder().get(i).getLineItem() == lineItem)
+            {
+                order.remove(i);
+                break;
+            }
         }
     }
 
-    public int size() { return order.size(); }
+    public String getNote(int lineItem)
+    {
+        String noteResult = null;
+        for(int i = 0; i < getOrder().size(); i++)
+        {
+            if(order.get(i).getLineItem() == lineItem)
+            {
+                noteResult = order.get(i).getNote();
+                break;
+            }
+        }
+        return noteResult;
+    }
+
+    public Item getItem(int lineItem)
+    {
+        Item itemResult = null;
+        for(int i = 0; i < getOrder().size(); i++)
+        {
+            if(order.get(i).getLineItem() == lineItem)
+            {
+                itemResult = order.get(i);
+                break;
+            }
+        }
+        return itemResult;
+    }
+
+    public void setNote(String note, int lineItem)
+    {
+        for(int i = 0; i < getOrder().size(); i++)
+        {
+            if(order.get(i).getLineItem() == lineItem)
+            {
+                order.get(i).setNote(note);
+                break;
+            }
+        }
+    }
+
+    public double getTotalPrice()
+    {
+        double total = 0.0;
+        for(int i  = 0; i < order.size(); i++)
+        {
+            total += order.get(i).getPrice();
+        }
+        return total;
+    }
+
 }
