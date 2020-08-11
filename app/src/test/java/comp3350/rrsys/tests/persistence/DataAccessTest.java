@@ -123,7 +123,6 @@ public class DataAccessTest extends TestCase
         table = tables.get(0);
         assertEquals(1, table.getTID());
         assertEquals(2, table.getCapacity());
-
     }
 
     public void testGetTableExists()

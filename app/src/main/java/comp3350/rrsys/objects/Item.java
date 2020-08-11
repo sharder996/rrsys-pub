@@ -47,8 +47,8 @@ public class Item
     public void setName(String name) { this.name = name; }
     public void setType(String type) { this.type = type; }
     public void setDetail(String detail) { this.detail = detail; }
-    public void setLineItem(int lineItem ) { this.lineItem = lineItem; }
-    public void setNote(String note ) { this.note = note; }
+    public void setLineItem(int lineItem) { this.lineItem = lineItem; }
+    public void setNote(String note) { this.note = note; }
 
     public void setItemID(int itemID)
     {

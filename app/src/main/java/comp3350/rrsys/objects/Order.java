@@ -29,7 +29,6 @@ public class Order
     public int getReservationID() { return reservationID; }
     public int size() { return order.size(); }
 
-    //TODO: add tests for these functions
     public void addItem(Item newItem, String note)
     {
         if(newItem != null)
@@ -42,7 +41,7 @@ public class Order
 
     public void deleteItem(int lineItem)
     {
-        for(int i = 0; i < getOrder().size(); i++ )
+        for(int i = 0; i < getOrder().size(); i++)
         {
             if(getOrder().get(i).getLineItem() == lineItem)
             {
@@ -52,10 +51,10 @@ public class Order
         }
     }
 
-    public String getNote(int lineItem )
+    public String getNote(int lineItem)
     {
         String noteResult = null;
-        for(int i = 0; i < getOrder().size(); i++ )
+        for(int i = 0; i < getOrder().size(); i++)
         {
             if(order.get(i).getLineItem() == lineItem)
             {
@@ -69,7 +68,7 @@ public class Order
     public Item getItem(int lineItem)
     {
         Item itemResult = null;
-        for(int i = 0; i < getOrder().size(); i++ )
+        for(int i = 0; i < getOrder().size(); i++)
         {
             if(order.get(i).getLineItem() == lineItem)
             {
@@ -82,7 +81,7 @@ public class Order
 
     public void setNote(String note, int lineItem)
     {
-        for(int i = 0; i < getOrder().size(); i++ )
+        for(int i = 0; i < getOrder().size(); i++)
         {
             if(order.get(i).getLineItem() == lineItem)
             {

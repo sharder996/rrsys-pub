@@ -38,12 +38,12 @@ public class TestAccessOrders extends TestCase
         Order newOrder1 = new Order(1);
         Order newOrder2 = new Order(2);
 
-        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
-        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
-        Item dish2 = new Item(3, "Turkey Burger", "Sandwich", "Turkey",12.99 );
-        Item dish3 = new Item(4, "Turkey Burger", "Sandwich", "Turkey",12.77 );
-        Item dish4 = new Item(5, "Turkey Burger", "Sandwich", "Turkey",12.73 );
-        Item dish5 = new Item(6, "Turkey Burger", "Sandwich", "Turkey",12.22 );
+        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
+        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
+        Item dish2 = new Item(3, "Turkey Burger", "Sandwich", "Turkey",12.99);
+        Item dish3 = new Item(4, "Turkey Burger", "Sandwich", "Turkey",12.77);
+        Item dish4 = new Item(5, "Turkey Burger", "Sandwich", "Turkey",12.73);
+        Item dish5 = new Item(6, "Turkey Burger", "Sandwich", "Turkey",12.22);
 
         newOrder.addItem(dish, "");
         newOrder.addItem(dish1, "");
@@ -120,12 +120,12 @@ public class TestAccessOrders extends TestCase
 
         Order newOrder = new Order(1);
 
-        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
-        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
-        Item dish2 = new Item(3, "Turkey Burger", "Sandwich", "Turkey",12.99 );
-        Item dish3 = new Item(4, "Turkey Burger", "Sandwich", "Turkey",12.77 );
-        Item dish4 = new Item(5, "Turkey Burger", "Sandwich", "Turkey",12.73 );
-        Item dish5 = new Item(6, "Turkey Burger", "Sandwich", "Turkey",12.22 );
+        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
+        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
+        Item dish2 = new Item(3, "Turkey Burger", "Sandwich", "Turkey",12.99);
+        Item dish3 = new Item(4, "Turkey Burger", "Sandwich", "Turkey",12.77);
+        Item dish4 = new Item(5, "Turkey Burger", "Sandwich", "Turkey",12.73);
+        Item dish5 = new Item(6, "Turkey Burger", "Sandwich", "Turkey",12.22);
 
         double totalPrice = dish.getPrice() +dish1.getPrice() +dish2.getPrice() +dish3.getPrice() +dish4.getPrice() +dish5.getPrice();
         newOrder.addItem(dish, "");
@@ -171,8 +171,8 @@ public class TestAccessOrders extends TestCase
 
         Order newOrder = new Order(3);
 
-        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
-        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
+        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
+        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
 
         newOrder.addItem(dish, "");
         newOrder.addItem(dish1, "");
@@ -224,8 +224,8 @@ public class TestAccessOrders extends TestCase
 
         Order newOrder = new Order(6);
 
-        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
-        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
+        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
+        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
 
         newOrder.addItem(dish, "");
         newOrder.addItem(dish1, "");
@@ -254,8 +254,8 @@ public class TestAccessOrders extends TestCase
 
         Order newOrder = new Order(7);
 
-        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
-        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
+        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
+        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
 
         newOrder.addItem(dish, "");
         newOrder.addItem(dish1, "");

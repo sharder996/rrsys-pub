@@ -108,14 +108,6 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
-    /*
-        TODO:
-        public void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t)
-        private void setTable(int tID, int month, int day, int startIndex, int endIndex, boolean bool)
-        public String insertReservation(Reservation r)
-     */
-
-
     public Reservation getReservation(int reservationID)
     {
         Reservation reservation;
@@ -636,7 +628,8 @@ public class DataAccessObject implements DataAccess
         noteCopy = note;
         if(noteCopy != null)
         {
-            for (char c : illegalChars) {
+            for (char c : illegalChars)
+            {
                 cleansedNote = noteCopy.replace(c, ' ');
             }
         }
@@ -644,10 +637,8 @@ public class DataAccessObject implements DataAccess
         {
             cleansedNote = "NULL";
         }
-
         try
         {
-
             values = resID
                     + ", " + lineItem
                     + ", " + item.getItemID()
@@ -682,61 +673,6 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
-    //TODO: to be removed once refactored
-    /*
-    public String insertOrder(Order order)
-    {
-        ArrayList<Item> items;
-        items = order.getOrder();
-        ArrayList<Integer> quantities = new ArrayList<>();
-        String values;
-        result = null;
-
-        int i = 0;
-        Item current;
-        boolean duplicate;
-        while(i < items.size())
-        {
-            current = items.get(i);
-            duplicate = false;
-            for(int j = 0; j < i && !duplicate; j++)
-            {
-                if(current.equals(items.get(j)))
-                {
-                    quantities.set(j,quantities.get(j)+1);
-                    items.remove(i);
-                    duplicate = true;
-                }
-            }
-            if(!duplicate)
-            {
-                quantities.add(1);
-                i++;
-            }
-        }
-        try
-        {
-            for(int k  = 0 ; k < items.size(); k++)
-            {
-                values = order.getReservationID()
-                        + ", " + items.get(k).getItemID()
-                        + ", " + quantities.get(k)
-                        + ", '" + order.getNote()
-                        + "'";
-
-                cmdString = "INSERT into ORDERS VALUES(" + values + ")";
-                updateCount = st1.executeUpdate(cmdString);
-                result = checkWarning(st1, updateCount);
-            }
-        }
-        catch(Exception e)
-        {
-            result = processSQLError(e);
-        }
-        return result;
-    }
-    */
-
     public Order getOrder(int rID)
     {
         ArrayList<String> notes;
@@ -766,7 +702,6 @@ public class DataAccessObject implements DataAccess
             }
             rs2.close();
 
-
             for(int i = 0; i < itemID.size(); i++)
             {
                 cmdString = "SELECT * from MENU where IID=" + itemID.get(i);
@@ -780,11 +715,9 @@ public class DataAccessObject implements DataAccess
                     price = rs1.getDouble("PRICE");
                     item = new Item(itemID.get(i), name, type, detail, price);
                     orderResult.addItem(item, notes.get(i));
-
                 }
                 rs1.close();
             }
-
         }
         catch(Exception e)
         {
@@ -800,7 +733,7 @@ public class DataAccessObject implements DataAccess
         String values, where, noteCopy, cleansedNote = null;
 
         noteCopy = note;
-        for ( char c : illegalChars )
+        for (char c : illegalChars)
         {
             cleansedNote = noteCopy.replace( c, ' ');
         }

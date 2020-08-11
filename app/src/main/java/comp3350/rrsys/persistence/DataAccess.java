@@ -70,7 +70,4 @@ public interface DataAccess
     String setNote(int resID, int lineItem, String note);
 
     double getPrice(int resID);
-
-    //String insertOrder(Order order); //TODO: remove once refactored
-
 }

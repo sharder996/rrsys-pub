@@ -19,8 +19,6 @@ public class DataAccessStub implements DataAccess {
     private String dbName;
     private static String dbType = "stub";
 
-    //TODO: remove this variable?
-    //private int customerID;
     private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
@@ -235,7 +233,6 @@ public class DataAccessStub implements DataAccess {
         }
 
         // generate items in menu
-        //Item(String name, String type, String detail, double price)
         Item salad, sandwich, burger, main, dessert, drink;
         salad = new Item(1, "SPECIAL SALAD", "Salads", "romaine lettuce, arugula, red cabbage, carrot, red onion & toasted sunflower seeds.", 9.95);
         insertItem(salad);
@@ -468,9 +465,7 @@ public class DataAccessStub implements DataAccess {
             orderResult.addItem(item, note);
             orders.set(index, orderResult);
         }
-
         return result;
-
     }
 
     public String removeItemFromOrder(int resID, int lineItem)
@@ -505,24 +500,6 @@ public class DataAccessStub implements DataAccess {
         }
         return orderResult;
     }
-
-    /* Dead Code?
-    public int getSize(int reservationID)
-    {
-        if(reservationID < 0)
-            throw new IllegalArgumentException("Invalid reservationID");
-
-        int size = 0;
-        for(int i=0; i < orders.size(); i++)
-        {
-            if(orders.get(i).getReservationID() == reservationID)
-            {
-                size = orders.get(i).size();
-            }
-        }
-        return size;
-    }
-     */
 
     public int getNextReservationID()
     {
@@ -565,6 +542,5 @@ public class DataAccessStub implements DataAccess {
             orders.set(index, orderToChange);
         }
         return null;
-
     }
 }
