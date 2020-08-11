@@ -14,6 +14,7 @@ import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.persistence.DataAccess;
 import comp3350.rrsys.persistence.DataAccessObject;
+import comp3350.rrsys.persistence.DataAccessStub;
 
 public class DataAccessTest extends TestCase
 {
@@ -42,8 +43,6 @@ public class DataAccessTest extends TestCase
     {
         System.out.println("Finished Persistence test DataAccess (using db)");
     }
-
-
 
     public void testCustomerDatabaseTable()
     {
@@ -198,7 +197,7 @@ public class DataAccessTest extends TestCase
         result = dataAccess.getReservationSequential(reservations);
 
         assertNull(result);
-        assertEquals(5, reservations.size()); //if this test is being done in a suite
+        assertEquals(7, reservations.size());
 
         reservation = reservations.get(0);
 
@@ -222,7 +221,6 @@ public class DataAccessTest extends TestCase
         menuTypes = null;
         menuTypes = dataAccess.getMenuTypes();
         assertNotNull(menuTypes);
-
     }
 
     public void testMenuGetByType()
@@ -286,6 +284,99 @@ public class DataAccessTest extends TestCase
 
     public void testInsertOrder()
     {
+        Order order;
+
+        order = dataAccess.getOrder(1);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.getOrder().get(i).getName());
+        }
+        System.out.println();
+        order = dataAccess.getOrder(2);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.getOrder().get(i).getName());
+        }
+        System.out.println();
+        order = dataAccess.getOrder(3);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.getOrder().get(i).getName());
+        }
+        System.out.println();
+        order = dataAccess.getOrder(4);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.getOrder().get(i).getName());
+        }
+        System.out.println();
+    }
+
+    public void testInsertIntoNewOrder()
+    {
+        Item dish, dish1;
+        String result;
+        Reservation newReservation = null;
+        Calendar currDate = Calendar.getInstance();
+
+        try
+        {
+            DateTime startTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 12, 0));
+            DateTime endTime= new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 14, 0));
+            newReservation = new Reservation(4,10,4, startTime, endTime);
+        }
+        catch(IllegalArgumentException e)
+        {
+            fail();
+        }
+        System.out.println();
+
+        newReservation.setRID(5);
+        dataAccess.insertReservation(newReservation);
+
+        dish = new Item(1,"SPECIAL SALAD","Salads","A",9.95);
+        dish1 = new Item(2,"SPINACH SALAD","Salads","B",10.95);
+
+        result = dataAccess.insertItemIntoOrder(newReservation.getRID(), dish, "");
+        assertNull(result);
+        assertTrue(dataAccess.getOrder(newReservation.getRID()).getOrder().size() == 1);
+
+        result = dataAccess.insertItemIntoOrder(newReservation.getRID(), dish1, "");
+        assertNull(result);
+
+        assertTrue(dataAccess.getOrder(newReservation.getRID()).getOrder().size() == 2);
+        assertEquals(dataAccess.getOrder(newReservation.getRID()).getItem(0).getName(), dish.getName());
+        assertEquals(dataAccess.getOrder(newReservation.getRID()).getItem(1).getName(), dish1.getName());
+
+    }
+
+    public void testInsertExistingOrder()
+    {
+        Order order;
+        Item item;
+        String result;
+
+        order = dataAccess.getOrder(1);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.getOrder().get(i).getName());
+        }
+        System.out.println();
+        item = dataAccess.getMenu().get(0);
+        result = dataAccess.insertItemIntoOrder(1, item, "");
+        assertNull(result);
+
+        order = dataAccess.getOrder(1);
+        for(int i = 0; i < order.size(); i++)
+        {
+            System.out.println(order.getOrder().get(i).getName());
+        }
+        System.out.println();
+    }
+
+    public void testDeleteFromExistingOrder()
+    {
+
         Order newOrder;
         Item item, item1;
         String result;
@@ -302,10 +393,11 @@ public class DataAccessTest extends TestCase
         {
             fail();
         }
+        System.out.println();
 
         assertNotNull(newReservation);
 
-        newReservation.setRID(5);
+        newReservation.setRID(6);
         result = dataAccess.insertReservation(newReservation);
         assertNull(result);
 
@@ -316,9 +408,109 @@ public class DataAccessTest extends TestCase
         item = dataAccess.getMenu().get(0); //item ID = 1
         item1 = dataAccess.getMenu().get(1); //item ID = 2
 
-        newOrder.addItem(item);
-        newOrder.addItem(item1);
+        newOrder.addItem(item, "");
+        newOrder.addItem(item1, "");
 
-        assertTrue(dataAccess.insertOrder(newOrder));
+        assertNull(dataAccess.insertItemIntoOrder(newReservation.getRID(), newOrder.getItem(0), newOrder.getItem(0).getNote()));
+        assertNull(dataAccess.insertItemIntoOrder(newReservation.getRID(), newOrder.getItem(1), newOrder.getItem(1).getNote()));
+        assertEquals(2, dataAccess.getOrder(6).size());
+
+        assertNull(dataAccess.removeItemFromOrder(newReservation.getRID(), newOrder.getItem(1).getLineItem()));
+        assertEquals(1, dataAccess.getOrder(6).size());
+    }
+
+    public void testGetPrice()
+    {
+        Order newOrder;
+        Item item, item1;
+        String result;
+        Reservation newReservation = null;
+        Calendar currDate = Calendar.getInstance();
+
+        try
+        {
+            DateTime startTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 12, 0));
+            DateTime endTime= new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 14, 0));
+            newReservation = new Reservation(4,10,4, startTime, endTime);
+        }
+        catch(IllegalArgumentException e)
+        {
+            fail();
+        }
+        System.out.println();
+
+        assertNotNull(newReservation);
+
+        newReservation.setRID(7);
+        result = dataAccess.insertReservation(newReservation);
+        assertNull(result);
+
+        newOrder = new Order(newReservation.getRID());
+
+        assertNotNull(newOrder);
+
+        item = dataAccess.getMenu().get(0); //item ID = 1
+        item1 = dataAccess.getMenu().get(1); //item ID = 2
+        double orderPrice = item.getPrice() + item1.getPrice();
+
+        newOrder.addItem(item, "");
+        newOrder.addItem(item1, "");
+
+        assertNull(dataAccess.insertItemIntoOrder(newReservation.getRID(), newOrder.getItem(0), newOrder.getItem(0).getNote()));
+        assertNull(dataAccess.insertItemIntoOrder(newReservation.getRID(), newOrder.getItem(1), newOrder.getItem(1).getNote()));
+        assertEquals(orderPrice, dataAccess.getOrder(7).getTotalPrice());
+
+        assertNull(dataAccess.removeItemFromOrder(newReservation.getRID(), newOrder.getItem(1).getLineItem()));
+        orderPrice -= newOrder.getItem(0).getPrice();
+        assertEquals(orderPrice, dataAccess.getOrder(7).getTotalPrice());
+    }
+
+    public void testAddNotes()
+    {
+        Order newOrder;
+        Item item, item1;
+        String result;
+        Reservation newReservation = null;
+        Calendar currDate = Calendar.getInstance();
+
+        try
+        {
+            DateTime startTime = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 12, 0));
+            DateTime endTime= new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 14, 0));
+            newReservation = new Reservation(4,10,4, startTime, endTime);
+        }
+        catch(IllegalArgumentException e)
+        {
+            fail();
+        }
+        System.out.println();
+
+        assertNotNull(newReservation);
+
+        newReservation.setRID(8);
+        result = dataAccess.insertReservation(newReservation);
+        assertNull(result);
+
+        newOrder = new Order(newReservation.getRID());
+
+        assertNotNull(newOrder);
+
+        item = dataAccess.getMenu().get(0); //item ID = 1
+        item1 = dataAccess.getMenu().get(1); //item ID = 2
+        double orderPrice = item.getPrice() + item1.getPrice();
+
+        newOrder.addItem(item, "");
+        newOrder.addItem(item1, "");
+
+        assertNull(dataAccess.insertItemIntoOrder(newReservation.getRID(), newOrder.getItem(0), newOrder.getItem(0).getNote()));
+        assertNull(dataAccess.insertItemIntoOrder(newReservation.getRID(), newOrder.getItem(1), newOrder.getItem(1).getNote()));
+        assertEquals("", dataAccess.getOrder(8).getItem(0).getNote());
+        assertEquals("", dataAccess.getOrder(8).getItem(1).getNote());
+
+        assertNull(dataAccess.setNote(newReservation.getRID(), newOrder.getItem(1).getLineItem(), "Extra mustard"));
+        assertEquals("Extra mustard", dataAccess.getOrder(8).getItem(0).getNote());
+
+        assertNull(dataAccess.setNote(newReservation.getRID(), newOrder.getItem(1).getLineItem(), "Toasted"));
+        assertEquals("Toasted", dataAccess.getOrder(8).getItem(0).getNote());
     }
 }

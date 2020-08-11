@@ -93,7 +93,7 @@ public class CreateOrderActivity extends Activity
                     @Override
                     public void onClick(View view)
                     {
-                        order.addItem(selected);
+                        order.addItem(selected, ""); //TODO: Dynamically add notes
                         popupWindow.dismiss();
                     }
                 });
@@ -173,7 +173,8 @@ public class CreateOrderActivity extends Activity
                     @Override
                     public void onClick(View view)
                     {
-                        order.deleteItem(selected);
+                        //order.deleteItem(selected); //TODO: this needs to be changed to find a lineitem in order to remove item
+                        order.deleteItem(1);//temp until change so can test changes
                         orderArrayAdapter.notifyDataSetChanged();
                         popupWindow.dismiss();
                     }
@@ -215,7 +216,7 @@ public class CreateOrderActivity extends Activity
     public void buttonConfirmOrderOnClick(View v)
     {
         AccessOrders accessOrders = new AccessOrders();
-        accessOrders.insertOrder(order);
+        accessOrders.insertItemNewOrder(order.getOrder(), order.getReservationID()); //TODO: review adding new order, make changes to an order
 
         Intent homeIntent = new Intent(CreateOrderActivity.this, HomeActivity.class);
         CreateOrderActivity.this.startActivity(homeIntent);
