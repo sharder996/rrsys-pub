@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -93,7 +94,8 @@ public class CreateOrderActivity extends Activity
                     @Override
                     public void onClick(View view)
                     {
-                        order.addItem(selected, ""); //TODO: Dynamically add notes
+                        EditText note = findViewById(R.id.editTextNote);
+                        order.addItem(selected, note.getText().toString()); //TODO: Dynamically add notes
                         popupWindow.dismiss();
                     }
                 });
