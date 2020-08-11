@@ -173,8 +173,7 @@ public class CreateOrderActivity extends Activity
                     @Override
                     public void onClick(View view)
                     {
-                        //order.deleteItem(selected); //TODO: this needs to be changed to find a lineitem in order to remove item
-                        order.deleteItem(1);//temp until change so can test changes
+                        order.deleteItem(selected.getLineItem());
                         orderArrayAdapter.notifyDataSetChanged();
                         popupWindow.dismiss();
                     }
