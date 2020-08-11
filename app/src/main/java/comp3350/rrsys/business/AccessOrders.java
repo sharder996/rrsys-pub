@@ -17,7 +17,8 @@ public class AccessOrders
 
     public AccessOrders(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
 
-    public String insertItemNewOrder(ArrayList<Item> items, int resID) {
+    public String insertItemNewOrder(ArrayList<Item> items, int resID)
+    {
 
         String result = null;
         for(int i = 0; i < items.size(); i++)
