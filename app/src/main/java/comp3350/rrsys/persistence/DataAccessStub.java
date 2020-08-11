@@ -1,5 +1,6 @@
 package comp3350.rrsys.persistence;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -14,15 +15,17 @@ import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Order;
 
-public class DataAccessStub implements DataAccess
-{
+public class DataAccessStub implements DataAccess {
     private String dbName;
+    private static String dbType = "stub";
+
+    //TODO: remove this variable?
+    //private int customerID;
     private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
     private ArrayList<Item> menu;
     private ArrayList<Order> orders;
-    private static String dbType = "stub";
 
     public DataAccessStub(String dbName)
     {
@@ -232,7 +235,7 @@ public class DataAccessStub implements DataAccess
         }
 
         // generate items in menu
-        // Item(String name, String type, String detail, double price)
+        //Item(String name, String type, String detail, double price)
         Item salad, sandwich, burger, main, dessert, drink;
         salad = new Item(1, "SPECIAL SALAD", "Salads", "romaine lettuce, arugula, red cabbage, carrot, red onion & toasted sunflower seeds.", 9.95);
         insertItem(salad);
@@ -427,14 +430,141 @@ public class DataAccessStub implements DataAccess
         return available;
     }
 
-    public Boolean insertOrder(Order newOrder)
+    public String insertOrder(Order newOrder)
     {
         if(newOrder == null || newOrder.getReservationID() < 0)
-            return false;
+            return "fail";
 
         orders.add(newOrder);
-        return true;
+        return "success";
     }
 
-    public int getNextReservationID() { return -1; }
+    public String insertItemIntoOrder(int resID, Item item, String note)
+    {
+        String result = null;
+
+        if(resID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        //first check if order with resID exists, if not make new order
+        Order orderResult = null;
+        for(int i = 0; i < orders.size(); i++)
+        {
+            if(orders.get(i).getReservationID() == resID)
+            {
+                orderResult = orders.get(i);
+                break;
+            }
+        }
+        if(orderResult == null) {
+
+            orderResult = new Order(resID);
+            orderResult.addItem(item, note);
+            result = insertOrder(orderResult);
+        }
+        else
+        {
+            int index = orders.indexOf(orderResult);
+            orderResult.addItem(item, note);
+            orders.set(index, orderResult);
+        }
+
+        return result;
+
+    }
+
+    public String removeItemFromOrder(int resID, int lineItem)
+    {
+        if(resID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        Order orderToChange = null;
+        if(orders.contains(getOrder(resID)))
+        {
+            orderToChange = getOrder(resID);
+            int index = orders.indexOf(orderToChange);
+            orderToChange.deleteItem(lineItem);
+            orders.set(index, orderToChange);
+        }
+        return null;
+    }
+
+    public Order getOrder(int reservationID)
+    {
+        if(reservationID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        Order orderResult = null;
+        for(int i =0; i< orders.size(); i++)
+        {
+            if(orders.get(i).getReservationID() == reservationID)
+            {
+                orderResult = orders.get(i);
+                break;
+            }
+        }
+        return orderResult;
+    }
+
+    /* Dead Code?
+    public int getSize(int reservationID)
+    {
+        if(reservationID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        int size = 0;
+        for(int i=0; i < orders.size(); i++)
+        {
+            if(orders.get(i).getReservationID() == reservationID)
+            {
+                size = orders.get(i).size();
+            }
+        }
+        return size;
+    }
+     */
+
+    public int getNextReservationID()
+    {
+        int maxResID = 0;
+        if(orders != null)
+        {
+            for (Order order : orders)
+            {
+                if (order.getReservationID() > maxResID)
+                {
+                    maxResID = order.getReservationID() + 1;
+                }
+            }
+        }
+        return maxResID;
+    }
+
+    public double getPrice(int resID)
+    {
+        double totalPrice = 0.0;
+        if(resID > 0 && orders.contains(getOrder(resID)))
+        {
+            totalPrice = getOrder(resID).getTotalPrice();
+        }
+        return totalPrice;
+    }
+
+    @Override
+    public String setNote(int resID, int lineItem, String note) {
+
+        if(resID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        Order orderToChange = null;
+        if(orders.contains(getOrder(resID)))
+        {
+            orderToChange = getOrder(resID);
+            int index = orders.indexOf(orderToChange);
+            orderToChange.setNote(note,lineItem);
+            orders.set(index, orderToChange);
+        }
+        return null;
+
+    }
 }

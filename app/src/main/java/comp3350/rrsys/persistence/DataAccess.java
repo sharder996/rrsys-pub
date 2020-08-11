@@ -1,5 +1,6 @@
 package comp3350.rrsys.persistence;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,14 +53,24 @@ public interface DataAccess
 
     ArrayList<Item> getMenu();
 
-    ArrayList<Item> getMenuByType(String type);
+    String insertItem(Item newItem);
 
-    String insertItem(Item item);
+    ArrayList<Item> getMenuByType(String type);
 
     // DateTime Functions:
     DateTime getDateTime(DateTime time, int index);
 
     //Order Functions:
-    Boolean insertOrder(Order order);
+    Order getOrder(int reservationID);
+
+    String insertItemIntoOrder(int resID, Item item, String note);
+
+    String removeItemFromOrder(int resID, int lineItem);
+
+    String setNote(int resID, int lineItem, String note);
+
+    double getPrice(int resID);
+
+    //String insertOrder(Order order); //TODO: remove once refactored
 
 }

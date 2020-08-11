@@ -189,4 +189,25 @@ public class TestItem extends TestCase
 
         System.out.println("\nEnding testItemInvalidPriceEntries");
     }
+
+    public void testNotes()
+    {
+        System.out.println("\nStarting testNotes");
+
+        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
+        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
+
+        dish.setNote("Extra mustard");
+        assertEquals("Extra mustard", dish.getNote());
+
+        assertEquals("", dish1.getNote());
+
+        dish.setNote("Toasted");
+        assertEquals("Toasted", dish.getNote());
+
+        System.out.println("\nEnding testNotes");
+
+    }
+
+
 }

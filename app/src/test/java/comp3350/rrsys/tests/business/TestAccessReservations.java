@@ -255,7 +255,7 @@ public class TestAccessReservations extends TestCase
         Calendar cal = Calendar.getInstance();
         int year = cal.get(cal.YEAR);
         int month = cal.get(cal.MONTH);
-        int date = cal.get(cal.DATE);
+        int date = cal.get(cal.DATE) + 1;
         int maxDaysDifference = DateTime.MAX_DAYS_DIFFERENCE;
         int daysDifference = 0;
 
