@@ -10,7 +10,6 @@ import comp3350.rrsys.persistence.DataAccess;
 
 public class AccessOrders
 {
-    private static DataAccess dataAccessStatic;
     private DataAccess dataAccess;
 
     public AccessOrders() { dataAccess = Services.getDataAccess(Main.dbName); }
