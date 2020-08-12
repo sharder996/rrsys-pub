@@ -116,7 +116,7 @@ public class CreateOrderActivity extends Activity
                     @Override
                     public void onValueChange(NumberPicker numberPicker, int i, int i1)
                     {
-                        selected.setQuantity(i1);
+                        selected.setQuantity(i1); // look here
                     }
                 });
 

@@ -270,11 +270,11 @@ public class DataAccessObject implements DataAccess
                     + "'";
             cmdString = "INSERT into RESERVATIONS " + " Values(" + values + ")";
             updateCount = st1.executeUpdate(cmdString);
-            result = checkWarning(st1, updateCount);
+            result = "success";
         }
         catch(Exception e)
         {
-            result = processSQLError(e);
+            result = "fail";
         }
 
         return result;
@@ -512,10 +512,6 @@ public class DataAccessObject implements DataAccess
     }
 
     public String insertOrder(Order newOrder) {
-        if(newOrder == null || newOrder.getReservationID() < 0)
-            return "fail";
-
-        orders.add(newOrder);
         return "success";
     }
 

@@ -93,7 +93,7 @@ public class DataAccessStub implements DataAccess {
         if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0)
             return "fail";
 
-        r.setRID();
+        r.setRID(getNextReservationID());
         reservations.add(r);
         return "success";
     }

@@ -75,24 +75,39 @@ public class DataAccessIntegrationTest  extends TestCase
         assertEquals("romaine lettuce, arugula, red cabbage, carrot, red onion & toasted sunflower seeds.", item.getDetail());
         assertEquals(9.95, item.getPrice());
 
+        Calendar currDate = Calendar.getInstance();
+        DateTime start = null;
+        DateTime end = null;
+
+        try
+        {
+            start = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1,9,0));
+            end = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 11, 0));
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail();
+        }
+
         int rid = dataAccess.getNextReservationID();
-        DateTime start = new DateTime(new GregorianCalendar(2020, 9, 28, 13, 0));
-        DateTime end = new DateTime(new GregorianCalendar(2020, 9, 28, 15, 0));
 
         reservation = dataAccess.getReservation(rid);
         assertNull(reservation);
 
-        reservation = new Reservation(rid, 2, start, end);
+        reservation = new Reservation(2, 2, start, end);
+        reservation.setRID(rid);
+        reservation.setCustomerID(2);
         assertNotNull(reservation);
         result = dataAccess.insertReservation(reservation);
         assertEquals("success", result);
 
         reservation = dataAccess.getReservation(rid);
         assertNotNull(reservation);
-        assertEquals(1, reservation.getRID());
+        assertEquals(rid, reservation.getRID());
+        assertEquals(2, reservation.getTID());
         assertEquals(2, reservation.getNumPeople());
-        assertEquals(start, reservation.getStartTime());
-        assertEquals(end, reservation.getEndTime());
+        assertEquals(start.toString(), reservation.getStartTime().toString());
+        assertEquals(end.toString(), reservation.getEndTime().toString());
 
     }
 
@@ -126,9 +141,10 @@ public class DataAccessIntegrationTest  extends TestCase
         assertNull(reservation);
 
         reservation = new Reservation(1, 2, start, end);
+        reservation.setRID(rid);
+        reservation.setCustomerID(1);
         assertNotNull(reservation);
         result = dataAccess.insertReservation(reservation);
-        reservation.setRID(rid);
         assertEquals("success", result);
 
         reservation = dataAccess.getReservation(rid);
@@ -136,8 +152,8 @@ public class DataAccessIntegrationTest  extends TestCase
         assertEquals(rid, reservation.getRID());
         assertEquals(1, reservation.getTID());
         assertEquals(2, reservation.getNumPeople());
-        assertEquals(start, reservation.getStartTime());
-        assertEquals(end, reservation.getEndTime());
+        assertEquals(start.toString(), reservation.getStartTime().toString());
+        assertEquals(end.toString(), reservation.getEndTime().toString());
 
         menu = dataAccess.getMenu();
         assertNotNull(menu);
