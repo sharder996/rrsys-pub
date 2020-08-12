@@ -8,30 +8,28 @@
     android:rowCount="4">
 
     <TextView
-        android:id="@+id/textAddItemToOrder"
+        android:id="@+id/textConfirmOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/add_item_to_order"
+        android:text="@string/confirm_order"
         android:textSize="16sp"
         android:layout_columnSpan="2" />
 
     <TextView
-        android:id="@+id/textQuantity"
+        android:id="@+id/textCustomizeOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="75dp"
-        android:text="@string/quantity"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:text="@string/customize_order" />
 
-    <NumberPicker
-        android:id="@+id/editQuantity"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/editTextInstructions"
+        android:layout_width="200dp"
+        android:inputType="text"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="44dp" />
+        android:layout_marginEnd="@dimen/activity_horizontal_margin" />
 
     <Button
         android:id="@+id/buttonPopupConfirm"
