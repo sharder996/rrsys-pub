@@ -10,8 +10,7 @@
         android:text="@string/reservation_details"
         android:textSize="24sp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="100dp"
-   />
+        android:layout_marginTop="100dp"/>
 
     <TextView
         android:id="@+id/textDateLabel"
@@ -20,8 +19,7 @@
         android:text="@string/pick_date"
         android:textSize="18sp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="190dp"
-        />
+        android:layout_marginTop="190dp"/>
 
     <TextView
         android:id="@+id/textDateInfo"
@@ -30,8 +28,7 @@
         android:text="*date info*"
         android:textSize="18sp"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="190dp"
-       />
+        android:layout_marginTop="190dp"/>
 
 
     <TextView
@@ -41,8 +38,7 @@
         android:text="@string/time"
         android:textSize="18sp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="230dp"
-      />
+        android:layout_marginTop="230dp"/>
 
     <TextView
         android:id="@+id/textTimeInfo"
@@ -51,8 +47,7 @@
         android:text="*time info*"
         android:textSize="18sp"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="230dp"
-        />
+        android:layout_marginTop="230dp"/>
 
     <TextView
         android:id="@+id/textNumberOfPeopleLabel"
@@ -61,8 +56,7 @@
         android:text="@string/number_of_people"
         android:textSize="18sp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="270dp"
-       />
+        android:layout_marginTop="270dp"/>
 
     <TextView
         android:id="@+id/textNumberOfPeopleInfo"
@@ -71,8 +65,7 @@
         android:text="*# people*"
         android:textSize="18sp"
         android:layout_marginStart="250dp"
-        android:layout_marginTop="270dp"
-        />
+        android:layout_marginTop="270dp"/>
 
     <TextView
         android:id="@+id/textReservationCode"
@@ -81,8 +74,7 @@
         android:text="@string/reservation_code"
         android:textSize="18sp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="310dp"
-       />
+        android:layout_marginTop="310dp"/>
 
     <TextView
         android:id="@+id/textReservationCodeInfo"
@@ -91,8 +83,7 @@
         android:text="*reservation code*"
         android:textSize="18sp"
         android:layout_marginStart="250dp"
-        android:layout_marginTop="310dp"
-        />
+        android:layout_marginTop="310dp"/>
 
     <Button
         android:id="@+id/buttonDone"
@@ -101,8 +92,7 @@
         android:text="@string/done"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:onClick="buttonDoneOnClick"
-        />
+        android:onClick="buttonDoneOnClick"/>
 
     <ExpandableListView
             android:layout_width="match_parent"

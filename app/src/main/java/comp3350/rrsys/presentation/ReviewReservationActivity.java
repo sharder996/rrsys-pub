@@ -41,13 +41,15 @@ public class ReviewReservationActivity extends Activity
 
         //if there is an order
         accessOrder = new AccessOrders();
-        if(accessOrder.getNextLineitem(Integer.parseInt(getIntent().getStringExtra("Code")))) {
+        if(accessOrder.getNextLineitem(Integer.parseInt(getIntent().getStringExtra("Code"))))
+        {
             List<String> parentList = new ArrayList<>();
             parentList.add("Total Price: $" + accessOrder.getPrice(Integer.parseInt(getIntent().getStringExtra("Code")))
-                    + " (" + accessOrder.getSize(Integer.parseInt(getIntent().getStringExtra("Code"))) + "items)");
+                    + " (" + accessOrder.getSize(Integer.parseInt(getIntent().getStringExtra("Code"))) + " items)");
 
             parentListItems = new LinkedHashMap<>();
-            for (String parent : parentList) {
+            for (String parent : parentList)
+            {
                 ArrayList<Item> items = accessOrder.getOrder(Integer.parseInt(getIntent().getStringExtra("Code"))).getOrder();
                 parentListItems.put(parent, items);
             }

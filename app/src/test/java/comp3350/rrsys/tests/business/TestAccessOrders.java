@@ -16,7 +16,7 @@ public class TestAccessOrders extends TestCase
 
     public void setUp()
     {
-        System.out.println("/nStarting TestAccessOrders");
+        System.out.println("\nStarting TestAccessOrders");
         accessOrders = new AccessOrders(new DataAccessStub(Main.dbName));
     }
 
