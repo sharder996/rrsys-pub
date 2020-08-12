@@ -265,9 +265,11 @@ public class TestAccessOrders extends TestCase
     {
         System.out.println("\nStarting testGetNextLineitem");
 
-        Order newOrder = new Order(1);
+        Order newOrder = new Order(8);
 
         assertNotNull(newOrder);
+
+        assertEquals(false, accessOrders.getNextLineitem(8));
 
         Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
         Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
@@ -279,7 +281,7 @@ public class TestAccessOrders extends TestCase
 
         assertEquals(true, accessOrders.getNextLineitem(1));
 
-        assertEquals(false, accessOrders.getNextLineitem(8));
+        //assertEquals(false, accessOrders.getNextLineitem(8));
         System.out.println("\nEnding testGetNextLineitem");
     }
 }
