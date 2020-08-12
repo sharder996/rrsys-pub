@@ -51,7 +51,10 @@ public class DataAccessStub implements DataAccess {
     // insert a reservation
     public String insertReservation(Reservation r)
     {
-        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0)
+        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0 || r.getCID() < 0)
+            return "fail";
+
+        if(r.getEndTime().getDate() != r.getStartTime().getDate() || r.getEndTime().getHour() - r.getStartTime().getHour() > 3)
             return "fail";
 
         r.setRID(getNextReservationID());

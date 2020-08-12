@@ -215,6 +215,13 @@ public class DataAccessObject implements DataAccess
         String values;
 
         result = null;
+
+        if(r.getRID() < 0 || r.getTID() < 0 || r.getCID() < 0)
+            return "fail";
+
+        if(r.getEndTime().getDate() != r.getStartTime().getDate() || r.getEndTime().getHour() - r.getStartTime().getHour() > 3)
+            return "fail";
+
         try
         {
             values = r.getRID()
