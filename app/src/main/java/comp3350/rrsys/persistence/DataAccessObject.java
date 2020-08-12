@@ -599,6 +599,24 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
+    public String removeOrder(int resID)
+    {
+        result = null;
+        try
+        {
+            cmdString = "DELETE from ORDERS where RID=" + resID;
+            updateCount = st0.executeUpdate(cmdString);
+            result = checkWarning(st0, updateCount);
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+    /*
     public String removeItemFromOrder(int resID, int lineItem)
     {
         result = null;
@@ -614,7 +632,7 @@ public class DataAccessObject implements DataAccess
         }
 
         return result;
-    }
+    }*/
 
     public Order getOrder(int rID)
     {

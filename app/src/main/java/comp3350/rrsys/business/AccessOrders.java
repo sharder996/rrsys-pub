@@ -16,32 +16,21 @@ public class AccessOrders
 
     public AccessOrders(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
 
-    public String insertOrder(Order order) { return insertItemNewOrder(order.getOrder(), order.getReservationID()); }
-
-    public String insertItemNewOrder(ArrayList<Item> items, int resID)
+    public String insertOrder(Order order)
     {
         String result = null;
 
+        ArrayList<Item> items = order.getOrder();
         for(int i = 0; i < items.size(); i++)
-            result = dataAccess.insertItemIntoOrder(resID, items.get(i), items.get(i).getNote());
+            result = dataAccess.insertItemIntoOrder(order.getReservationID(), items.get(i), items.get(i).getNote());
 
         return result;
     }
-
-    public String insertItemExistingOrder(int resID, Item item, String note) { return dataAccess.insertItemIntoOrder(resID, item, note); }
 
     public String removeOrder(int resID)
     {
-        String result = null;
-
-        int maxLineItem = dataAccess.getNextLineItem(resID);
-        for(int i = 1; i < maxLineItem; i++)
-            removeItemFromOrder(resID, i);
-
-        return result;
+        return dataAccess.removeOrder(resID);
     }
-
-    public String removeItemFromOrder(int resID, int lineItem) { return dataAccess.removeItemFromOrder(resID, lineItem); }
 
     public Order getOrder(int reservationID) { return dataAccess.getOrder(reservationID); }
 

@@ -51,7 +51,6 @@ public class CreateOrderActivity extends Activity
 
         accessMenu = new AccessMenu();
         accessOrders = new AccessOrders();
-        //order = new Order(Integer.parseInt(getIntent().getStringExtra("reservationID")));
         reservationID = Integer.parseInt(getIntent().getStringExtra("reservationID"));
         order = accessOrders.getOrder(reservationID);
 
@@ -103,7 +102,9 @@ public class CreateOrderActivity extends Activity
                     public void onClick(View view)
                     {
                         final EditText editTextInstructions = popupView.findViewById((R.id.editTextInstructions));
-                        order.addItem(selected, editTextInstructions.getText().toString());
+                        Item copy = new Item(selected.getItemID(), selected.getName(), selected.getType(), selected.getDetail(),  selected.getPrice());
+                        copy.setQuantity(selected.getQuantity());
+                        order.addItem(copy, editTextInstructions.getText().toString());
                         popupWindow.dismiss();
                     }
                 });
@@ -192,7 +193,7 @@ public class CreateOrderActivity extends Activity
                     @Override
                     public void onClick(View view)
                     {
-                        order.deleteItem(selected.getLineItem());
+                        order.deleteItem(selected);
                         orderArrayAdapter.notifyDataSetChanged();
                         popupWindow.dismiss();
                     }

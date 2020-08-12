@@ -488,4 +488,6 @@ public class DataAccessStub implements DataAccess {
 
         return 1;
      }
+
+     public String removeOrder(int resID){ return null; }
 }

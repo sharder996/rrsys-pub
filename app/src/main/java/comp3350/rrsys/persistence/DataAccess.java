@@ -55,11 +55,13 @@ public interface DataAccess
     ArrayList<Item> getMenuByType(String type);
 
     //Order Functions:
-    Order getOrder(int reservationID);
+    Order getOrder(int resID);
+
+    String removeOrder(int resID);
 
     String insertItemIntoOrder(int resID, Item item, String note);
 
-    String removeItemFromOrder(int resID, int lineItem);
+    //String removeItemFromOrder(int resID, int lineItem);
 
     int getNextLineItem(int resID);
 

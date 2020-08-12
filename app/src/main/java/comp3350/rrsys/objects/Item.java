@@ -34,11 +34,6 @@ public class Item
         note = "";
     }
 
-    public boolean equals(Item other)
-    {
-        return this.itemID == other.itemID;
-    }
-
     public int getItemID() { return itemID; }
     public String getName() { return name; }
     public String getType() { return type; }
@@ -118,11 +113,11 @@ public class Item
         }
     }
 
-    public boolean equal(Item newItem)
+    /*public boolean equal(Item other)
     {
-        return newItem.getItemID() == this.itemID && newItem.getName().equals(this.name) && newItem.getType().equals(this.type)
-                && newItem.getDetail().equals(this.detail) && newItem.getPrice() == this.price;
-    }
+        return other.itemID == this.itemID && other.name.equals(this.name) && other.type.equals(this.type)
+                && other.detail.equals(this.detail) && other.price == this.price;
+    }*/
 
     @Override
     public String toString()

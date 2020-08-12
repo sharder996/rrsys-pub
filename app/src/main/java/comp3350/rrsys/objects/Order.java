@@ -40,9 +40,21 @@ public class Order
 
     public void deleteItem(int lineItem)
     {
-        for(int i = 0; i < getOrder().size(); i++)
+        for(int i = 0; i < order.size(); i++)
         {
             if(order.get(i).getLineItem() == lineItem)
+            {
+                order.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void deleteItem(Item item)
+    {
+        for(int i = 0; i < order.size(); i++)
+        {
+            if(order.get(i).equals(item))
             {
                 order.remove(i);
                 break;
