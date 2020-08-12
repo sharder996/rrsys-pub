@@ -96,6 +96,7 @@ public class Order
         for(int i  = 0; i < order.size(); i++)
         {
             total += order.get(i).getPrice();
+            total = Math.round(total * 100.0) / 100.0;
         }
         return total;
     }

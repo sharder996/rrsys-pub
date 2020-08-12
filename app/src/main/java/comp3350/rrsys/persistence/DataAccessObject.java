@@ -511,6 +511,14 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
+    public String insertOrder(Order newOrder) {
+        if(newOrder == null || newOrder.getReservationID() < 0)
+            return "fail";
+
+        orders.add(newOrder);
+        return "success";
+    }
+
     public ArrayList<Item> getMenuByType(String type)
     {
         Item item;
@@ -717,7 +725,7 @@ public class DataAccessObject implements DataAccess
                     detail = rs1.getString("DETAIL");
                     price = rs1.getDouble("PRICE");
                     item = new Item(itemID.get(i), name, type, detail, price);
-                    item.setQuantity(quantities.get(i));
+                    item.setQuantity(quantities.get(i)); // look here
                     orderResult.addItem(item, notes.get(i));
                 }
                 rs1.close();

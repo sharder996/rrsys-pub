@@ -330,45 +330,52 @@ public class DataAccessStub implements DataAccess {
 
         // generate customer information
         // assume there are 100 customers
-        Random rand = new Random();
         String name = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        String randomFirstName = "";
-        String randomLastName = "";
+        String firstName = "";
+        String lastName = "";
 
         int length = 4;
+        int pos = 0;
+        int num = 200;
 
         for(int k = 1000; k <1100; k++)
         {
             // k is last four digits in phone number. (100 customers)
             //-------------------------------------------------------------------------
-            // generate random names
+            // generate names
             char[] first = new char[length];
             char[] last = new char[length + 2];
 
             for(int i = 0; i < length; i++)
-                first[i] = name.charAt(rand.nextInt(name.length()));
+            {
+                first[i] = name.charAt(pos);
+                pos = (pos + 1) % name.length();
+            }
 
             for(int i = 0; i < length; i++)
-                last[i] = name.charAt(rand.nextInt(name.length()));
+            {
+                last[i] = name.charAt(pos);
+                pos = (pos + 1) % name.length();
+            }
 
             for(int i = 0; i < first.length; i++)
-                randomFirstName += first[i];
+                firstName += first[i];
 
             for(int i = 0; i < last.length; i++)
-                    randomLastName += last[i];
+                    lastName += last[i];
 
             //-------------------------------------------------------------------------
-            // generate random phone numbers
-            int num1 = (rand.nextInt(7) + 1) * 100 + (rand.nextInt(8) * 10) + rand.nextInt(8);
-            int num2 = rand.nextInt(743);
-            int num3 = rand.nextInt(10000);
+            // generate phone numbers
+            int num1 = num++;
+            int num2 = num++;
+            int num3 = num++ + 2000;
 
             DecimalFormat df3 = new DecimalFormat("000");   // 3 zeros
             DecimalFormat df4 = new DecimalFormat("0000");  // 4 zeros
 
             String phoneNumber = df3.format(num1) + "-" + df3.format(num2) + "-" + df4.format(num3);
-            insertCustomer(randomFirstName, randomLastName, phoneNumber);
+            insertCustomer(firstName, lastName, phoneNumber);
         }
     }
 
