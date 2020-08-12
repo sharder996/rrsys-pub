@@ -263,7 +263,7 @@ public class TestAccessOrders extends TestCase
 
     public void testGetNextLineItem()
     {
-        System.out.println("\nStarting testGetNextLineItem");
+        System.out.println("\nStarting testGetNextLineitem");
 
         Order newOrder = new Order(8);
 
@@ -279,7 +279,7 @@ public class TestAccessOrders extends TestCase
 
         accessOrders.insertOrder(newOrder);
 
-        assertEquals(true, accessOrders.getNextLineItem(1));
+        assertEquals(true, accessOrders.getNextLineItem(8));
 
         System.out.println("\nEnding testGetNextLineitem");
     }
