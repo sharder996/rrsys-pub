@@ -79,7 +79,7 @@ public class AccessOrders
     {
        boolean exist = false;
 
-       if(dataAccess.getNextLineItem(resID) > 0)
+       if(dataAccess.getNextLineItem(resID) > 1)
        {
            exist = true;
        }
