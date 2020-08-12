@@ -27,16 +27,12 @@ public interface DataAccess
 
     String getReservationSequential(ArrayList<Reservation> reservationResult);
 
-    //void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
-
     int getNextReservationID();
 
     // Table Functions:
     String getTableSequential(ArrayList<Table> tableResult);
 
     Table getTableRandom(int tableID);
-
-    //boolean[] getAvailable(int TID, DateTime time);
 
     String addTable(int tableID, int size);
 
@@ -55,9 +51,6 @@ public interface DataAccess
     String insertItem(Item newItem);
 
     ArrayList<Item> getMenuByType(String type);
-
-    // DateTime Functions:
-    //DateTime getDateTime(DateTime time, int index);
 
     //Order Functions:
     Order getOrder(int reservationID);

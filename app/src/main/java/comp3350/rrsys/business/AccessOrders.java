@@ -29,14 +29,7 @@ public class AccessOrders
         return result;
     }
 
-    public String insertItemExistingOrder(int resID, Item item, String note)
-    {
-        String result = null;
-
-        result = dataAccess.insertItemIntoOrder(resID, item, note);
-
-        return result;
-    }
+    public String insertItemExistingOrder(int resID, Item item, String note) { return dataAccess.insertItemIntoOrder(resID, item, note); }
 
     public String removeOrder(int resID)
     {
@@ -49,14 +42,7 @@ public class AccessOrders
         return result;
     }
 
-    public String removeItemFromOrder(int resID, int lineItem)
-    {
-        String result = null;
-
-        result = dataAccess.removeItemFromOrder(resID, lineItem);
-
-        return result;
-    }
+    public String removeItemFromOrder(int resID, int lineItem) { return dataAccess.removeItemFromOrder(resID, lineItem); }
 
     public Order getOrder(int reservationID) { return dataAccess.getOrder(reservationID); }
 

@@ -8,8 +8,8 @@ import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.persistence.DataAccess;
 
-public class SuggestReservations {
-
+public class SuggestReservations
+{
     // return an array of suggested reservations in order
     // which has the same "length" as (endTime-startTime), which is rounded to integer multiple of 15 minutes (an inteval)
     // and start within 30 minutes (2 intervals) of the startTime (rouding to closest interval)
