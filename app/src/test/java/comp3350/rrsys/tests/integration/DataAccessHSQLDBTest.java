@@ -7,7 +7,7 @@ import comp3350.rrsys.application.Services;
 import comp3350.rrsys.persistence.DataAccess;
 import comp3350.rrsys.tests.persistence.DataAccessIntegrationTest;
 
-public class DataAccessHSQLDBTest  extends TestCase
+public class DataAccessHSQLDBTest extends TestCase
 {
     private static String dbName = Main.dbName;
 
