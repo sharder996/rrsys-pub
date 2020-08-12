@@ -69,7 +69,7 @@ public class ListAdapter extends BaseExpandableListAdapter
         }
 
         TextView textView = view.findViewById(R.id.textView1);
-        textView.setText(childName.toString());
+        textView.setText(childName.display());
         return view;
     }
 }
