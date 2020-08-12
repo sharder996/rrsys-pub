@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import comp3350.rrsys.R;
 import comp3350.rrsys.objects.Item;
@@ -17,6 +20,9 @@ import comp3350.rrsys.business.AccessOrders;
 
 public class ReviewReservationActivity extends Activity
 {
+    private AccessOrders accessOrder;
+    private Map<String, List<Item>> parentListItems;
+    private ExpandableListView orderListView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -33,14 +39,23 @@ public class ReviewReservationActivity extends Activity
         date.setText(getIntent().getStringExtra("Date"));
         numPeople.setText(getIntent().getStringExtra("People"));
 
-        AccessOrders accessOrder = new AccessOrders();
-        ExpandableListView orderList = findViewById(R.id.orderedList);
+        //if there is an order
+        accessOrder = new AccessOrders();
+        if(accessOrder.getNextLineitem(Integer.parseInt(getIntent().getStringExtra("Code")))) {
+            List<String> parentList = new ArrayList<>();
+            parentList.add("Total Price: $" + accessOrder.getPrice(Integer.parseInt(getIntent().getStringExtra("Code")))
+                    + " (" + accessOrder.getSize(Integer.parseInt(getIntent().getStringExtra("Code"))) + "items)");
 
-        HashMap<String, ArrayList<Item>> order = new HashMap<>();
-        ArrayList<Item> orderInfo = accessOrder.getOrder(Integer.parseInt(getIntent().getStringExtra("Code")));
+            parentListItems = new LinkedHashMap<>();
+            for (String parent : parentList) {
+                ArrayList<Item> items = accessOrder.getOrder(Integer.parseInt(getIntent().getStringExtra("Code"))).getOrder();
+                parentListItems.put(parent, items);
+            }
 
-        order.put("Ordered " + orderInfo.size() + "  " + accessOrder.getPrice(Integer.parseInt(getIntent().getStringExtra("Code"))), orderInfo);
-
+            orderListView = findViewById(R.id.expandListView);
+            final ExpandableListAdapter expandableListAdapter = new ListAdapter(this, parentList, parentListItems);
+            orderListView.setAdapter(expandableListAdapter);
+        }
     }
 
     @Override

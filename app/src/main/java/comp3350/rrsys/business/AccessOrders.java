@@ -19,7 +19,7 @@ public class AccessOrders
 
     public String insertOrder(Order order) { return insertItemNewOrder(order.getOrder(), order.getReservationID()); }
 
-    private String insertItemNewOrder(ArrayList<Item> items, int resID)
+    public String insertItemNewOrder(ArrayList<Item> items, int resID)
     {
         String result = null;
 
@@ -60,7 +60,6 @@ public class AccessOrders
 
     public Order getOrder(int reservationID) { return dataAccess.getOrder(reservationID); }
 
-    //GetPrice and size method should be used in confirmation page - Cody
     public double getPrice(int reservationID) throws IllegalArgumentException
     {
         if(reservationID < 0)
@@ -75,6 +74,18 @@ public class AccessOrders
     }
 
     public int getNextReservationID() { return dataAccess.getNextReservationID(); }
+
+    public boolean getNextLineitem(int resID)
+    {
+       boolean exist = false;
+
+       if(dataAccess.getNextLineItem(resID) > 0)
+       {
+           exist = true;
+       }
+
+        return exist;
+    }
 
 }
 

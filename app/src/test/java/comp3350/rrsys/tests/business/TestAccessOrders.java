@@ -53,6 +53,7 @@ public class TestAccessOrders extends TestCase
         newOrder.addItem(dish5, "");
 
         String result = accessOrders.insertItemNewOrder(newOrder.getOrder(), newOrder.getReservationID());
+
         assertNull(result);
 
         Order selectedItems = accessOrders.getOrder(newOrder.getReservationID());
@@ -236,14 +237,6 @@ public class TestAccessOrders extends TestCase
         assertEquals("",accessOrders.getOrder(newOrder.getReservationID()).getNote(0));
         assertEquals("",accessOrders.getOrder(newOrder.getReservationID()).getNote(1));
 
-        result = accessOrders.setNote(newOrder.getReservationID(), 0, "Extra mustard");
-        assertNull(result);
-        assertEquals("Extra mustard",accessOrders.getOrder(newOrder.getReservationID()).getNote(0));
-
-        result = accessOrders.setNote(newOrder.getReservationID(), 0, "Toasted");
-        assertNull(result);
-        assertEquals("Toasted",accessOrders.getOrder(newOrder.getReservationID()).getNote(0));
-
         System.out.println("\nEnding testUpdateNote");
     }
 
@@ -266,5 +259,27 @@ public class TestAccessOrders extends TestCase
         assertEquals(8, accessOrders.getNextReservationID());
 
         System.out.println("\nEnding testGetNextReservationID");
+    }
+
+    public void testGetNextLineitem()
+    {
+        System.out.println("\nStarting testGetNextLineitem");
+
+        Order newOrder = new Order(1);
+
+        assertNotNull(newOrder);
+
+        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
+        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
+
+        newOrder.addItem(dish, "");
+        newOrder.addItem(dish1, "");
+
+        accessOrders.insertOrder(newOrder);
+
+        assertEquals(true, accessOrders.getNextLineitem(1));
+
+        assertEquals(false, accessOrders.getNextLineitem(2));
+        System.out.println("\nEnding testGetNextLineitem");
     }
 }

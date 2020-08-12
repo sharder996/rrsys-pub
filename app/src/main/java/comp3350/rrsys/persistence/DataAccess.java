@@ -70,4 +70,5 @@ public interface DataAccess
     int getNextLineItem(int resID);
 
     double getPrice(int resID);
+
 }

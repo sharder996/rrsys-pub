@@ -527,5 +527,16 @@ public class DataAccessStub implements DataAccess {
         return totalPrice;
     }
 
-    public int getNextLineItem(int resID) { return 0; };
+    public int getNextLineItem(int resID) {
+        if(resID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        Order orderResult = null;
+        if(resID > 0 && orders.contains(getOrder(resID)))
+        {
+            return 1;
+        }
+
+        return 0;
+     }
 }
