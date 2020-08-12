@@ -50,6 +50,20 @@ public class Order
         }
     }
 
+    public String getNote(int lineItem)
+    {
+        String noteResult = null;
+        for(int i = 0; i < getOrder().size(); i++)
+        {
+            if(order.get(i).getLineItem() == lineItem)
+            {
+                noteResult = order.get(i).getNote();
+                break;
+            }
+        }
+        return noteResult;
+    }
+
     public Item getItem(int lineItem)
     {
         Item itemResult = null;
@@ -62,6 +76,18 @@ public class Order
             }
         }
         return itemResult;
+    }
+
+    public void setNote(String note, int lineItem)
+    {
+        for(int i = 0; i < getOrder().size(); i++)
+        {
+            if(order.get(i).getLineItem() == lineItem)
+            {
+                order.get(i).setNote(note);
+                break;
+            }
+        }
     }
 
     public double getTotalPrice()

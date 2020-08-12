@@ -526,4 +526,6 @@ public class DataAccessStub implements DataAccess {
         }
         return totalPrice;
     }
+
+    public int getNextLineItem(int resID) { return 0; };
 }

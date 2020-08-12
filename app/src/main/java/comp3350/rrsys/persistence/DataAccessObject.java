@@ -642,6 +642,7 @@ public class DataAccessObject implements DataAccess
             values = resID
                     + ", " + lineItem
                     + ", " + item.getItemID()
+                    + ", " + item.getQuantity()
                     + ", '" + cleansedNote
                     + "'";
 
@@ -677,14 +678,16 @@ public class DataAccessObject implements DataAccess
     {
         ArrayList<String> notes;
         ArrayList<Integer> itemID;
+        ArrayList<Integer> quantities;
         Order orderResult;
         Item item;
-        int iID;
+        int iID, quantity;
         String note, name, type, detail;
         double price;
 
         itemID = new ArrayList<>();
         notes = new ArrayList<>();
+        quantities = new ArrayList<>();
         orderResult = new Order(rID);
         try
         {
@@ -693,12 +696,12 @@ public class DataAccessObject implements DataAccess
 
             while(rs2.next())
             {
-                note = null;
-                note = rs2.getString("NOTE");
                 iID = rs2.getInt("IID");
+                quantity = rs2.getInt("QUANTITY");
+                note = rs2.getString("NOTE");
                 itemID.add(iID);
                 notes.add(note);
-
+                quantities.add(quantity);
             }
             rs2.close();
 
@@ -714,6 +717,7 @@ public class DataAccessObject implements DataAccess
                     detail = rs1.getString("DETAIL");
                     price = rs1.getDouble("PRICE");
                     item = new Item(itemID.get(i), name, type, detail, price);
+                    item.setQuantity(quantities.get(i));
                     orderResult.addItem(item, notes.get(i));
                 }
                 rs1.close();
@@ -757,7 +761,7 @@ public class DataAccessObject implements DataAccess
     }
 
     //returns 0 if no items in order
-    private int getNextLineItem(int resID) //make private after tests
+    public int getNextLineItem(int resID) //make private after tests
     {
         int nextLineItem = 0;
         try

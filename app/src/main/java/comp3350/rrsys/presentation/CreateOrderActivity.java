@@ -37,9 +37,10 @@ import comp3350.rrsys.objects.Order;
 public class CreateOrderActivity extends Activity
 {
     private AccessMenu accessMenu;
+    private AccessOrders accessOrders;
     private Map<String, List<Item>> parentListItems;
     private ExpandableListView menuItemsListView;
-
+    private int reservationID;
     private Order order;
 
     @Override
@@ -49,7 +50,10 @@ public class CreateOrderActivity extends Activity
         setContentView(R.layout.activity_order);
 
         accessMenu = new AccessMenu();
-        order = new Order(Integer.parseInt(getIntent().getStringExtra("reservationID")));
+        accessOrders = new AccessOrders();
+        //order = new Order(Integer.parseInt(getIntent().getStringExtra("reservationID")));
+        reservationID = Integer.parseInt(getIntent().getStringExtra("reservationID"));
+        order = accessOrders.getOrder(reservationID);
 
         List<String> parentList = accessMenu.getMenuTypes();
         parentListItems = new LinkedHashMap<>();
@@ -230,6 +234,7 @@ public class CreateOrderActivity extends Activity
     public void buttonConfirmOrderOnClick(View v)
     {
         AccessOrders accessOrders = new AccessOrders();
+        accessOrders.removeOrder(reservationID);
         accessOrders.insertOrder(order);
 
         Intent homeIntent = new Intent(CreateOrderActivity.this, HomeActivity.class);

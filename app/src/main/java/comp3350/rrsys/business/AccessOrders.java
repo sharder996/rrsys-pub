@@ -22,10 +22,9 @@ public class AccessOrders
     private String insertItemNewOrder(ArrayList<Item> items, int resID)
     {
         String result = null;
+
         for(int i = 0; i < items.size(); i++)
-        {
             result = dataAccess.insertItemIntoOrder(resID, items.get(i), items.get(i).getNote());
-        }
 
         return result;
     }
@@ -35,6 +34,17 @@ public class AccessOrders
         String result = null;
 
         result = dataAccess.insertItemIntoOrder(resID, item, note);
+
+        return result;
+    }
+
+    public String removeOrder(int resID)
+    {
+        String result = null;
+
+        int maxLineItem = dataAccess.getNextLineItem(resID);
+        for(int i = 1; i < maxLineItem; i++)
+            removeItemFromOrder(resID, i);
 
         return result;
     }
