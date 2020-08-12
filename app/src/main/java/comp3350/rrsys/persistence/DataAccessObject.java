@@ -760,10 +760,10 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
-    //returns 0 if no items in order
+    //returns 1 if no items in order
     public int getNextLineItem(int resID) //make private after tests
     {
-        int nextLineItem = 0;
+        int nextLineItem = 1;
         try
         {
             cmdString = "SELECT MAX(LINE_ITEM) as LINE_ITEM_MAX from ORDERS where RID=" + resID;

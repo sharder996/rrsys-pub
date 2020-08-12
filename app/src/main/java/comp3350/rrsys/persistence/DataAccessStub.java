@@ -534,9 +534,9 @@ public class DataAccessStub implements DataAccess {
         Order orderResult = null;
         if(resID > 0 && orders.contains(getOrder(resID)))
         {
-            return 1;
+            return 2;
         }
 
-        return 0;
+        return 1;
      }
 }

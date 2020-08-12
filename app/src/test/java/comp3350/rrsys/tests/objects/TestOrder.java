@@ -43,16 +43,16 @@ public class TestOrder extends TestCase
         assertEquals(6, newOrder.size());
         assertEquals(1, newOrder.getReservationID());
 
-        newOrder.setNote("Allergy", newOrder.getOrder().indexOf(dish));
-        assertEquals("Allergy", newOrder.getNote(newOrder.getOrder().indexOf(dish)));
+        newOrder.setNote("Allergy", 2);
+        assertEquals("Allergy", newOrder.getNote(2));
 
         assertEquals(dish, newOrder.getOrder().get(0));
 
-        newOrder.deleteItem(newOrder.getOrder().indexOf(dish));
-        newOrder.deleteItem(newOrder.getOrder().indexOf(dish1));
+        newOrder.deleteItem(newOrder.getOrder().get(0).getLineItem());
+        newOrder.deleteItem(newOrder.getOrder().get(0).getLineItem());
 
-        assertEquals(5, newOrder.size());
-        assertEquals(dish2, newOrder.getOrder().get(newOrder.getOrder().indexOf(dish2)));
+        assertEquals(4, newOrder.size());
+        assertEquals(dish2, newOrder.getOrder().get(0));
 
         System.out.println("\nEnding TestOrderCreation");
     }
@@ -101,13 +101,13 @@ public class TestOrder extends TestCase
         newOrder.addItem(dish, "");
         newOrder.addItem(dish1, "");
 
-        newOrder.setNote("Extra mustard", 0);
-        assertEquals("Extra mustard", newOrder.getNote(0));
+        newOrder.setNote("Extra mustard", 1);
+        assertEquals("Extra mustard", newOrder.getNote(1));
 
-        assertEquals("", newOrder.getNote(1));
+        assertEquals("", newOrder.getNote(2));
 
-        newOrder.setNote("Toasted", 0);
-        assertEquals("Toasted", newOrder.getNote(0));
+        newOrder.setNote("Toasted", 1);
+        assertEquals("Toasted", newOrder.getNote(1));
 
         System.out.println("\nEnding testNotes");
 
