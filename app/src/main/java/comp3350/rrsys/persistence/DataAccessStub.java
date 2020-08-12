@@ -526,21 +526,4 @@ public class DataAccessStub implements DataAccess {
         }
         return totalPrice;
     }
-
-    @Override
-    public String setNote(int resID, int lineItem, String note) {
-
-        if(resID < 0)
-            throw new IllegalArgumentException("Invalid reservationID");
-
-        Order orderToChange = null;
-        if(orders.contains(getOrder(resID)))
-        {
-            orderToChange = getOrder(resID);
-            int index = orders.indexOf(orderToChange);
-            orderToChange.setNote(note,lineItem);
-            orders.set(index, orderToChange);
-        }
-        return null;
-    }
 }

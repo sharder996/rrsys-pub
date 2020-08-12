@@ -506,11 +506,5 @@ public class DataAccessTest extends TestCase
         assertNull(dataAccess.insertItemIntoOrder(newReservation.getRID(), newOrder.getItem(1), newOrder.getItem(1).getNote()));
         assertEquals("", dataAccess.getOrder(8).getItem(0).getNote());
         assertEquals("", dataAccess.getOrder(8).getItem(1).getNote());
-
-        assertNull(dataAccess.setNote(newReservation.getRID(), newOrder.getItem(1).getLineItem(), "Extra mustard"));
-        assertEquals("Extra mustard", dataAccess.getOrder(8).getItem(0).getNote());
-
-        assertNull(dataAccess.setNote(newReservation.getRID(), newOrder.getItem(1).getLineItem(), "Toasted"));
-        assertEquals("Toasted", dataAccess.getOrder(8).getItem(0).getNote());
     }
 }

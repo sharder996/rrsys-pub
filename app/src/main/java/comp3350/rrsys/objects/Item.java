@@ -127,6 +127,6 @@ public class Item
     @Override
     public String toString()
     {
-        return name + "\n" + price + ", " + detail + "; Quantity: " + quantity;
+        return name + "\n" + price + ", " + detail + "; Quantity: " + quantity + "\nNote: " + note;
     }
 }

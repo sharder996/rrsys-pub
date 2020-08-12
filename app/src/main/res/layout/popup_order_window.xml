@@ -30,8 +30,22 @@
         android:id="@+id/editQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin" />
+
+    <TextView
+        android:id="@+id/textCustomizeOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="44dp" />
+        android:textSize="16sp"
+        android:text="@string/customize_order" />
+
+    <EditText
+        android:id="@+id/editTextInstructions"
+        android:layout_width="185dp"
+        android:inputType="text"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin" />
 
     <Button
         android:id="@+id/buttonPopupConfirm"

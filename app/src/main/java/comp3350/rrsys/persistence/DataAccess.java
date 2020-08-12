@@ -67,7 +67,5 @@ public interface DataAccess
 
     String removeItemFromOrder(int resID, int lineItem);
 
-    String setNote(int resID, int lineItem, String note);
-
     double getPrice(int resID);
 }

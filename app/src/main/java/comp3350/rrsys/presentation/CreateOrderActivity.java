@@ -72,7 +72,7 @@ public class CreateOrderActivity extends Activity
                 final Item selected = (Item)expandableListAdapter.getChild(i, i1);
 
                 LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popupView = inflater.inflate(R.layout.popup_order_window, null);
+                final View popupView = inflater.inflate(R.layout.popup_order_window, null);
 
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 int height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -98,8 +98,8 @@ public class CreateOrderActivity extends Activity
                     @Override
                     public void onClick(View view)
                     {
-                        EditText note = findViewById(R.id.editTextNote);
-                        order.addItem(selected, note.getText().toString()); //TODO: Dynamically add notes
+                        final EditText editTextInstructions = popupView.findViewById((R.id.editTextInstructions));
+                        order.addItem(selected, editTextInstructions.getText().toString());
                         popupWindow.dismiss();
                     }
                 });
@@ -229,55 +229,10 @@ public class CreateOrderActivity extends Activity
 
     public void buttonConfirmOrderOnClick(View v)
     {
-        final LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = inflater.inflate(R.layout.popup_order_note_confirm, null);
-
         AccessOrders accessOrders = new AccessOrders();
-        accessOrders.insertItemNewOrder(order.getOrder(), order.getReservationID()); //TODO: review adding new order, make changes to an order
+        accessOrders.insertOrder(order);
 
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
-        popupWindow.showAtLocation(menuItemsListView, Gravity.CENTER, 0, 0);
-
-        popupView.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent)
-            {
-                popupWindow.dismiss();
-                return true;
-            }
-        });
-
-        final EditText editTextInstructions = popupView.findViewById((R.id.editTextInstructions));
-        editTextInstructions.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void afterTextChanged(Editable editable)
-            {
-                order.setNote(editTextInstructions.getText().toString());
-            }
-        });
-
-        final Button confirmButton = popupView.findViewById(R.id.buttonPopupConfirm);
-        confirmButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                AccessOrders accessOrders = new AccessOrders();
-                accessOrders.insertOrder(order);
-
-                Intent homeIntent = new Intent(CreateOrderActivity.this, HomeActivity.class);
-                CreateOrderActivity.this.startActivity(homeIntent);
-            }
-        });
+        Intent homeIntent = new Intent(CreateOrderActivity.this, HomeActivity.class);
+        CreateOrderActivity.this.startActivity(homeIntent);
     }
 }

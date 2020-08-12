@@ -17,9 +17,10 @@ public class AccessOrders
 
     public AccessOrders(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
 
-    public String insertItemNewOrder(ArrayList<Item> items, int resID)
-    {
+    public String insertOrder(Order order) { return insertItemNewOrder(order.getOrder(), order.getReservationID()); }
 
+    private String insertItemNewOrder(ArrayList<Item> items, int resID)
+    {
         String result = null;
         for(int i = 0; i < items.size(); i++)
         {
@@ -29,8 +30,8 @@ public class AccessOrders
         return result;
     }
 
-    public String insertItemExistingOrder(int resID, Item item, String note) {
-
+    public String insertItemExistingOrder(int resID, Item item, String note)
+    {
         String result = null;
 
         result = dataAccess.insertItemIntoOrder(resID, item, note);
@@ -46,8 +47,6 @@ public class AccessOrders
 
         return result;
     }
-
-    public String setNote(int resID, int lineItem, String note) { return dataAccess.setNote(resID, lineItem, note); }
 
     public Order getOrder(int reservationID) { return dataAccess.getOrder(reservationID); }
 
