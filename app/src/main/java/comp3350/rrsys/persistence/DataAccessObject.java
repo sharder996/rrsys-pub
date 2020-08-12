@@ -1,11 +1,10 @@
 package comp3350.rrsys.persistence;
 
-import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLWarning;
-import java.text.SimpleDateFormat;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -13,10 +12,10 @@ import java.util.List;
 
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.DateTime;
-import comp3350.rrsys.objects.Reservation;
-import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Order;
+import comp3350.rrsys.objects.Reservation;
+import comp3350.rrsys.objects.Table;
 
 public class DataAccessObject implements DataAccess
 {
@@ -165,13 +164,6 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
-    // return the index corresponding to a date time
-    // the closest index of the 15-minutes increment in the business hour of a day
-    public int getIndex(DateTime time)
-    {
-        return (time.getHour() - Table.START_TIME) * 4 + (time.getMinutes() + 7) / 15;
-    }
-
     public String updateReservation(int RID, Reservation curr)
     {
         String values;
@@ -180,14 +172,13 @@ public class DataAccessObject implements DataAccess
         result = null;
         try
         {
-            values = "CID=" + curr.getCID()
-                    + ", TID=" + curr.getTID()
+            values = "TID=" + curr.getTID()
                     + ", NUMPEOPLE=" + curr.getNumPeople()
                     + ", STARTTIME='" + curr.getStartTime().toString()
                     + "', ENDTIME='" + curr.getEndTime().toString()
                     + "'";
             where = "where RID=" + RID;
-            cmdString = "UPDATE RESERVATION" + " SET " + values + " " + where;
+            cmdString = "UPDATE RESERVATIONS" + " SET " + values + " " + where;
             updateCount = st0.executeUpdate(cmdString);
             result = checkWarning(st0, updateCount);
 
@@ -198,41 +189,6 @@ public class DataAccessObject implements DataAccess
         }
 
         return result;
-    }
-
-    // return the date time corresponding to an index
-    // set same year, month, date with input date time, set hour and minute transferred from index
-    public DateTime getDateTime(DateTime time, int index)
-    {
-        DateTime result = null;
-        try
-        {
-            result = new DateTime(new GregorianCalendar(time.getYear(), time.getMonth(), time.getDate(), Table.START_TIME + index / 4, index % 4 * 15));
-        }
-        catch(IllegalArgumentException pe)
-        {
-            System.out.println(pe);
-        }
-        return result;
-    }
-
-    // ordered insert a suggested reservation into a temp array
-    // ordered first by how close to the startTime
-    // if same, ordered secondly by how close the table capacity to number of people
-    // if still same, ordered thirdly by table ID in ascending order
-    public void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t)
-    {
-        int pos = 0;
-        int max = results.size();
-        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) < Math.abs(r.getStartTime().getPeriod(t)))
-            pos++;
-        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) == Math.abs(r.getStartTime().getPeriod(t))
-                && getTableRandom(results.get(pos).getTID()).getCapacity() < getTableRandom(r.getTID()).getCapacity())
-            pos++;
-        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) == Math.abs(r.getStartTime().getPeriod(t)) &&
-                getTableRandom(results.get(pos).getTID()).getCapacity() == getTableRandom(r.getTID()).getCapacity() && results.get(pos).getTID() < r.getTID())
-            pos++;
-        results.add(pos, r);
     }
 
     public int getNextReservationID()
@@ -280,7 +236,7 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
-    public String getReservationSequential(List<Reservation> reservationResult)
+    public String getReservationSequential(ArrayList<Reservation> reservationResult)
     {
         Reservation reservation;
         int resID, custID, tableID, numPeople;
@@ -593,28 +549,6 @@ public class DataAccessObject implements DataAccess
         }
 
         return returnMenu;
-    }
-
-    // return an available array of a table with input TID at the date of input time
-    // the array of 15-minutes increment in the business hour of a day
-    public boolean[] getAvailable(int TID, DateTime time)
-    {
-        reservations = new ArrayList<>();
-        getReservationSequential(reservations);
-        boolean[] available = new boolean[Table.INTERVALS_PER_DAY];
-        for(int i = 0; i < available.length; i++)
-            available[i] = true;
-        for(int i = 0; i < reservations.size(); i++)
-        {
-            if(reservations.get(i).getTID() == TID && reservations.get(i).getStartTime().getYear() == time.getYear() && reservations.get(i).getStartTime().getMonth() == time.getMonth()
-                    && reservations.get(i).getStartTime().getDate() == time.getDate()) {
-                int startIndex = getIndex(reservations.get(i).getStartTime());
-                int endIndex = getIndex(reservations.get(i).getEndTime());
-                for(int j = startIndex; j < endIndex; j++)
-                    available[j] = false;
-            }
-        }
-        return available;
     }
 
     //adds single item into order

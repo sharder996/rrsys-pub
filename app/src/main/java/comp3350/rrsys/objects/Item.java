@@ -129,4 +129,9 @@ public class Item
     {
         return name + "\n" + price + ", " + detail + "; Quantity: " + quantity + "\nNote: " + note;
     }
+
+    public String display()
+    {
+        return name + "\n" + price + ", " + detail;
+    }
 }

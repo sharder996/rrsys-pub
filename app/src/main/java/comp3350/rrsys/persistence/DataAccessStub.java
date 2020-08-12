@@ -1,19 +1,16 @@
 package comp3350.rrsys.persistence;
 
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
 import comp3350.rrsys.application.Main;
-import comp3350.rrsys.objects.DateTime;
-import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Customer;
-import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Order;
+import comp3350.rrsys.objects.Reservation;
+import comp3350.rrsys.objects.Table;
 
 public class DataAccessStub implements DataAccess {
     private String dbName;
@@ -49,42 +46,6 @@ public class DataAccessStub implements DataAccess {
     public void close()
     {
         System.out.println("Closed " + dbType + " database " + dbName);
-    }
-
-    // return the index of a date time
-    public int getIndex(DateTime time)
-    {
-        return (time.getHour()-Table.START_TIME)*4 + (time.getMinutes()+7)/15;
-    }
-
-    // return the date time corresponding to an index
-    public DateTime getDateTime(DateTime time, int index)
-    {
-        DateTime result = null;
-        try
-        {
-            result = new DateTime(new GregorianCalendar(time.getYear(), time.getMonth(), time.getDate(), Table.START_TIME + index / 4, index % 4 * 15));
-        }
-        catch(IllegalArgumentException pe)
-        {
-            System.out.println(pe);
-        }
-        return result;
-    }
-
-    // ordered insert a suggested reservation into a temp array by how close to the startTime
-    public void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t)
-    {
-        int pos = 0;
-        int max = results.size();
-        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) < Math.abs(r.getStartTime().getPeriod(t)))
-            pos++;
-        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) == Math.abs(r.getStartTime().getPeriod(t)) && getTableRandom(results.get(pos).getTID()).getCapacity() < getTableRandom(r.getTID()).getCapacity())
-            pos++;
-        while(pos < max && Math.abs(results.get(pos).getStartTime().getPeriod(t)) == Math.abs(r.getStartTime().getPeriod(t)) &&
-                getTableRandom(results.get(pos).getTID()).getCapacity() == getTableRandom(r.getTID()).getCapacity() && results.get(pos).getTID() < r.getTID())
-            pos++;
-        results.add(pos, r);
     }
 
     // insert a reservation
@@ -151,7 +112,7 @@ public class DataAccessStub implements DataAccess {
         return "success";
     }
 
-    public String getReservationSequential(List<Reservation> reservationResult)
+    public String getReservationSequential(ArrayList<Reservation> reservationResult)
     {
         reservationResult.addAll(reservations);
         return null;
@@ -406,25 +367,6 @@ public class DataAccessStub implements DataAccess {
     public ArrayList<Item> getMenu()
     {
         return menu;
-    }
-
-    public boolean[] getAvailable(int TID, DateTime time)
-    {
-        boolean[] available = new boolean[Table.INTERVALS_PER_DAY];
-        for(int i = 0; i < available.length; i++)
-            available[i] = true;
-        for(int i = 0; i < reservations.size(); i++)
-        {
-            if(reservations.get(i).getTID() == TID && reservations.get(i).getStartTime().getYear() == time.getYear() && reservations.get(i).getStartTime().getMonth() == time.getMonth()
-                    && reservations.get(i).getStartTime().getDate() == time.getDate())
-            {
-                int startIndex = getIndex(reservations.get(i).getStartTime());
-                int endIndex = getIndex(reservations.get(i).getEndTime());
-                for(int j = startIndex; j < endIndex; j++)
-                    available[j] = false;
-            }
-        }
-        return available;
     }
 
     public String insertOrder(Order newOrder)

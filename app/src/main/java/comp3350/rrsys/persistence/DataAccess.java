@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.rrsys.objects.Customer;
-import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Order;
 import comp3350.rrsys.objects.Reservation;
@@ -26,9 +25,9 @@ public interface DataAccess
 
     String insertReservation(Reservation r);
 
-    String getReservationSequential(List<Reservation> reservationResult);
+    String getReservationSequential(ArrayList<Reservation> reservationResult);
 
-    void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
+    //void orderedInsert(ArrayList<Reservation> results, Reservation r, DateTime t);
 
     int getNextReservationID();
 
@@ -37,7 +36,7 @@ public interface DataAccess
 
     Table getTableRandom(int tableID);
 
-    boolean[] getAvailable(int TID, DateTime time);
+    //boolean[] getAvailable(int TID, DateTime time);
 
     String addTable(int tableID, int size);
 
@@ -58,7 +57,7 @@ public interface DataAccess
     ArrayList<Item> getMenuByType(String type);
 
     // DateTime Functions:
-    DateTime getDateTime(DateTime time, int index);
+    //DateTime getDateTime(DateTime time, int index);
 
     //Order Functions:
     Order getOrder(int reservationID);
