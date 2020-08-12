@@ -10,7 +10,6 @@ import comp3350.rrsys.persistence.DataAccess;
 
 public class AccessOrders
 {
-    private static DataAccess dataAccessStatic;
     private DataAccess dataAccess;
 
     public AccessOrders() { dataAccess = Services.getDataAccess(Main.dbName); }
@@ -75,7 +74,7 @@ public class AccessOrders
 
     public int getNextReservationID() { return dataAccess.getNextReservationID(); }
 
-    public boolean getNextLineitem(int resID)
+    public boolean getNextLineItem(int resID)
     {
        boolean exist = false;
 
