@@ -279,7 +279,7 @@ public class TestAccessOrders extends TestCase
 
         assertEquals(true, accessOrders.getNextLineitem(1));
 
-        assertEquals(false, accessOrders.getNextLineitem(2));
+        assertEquals(false, accessOrders.getNextLineitem(7));
         System.out.println("\nEnding testGetNextLineitem");
     }
 }
