@@ -21,7 +21,7 @@ public class Order
       
         this.reservationID = reservationID;
         order = new ArrayList<>();
-        lineItem = 0;
+        lineItem = 1;
     }
 
     public ArrayList<Item> getOrder() { return order; }
@@ -42,7 +42,7 @@ public class Order
     {
         for(int i = 0; i < getOrder().size(); i++)
         {
-            if(getOrder().get(i).getLineItem() == lineItem)
+            if(order.get(i).getLineItem() == lineItem)
             {
                 order.remove(i);
                 break;

@@ -186,7 +186,7 @@ public class TestAccessOrders extends TestCase
         result = accessOrders.insertItemExistingOrder(newOrder.getReservationID(), dish, "");
         assertEquals(3,accessOrders.getSize(newOrder.getReservationID()));
 
-        result = accessOrders.removeItemFromOrder(newOrder.getReservationID(), newOrder.getItem(1).getLineItem());
+        result = accessOrders.removeItemFromOrder(newOrder.getReservationID(), newOrder.getItem(2).getLineItem());
         assertEquals(2,accessOrders.getSize(newOrder.getReservationID()));
 
         System.out.println("\nEnding testGetSize");
@@ -217,27 +217,6 @@ public class TestAccessOrders extends TestCase
             assertEquals(0, size);
         }
         System.out.println("\nEnding testInvalidEntriesGetSize");
-    }
-
-    public void testUpdateNote()
-    {
-        System.out.println("\nStarting testUpdateNote");
-
-        Order newOrder = new Order(6);
-
-        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
-        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
-
-        newOrder.addItem(dish, "");
-        newOrder.addItem(dish1, "");
-
-        String result = accessOrders.insertItemNewOrder(newOrder.getOrder(), newOrder.getReservationID());
-        assertNull(result);
-
-        assertEquals("",accessOrders.getOrder(newOrder.getReservationID()).getNote(0));
-        assertEquals("",accessOrders.getOrder(newOrder.getReservationID()).getNote(1));
-
-        System.out.println("\nEnding testUpdateNote");
     }
 
     public void testGetNextReservationID()
