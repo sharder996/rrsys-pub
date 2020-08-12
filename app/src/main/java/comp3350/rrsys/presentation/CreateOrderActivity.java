@@ -98,7 +98,8 @@ public class CreateOrderActivity extends Activity
                     @Override
                     public void onClick(View view)
                     {
-                        order.addItem(selected);
+                        EditText note = findViewById(R.id.editTextNote);
+                        order.addItem(selected, note.getText().toString()); //TODO: Dynamically add notes
                         popupWindow.dismiss();
                     }
                 });
@@ -187,7 +188,7 @@ public class CreateOrderActivity extends Activity
                     @Override
                     public void onClick(View view)
                     {
-                        order.deleteItem(selected);
+                        order.deleteItem(selected.getLineItem());
                         orderArrayAdapter.notifyDataSetChanged();
                         popupWindow.dismiss();
                     }
@@ -230,6 +231,9 @@ public class CreateOrderActivity extends Activity
     {
         final LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.popup_order_note_confirm, null);
+
+        AccessOrders accessOrders = new AccessOrders();
+        accessOrders.insertItemNewOrder(order.getOrder(), order.getReservationID()); //TODO: review adding new order, make changes to an order
 
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;

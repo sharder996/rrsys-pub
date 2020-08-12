@@ -13,6 +13,8 @@ public class Item
     private String name;    // the name of the item
     private String type;    // the type of the item, e.g., breakfast, lunch, dinner, drink
     private String detail;  // the detail/description of the item
+    private int lineItem;
+    private String note;
     private double price;   // the price of the item
     private int quantity;   // quantity of item ordered
     private static final double MIN_PRICE = 0.05;
@@ -28,6 +30,8 @@ public class Item
         this.quantity = MIN_QUANTITY;
         setItemID(itemID);
         setPrice(price);
+        lineItem = -1;
+        note = "";
     }
 
     public boolean equals(Item other)
@@ -41,11 +45,15 @@ public class Item
     public String getDetail() { return detail; }
     public double getPrice() { return price; }
     public int getQuantity() { return quantity; }
+    public int getLineItem() {return lineItem; }
+    public String getNote() { return note; }
 
     public void setName(String name) { this.name = name; }
     public void setType(String type) { this.type = type; }
     public void setDetail(String detail) { this.detail = detail; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setLineItem(int lineItem) { this.lineItem = lineItem; }
+    public void setNote(String note) { this.note = note; }
 
     public void setItemID(int itemID)
     {

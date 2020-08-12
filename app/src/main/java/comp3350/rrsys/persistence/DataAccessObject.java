@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLWarning;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -24,9 +25,13 @@ public class DataAccessObject implements DataAccess
     private ResultSet rs1, rs2, rs3;
     private String dbName;
     private String dbType;
+
+    private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
     private ArrayList<Item> menu;
+    private ArrayList<Order> orders;
+
     private String cmdString;
     private int updateCount;
     private String result;
@@ -175,13 +180,14 @@ public class DataAccessObject implements DataAccess
         result = null;
         try
         {
-            values = "TID=" + curr.getTID()
+            values = "CID=" + curr.getCID()
+                    + ", TID=" + curr.getTID()
                     + ", NUMPEOPLE=" + curr.getNumPeople()
                     + ", STARTTIME='" + curr.getStartTime().toString()
                     + "', ENDTIME='" + curr.getEndTime().toString()
                     + "'";
             where = "where RID=" + RID;
-            cmdString = "UPDATE RESERVATIONS " + " SET " + values + " " + where;
+            cmdString = "UPDATE RESERVATION" + " SET " + values + " " + where;
             updateCount = st0.executeUpdate(cmdString);
             result = checkWarning(st0, updateCount);
 
@@ -611,55 +617,182 @@ public class DataAccessObject implements DataAccess
         return available;
     }
 
-    public Boolean insertOrder(Order order)
+    //adds single item into order
+    public String insertItemIntoOrder(int resID, Item item, String note)
     {
-        ArrayList<Item> items;
-        items = order.getOrder();
-        ArrayList<Integer> quantities = new ArrayList<>();
-        String values;
+        char[] illegalChars = { '-','\'', '\"', '*', ';' };
+        String values, noteCopy, cleansedNote = null;
         result = null;
+        int lineItem = getNextLineItem(resID);
 
-        int i = 0;
-        Item current;
-        boolean duplicate;
-        while(i < items.size())
+        noteCopy = note;
+        if(noteCopy != null)
         {
-            current = items.get(i);
-            duplicate = false;
-            for(int j = 0; j < i && !duplicate; j++)
+            for (char c : illegalChars)
             {
-                if(current.equals(items.get(j)))
-                {
-                    quantities.set(j,quantities.get(j)+1);
-                    items.remove(i);
-                    duplicate = true;
-                }
+                cleansedNote = noteCopy.replace(c, ' ');
             }
-            if(!duplicate)
-            {
-                quantities.add(1);
-                i++;
-            }
+        }
+        else
+        {
+            cleansedNote = "NULL";
         }
         try
         {
-            for(int k  = 0 ; k < items.size(); k++)
-            {
-                values = order.getReservationID()
-                        + ", " + items.get(k).getItemID()
-                        + ", " + quantities.get(k)
-                        + ", '" + order.getNote()
-                        + "'";
+            values = resID
+                    + ", " + lineItem
+                    + ", " + item.getItemID()
+                    + ", '" + cleansedNote
+                    + "'";
 
-                cmdString = "INSERT into ORDERS VALUES(" + values + ")";
-                updateCount = st1.executeUpdate(cmdString);
-                result = checkWarning(st1, updateCount);
-            }
+            cmdString = "INSERT into ORDERS VALUES(" + values + ")";
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
         }
         catch(Exception e)
         {
             result = processSQLError(e);
         }
-        return result == null;
+        return result;
+    }
+
+    public String removeItemFromOrder(int resID, int lineItem)
+    {
+        result = null;
+        try
+        {
+            cmdString = "DELETE from ORDERS where RID=" + resID + " AND LINE_ITEM=" + lineItem;
+            updateCount = st0.executeUpdate(cmdString);
+            result = checkWarning(st0, updateCount);
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+    public Order getOrder(int rID)
+    {
+        ArrayList<String> notes;
+        ArrayList<Integer> itemID;
+        Order orderResult;
+        Item item;
+        int iID;
+        String note, name, type, detail;
+        double price;
+
+        itemID = new ArrayList<>();
+        notes = new ArrayList<>();
+        orderResult = new Order(rID);
+        try
+        {
+            cmdString = "SELECT * from ORDERS where RID=" + rID;
+            rs2 = st0.executeQuery(cmdString);
+
+            while(rs2.next())
+            {
+                note = null;
+                note = rs2.getString("NOTE");
+                iID = rs2.getInt("IID");
+                itemID.add(iID);
+                notes.add(note);
+
+            }
+            rs2.close();
+
+            for(int i = 0; i < itemID.size(); i++)
+            {
+                cmdString = "SELECT * from MENU where IID=" + itemID.get(i);
+                rs1 = st0.executeQuery(cmdString);
+
+                while(rs1.next()) //should only add 1
+                {
+                    name = rs1.getString("NAME");
+                    type = rs1.getString("TYPE");
+                    detail = rs1.getString("DETAIL");
+                    price = rs1.getDouble("PRICE");
+                    item = new Item(itemID.get(i), name, type, detail, price);
+                    orderResult.addItem(item, notes.get(i));
+                }
+                rs1.close();
+            }
+        }
+        catch(Exception e)
+        {
+            processSQLError(e);
+        }
+
+        return orderResult;
+    }
+
+    public String setNote(int resID, int lineItem, String note)
+    {
+        char[] illegalChars = { '-','\'', '\"', '*', ';' };
+        String values, where, noteCopy, cleansedNote = null;
+
+        noteCopy = note;
+        for (char c : illegalChars)
+        {
+            cleansedNote = noteCopy.replace( c, ' ');
+        }
+
+        result = null;
+        try
+        {
+            values = "NOTE ='" + cleansedNote;
+            where = "where RID=" + resID + " AND LINE_ITEM=" + lineItem;
+            cmdString = "UPDATE ORDERS SET " + values + "' " + where;
+            System.out.println(cmdString);
+            updateCount = st0.executeUpdate(cmdString);
+            result = checkWarning(st0, updateCount);
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+    //returns 0 if no items in order
+    private int getNextLineItem(int resID) //make private after tests
+    {
+        int nextLineItem = 0;
+        try
+        {
+            cmdString = "SELECT MAX(LINE_ITEM) as LINE_ITEM_MAX from ORDERS where RID=" + resID;
+            rs2 = st0.executeQuery(cmdString);
+            rs2.next();
+            nextLineItem = rs2.getInt("LINE_ITEM_MAX") + 1;
+            rs2.close();
+        }
+        catch(Exception e)
+        {
+            //falls here if no items in order
+            result = processSQLError(e);
+        }
+
+        return nextLineItem;
+    }
+
+    public double getPrice(int resID)
+    {
+        double totalPrice = 0.0;
+        try
+        {
+            cmdString = "SELECT SUM(PRICE) as TOTAL_PRICE from MENU INNER JOIN ORDERS on MENU.IID = ORDERS.IID where RID =" + resID;
+            rs2 = st0.executeQuery(cmdString);
+            rs2.next();
+            totalPrice = rs2.getDouble("TOTAL_PRICE");
+            rs2.close();
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return totalPrice;
     }
 }
