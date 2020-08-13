@@ -54,31 +54,31 @@ public class TestAccessMenu extends TestCase
         System.out.println("\nStarting TestAccessCertainTypeMenu");
 
         /*
-        There are total 44 items in database(Stub)
+        There are total 44 items in database(Stub) for menu
         6-salads, 8-Sandwiches, 8-Burgers, 8-Mains, 6-Desserts, 8-Drinks
-         */
+                */
         ArrayList<String> types = accessMenu.getMenuTypes();//list of all types
 
-        ArrayList<Item> newitems = accessMenu.getMenuByType(types.get(0));
-        ArrayList<Item> newitems1 = accessMenu.getMenuByType(types.get(1));
-        ArrayList<Item> newitems2 = accessMenu.getMenuByType(types.get(2));
-        ArrayList<Item> newitems3 = accessMenu.getMenuByType(types.get(3));
-        ArrayList<Item> newitems4 = accessMenu.getMenuByType(types.get(4));
-        ArrayList<Item> newitems5 = accessMenu.getMenuByType(types.get(5));
+        ArrayList<Item> newItems = accessMenu.getMenuByType(types.get(0));
+        ArrayList<Item> newItems1 = accessMenu.getMenuByType(types.get(1));
+        ArrayList<Item> newItems2 = accessMenu.getMenuByType(types.get(2));
+        ArrayList<Item> newItems3 = accessMenu.getMenuByType(types.get(3));
+        ArrayList<Item> newItems4 = accessMenu.getMenuByType(types.get(4));
+        ArrayList<Item> newItems5 = accessMenu.getMenuByType(types.get(5));
 
-        assertNotNull(newitems);
-        assertNotNull(newitems1);
-        assertNotNull(newitems2);
-        assertNotNull(newitems3);
-        assertNotNull(newitems4);
-        assertNotNull(newitems5);
+        assertNotNull(newItems);
+        assertNotNull(newItems1);
+        assertNotNull(newItems2);
+        assertNotNull(newItems3);
+        assertNotNull(newItems4);
+        assertNotNull(newItems5);
 
-        assertEquals(6 , newitems.size());
-        assertEquals(8 , newitems1.size());
-        assertEquals(8 , newitems2.size());
-        assertEquals(8 , newitems3.size());
-        assertEquals(6 , newitems4.size());
-        assertEquals(8 , newitems5.size());
+        assertEquals(6 , newItems.size());
+        assertEquals(8 , newItems1.size());
+        assertEquals(8 , newItems2.size());
+        assertEquals(8 , newItems3.size());
+        assertEquals(6 , newItems4.size());
+        assertEquals(8 , newItems5.size());
 
         System.out.println("\nEnding TestAccessCertainTypeMenu");
     }
@@ -87,9 +87,9 @@ public class TestAccessMenu extends TestCase
     {
         System.out.println("\nStarting TestAccessInvalidEntryTypeMenu");
 
-        ArrayList<Item> newitems = accessMenu.getMenuByType("Chicken");
+        ArrayList<Item> newItems = accessMenu.getMenuByType("Chicken");
 
-        assertEquals(0, newitems.size());
+        assertEquals(0, newItems.size());
 
         System.out.println("\nEnding TestAccessInvalidEntryTypeMenu");
     }

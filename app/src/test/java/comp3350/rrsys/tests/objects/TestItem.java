@@ -16,7 +16,7 @@ public class TestItem extends TestCase
     {
         System.out.println("\nStarting TestItemCreation");
 
-        Item dish = new Item(0, "Special Salads", "Salads", "red onion & toasted sunflower seeds",9.95 );
+        Item dish = new Item(0, "Special Salads", "Salads", "red onion & toasted sunflower seeds",9.95);
 
         assertNotNull(dish);
         assertEquals(0, dish.getItemID());
@@ -34,7 +34,7 @@ public class TestItem extends TestCase
     {
         System.out.println("\nStarting TestItemSetter");
 
-        Item dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",12.95 );
+        Item dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",12.95);
 
         dish.setItemID(5);
         dish.setName("Turkey Sandwich");
@@ -42,7 +42,7 @@ public class TestItem extends TestCase
         dish.setType("Sandwiches");
         dish.setDetail("Sandwich");
         dish.setQuantity(5);
-        dish.setNote("More sause");
+        dish.setNote("More sauce");
 
         assertEquals(5, dish.getItemID());
         assertEquals("Turkey Sandwich" , dish.getName());
@@ -50,7 +50,7 @@ public class TestItem extends TestCase
         assertEquals("Sandwich" , dish.getDetail());
         assertEquals(12.30, dish.getPrice());
         assertEquals(5, dish.getQuantity());
-        assertEquals("More sause", dish.getNote());
+        assertEquals("More sauce", dish.getNote());
 
         System.out.println("\nEnding TestItemSetter");
     }
@@ -62,7 +62,7 @@ public class TestItem extends TestCase
         Item dish = null;
         try
         {
-            dish = new Item(-1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
+            dish = new Item(-1, "Turkey Burger", "Sandwich", "Turkey",12.91);
             fail();
         }
         catch (IllegalArgumentException e)
@@ -72,7 +72,7 @@ public class TestItem extends TestCase
 
         try
         {
-            dish = new Item(-122, "Turkey Burger", "Sandwich", "Turkey",12.91 );
+            dish = new Item(-122, "Turkey Burger", "Sandwich", "Turkey",12.91);
             fail();
         }
         catch (IllegalArgumentException e)
@@ -87,12 +87,12 @@ public class TestItem extends TestCase
     {
         System.out.println("\nStarting TestItemPrice");
 
-        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
-        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
-        Item dish2 = new Item(3, "Turkey Burger", "Sandwich", "Turkey",12.99 );
-        Item dish3 = new Item(4, "Turkey Burger", "Sandwich", "Turkey",12.77 );
-        Item dish4 = new Item(5, "Turkey Burger", "Sandwich", "Turkey",12.73 );
-        Item dish5 = new Item(6, "Turkey Burger", "Sandwich", "Turkey",12.22 );
+        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
+        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
+        Item dish2 = new Item(3, "Turkey Burger", "Sandwich", "Turkey",12.99);
+        Item dish3 = new Item(4, "Turkey Burger", "Sandwich", "Turkey",12.77);
+        Item dish4 = new Item(5, "Turkey Burger", "Sandwich", "Turkey",12.73);
+        Item dish5 = new Item(6, "Turkey Burger", "Sandwich", "Turkey",12.22);
 
         assertNotNull(dish);
         assertNotNull(dish1);
@@ -132,7 +132,7 @@ public class TestItem extends TestCase
 
         try
         {
-            dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",-12.91 );
+            dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",-12.91);
             fail();
         }
         catch (IllegalArgumentException e)
@@ -142,7 +142,7 @@ public class TestItem extends TestCase
 
         try
         {
-            dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",-16.99 );
+            dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",-16.99);
             fail();
         }
         catch (IllegalArgumentException e)
@@ -152,7 +152,7 @@ public class TestItem extends TestCase
 
         try
         {
-            dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",1000.91 );
+            dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",1000.91);
             fail();
         }
         catch (IllegalArgumentException e)
@@ -162,7 +162,7 @@ public class TestItem extends TestCase
 
         try
         {
-            dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",500.25 );
+            dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",500.25);
             fail();
         }
         catch (IllegalArgumentException e)
@@ -170,7 +170,7 @@ public class TestItem extends TestCase
             assertNull(dish);
         }
 
-        dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",70.25 );
+        dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",70.25);
 
         try
         {

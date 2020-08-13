@@ -64,9 +64,9 @@ public class TestOrder extends TestCase
         Item dish = new Item(1,"SPECIAL SALAD","Salads","A",9.95);
         Item dish1 = new Item(2,"SPINACH SALAD","Salads","B",10.95);
         Item dish2 = new Item(3,"KALE SALAD","Salads","C",10.95);
-        Item dish3 = new Item(4,"CAESAR SALAD","Salads","D",10.95 );
-        Item dish4 = new Item(5,"ARUGULA SALAD","Salads","E",11.95 );
-        Item dish5 = new Item(6,"AVOCADO SALAD","Salads", "avocado, brussels sprouts, radish.",12.95 );
+        Item dish3 = new Item(4,"CAESAR SALAD","Salads","D",10.95);
+        Item dish4 = new Item(5,"ARUGULA SALAD","Salads","E",11.95);
+        Item dish5 = new Item(6,"AVOCADO SALAD","Salads", "avocado, brussels sprouts, radish.",12.95);
 
         assertNotNull(dish);
         assertNotNull(dish1);
@@ -104,8 +104,8 @@ public class TestOrder extends TestCase
         Order newOrder = new Order(1);
         assertNotNull(newOrder);
 
-        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
-        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
+        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
+        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
         Item dish2 = new Item(31, "CHOCOLATE CAKE", "Desserts", "double-stacked dark chocolate cake", 8.00);
         Item dish3 = new Item(32, "CHOCOLATE TORTE", "Desserts", "Cream", 8.00);
         Item dish4 = new Item(33, "CARROT CAKE", "Desserts", "Two layers", 8.00);
