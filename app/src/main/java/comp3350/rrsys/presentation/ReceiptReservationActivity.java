@@ -85,14 +85,14 @@ public class ReceiptReservationActivity extends Activity
             Intent preOrderIntent = new Intent(ReceiptReservationActivity.this, CreateOrderActivity.class);
             preOrderIntent.putExtra("activity", "ReceiptReservationActivity");
             preOrderIntent.putExtra("reservationID", Integer.toString(rID));
-            preOrderIntent.putExtra("year", year+"");
-            preOrderIntent.putExtra("month", month+"");
-            preOrderIntent.putExtra("day", day+"");
-            preOrderIntent.putExtra("startHour", startHour+"");
-            preOrderIntent.putExtra("startMinute", startMinute+"");
-            preOrderIntent.putExtra("endHour", endHour+"");
-            preOrderIntent.putExtra("endMinute", endMinute+"");
-            preOrderIntent.putExtra("numPeople", numPeople+"");
+            preOrderIntent.putExtra("year", year + "");
+            preOrderIntent.putExtra("month", month + "");
+            preOrderIntent.putExtra("day", day + "");
+            preOrderIntent.putExtra("startHour", startHour + "");
+            preOrderIntent.putExtra("startMinute", startMinute + "");
+            preOrderIntent.putExtra("endHour", endHour + "");
+            preOrderIntent.putExtra("endMinute", endMinute + "");
+            preOrderIntent.putExtra("numPeople", numPeople + "");
             ReceiptReservationActivity.this.startActivity(preOrderIntent);
         }
         else

@@ -32,7 +32,6 @@ public class DataAccessTest extends TestCase
         // Use the following statements to run with the stub database:
         dataAccess = new DataAccessStub();
         dataAccess.open("Stub");
-
         // or switch to the real database:
         // dataAccess = new DataAccessObject(Main.dbName);
         // dataAccess.open(Main.getDBPathName());
@@ -308,7 +307,7 @@ public class DataAccessTest extends TestCase
 
         newReservation.setRID(5);
         result = dataAccess.insertReservation(newReservation);
-        assertNull(result);
+        assertEquals("success", result);
 
         dish = new Item(1,"SPECIAL SALAD","Salads","A",9.95);
         dish1 = new Item(2,"SPINACH SALAD","Salads","B",10.95);
@@ -365,7 +364,7 @@ public class DataAccessTest extends TestCase
 
         newReservation.setRID(6);
         result = dataAccess.insertReservation(newReservation);
-        assertNull(result);
+        assertEquals("success", result);
 
         newOrder = new Order(newReservation.getRID());
 
@@ -409,7 +408,7 @@ public class DataAccessTest extends TestCase
 
         newReservation.setRID(7);
         result = dataAccess.insertReservation(newReservation);
-        assertNull(result);
+        assertEquals("success", result);
 
         newOrder = new Order(newReservation.getRID());
 

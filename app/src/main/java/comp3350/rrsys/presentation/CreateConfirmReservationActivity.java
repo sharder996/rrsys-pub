@@ -179,15 +179,15 @@ public class CreateConfirmReservationActivity extends Activity
             accessReservations.insertReservation(reservation);
 
             Intent confirmReservationIntent = new Intent(CreateConfirmReservationActivity.this, ReceiptReservationActivity.class);
-            confirmReservationIntent.putExtra("reservationID", reservation.getRID()+"");
+            confirmReservationIntent.putExtra("reservationID", reservation.getRID() + "");
             confirmReservationIntent.putExtra("numPeople", numPeople+"");
-            confirmReservationIntent.putExtra("year", year+"");
-            confirmReservationIntent.putExtra("month", month+"");
-            confirmReservationIntent.putExtra("day", day+"");
-            confirmReservationIntent.putExtra("startHour", startHour+"");
-            confirmReservationIntent.putExtra("startMinute", startMinute+"");
-            confirmReservationIntent.putExtra("endHour", endHour+"");
-            confirmReservationIntent.putExtra("endMinute", endMinute+"");
+            confirmReservationIntent.putExtra("year", year + "");
+            confirmReservationIntent.putExtra("month", month + "");
+            confirmReservationIntent.putExtra("day", day + "");
+            confirmReservationIntent.putExtra("startHour", startHour + "");
+            confirmReservationIntent.putExtra("startMinute", startMinute + "");
+            confirmReservationIntent.putExtra("endHour", endHour + "");
+            confirmReservationIntent.putExtra("endMinute", endMinute + "");
             CreateConfirmReservationActivity.this.startActivity(confirmReservationIntent);
         }
     }

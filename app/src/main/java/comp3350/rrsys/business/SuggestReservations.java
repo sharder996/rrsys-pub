@@ -71,7 +71,6 @@ public class SuggestReservations
                             //ordered first by how close to the input startTime
                             // if same, ordered secondly by how close the table capacity to number of people
                             // if still same, ordered thirdly by table ID in ascending order
-
                             orderedInsert(results, new Reservation(table.getTID(), numPeople, start, end), startTime);
                         }
                     }

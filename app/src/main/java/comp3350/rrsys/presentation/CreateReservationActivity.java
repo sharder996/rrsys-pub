@@ -259,15 +259,15 @@ public class CreateReservationActivity extends Activity
     public void buttonConfirmOnClick(View v)
     {
         Intent createReservationIntent = new Intent(CreateReservationActivity.this, CreateConfirmReservationActivity.class);
-        createReservationIntent.putExtra("tableID", selected.getTID()+"");
-        createReservationIntent.putExtra("numPeople", selected.getNumPeople()+ "");
-        createReservationIntent.putExtra("year", selected.getStartTime().getYear()+ "");
-        createReservationIntent.putExtra("month", selected.getStartTime().getMonth()+ "");
-        createReservationIntent.putExtra("day", selected.getStartTime().getDate()+ "");
-        createReservationIntent.putExtra("startHour", selected.getStartTime().getHour()+ "");
-        createReservationIntent.putExtra("startMinute", selected.getStartTime().getMinutes()+ "");
-        createReservationIntent.putExtra("endHour", selected.getEndTime().getHour()+ "");
-        createReservationIntent.putExtra("endMinute", selected.getEndTime().getMinutes()+ "");
+        createReservationIntent.putExtra("tableID", selected.getTID() + "");
+        createReservationIntent.putExtra("numPeople", selected.getNumPeople() + "");
+        createReservationIntent.putExtra("year", selected.getStartTime().getYear() + "");
+        createReservationIntent.putExtra("month", selected.getStartTime().getMonth() + "");
+        createReservationIntent.putExtra("day", selected.getStartTime().getDate() + "");
+        createReservationIntent.putExtra("startHour", selected.getStartTime().getHour() + "");
+        createReservationIntent.putExtra("startMinute", selected.getStartTime().getMinutes() + "");
+        createReservationIntent.putExtra("endHour", selected.getEndTime().getHour() + "");
+        createReservationIntent.putExtra("endMinute", selected.getEndTime().getMinutes() + "");
         CreateReservationActivity.this.startActivity(createReservationIntent);
     }
 

@@ -25,11 +25,9 @@ public class DataAccessObject implements DataAccess
     private String dbName;
     private String dbType;
 
-    private ArrayList<Customer> customers;
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
     private ArrayList<Item> menu;
-    private ArrayList<Order> order;
 
     private String cmdString;
     private int updateCount;
@@ -181,7 +179,6 @@ public class DataAccessObject implements DataAccess
             cmdString = "UPDATE RESERVATIONS" + " SET " + values + " " + where;
             updateCount = st0.executeUpdate(cmdString);
             result = checkWarning(st0, updateCount);
-
         }
         catch(Exception e)
         {
@@ -381,7 +378,7 @@ public class DataAccessObject implements DataAccess
         result = null;
         try
         {
-            currID = customers.get(customers.size()-1).getCID();
+            currID = customers.get(customers.size() - 1).getCID();
             currID++;
             values = currID
                     + ", '" + customer.getFirstName()
@@ -560,7 +557,8 @@ public class DataAccessObject implements DataAccess
             if(itemID.size() > 0) // there exists at least one item in the order with rID
             {
                 orderResult = new Order(rID);
-                for(int i = 0; i < itemID.size(); i++) {
+                for(int i = 0; i < itemID.size(); i++)
+                {
                     cmdString = "SELECT * from MENU where IID=" + itemID.get(i);
                     rs1 = st0.executeQuery(cmdString);
 

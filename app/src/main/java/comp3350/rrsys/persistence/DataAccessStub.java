@@ -54,8 +54,6 @@ public class DataAccessStub implements DataAccess
     // insert a reservation
     public String insertReservation(Reservation r)
     {
-        String result = null;
-
         if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0 || r.getCID() < 0)
             return "fail";
 
@@ -65,7 +63,7 @@ public class DataAccessStub implements DataAccess
         r.setRID(getNextReservationID());
         reservations.add(r);
 
-        return result;
+        return "success";
     }
 
     // get a reservation by reservationID
@@ -448,8 +446,6 @@ public class DataAccessStub implements DataAccess
 
      public String removeOrder(int reservationID)
      {
-         String result = null;
-
          if(reservationID < 0)
             throw new IllegalArgumentException("Invalid reservationID");
 
@@ -461,6 +457,6 @@ public class DataAccessStub implements DataAccess
                  break;
              }
          }
-         return result;
+         return null;
      }
 }

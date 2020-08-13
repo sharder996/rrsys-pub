@@ -43,7 +43,7 @@ public class DateTime
 
     public int getPeriod(DateTime other)
     {
-        return (other.getHour()-this.getHour())*60 + other.getMinutes()-this.getMinutes();
+        return (other.getHour() - this.getHour()) * 60 + other.getMinutes() - this.getMinutes();
     }
 
     @Override

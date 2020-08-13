@@ -12,7 +12,7 @@ public class Table
     public static final int START_TIME = 7; // start hour
     public static final int END_TIME = 23;  // end hour
     public static final int MIN_TIME_INTERVAL = 15; // smallest block that time can be broken down to
-    public static final int INTERVALS_PER_DAY = (END_TIME-START_TIME)*MIN_TIME_INTERVAL; // num of 15 min increments each day
+    public static final int INTERVALS_PER_DAY = (END_TIME-START_TIME) * MIN_TIME_INTERVAL; // num of 15 min increments each day
 
     public Table(int tID, int capacity) throws IllegalArgumentException
     {

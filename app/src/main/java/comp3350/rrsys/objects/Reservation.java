@@ -67,7 +67,8 @@ public class Reservation {
     }
 
     // getter
-    public int getRID() {
+    public int getRID()
+    {
         return reservationID;
     }
 
