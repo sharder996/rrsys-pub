@@ -30,7 +30,8 @@ public class DataAccessHSQLDBTest extends TestCase
 
         DataAccessIntegrationTest.dataAccessIntegrationTest(dataAccess);
 
-        Services.closeDataAccess();
+        //Commented so changes do not commit to DB
+        //Services.closeDataAccess();
 
         System.out.println("Finished Integration test DataAccess (using default DB)");
     }
