@@ -19,9 +19,9 @@ public class DataAccessStub implements DataAccess
     private String dbName;
     private static String dbType = "stub";
 
-    private ArrayList<Customer> customers;
-    private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
+    private ArrayList<Table> tables;
+    private ArrayList<Customer> customers;
     private ArrayList<Item> menu;
     private ArrayList<Order> orders;
 
@@ -46,24 +46,13 @@ public class DataAccessStub implements DataAccess
         generateFakeData();
     }
 
-    public void close()
+    public void close() { System.out.println("Closed " + dbType + " database " + dbName); }
+
+    // Reservation Functions:
+    public String getReservationSequential(ArrayList<Reservation> reservationResult)
     {
-        System.out.println("Closed " + dbType + " database " + dbName);
-    }
-
-    // insert a reservation
-    public String insertReservation(Reservation r)
-    {
-        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0 || r.getCID() < 0)
-            return "fail";
-
-        if(r.getEndTime().getDate() != r.getStartTime().getDate() || r.getEndTime().getHour() - r.getStartTime().getHour() > 3)
-            return "fail";
-
-        r.setRID(getNextReservationID());
-        reservations.add(r);
-
-        return "success";
+        reservationResult.addAll(reservations);
+        return null;
     }
 
     // get a reservation by reservationID
@@ -81,21 +70,17 @@ public class DataAccessStub implements DataAccess
         return result;
     }
 
-    // delete a reservation by reservation ID
-    public String deleteReservation(int rID)
+    // insert a reservation
+    public String insertReservation(Reservation r)
     {
-        boolean found = false;
-        for(int i = 0; i < reservations.size(); i++)
-        {
-            if(reservations.get(i).equals(rID))
-            {
-                reservations.remove(i);
-                found = true;
-                break;
-            }
-        }
-        if(!found)
+        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0 || r.getCID() < 0)
             return "fail";
+
+        if(r.getEndTime().getDate() != r.getStartTime().getDate() || r.getEndTime().getHour() - r.getStartTime().getHour() > 3)
+            return "fail";
+
+        r.setRID(getNextReservationID());
+        reservations.add(r);
 
         return "success";
     }
@@ -119,19 +104,51 @@ public class DataAccessStub implements DataAccess
         return "success";
     }
 
-    public String getReservationSequential(ArrayList<Reservation> reservationResult)
+    // delete a reservation by reservation ID
+    public String deleteReservation(int rID)
     {
-        reservationResult.addAll(reservations);
-        return null;
+        boolean found = false;
+        for(int i = 0; i < reservations.size(); i++)
+        {
+            if(reservations.get(i).equals(rID))
+            {
+                reservations.remove(i);
+                found = true;
+                break;
+            }
+        }
+        if(!found)
+            return "fail";
+
+        return "success";
     }
 
+    // get next reservationID for creating a new reservation
+    public int getNextReservationID()
+    {
+        int maxResID = 0;
+        if(orders != null)
+        {
+            for (Order order : orders)
+            {
+                if (order.getReservationID() >= maxResID)
+                {
+                    maxResID = order.getReservationID() + 1;
+                }
+            }
+        }
+        return maxResID;
+    }
+
+    // Table Functions:
     public String getTableSequential(ArrayList<Table> tableResult)
     {
         tableResult.addAll(tables);
         return null;
     }
 
-    public Table getTableRandom(int tableID)
+    // get a table by tableID
+    public Table getTable(int tableID)
     {
         Table result = null;
         for(int i = 0; i < tables.size(); i++)
@@ -145,20 +162,139 @@ public class DataAccessStub implements DataAccess
         return result;
     }
 
+    // Customer Functions:
     public String getCustomerSequential(List<Customer> customerResult)
     {
         customerResult.addAll(customers);
         return null;
     }
 
-    //Adds a customer to list by object
+    // insert a customer
     public String insertCustomer(Customer customer)
     {
         customers.add(customer);
         return null;
     }
 
-    public void generateFakeData()
+    // Menu Functions:
+    public ArrayList<String> getMenuTypes()
+    {
+        ArrayList<String> types = new ArrayList<>();
+
+        types.add("Salads");
+        types.add("Sandwiches");
+        types.add("Burgers");
+        types.add("Mains");
+        types.add("Desserts");
+        types.add("Drinks");
+
+        return types;
+    }
+
+    public ArrayList<Item> getMenu() { return menu; }
+
+    public ArrayList<Item> getMenuByType(String type)
+    {
+        ArrayList<Item> items = new ArrayList<>();
+        for(int i = 0; i < menu.size(); i++)
+        {
+            if(menu.get(i).getType().equals(type))
+                items.add(menu.get(i));
+        }
+        return items;
+    }
+
+    // Order Functions:
+    public Order getOrder(int reservationID)
+    {
+        if(reservationID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        Order orderResult = null;
+        for(int i = 0; i < orders.size(); i++)
+        {
+            if(orders.get(i).getReservationID() == reservationID)
+            {
+                orderResult = orders.get(i);
+                break;
+            }
+        }
+        return orderResult;
+    }
+
+    // insert single item into order
+    public String insertItemIntoOrder(int resID, Item item)
+    {
+        String result = null;
+
+        if(resID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        //first check if order with resID exists, if not make new order
+        Order orderResult = null;
+        for(int i = 0; i < orders.size(); i++)
+        {
+            if(orders.get(i).getReservationID() == resID)
+            {
+                orderResult = orders.get(i);
+                break;
+            }
+        }
+        if(orderResult == null)
+        {
+            orderResult = new Order(resID);
+            orderResult.addItem(item);
+            insertOrder(orderResult);
+        }
+        else
+        {
+            int index = orders.indexOf(orderResult);
+            orderResult.addItem(item);
+            orders.set(index, orderResult);
+        }
+        return result;
+    }
+
+    // insert an order into order lists
+    public String insertOrder(Order newOrder)
+    {
+        if(newOrder == null || newOrder.getReservationID() < 0)
+            return "fail";
+
+        orders.add(newOrder);
+        return "success";
+    }
+
+    // remove an order
+    public String removeOrder(int reservationID)
+    {
+        if(reservationID < 0)
+            throw new IllegalArgumentException("Invalid reservationID");
+
+        for(int i = 0; i < orders.size(); i++)
+        {
+            if(orders.get(i).getReservationID() == reservationID)
+            {
+                orders.remove(i);
+                break;
+            }
+        }
+        return null;
+    }
+
+    // get the price of an order with reservationID
+    public double getPrice(int resID)
+    {
+        double totalPrice = 0.0;
+        if(resID > 0 && orders.contains(getOrder(resID)))
+        {
+            totalPrice = getOrder(resID).getTotalPrice();
+        }
+        return totalPrice;
+    }
+
+    // private method to generate fake data
+    private void generateFakeData()
     {
         // generate tables in the restaurant.
         // assume there are 30 tables
@@ -329,134 +465,4 @@ public class DataAccessStub implements DataAccess
         order.addItem(menu.get(43), 3, "");
         orders.add(order);
     }
-
-    public ArrayList<Item> getMenuByType(String type)
-    {
-        ArrayList<Item> items = new ArrayList<>();
-        for(int i = 0; i < menu.size(); i++)
-        {
-            if(menu.get(i).getType().equals(type))
-                items.add(menu.get(i));
-        }
-        return items;
-    }
-
-    public ArrayList<String> getMenuTypes()
-    {
-        ArrayList<String> types = new ArrayList<>();
-
-        types.add("Salads");
-        types.add("Sandwiches");
-        types.add("Burgers");
-        types.add("Mains");
-        types.add("Desserts");
-        types.add("Drinks");
-
-        return types;
-    }
-
-    public ArrayList<Item> getMenu()
-    {
-        return menu;
-    }
-
-    public String insertOrder(Order newOrder)
-    {
-        if(newOrder == null || newOrder.getReservationID() < 0)
-            return "fail";
-
-        orders.add(newOrder);
-        return "success";
-    }
-
-    public String insertItemIntoOrder(int resID, Item item)
-    {
-        String result = null;
-
-        if(resID < 0)
-            throw new IllegalArgumentException("Invalid reservationID");
-
-        //first check if order with resID exists, if not make new order
-        Order orderResult = null;
-        for(int i = 0; i < orders.size(); i++)
-        {
-            if(orders.get(i).getReservationID() == resID)
-            {
-                orderResult = orders.get(i);
-                break;
-            }
-        }
-        if(orderResult == null)
-        {
-            orderResult = new Order(resID);
-            orderResult.addItem(item);
-            insertOrder(orderResult);
-        }
-        else
-        {
-            int index = orders.indexOf(orderResult);
-            orderResult.addItem(item);
-            orders.set(index, orderResult);
-        }
-        return result;
-    }
-
-    public Order getOrder(int reservationID)
-    {
-        if(reservationID < 0)
-            throw new IllegalArgumentException("Invalid reservationID");
-
-        Order orderResult = null;
-        for(int i = 0; i < orders.size(); i++)
-        {
-            if(orders.get(i).getReservationID() == reservationID)
-            {
-                orderResult = orders.get(i);
-                break;
-            }
-        }
-        return orderResult;
-    }
-
-    public int getNextReservationID()
-    {
-        int maxResID = 0;
-        if(orders != null)
-        {
-            for (Order order : orders)
-            {
-                if (order.getReservationID() >= maxResID)
-                {
-                    maxResID = order.getReservationID() + 1;
-                }
-            }
-        }
-        return maxResID;
-    }
-
-    public double getPrice(int resID)
-    {
-        double totalPrice = 0.0;
-        if(resID > 0 && orders.contains(getOrder(resID)))
-        {
-            totalPrice = getOrder(resID).getTotalPrice();
-        }
-        return totalPrice;
-    }
-
-     public String removeOrder(int reservationID)
-     {
-         if(reservationID < 0)
-            throw new IllegalArgumentException("Invalid reservationID");
-
-         for(int i = 0; i < orders.size(); i++)
-         {
-             if(orders.get(i).getReservationID() == reservationID)
-             {
-                 orders.remove(i);
-                 break;
-             }
-         }
-         return null;
-     }
 }

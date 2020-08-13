@@ -38,10 +38,7 @@ public class DataAccessTest extends TestCase
 
     }
 
-    public void tearDown()
-    {
-        System.out.println("Finished Persistence test DataAccess (using db)");
-    }
+    public void tearDown() { System.out.println("Finished Persistence test DataAccess (using db)"); }
 
     public void testCustomerDatabaseTable()
     {
@@ -53,7 +50,6 @@ public class DataAccessTest extends TestCase
         result = dataAccess.getCustomerSequential(customers);
 
         assertNull(result);
-        //assertEquals(4, customers.size());
 
         customer = customers.get(0);
         assertEquals(1, customer.getCID());
@@ -87,7 +83,7 @@ public class DataAccessTest extends TestCase
         customers.clear();
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
-        //assertEquals(5, customers.size());
+        assertEquals(5, customers.size());
     }
 
     public void testAddNewCustomer()
@@ -108,8 +104,9 @@ public class DataAccessTest extends TestCase
         customers.clear();
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
-        //assertEquals(6, customers.size());
-        customer = customers.get(customers.size()-1);
+        assertEquals(5, customers.size());
+
+        customer = customers.get(customers.size() - 1);
         assertEquals(firstName, customer.getFirstName());
         assertEquals(lastName, customer.getLastName());
         assertEquals(phoneNumber, customer.getPhoneNumber());
@@ -131,7 +128,7 @@ public class DataAccessTest extends TestCase
         int capacity = 2;
         for(int i = 1; i <= 30; i++)
         {
-            table = tables.get(i-1);
+            table = tables.get(i - 1);
             assertEquals(capacity, table.getCapacity());
             if(i % 5 == 0)
                 capacity += 2;
@@ -145,7 +142,7 @@ public class DataAccessTest extends TestCase
         int capacity = 2;
         for(int i = 1; i <= 30; i++)
         {
-            table = dataAccess.getTableRandom(i);
+            table = dataAccess.getTable(i);
             assertNotNull(table);
             assertEquals(capacity, table.getCapacity());
             if(i % 5 == 0)
@@ -157,10 +154,10 @@ public class DataAccessTest extends TestCase
     {
         Table table;
 
-        table = dataAccess.getTableRandom(-1);
+        table = dataAccess.getTable(-1);
         assertNull(table);
 
-        table = dataAccess.getTableRandom(31);
+        table = dataAccess.getTable(31);
         assertNull(table);
     }
 
@@ -174,7 +171,7 @@ public class DataAccessTest extends TestCase
         result = dataAccess.getReservationSequential(reservations);
 
         assertNull(result);
-        //assertEquals(4, reservations.size());
+        assertEquals(4, reservations.size());
 
         reservation = reservations.get(0);
         assertEquals(1, reservation.getRID());
@@ -196,7 +193,7 @@ public class DataAccessTest extends TestCase
 
         ArrayList<Reservation> reservations = new ArrayList<>();
         dataAccess.getReservationSequential(reservations);
-        assertEquals(nextID-1, reservations.size());
+        assertEquals(nextID - 1, reservations.size());
     }
 
     public void testMenuGetTypes()
@@ -244,7 +241,7 @@ public class DataAccessTest extends TestCase
         result = dataAccess.getReservationSequential(reservations);
 
         assertNull(result);
-        //assertEquals(4, reservations.size());
+        assertEquals(4, reservations.size());
 
         for(int i = 1; i <= 4; i++)
         {

@@ -13,5 +13,5 @@ public class AccessTables
 
     public AccessTables(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
 
-    public Table getRandom(int tID) { return dataAccess.getTableRandom(tID); }
+    public Table getRandom(int tID) { return dataAccess.getTable(tID); }
 }

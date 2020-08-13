@@ -80,7 +80,7 @@ public class TestSuggestReservations extends TestCase
 
                         reservations = SuggestReservations.suggest(dataAccess, startTime, endTime, k);
                         assertTrue(reservations.size() > 0);
-                        assertEquals((14 - k)/2 * size, reservations.size());
+                        assertEquals((14 - k) / 2 * size, reservations.size());
                     }
                 }
             }
@@ -117,7 +117,7 @@ public class TestSuggestReservations extends TestCase
 
                             reservations = SuggestReservations.suggest(dataAccess, startTime, endTime, k);
                             assertTrue(reservations.size() > 0);
-                            assertEquals((14 - k)/2 * size, reservations.size());
+                            assertEquals((14 - k) / 2 * size, reservations.size());
                         }
                     }
                 }

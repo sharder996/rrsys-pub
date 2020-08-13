@@ -10,7 +10,6 @@ public class PersistenceTests
     public static Test suite()
     {
         suite = new TestSuite("Persistence Tests");
-        suite.addTestSuite(DataAccessIntegrationTest.class);
         suite.addTestSuite(DataAccessTest.class);
         return suite;
     }

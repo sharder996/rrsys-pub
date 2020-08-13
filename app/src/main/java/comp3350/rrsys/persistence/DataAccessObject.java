@@ -105,6 +105,45 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
+    // Reservation Functions:
+    public String getReservationSequential(ArrayList<Reservation> reservationResult)
+    {
+        Reservation reservation;
+        int resID, custID, tableID, numPeople;
+        DateTime startTime, endTime;
+
+        result = null;
+        try
+        {
+            cmdString = "SELECT * from RESERVATIONS";
+            rs2 = st0.executeQuery(cmdString);
+
+            while(rs2.next())
+            {
+                resID = rs2.getInt("RID");
+                custID = rs2.getInt("CID");
+                tableID = rs2.getInt("TID");
+                numPeople = rs2.getInt("NUMPEOPLE");
+                Calendar calStart = new GregorianCalendar();
+                calStart.setTime(rs2.getTimestamp("STARTTIME"));
+                startTime = new DateTime(calStart);
+                Calendar calEnd = new GregorianCalendar();
+                calEnd.setTime(rs2.getTimestamp("ENDTIME"));
+                endTime = new DateTime(calEnd);
+                reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
+                reservation.setRID(resID);
+                reservationResult.add(reservation);
+            }
+            rs2.close();
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
     public Reservation getReservation(int reservationID)
     {
         Reservation reservation;
@@ -145,14 +184,29 @@ public class DataAccessObject implements DataAccess
         return null;
     }
 
-    public String deleteReservation(int reservationID)
+    public String insertReservation(Reservation r)
     {
+        String values;
+
+        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0 || r.getCID() < 0)
+            return "fail";
+
+        if(r.getEndTime().getDate() != r.getStartTime().getDate() || r.getEndTime().getHour() - r.getStartTime().getHour() > 3)
+            return "fail";
+
         result = null;
         try
         {
-            cmdString = "DELETE from RESERVATIONS where RID=" + reservationID;
-            updateCount = st0.executeUpdate(cmdString);
-            result = checkWarning(st0, updateCount);
+            values = r.getRID()
+                    + ", " + r.getCID()
+                    + ", " + r.getTID()
+                    + ", " + r.getNumPeople()
+                    + ", '" + r.getStartTime().toString()
+                    + "', '" + r.getEndTime().toString()
+                    + "'";
+            cmdString = "INSERT into RESERVATIONS " + " Values(" + values + ")";
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
         }
         catch(Exception e)
         {
@@ -188,6 +242,24 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
+    public String deleteReservation(int reservationID)
+    {
+        result = null;
+        try
+        {
+            cmdString = "DELETE from RESERVATIONS where RID=" + reservationID;
+            updateCount = st0.executeUpdate(cmdString);
+            result = checkWarning(st0, updateCount);
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+    // get next reservationID for creating a new reservation
     public int getNextReservationID()
     {
         int next = 0;
@@ -207,76 +279,7 @@ public class DataAccessObject implements DataAccess
         return next;
     }
 
-    public String insertReservation(Reservation r)
-    {
-        String values;
-
-        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0 || r.getCID() < 0)
-            return "fail";
-
-        if(r.getEndTime().getDate() != r.getStartTime().getDate() || r.getEndTime().getHour() - r.getStartTime().getHour() > 3)
-            return "fail";
-
-        result = null;
-        try
-        {
-            values = r.getRID()
-                    + ", " + r.getCID()
-                    + ", " + r.getTID()
-                    + ", " + r.getNumPeople()
-                    + ", '" + r.getStartTime().toString()
-                    + "', '" + r.getEndTime().toString()
-                    + "'";
-            cmdString = "INSERT into RESERVATIONS " + " Values(" + values + ")";
-            updateCount = st1.executeUpdate(cmdString);
-            result = checkWarning(st1, updateCount);
-        }
-        catch(Exception e)
-        {
-            result = processSQLError(e);
-        }
-
-        return result;
-    }
-
-    public String getReservationSequential(ArrayList<Reservation> reservationResult)
-    {
-        Reservation reservation;
-        int resID, custID, tableID, numPeople;
-        DateTime startTime, endTime;
-
-        result = null;
-        try
-        {
-            cmdString = "SELECT * from RESERVATIONS";
-            rs2 = st0.executeQuery(cmdString);
-
-            while(rs2.next())
-            {
-                resID = rs2.getInt("RID");
-                custID = rs2.getInt("CID");
-                tableID = rs2.getInt("TID");
-                numPeople = rs2.getInt("NUMPEOPLE");
-                Calendar calStart = new GregorianCalendar();
-                calStart.setTime(rs2.getTimestamp("STARTTIME"));
-                startTime = new DateTime(calStart);
-                Calendar calEnd = new GregorianCalendar();
-                calEnd.setTime(rs2.getTimestamp("ENDTIME"));
-                endTime = new DateTime(calEnd);
-                reservation = new Reservation(custID, tableID, numPeople, startTime, endTime);
-                reservation.setRID(resID);
-                reservationResult.add(reservation);
-            }
-            rs2.close();
-        }
-        catch(Exception e)
-        {
-            result = processSQLError(e);
-        }
-
-        return result;
-    }
-
+    // Table Functions:
     public String getTableSequential(ArrayList<Table> tableResult)
     {
         Table table;
@@ -305,7 +308,7 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
-    public Table getTableRandom(int tableID)
+    public Table getTable(int tableID)
     {
         Table table;
         int capacity;
@@ -337,6 +340,7 @@ public class DataAccessObject implements DataAccess
         return null;
     }
 
+    // Customer Functions:
     public String getCustomerSequential(List<Customer> customerResult)
     {
         Customer customer;
@@ -397,38 +401,7 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
-    public ArrayList<Item> getMenuByType(String type)
-    {
-        Item item;
-        int IID;
-        String name, detail;
-        double price;
-
-        menu = new ArrayList<>();
-        try
-        {
-            cmdString = "SELECT * from MENU where TYPE='" + type + "'";
-            rs2 = st0.executeQuery(cmdString);
-
-            while(rs2.next())
-            {
-                IID = rs2.getInt("IID");
-                name = rs2.getString("NAME");
-                detail = rs2.getString("DETAIL");
-                price = rs2.getDouble("PRICE");
-                item = new Item(IID, name, type, detail, price);
-                menu.add(item);
-            }
-            rs2.close();
-        }
-        catch(Exception e)
-        {
-            processSQLError(e);
-        }
-
-        return menu;
-    }
-
+    // Menu Functions:
     public ArrayList<String> getMenuTypes()
     {
         ArrayList<String> types = new ArrayList<>();
@@ -481,48 +454,39 @@ public class DataAccessObject implements DataAccess
         return returnMenu;
     }
 
-    //adds single item into order
-    public String insertItemIntoOrder(int resID, Item item)
+    public ArrayList<Item> getMenuByType(String type)
     {
-        String values;
+        Item item;
+        int IID;
+        String name, detail;
+        double price;
 
-        result = null;
+        menu = new ArrayList<>();
         try
         {
-            values = resID
-                    + ", " + item.getItemID()
-                    + ", " + item.getQuantity()
-                    + ", '" + item.getNote()
-                    + "'";
+            cmdString = "SELECT * from MENU where TYPE='" + type + "'";
+            rs2 = st0.executeQuery(cmdString);
 
-            cmdString = "INSERT into ORDERS VALUES(" + values + ")";
-            updateCount = st1.executeUpdate(cmdString);
-            result = checkWarning(st1, updateCount);
+            while(rs2.next())
+            {
+                IID = rs2.getInt("IID");
+                name = rs2.getString("NAME");
+                detail = rs2.getString("DETAIL");
+                price = rs2.getDouble("PRICE");
+                item = new Item(IID, name, type, detail, price);
+                menu.add(item);
+            }
+            rs2.close();
         }
         catch(Exception e)
         {
-            result = processSQLError(e);
+            processSQLError(e);
         }
-        return result;
+
+        return menu;
     }
 
-    public String removeOrder(int resID)
-    {
-        result = null;
-        try
-        {
-            cmdString = "DELETE from ORDERS where RID=" + resID;
-            updateCount = st0.executeUpdate(cmdString);
-            result = checkWarning(st0, updateCount);
-        }
-        catch(Exception e)
-        {
-            result = processSQLError(e);
-        }
-
-        return result;
-    }
-
+    // Order Functions:
     public Order getOrder(int rID)
     {
         ArrayList<Integer> itemID;
@@ -583,6 +547,49 @@ public class DataAccessObject implements DataAccess
         return orderResult;
     }
 
+    // insert single item into order
+    public String insertItemIntoOrder(int resID, Item item)
+    {
+        String values;
+
+        result = null;
+        try
+        {
+            values = resID
+                    + ", " + item.getItemID()
+                    + ", " + item.getQuantity()
+                    + ", '" + item.getNote()
+                    + "'";
+
+            cmdString = "INSERT into ORDERS VALUES(" + values + ")";
+            updateCount = st1.executeUpdate(cmdString);
+            result = checkWarning(st1, updateCount);
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+        return result;
+    }
+
+    public String removeOrder(int resID)
+    {
+        result = null;
+        try
+        {
+            cmdString = "DELETE from ORDERS where RID=" + resID;
+            updateCount = st0.executeUpdate(cmdString);
+            result = checkWarning(st0, updateCount);
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+    // get the price of an order with reservationID
     public double getPrice(int resID)
     {
         double totalPrice = 0.0;

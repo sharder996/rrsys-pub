@@ -32,7 +32,7 @@ public class MenuActivity extends Activity
         List<String> parentList = accessMenu.getMenuTypes();
         parentListItems = new LinkedHashMap<>();
 
-        for (String parent : parentList)
+        for(String parent : parentList)
         {
             ArrayList<Item> items = accessMenu.getMenuByType(parent);
             parentListItems.put(parent, items);

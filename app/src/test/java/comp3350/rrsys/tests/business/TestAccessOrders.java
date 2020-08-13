@@ -107,8 +107,6 @@ public class TestAccessOrders extends TestCase
             assertNull(selectedItems);
         }
 
-        assertNull(selectedItems);
-
         System.out.println("\nEnding TestGetOrderNegativeValue");
     }
 
@@ -174,8 +172,8 @@ public class TestAccessOrders extends TestCase
         newOrder.addItem(dish2, 4, "");
         newOrder.addItem(dish3, 1, "");
 
-        double totalPrice = dish.getPrice()*dish.getQuantity() + dish1.getPrice()*dish1.getQuantity()
-                + dish2.getPrice()*dish2.getQuantity() + dish3.getPrice()*dish3.getQuantity();
+        double totalPrice = dish.getPrice() * dish.getQuantity() + dish1.getPrice() * dish1.getQuantity()
+                + dish2.getPrice() * dish2.getQuantity() + dish3.getPrice() * dish3.getQuantity();
         totalPrice = Math.round(totalPrice * 100.0) / 100.0;
 
         String result = accessOrders.insertOrder(newOrder);
@@ -190,7 +188,7 @@ public class TestAccessOrders extends TestCase
         result = accessOrders.insertOrder(newOrder);
         assertNull(result);
 
-        totalPrice += dish4.getPrice()*dish4.getQuantity() + dish5.getPrice()*dish5.getQuantity();
+        totalPrice += dish4.getPrice() * dish4.getQuantity() + dish5.getPrice() * dish5.getQuantity();
         totalPrice = Math.round(totalPrice * 100.0) / 100.0;
 
         price = accessOrders.getPrice(newOrder.getReservationID());
