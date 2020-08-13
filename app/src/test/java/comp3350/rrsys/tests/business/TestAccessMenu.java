@@ -88,8 +88,10 @@ public class TestAccessMenu extends TestCase
         System.out.println("\nStarting TestAccessInvalidEntryTypeMenu");
 
         ArrayList<Item> newItems = accessMenu.getMenuByType("Chicken");
-
         assertEquals(0, newItems.size());
+
+        ArrayList<Item> newItems2 = accessMenu.getMenuByType("Specials");
+        assertEquals(0, newItems2.size());
 
         System.out.println("\nEnding TestAccessInvalidEntryTypeMenu");
     }
