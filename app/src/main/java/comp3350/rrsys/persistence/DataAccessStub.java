@@ -176,6 +176,13 @@ public class DataAccessStub implements DataAccess
         return null;
     }
 
+    // only for testing purpose
+    public String deleteCustomer(Customer customer)
+    {
+        customers.remove(customer);
+        return null;
+    }
+
     // Menu Functions:
     public ArrayList<String> getMenuTypes()
     {

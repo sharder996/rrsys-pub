@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
 import comp3350.rrsys.objects.Customer;
-import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.persistence.DataAccess;
 
 public class AccessCustomers
@@ -23,4 +22,7 @@ public class AccessCustomers
     }
 
     public String insertCustomer(Customer currentCustomer) { return dataAccess.insertCustomer(currentCustomer); }
+
+    // only for testing in BusinessPersistenceSeamTest.
+    public String deleteCustomer(Customer currentCustomer) { return dataAccess.deleteCustomer(currentCustomer); }
 }

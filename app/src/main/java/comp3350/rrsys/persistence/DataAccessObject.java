@@ -401,6 +401,25 @@ public class DataAccessObject implements DataAccess
         return result;
     }
 
+    // only for testing purpose
+    public String deleteCustomer(Customer customer)
+    {
+        result = null;
+        try
+        {
+            cmdString = "DELETE from CUSTOMERS where CID=" + customer.getCID();
+            updateCount = st0.executeUpdate(cmdString);
+            result = checkWarning(st0, updateCount);
+        }
+        catch(Exception e)
+        {
+            result = processSQLError(e);
+        }
+
+        return result;
+    }
+
+
     // Menu Functions:
     public ArrayList<String> getMenuTypes()
     {

@@ -38,6 +38,8 @@ public interface DataAccess
 
     String insertCustomer(Customer customer);
 
+    String deleteCustomer(Customer customer); // only for testing purpose
+
     // Menu Functions:
     ArrayList<String> getMenuTypes();
 

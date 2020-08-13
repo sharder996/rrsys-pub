@@ -38,8 +38,13 @@ public class TestAccessCustomers extends TestCase
         accessCustomers.getCustomers(customerList);
         assertEquals(size + 1, customerList.size());
 
-        accessCustomers.insertCustomer(new Customer("Alice", "Wang", "204-999-4567"));
+        Customer newCustomer = new Customer("Alice", "Wang", "204-999-4567");
+        accessCustomers.insertCustomer(newCustomer);
         accessCustomers.getCustomers(customerList);
         assertEquals(size + 2, customerList.size());
+
+        accessCustomers.deleteCustomer(newCustomer);
+        accessCustomers.getCustomers(customerList);
+        assertEquals(size + 1, customerList.size());
     }
 }

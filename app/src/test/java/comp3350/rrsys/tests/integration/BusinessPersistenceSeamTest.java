@@ -3,6 +3,8 @@ package comp3350.rrsys.tests.integration;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.application.Services;
@@ -12,9 +14,11 @@ import comp3350.rrsys.business.AccessOrders;
 import comp3350.rrsys.business.AccessReservations;
 import comp3350.rrsys.business.AccessTables;
 import comp3350.rrsys.objects.Customer;
+import comp3350.rrsys.objects.DateTime;
 import comp3350.rrsys.objects.Item;
 import comp3350.rrsys.objects.Order;
 import comp3350.rrsys.objects.Reservation;
+import comp3350.rrsys.objects.Table;
 
 public class BusinessPersistenceSeamTest extends TestCase
 {
@@ -25,7 +29,6 @@ public class BusinessPersistenceSeamTest extends TestCase
 
     public void testAccessCustomers()
     {
-
         ArrayList<Customer> customerList = new ArrayList<>();
         AccessCustomers ac;
         String result;
@@ -34,15 +37,36 @@ public class BusinessPersistenceSeamTest extends TestCase
 
         System.out.println("\nStarting Integration test of AccessCustomers to persistence");
 
-        /* is there any way to test AccessCustomer?
         Services.createDataAccess(Main.dbName);
 
         ac = new AccessCustomers();
 
-        result = ac.insertCustomer(new Customer("Jim", "Jam", "204-956-1203"));
-
+        result = ac.getCustomers(customerList);
         assertNull(result);
-        */
+        assertEquals(customerList.size(), 5);
+        assertEquals(customerList.get(0).getFirstName() , "Gary");
+        assertEquals(customerList.get(0).getLastName() , "Chalmers");
+
+        Customer newCustomer= new Customer("Jim", "Ddd", "204-956-1203");
+        newCustomer.setCID(6);
+        result = ac.insertCustomer(newCustomer);
+        assertNull(result);
+
+        result = ac.getCustomers(customerList);
+        assertNull(result);
+        assertEquals(customerList.size(), 6);
+        assertEquals(customerList.get(5).getFirstName() , "Jim");
+        assertEquals(customerList.get(5).getLastName() , "Ddd");
+
+        result = ac.deleteCustomer(newCustomer);
+        assertNull(result);
+
+        result = ac.getCustomers(customerList);
+        assertNull(result);
+        assertEquals(customerList.size(), 5);
+
+        result = ac.deleteCustomer(newCustomer);//remove customer that does not exist.
+        assertEquals(result, "Tuple not inserted correctly.");//checkWarning  message.
 
         Services.closeDataAccess();
 
@@ -79,7 +103,6 @@ public class BusinessPersistenceSeamTest extends TestCase
 
         itemList = am.getMenuByType(itemType.get(4));
         assertEquals(itemList.size(), 6);
-
 
         itemList = am.getMenuByType("Invalid Entry");
         assertNotNull(itemList);
@@ -143,6 +166,8 @@ public class BusinessPersistenceSeamTest extends TestCase
         AccessReservations ar;
 
         ArrayList<Reservation> reservations = new ArrayList<>();
+
+        Reservation res;
         String result;
 
         Services.closeDataAccess();
@@ -153,8 +178,88 @@ public class BusinessPersistenceSeamTest extends TestCase
 
         ar = new AccessReservations();
 
+        assertTrue(reservations.size() == 0);
+
         result = ar.getReservations(reservations);
         assertNull(result);
+        assertNotNull(reservations);
+        assertTrue(reservations.size() > 0);
+
+        res = ar.getRandom(3);
+        assertNotNull(res);
+        assertTrue(res.getRID() == 3);
+        assertTrue(res.getCID() == 3);
+
+        Calendar currDate = Calendar.getInstance();
+        DateTime start = null;
+        DateTime end = null;
+
+        try
+        {
+            start = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1,9,0));
+            end = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 11, 0));
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail();
+        }
+
+        res = new Reservation(4,7,2,start,end);
+        assertNotNull(res);
+
+        res.setRID(ar.getNextReservationID());
+        assertEquals(ar.getNextReservationID(), 11);
+        assertEquals(res.getRID(), 11);
+
+        result = ar.insertReservation(res);
+        assertNull(result);
+        assertEquals(ar.getNextReservationID(), 12);
+
+        result = ar.getReservations(reservations);
+        assertNull(result);
+        assertTrue(reservations.get(10).equals(11));
+
+        res = ar.getRandom(11);
+        assertEquals(res.getRID() , 11);
+        assertTrue(res.getCID() == 4);
+        assertTrue(res.getNumPeople() == 2);
+
+        //Tests updateReservation
+        try
+        {
+            start = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1,10,0));
+            end = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 12, 0));
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail();
+        }
+
+        res = new Reservation(4, 7, 3, start, end);
+        res.setRID(11);
+
+        result = ar.updateReservation(res);
+        assertNull(result);
+
+        result = ar.getReservations(reservations);
+        assertNull(result);
+        assertTrue(reservations.get(10).equals(11));
+        assertEquals(reservations.get(10).getCID() , 4);
+        assertEquals(reservations.get(10).getNumPeople() , 3);
+
+        result = ar.deleteReservation(11);
+        assertNull(result);
+        res = ar.getRandom(11);
+        assertNull(res);
+
+        reservations = ar.suggestReservations(start, end, 7);
+        assertTrue(reservations.size() > 0);
+
+        //test invalids.
+        result = ar.deleteReservation(11);//doesn't exist such reservationID
+        assertEquals(result, "Tuple not inserted correctly."); //checkwarning message
+
+        assertTrue(ar.getRandom(11) == null);
 
         Services.closeDataAccess();
 
@@ -164,7 +269,7 @@ public class BusinessPersistenceSeamTest extends TestCase
     public void testAccessTables()
     {
         AccessTables at;
-
+        Table table;
         Services.closeDataAccess();
 
         System.out.println("\nStarting Integration test of AccessTables to persistence");
@@ -173,11 +278,15 @@ public class BusinessPersistenceSeamTest extends TestCase
 
         at = new AccessTables();
 
-        /*
-           Todo
-           Test code
-         */
+        table = at.getRandom(7);
+        assertNotNull(table);
+        assertEquals(table.getTID(), 7);
+        assertEquals(table.getCapacity(), 4);
 
+        table = at.getRandom(12);
+        assertNotNull(table);
+        assertEquals(table.getTID(), 12);
+        assertEquals(table.getCapacity(), 6);
 
         Services.closeDataAccess();
 
