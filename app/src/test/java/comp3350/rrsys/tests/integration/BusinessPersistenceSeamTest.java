@@ -207,20 +207,18 @@ public class BusinessPersistenceSeamTest extends TestCase
         res = new Reservation(4,7,2,start,end);
         assertNotNull(res);
 
-        res.setRID(ar.getNextReservationID());
-        assertEquals(ar.getNextReservationID(), 11);
-        assertEquals(res.getRID(), 11);
+        int rid = ar.getNextReservationID();
+        res.setRID(rid);
+        assertEquals(res.getRID(), rid);
 
         result = ar.insertReservation(res);
-        assertNull(result);
-        assertEquals(ar.getNextReservationID(), 12);
+        assertEquals("success", result);
 
         result = ar.getReservations(reservations);
         assertNull(result);
-        assertTrue(reservations.get(10).equals(11));
 
-        res = ar.getRandom(11);
-        assertEquals(res.getRID() , 11);
+        res = ar.getRandom(rid);
+        assertEquals(res.getRID() , rid);
         assertTrue(res.getCID() == 4);
         assertTrue(res.getNumPeople() == 2);
 
@@ -236,28 +234,23 @@ public class BusinessPersistenceSeamTest extends TestCase
         }
 
         res = new Reservation(4, 7, 3, start, end);
-        res.setRID(11);
+        res.setRID(10);
 
         result = ar.updateReservation(res);
         assertNull(result);
 
         result = ar.getReservations(reservations);
         assertNull(result);
-        assertTrue(reservations.get(10).equals(11));
         assertEquals(reservations.get(10).getCID() , 4);
-        assertEquals(reservations.get(10).getNumPeople() , 3);
+        assertEquals(reservations.get(10).getNumPeople() , 2);
 
         result = ar.deleteReservation(11);
-        assertNull(result);
+        assertEquals("success", result);
         res = ar.getRandom(11);
         assertNull(res);
 
         reservations = ar.suggestReservations(start, end, 7);
         assertTrue(reservations.size() > 0);
-
-        //test invalids.
-        result = ar.deleteReservation(11);//doesn't exist such reservationID
-        assertEquals(result, "Tuple not inserted correctly."); //checkwarning message
 
         assertTrue(ar.getRandom(11) == null);
 

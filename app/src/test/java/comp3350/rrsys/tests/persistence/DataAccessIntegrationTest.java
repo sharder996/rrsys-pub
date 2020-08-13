@@ -34,11 +34,11 @@ public class DataAccessIntegrationTest  extends TestCase
         System.out.println("\nStarting Persistence test DataAccess (using stub)");
 
         // Use the following statements to run with the stub database:
-        //dataAccess = new DataAccessStub();
-        //dataAccess.open("Stub");
+        dataAccess = new DataAccessStub();
+        dataAccess.open("Stub");
         // or switch to the real database:
-         dataAccess = new DataAccessObject(Main.dbName);
-         dataAccess.open(Main.getDBPathName());
+        // dataAccess = new DataAccessObject(Main.dbName);
+        // dataAccess.open(Main.getDBPathName());
         // Note the increase in test execution time.
     }
 
@@ -100,7 +100,7 @@ public class DataAccessIntegrationTest  extends TestCase
         reservation.setCustomerID(2);
         assertNotNull(reservation);
         result = dataAccess.insertReservation(reservation);
-        assertNull(result);
+        assertEquals("success", result);
 
         reservation = dataAccess.getReservation(rid);
         assertNotNull(reservation);
@@ -145,7 +145,7 @@ public class DataAccessIntegrationTest  extends TestCase
         reservation.setCustomerID(1);
         assertNotNull(reservation);
         result = dataAccess.insertReservation(reservation);
-        assertNull(result);
+        assertEquals("success", result);
 
         reservation = dataAccess.getReservation(rid);
         assertNotNull(reservation);

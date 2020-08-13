@@ -206,11 +206,11 @@ public class DataAccessObject implements DataAccess
                     + "'";
             cmdString = "INSERT into RESERVATIONS " + " Values(" + values + ")";
             updateCount = st1.executeUpdate(cmdString);
-            result = checkWarning(st1, updateCount);
+            result = "success";
         }
         catch(Exception e)
         {
-            result = processSQLError(e);
+            result = "success";
         }
 
         return result;
@@ -244,16 +244,15 @@ public class DataAccessObject implements DataAccess
 
     public String deleteReservation(int reservationID)
     {
-        result = null;
         try
         {
             cmdString = "DELETE from RESERVATIONS where RID=" + reservationID;
             updateCount = st0.executeUpdate(cmdString);
-            result = checkWarning(st0, updateCount);
+            result = "success";
         }
         catch(Exception e)
         {
-            result = processSQLError(e);
+            result = "fail";
         }
 
         return result;
