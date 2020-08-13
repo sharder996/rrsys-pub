@@ -17,7 +17,7 @@ public class TestAccessMenu extends TestCase
 
     public void setUp()
     {
-        System.out.println("/nStarting TestAccessMenu");
+        System.out.println("\nStarting TestAccessMenu");
         accessMenu = new AccessMenu(new DataAccessStub(Main.dbName));
     }
 

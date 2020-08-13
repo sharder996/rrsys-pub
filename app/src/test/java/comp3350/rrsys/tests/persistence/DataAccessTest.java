@@ -256,34 +256,21 @@ public class DataAccessTest extends TestCase
         assertEquals(2, order.getOrder().size());
     }
 
-    public void testInsertOrder()
+    public void testGetOrders()
     {
         Order order;
 
         order = dataAccess.getOrder(1);
-        for(int i = 0; i < order.getSize(); i++)
-        {
-            System.out.println(order.getOrder().get(i).getName());
-        }
-        System.out.println();
+        assertNotNull(order);
+
         order = dataAccess.getOrder(2);
-        for(int i = 0; i < order.getSize(); i++)
-        {
-            System.out.println(order.getOrder().get(i).getName());
-        }
-        System.out.println();
+        assertNotNull(order);
+
         order = dataAccess.getOrder(3);
-        for(int i = 0; i < order.getSize(); i++)
-        {
-            System.out.println(order.getOrder().get(i).getName());
-        }
-        System.out.println();
+        assertNotNull(order);
+
         order = dataAccess.getOrder(4);
-        for(int i = 0; i < order.getSize(); i++)
-        {
-            System.out.println(order.getOrder().get(i).getName());
-        }
-        System.out.println();
+        assertNotNull(order);
     }
 
     public void testInsertIntoNewOrder()
@@ -303,7 +290,6 @@ public class DataAccessTest extends TestCase
         {
             fail();
         }
-        System.out.println();
 
         newReservation.setRID(5);
         result = dataAccess.insertReservation(newReservation);
@@ -329,11 +315,8 @@ public class DataAccessTest extends TestCase
         String result;
 
         order = dataAccess.getOrder(1);
-        for(int i = 0; i < order.getSize(); i++)
-        {
-            System.out.println(order.getOrder().get(i).getName());
-        }
-        System.out.println();
+        assertNotNull(order);
+
         item = dataAccess.getMenu().get(0);
         result = dataAccess.insertItemIntoOrder(1, item);
         assertNull(result);
