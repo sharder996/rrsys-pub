@@ -1,6 +1,5 @@
 package comp3350.rrsys.persistence;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,5 +53,4 @@ public interface DataAccess
     String insertItemIntoOrder(int resID, Item item);
 
     double getPrice(int resID);
-
 }
