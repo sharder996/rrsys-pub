@@ -46,8 +46,7 @@ public class ReviewReservationActivity extends Activity
         if(order != null && order.getSize() > 0)
         {
             List<String> parentList = new ArrayList<>();
-            parentList.add("Total Price: $" + accessOrder.getPrice(Integer.parseInt(getIntent().getStringExtra("Code")))
-                    + " (" + accessOrder.getSize(Integer.parseInt(getIntent().getStringExtra("Code"))) + " items)");
+            parentList.add("Total Price: $" + accessOrder.getPrice(Integer.parseInt(getIntent().getStringExtra("Code"))));
 
             parentListItems = new LinkedHashMap<>();
             for (String parent : parentList)
