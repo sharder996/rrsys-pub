@@ -32,16 +32,16 @@ public class TestSuggestReservations extends TestCase
     {
         DataAccessStub dataAccess = new DataAccessStub(Main.dbName);
         dataAccess.open(Main.dbName);
-        dataAccess.generateFakeData();
 
-        /* expected number of suggest reservations for each capacity level
-           5 tables wth capacity 2, 4, 6, 8, 10, 12
-           eg. 5 tables with capacity >= 11 or 12 (number of people)
-               10 tables with capacity >= 9 or 10 (number of people)
-               30 tables with capacity >= 1 or 2 (number of people)
-           5 different time periods, early or late than input time
+        /*
+        expected number of suggest reservations for each capacity level
+        5 tables wth capacity 2, 4, 6, 8, 10, 12
+        eg. 5 tables with capacity >= 11 or 12 (number of people)
+        10 tables with capacity >= 9 or 10 (number of people)
+        30 tables with capacity >= 1 or 2 (number of people)
+        5 different time periods (+- half hour: +30 min, +15 min, 0, -15 min, -30 min)
          */
-        int size = 5 * 5 * 2;
+        int size = 5 * 5;
 
         ArrayList<Reservation> reservations = null;
         int openTime = Table.START_TIME;

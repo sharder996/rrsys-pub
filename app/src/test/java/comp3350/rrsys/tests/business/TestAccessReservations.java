@@ -279,7 +279,6 @@ public class TestAccessReservations extends TestCase
 
         DataAccessStub accessStub = new DataAccessStub();
         accessStub.open(Main.dbName);
-        accessStub.generateFakeData();
         ArrayList<Reservation> reservations = null;
         int openTime = 7;
         int closeTime = 22;
