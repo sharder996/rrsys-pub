@@ -46,6 +46,7 @@ public class TestAccessTables extends TestCase
                 capacity += 2;
         }
     }
+
     public void testAccessInvalidTables()
     {
         Table table;
