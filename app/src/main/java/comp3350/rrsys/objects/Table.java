@@ -34,11 +34,6 @@ public class Table
     public int getTID() { return tID; }
     public int getCapacity() { return capacity; }
 
-    public boolean equals(int tID)
-    {
-        return this.tID == tID;
-    }
-
     @Override
     public String toString()
     {

@@ -34,14 +34,10 @@ public interface DataAccess
 
     Table getTableRandom(int tableID);
 
-    String addTable(int tableID, int size);
-
     // Customer Functions:
     String getCustomerSequential(List<Customer> customerResult);
 
     String insertCustomer(Customer customer);
-
-    String insertCustomer(String firstName, String lastName, String phoneNumber);
 
     // Menu Functions:
     ArrayList<String> getMenuTypes();
@@ -50,8 +46,6 @@ public interface DataAccess
 
     String insertItem(Item newItem);
 
-    String insertOrder(Order newOrder);
-
     ArrayList<Item> getMenuByType(String type);
 
     //Order Functions:
@@ -59,11 +53,7 @@ public interface DataAccess
 
     String removeOrder(int resID);
 
-    String insertItemIntoOrder(int resID, Item item, String note);
-
-    //String removeItemFromOrder(int resID, int lineItem);
-
-    int getNextLineItem(int resID);
+    String insertItemIntoOrder(int resID, Item item);
 
     double getPrice(int resID);
 

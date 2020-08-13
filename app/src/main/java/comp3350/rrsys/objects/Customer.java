@@ -12,14 +12,11 @@ public class Customer
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private static int counter = 1;
     // enforces format: 9999999999, 1-999-999-9999 and 999-999-9999
     private final static String regExPhoneNumber = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$";
 
     public Customer(String fName, String lName, String pNum) throws IllegalArgumentException
     {
-        cID = counter++;
-
         if(!fName.isEmpty() && !containsDigitInString(fName) && fName.split("\\s+").length == 1)
             firstName = titleCaseConversion(fName);
         else
@@ -54,14 +51,6 @@ public class Customer
     {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
-
-    public boolean equals(Customer other)
-    {
-        return this.cID == other.cID;
-    }
-
-    @Override
-    public String toString() { return "Name: " + this.getFullName() + " -- Ph. num.: " + this.getPhoneNumber(); }
 
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }

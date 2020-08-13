@@ -12,7 +12,8 @@ import comp3350.rrsys.objects.Order;
 import comp3350.rrsys.objects.Reservation;
 import comp3350.rrsys.objects.Table;
 
-public class DataAccessStub implements DataAccess {
+public class DataAccessStub implements DataAccess
+{
     private String dbName;
     private static String dbType = "stub";
 
@@ -54,7 +55,7 @@ public class DataAccessStub implements DataAccess {
         if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0)
             return "fail";
 
-        r.setRID();
+        r.setRID(getNextReservationID());
         reservations.add(r);
         return "success";
     }
@@ -165,20 +166,6 @@ public class DataAccessStub implements DataAccess {
         }
     }
 
-    //adds a new table object by raw data types
-    public String addTable(int tableID, int size)
-    {
-        for(int i = 0; i < tables.size(); i++)
-        {
-            if(tableID == tables.get(i).getTID())
-            {
-                return "Error: Table with ID: " + tableID + " already exists.";
-            }
-        }
-        tables.add(new Table(tableID, size));
-        return null;
-    }
-
     public void generateFakeData()
     {
         // generate tables in the restaurant.
@@ -188,7 +175,7 @@ public class DataAccessStub implements DataAccess {
         int size = 2;
         for(int i = 1; i <= 30; i++)
         {
-            addTable(i, size);
+            tables.add(new Table(i, size));
             if(i % 5 == 0)
                 size += 2;
         }
@@ -385,7 +372,7 @@ public class DataAccessStub implements DataAccess {
         return "success";
     }
 
-    public String insertItemIntoOrder(int resID, Item item, String note)
+    public String insertItemIntoOrder(int resID, Item item)
     {
         String result = null;
 
@@ -405,32 +392,16 @@ public class DataAccessStub implements DataAccess {
         if(orderResult == null) {
 
             orderResult = new Order(resID);
-            orderResult.addItem(item, note);
+            orderResult.addItem(item);
             result = insertOrder(orderResult);
         }
         else
         {
             int index = orders.indexOf(orderResult);
-            orderResult.addItem(item, note);
+            orderResult.addItem(item);
             orders.set(index, orderResult);
         }
         return result;
-    }
-
-    public String removeItemFromOrder(int resID, int lineItem)
-    {
-        if(resID < 0)
-            throw new IllegalArgumentException("Invalid reservationID");
-
-        Order orderToChange = null;
-        if(orders.contains(getOrder(resID)))
-        {
-            orderToChange = getOrder(resID);
-            int index = orders.indexOf(orderToChange);
-            orderToChange.deleteItem(lineItem);
-            orders.set(index, orderToChange);
-        }
-        return null;
     }
 
     public Order getOrder(int reservationID)
@@ -439,7 +410,7 @@ public class DataAccessStub implements DataAccess {
             throw new IllegalArgumentException("Invalid reservationID");
 
         Order orderResult = null;
-        for(int i =0; i< orders.size(); i++)
+        for(int i = 0; i < orders.size(); i++)
         {
             if(orders.get(i).getReservationID() == reservationID)
             {
@@ -476,18 +447,21 @@ public class DataAccessStub implements DataAccess {
         return totalPrice;
     }
 
-    public int getNextLineItem(int resID) {
-        if(resID < 0)
+     public String removeOrder(int reservationID)
+     {
+         String result = null;
+
+         if(reservationID < 0)
             throw new IllegalArgumentException("Invalid reservationID");
 
-        Order orderResult = null;
-        if(resID > 0 && orders.contains(getOrder(resID)))
-        {
-            return 2;
-        }
-
-        return 1;
+         for(int i = 0; i < orders.size(); i++)
+         {
+             if(orders.get(i).getReservationID() == reservationID)
+             {
+                 orders.remove(i);
+                 break;
+             }
+         }
+         return result;
      }
-
-     public String removeOrder(int resID){ return null; }
 }

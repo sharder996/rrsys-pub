@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import comp3350.rrsys.R;
@@ -28,6 +30,7 @@ public class CreateConfirmReservationActivity extends Activity
     private AccessReservations accessReservations;
     private AccessCustomers accessCustomers;
     private int tableID, numPeople, year, month, day, startHour, startMinute, endHour, endMinute;
+    private ArrayList<Customer> customers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,6 +52,7 @@ public class CreateConfirmReservationActivity extends Activity
 
         accessReservations = new AccessReservations();
         accessCustomers = new AccessCustomers();
+        customers = new ArrayList<>();
 
         final TextView editDateInfo = findViewById(R.id.textDateInfo);
         editDateInfo.setText((reservation.getStartTime().getMonth()+1) + "/" + reservation.getStartTime().getDate() + "/" + reservation.getStartTime().getYear());
@@ -159,6 +163,8 @@ public class CreateConfirmReservationActivity extends Activity
         try
         {
             customer = new Customer(firstName, lastName, phoneNumber);
+            accessCustomers.getCustomers(customers);
+            customer.setCID(customers.size()+1);
         }
         catch(Exception e)
         {

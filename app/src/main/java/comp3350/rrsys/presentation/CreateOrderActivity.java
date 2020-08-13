@@ -103,8 +103,7 @@ public class CreateOrderActivity extends Activity
                     {
                         final EditText editTextInstructions = popupView.findViewById((R.id.editTextInstructions));
                         Item copy = new Item(selected.getItemID(), selected.getName(), selected.getType(), selected.getDetail(),  selected.getPrice());
-                        copy.setQuantity(selected.getQuantity());
-                        order.addItem(copy, editTextInstructions.getText().toString());
+                        order.addItem(copy, selected.getQuantity(), editTextInstructions.getText().toString());
                         popupWindow.dismiss();
                     }
                 });

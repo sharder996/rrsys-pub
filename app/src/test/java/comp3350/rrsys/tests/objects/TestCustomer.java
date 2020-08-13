@@ -10,7 +10,7 @@ public class TestCustomer extends TestCase
 
     public void testCustomerCreation()
     {
-        System.out.println("\nStarting testCustomerCreation");
+        System.out.println("\nStarting TestCustomerCreation");
 
         Customer customer = new Customer("Ivan", "Barbashev", "204-555-9999");
 
@@ -30,12 +30,12 @@ public class TestCustomer extends TestCase
         assertEquals("Annie Apple", customer.getFullName());
         assertEquals("2045551111", customer.getPhoneNumber());
 
-        System.out.println("\nEnding testCustomerCreation");
+        System.out.println("\nEnding TestCustomerCreation");
     }
 
     public void testCustomerNotEquals()
     {
-        System.out.println("\nStarting testCustomerNotEquals");
+        System.out.println("\nStarting TestCustomerNotEquals");
 
         Customer customer0 = new Customer("Ivan", "Barbashev", "204-555-9999");
         Customer customer1 = new Customer("Judy", "Test", "204-414-0198");
@@ -47,12 +47,12 @@ public class TestCustomer extends TestCase
         assertNotNull(customer2);
         assertFalse(customer1.equals(customer2));
 
-        System.out.println("\nEnding testCustomerNotEquals");
+        System.out.println("\nEnding TestCustomerNotEquals");
     }
 
     public void testCustomerEmptyParameters()
     {
-        System.out.println("\nStarting testCustomerEmptyParameters");
+        System.out.println("\nStarting TestCustomerEmptyParameters");
 
         Customer customer = null;
         try
@@ -85,12 +85,12 @@ public class TestCustomer extends TestCase
             assertNull(customer);
         }
 
-        System.out.println("\nEnding testCustomerEmptyParameters");
+        System.out.println("\nEnding TestCustomerEmptyParameters");
     }
 
     public void testCustomerAlphanumericPhoneNumber()
     {
-        System.out.println("\nStarting testCustomerAlphanumericPhoneNumber");
+        System.out.println("\nStarting TestCustomerAlphanumericPhoneNumber");
 
         Customer customer = null;
         try
@@ -103,12 +103,12 @@ public class TestCustomer extends TestCase
             assertNull(customer);
         }
 
-        System.out.println("\nEnding testCustomerAlphanumericPhoneNumber");
+        System.out.println("\nEnding TestCustomerAlphanumericPhoneNumber");
     }
 
     public void testCustomerAlphanumericName()
     {
-        System.out.println("\nStarting testCustomerAlphanumericName");
+        System.out.println("\nStarting TestCustomerAlphanumericName");
 
         Customer customer = null;
         try
@@ -131,12 +131,12 @@ public class TestCustomer extends TestCase
             assertNull(customer);
         }
 
-        System.out.println("\nEnding testCustomerAlphanumericName");
+        System.out.println("\nEnding TestCustomerAlphanumericName");
     }
 
     public void testCustomerInvalidPhoneNumberLength()
     {
-        System.out.println("\nStarting testCustomerInvalidPhoneNumberLength");
+        System.out.println("\nStarting TestCustomerInvalidPhoneNumberLength");
 
         Customer customer = null;
         try
@@ -148,12 +148,12 @@ public class TestCustomer extends TestCase
         {
             assertNull(customer);
         }
-        System.out.println("\nEnding testCustomerInvalidPhoneNumberLength");
+        System.out.println("\nEnding TestCustomerInvalidPhoneNumberLength");
     }
 
     public void testChangeCustomerBadData()
     {
-        System.out.println("\nStarting testChangeCustomerBadData");
+        System.out.println("\nStarting TestChangeCustomerBadData");
 
         Customer customer0 = new Customer("Ivan", "Barbashev", "204-555-9999");
         assertNotNull(customer0);
@@ -237,6 +237,6 @@ public class TestCustomer extends TestCase
             assertEquals("Ivan Barbashev", customer0.getFullName());
         }
 
-        System.out.println("\nEnding testChangeCustomerBadData");
+        System.out.println("\nEnding TestChangeCustomerBadData");
     }
 }

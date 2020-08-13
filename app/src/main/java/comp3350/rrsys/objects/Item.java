@@ -13,7 +13,6 @@ public class Item
     private String name;    // the name of the item
     private String type;    // the type of the item, e.g., breakfast, lunch, dinner, drink
     private String detail;  // the detail/description of the item
-    private int lineItem;
     private String note;
     private double price;   // the price of the item
     private int quantity;   // quantity of item ordered
@@ -30,7 +29,6 @@ public class Item
         this.quantity = MIN_QUANTITY;
         setItemID(itemID);
         setPrice(price);
-        lineItem = -1;
         note = "";
     }
 
@@ -40,15 +38,25 @@ public class Item
     public String getDetail() { return detail; }
     public double getPrice() { return price; }
     public int getQuantity() { return quantity; }
-    public int getLineItem() {return lineItem; }
     public String getNote() { return note; }
 
     public void setName(String name) { this.name = name; }
     public void setType(String type) { this.type = type; }
     public void setDetail(String detail) { this.detail = detail; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
-    public void setLineItem(int lineItem) { this.lineItem = lineItem; }
-    public void setNote(String note) { this.note = note; }
+
+    public void setNote(String note)
+    {
+        char[] illegalChars = { '-','\'', '\"', '*', ';' };
+        String cleansedNote = "";
+
+        if(note != null)
+        {
+            for (char c : illegalChars)
+                cleansedNote = note.replace(c, ' ');
+        }
+        this.note = cleansedNote;
+    }
 
     public void setItemID(int itemID)
     {
@@ -113,18 +121,14 @@ public class Item
         }
     }
 
-    /*public boolean equal(Item other)
-    {
-        return other.itemID == this.itemID && other.name.equals(this.name) && other.type.equals(this.type)
-                && other.detail.equals(this.detail) && other.price == this.price;
-    }*/
-
     @Override
+    // display item message in order (preorder the meal)
     public String toString()
     {
         return name + "\n" + price + ", " + detail + "; Quantity: " + quantity + "\nNote: " + note;
     }
 
+    // display item message in menu (without quantity and note)
     public String display()
     {
         return name + "\n" + price + ", " + detail;

@@ -16,50 +16,29 @@ public class AccessOrders
 
     public AccessOrders(DataAccess altDataAccessService) { dataAccess = Services.createDataAccess(altDataAccessService); }
 
+    public Order getOrder(int resID) { return dataAccess.getOrder(resID); }
+
     public String insertOrder(Order order)
     {
         String result = null;
 
         ArrayList<Item> items = order.getOrder();
         for(int i = 0; i < items.size(); i++)
-            result = dataAccess.insertItemIntoOrder(order.getReservationID(), items.get(i), items.get(i).getNote());
+            result = dataAccess.insertItemIntoOrder(order.getReservationID(), items.get(i));
 
         return result;
     }
 
-    public String removeOrder(int resID)
-    {
-        return dataAccess.removeOrder(resID);
-    }
+    public String removeOrder(int resID) { return dataAccess.removeOrder(resID); }
 
-    public Order getOrder(int reservationID) { return dataAccess.getOrder(reservationID); }
-
-    public double getPrice(int reservationID) throws IllegalArgumentException
+    public double getPrice(int resID) throws IllegalArgumentException
     {
-        if(reservationID < 0)
+        if(resID < 0)
             throw new IllegalArgumentException();
 
-        return dataAccess.getPrice(reservationID);
+        return dataAccess.getPrice(resID);
     }
 
-    public int getSize(int reservationID)
-    {
-        return dataAccess.getOrder(reservationID).size();
-    }
-
-    public int getNextReservationID() { return dataAccess.getNextReservationID(); }
-
-    public boolean getNextLineItem(int resID)
-    {
-       boolean exist = false;
-
-       if(dataAccess.getNextLineItem(resID) > 1)
-       {
-           exist = true;
-       }
-
-        return exist;
-    }
-
+    public int getSize(int resID) { return dataAccess.getOrder(resID).getSize(); }
 }
 

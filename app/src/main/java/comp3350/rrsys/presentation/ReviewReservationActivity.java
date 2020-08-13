@@ -41,7 +41,7 @@ public class ReviewReservationActivity extends Activity
 
         //if there is an order
         accessOrder = new AccessOrders();
-        if(accessOrder.getNextLineItem(Integer.parseInt(getIntent().getStringExtra("Code"))))
+        if(accessOrder.getSize(Integer.parseInt(getIntent().getStringExtra("Code"))) > 0)
         {
             List<String> parentList = new ArrayList<>();
             parentList.add("Total Price: $" + accessOrder.getPrice(Integer.parseInt(getIntent().getStringExtra("Code")))
