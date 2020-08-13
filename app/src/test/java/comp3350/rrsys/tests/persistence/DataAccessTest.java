@@ -30,12 +30,11 @@ public class DataAccessTest extends TestCase
         System.out.println("\nStarting Persistence test DataAccess (using db)");
 
         // Use the following statements to run with the stub database:
-        dataAccess = new DataAccessStub();
-        dataAccess.open("Stub");
+         dataAccess = new DataAccessStub();
+         dataAccess.open("Stub");
         // or switch to the real database:
         // dataAccess = new DataAccessObject(Main.dbName);
         // dataAccess.open(Main.getDBPathName());
-
     }
 
     public void tearDown() { System.out.println("Finished Persistence test DataAccess (using db)"); }
@@ -58,12 +57,12 @@ public class DataAccessTest extends TestCase
         assertEquals("Gary Chalmers", customer.getFullName());
         assertEquals("2049990123", customer.getPhoneNumber());
 
-        customer = customers.get(3);
-        assertEquals(4, customer.getCID());
-        assertEquals( "Mary", customer.getFirstName());
-        assertEquals("Bailey", customer.getLastName());
-        assertEquals("Mary Bailey", customer.getFullName());
-        assertEquals("1057770123", customer.getPhoneNumber());
+        customer = customers.get(4);
+        assertEquals(5, customer.getCID());
+        assertEquals( "Jim", customer.getFirstName());
+        assertEquals("Jam", customer.getLastName());
+        assertEquals("Jim Jam", customer.getFullName());
+        assertEquals("2049561203", customer.getPhoneNumber());
     }
 
     public void testAddExistingCustomer()
@@ -75,15 +74,19 @@ public class DataAccessTest extends TestCase
         customers = new ArrayList<>();
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
+        assertEquals(5, customers.size());
 
         customer = customers.get(0);
         //Adding existing customer -- should still allow to be added with new Primary Key
+
         result = dataAccess.insertCustomer(customer);
         assertNull(result);
         customers.clear();
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
-        assertEquals(5, customers.size());
+        assertEquals(6, customers.size());
+
+        result = dataAccess.deleteCustomer(customer);
     }
 
     public void testAddNewCustomer()
@@ -104,13 +107,11 @@ public class DataAccessTest extends TestCase
         customers.clear();
         result = dataAccess.getCustomerSequential(customers);
         assertNull(result);
-        assertEquals(5, customers.size());
 
         customer = customers.get(customers.size() - 1);
         assertEquals(firstName, customer.getFirstName());
         assertEquals(lastName, customer.getLastName());
         assertEquals(phoneNumber, customer.getPhoneNumber());
-
     }
 
     public void testTablesDatabaseTable()
@@ -171,7 +172,7 @@ public class DataAccessTest extends TestCase
         result = dataAccess.getReservationSequential(reservations);
 
         assertNull(result);
-        assertEquals(4, reservations.size());
+        assertEquals(10, reservations.size());
 
         reservation = reservations.get(0);
         assertEquals(1, reservation.getRID());
@@ -188,8 +189,12 @@ public class DataAccessTest extends TestCase
 
     public void testGetNextResID()
     {
+        ArrayList<Reservation> reservationsList = new ArrayList<>();
+        dataAccess.getReservationSequential(reservationsList);
+        assertEquals(10, reservationsList.size());
+
         int nextID = dataAccess.getNextReservationID();
-        assertEquals(5, nextID);
+        assertEquals(11, nextID);
 
         ArrayList<Reservation> reservations = new ArrayList<>();
         dataAccess.getReservationSequential(reservations);
@@ -241,7 +246,7 @@ public class DataAccessTest extends TestCase
         result = dataAccess.getReservationSequential(reservations);
 
         assertNull(result);
-        assertEquals(4, reservations.size());
+        assertEquals(10, reservations.size());
 
         for(int i = 1; i <= 4; i++)
         {
@@ -360,7 +365,8 @@ public class DataAccessTest extends TestCase
         assertNull(dataAccess.insertItemIntoOrder(newReservation.getRID(), item1));
         assertEquals(2, newOrder.getSize());
 
-        assertNull(dataAccess.removeOrder(newReservation.getRID()));
+        result = dataAccess.removeOrder(newReservation.getRID());
+        assertNull(result);
         assertEquals(2, newOrder.getSize());
     }
 

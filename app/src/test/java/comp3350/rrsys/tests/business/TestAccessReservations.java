@@ -53,21 +53,33 @@ public class TestAccessReservations extends TestCase
             fail();
         }
 
+        ArrayList<Reservation> reservationsList = new ArrayList<>();
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
+
         Reservation res0 = new Reservation(-1,1, startTime, endTime);
         String result = accessReservations.insertReservation(res0);
         assertEquals(result, "fail");
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         Reservation res1 = new Reservation(1,-1, startTime, endTime);
         String result1 = accessReservations.insertReservation(res1);
         assertEquals(result1, "fail");
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         Reservation res2 = new Reservation(1,1,null, endTime);
         String result2 = accessReservations.insertReservation(res2);
         assertEquals(result2, "fail");
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         Reservation res3 = new Reservation(1,1, startTime,null);
         String result3 = accessReservations.insertReservation(res3);
         assertEquals(result3, "fail");
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         System.out.println("\nEnding TestCreateInvalidReservation");
     }
@@ -76,8 +88,14 @@ public class TestAccessReservations extends TestCase
     {
         System.out.println("\nStarting TestCreateNull");
 
+        ArrayList<Reservation> reservationsList = new ArrayList<>();
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
+
         String result = accessReservations.insertReservation(null);
         assertEquals(result, "fail");
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         System.out.println("\nEnding TestCreateNull");
 
@@ -89,8 +107,7 @@ public class TestAccessReservations extends TestCase
 
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
-
-        assertEquals(4, reservationsList.size());
+        assertEquals(10, reservationsList.size());
 
         Calendar currDate = Calendar.getInstance();
         DateTime startTime = null;
@@ -111,24 +128,34 @@ public class TestAccessReservations extends TestCase
 
         Reservation res0 = new Reservation(1, 4, startTime, endTime);
         res0.setCustomerID(1);
+        int nextResId = accessReservations.getNextReservationID();
+        res0.setRID(nextResId++);
         String result = accessReservations.insertReservation(res0);
         accessReservations.getReservations(reservationsList);
-        assertEquals(5, reservationsList.size());
         assertEquals("success", result);
+        assertEquals(11, reservationsList.size());
 
         Reservation res1 = new Reservation(25, 8, startTime, endTime);
         res1.setCustomerID(2);
+        res0.setRID(nextResId++);
         result = accessReservations.insertReservation(res1);
         accessReservations.getReservations(reservationsList);
-        assertEquals(6, reservationsList.size());
         assertEquals("success", result);
+        assertEquals(12, reservationsList.size());
 
         Reservation res2 = new Reservation(21, 6, startTime, endTime);
         res2.setCustomerID(4);
+        res0.setRID(nextResId++);
         result = accessReservations.insertReservation(res2);
         accessReservations.getReservations(reservationsList);
-        assertEquals(7, reservationsList.size());
         assertEquals("success", result);
+        assertEquals(13, reservationsList.size());
+
+        accessReservations.deleteReservation(res0.getRID());
+        accessReservations.deleteReservation(res1.getRID());
+        accessReservations.deleteReservation(res2.getRID());
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         System.out.println("\nEnding TestCreateValidReservations");
     }
@@ -140,6 +167,7 @@ public class TestAccessReservations extends TestCase
         Services.createDataAccess(new DataAccessStub(Main.dbName));
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         Calendar currDate = Calendar.getInstance();
         DateTime startTime = null;
@@ -160,10 +188,14 @@ public class TestAccessReservations extends TestCase
         res0.setTID(-1);
         String result = accessReservations.updateReservation(res0);
         assertEquals("fail", result);
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         res0.setNumPeople(-1);
         result = accessReservations.updateReservation(res0);
         assertEquals("fail", result);
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         System.out.println("\nEnding TestUpdateInvalidReservation");
     }
@@ -174,6 +206,7 @@ public class TestAccessReservations extends TestCase
 
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         Calendar currDate = Calendar.getInstance();
         DateTime startTime = null;
@@ -192,6 +225,8 @@ public class TestAccessReservations extends TestCase
         Reservation res0 = new Reservation(0, 4, startTime, endTime);
         res0.setCustomerID(1);
         accessReservations.insertReservation(res0);
+        accessReservations.getReservations(reservationsList);
+        assertEquals(11, reservationsList.size());
 
         res0.setTID(1);
         accessReservations.updateReservation(res0);
@@ -215,6 +250,12 @@ public class TestAccessReservations extends TestCase
         accessReservations.updateReservation(res0);
         assertEquals(startTime, accessReservations.getRandom(res0.getRID()).getStartTime());
         assertEquals(endTime, accessReservations.getRandom(res0.getRID()).getEndTime());
+        accessReservations.getReservations(reservationsList);
+        assertEquals(11, reservationsList.size());
+
+        accessReservations.deleteReservation(res0.getRID());
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         System.out.println("\nEnding TestUpdateValidReservation");
     }
@@ -223,14 +264,24 @@ public class TestAccessReservations extends TestCase
     {
         System.out.println("\nStarting TestDeleteInvalidReservation");
 
+        ArrayList<Reservation> reservationsList = new ArrayList<>();
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
+
         String result = accessReservations.deleteReservation(100);
         assertEquals(result, "fail");
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         result = accessReservations.deleteReservation(20000000);
         assertEquals(result, "fail");
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         result = accessReservations.deleteReservation(-1);
         assertEquals(result, "fail");
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         System.out.println("\nEnding TestDeleteInvalidReservation");
     }
@@ -241,6 +292,7 @@ public class TestAccessReservations extends TestCase
 
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         Calendar currDate = Calendar.getInstance();
         DateTime startTime = null;
@@ -259,16 +311,24 @@ public class TestAccessReservations extends TestCase
         Reservation res0 = new Reservation(0, 4, startTime, endTime);
         res0.setCustomerID(1);
         accessReservations.insertReservation(res0);
+        accessReservations.getReservations(reservationsList);
+        assertEquals(11, reservationsList.size());
 
         Reservation res1 = new Reservation(20, 6, startTime, endTime);
         res1.setCustomerID(3);
         accessReservations.insertReservation(res1);
+        accessReservations.getReservations(reservationsList);
+        assertEquals(12, reservationsList.size());
 
         String result = accessReservations.deleteReservation(res0.getRID());
         assertEquals(result, "success");
+        accessReservations.getReservations(reservationsList);
+        assertEquals(11, reservationsList.size());
 
         String result1 = accessReservations.deleteReservation(res1.getRID());
         assertEquals(result1, "success");
+        accessReservations.getReservations(reservationsList);
+        assertEquals(10, reservationsList.size());
 
         System.out.println("\nEnding TestDeleteValidReservation");
     }
