@@ -304,7 +304,7 @@ public class AcceptanceTests
         //remove another item
         onView(withId(R.id.buttonViewOrder)).check(matches(isDisplayed())).perform(click());
         onView(withId(R.id.orderList)).check(ViewAssertions.matches((Matchers.withListSize(3))));
-        onData(instanceOf(Item.class)).atPosition(0).perform(click());
+        onData(instanceOf(Item.class)).atPosition(1).perform(click());
         onView(ViewMatchers.withContentDescription("popup_remove_item")).inRoot(RootMatchers.isPlatformPopup()).check(matches(isDisplayed()));
         onView(withId(R.id.buttonPopupConfirm)).check(matches(isDisplayed())).perform(click());
         onView(withId(R.id.orderList)).check(ViewAssertions.matches((Matchers.withListSize(2))));
