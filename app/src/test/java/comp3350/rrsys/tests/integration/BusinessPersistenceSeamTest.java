@@ -13,6 +13,8 @@ import comp3350.rrsys.business.AccessReservations;
 import comp3350.rrsys.business.AccessTables;
 import comp3350.rrsys.objects.Customer;
 import comp3350.rrsys.objects.Item;
+import comp3350.rrsys.objects.Order;
+import comp3350.rrsys.objects.Reservation;
 
 public class BusinessPersistenceSeamTest extends TestCase
 {
@@ -31,6 +33,7 @@ public class BusinessPersistenceSeamTest extends TestCase
         Services.closeDataAccess();
 
         System.out.println("\nStarting Integration test of AccessCustomers to persistence");
+
         /* is there any way to test AccessCustomer?
         Services.createDataAccess(Main.dbName);
 
@@ -40,6 +43,7 @@ public class BusinessPersistenceSeamTest extends TestCase
 
         assertNull(result);
         */
+
         Services.closeDataAccess();
 
         System.out.println("Finished Integration test of AccessCustomers to persistence");
@@ -76,6 +80,11 @@ public class BusinessPersistenceSeamTest extends TestCase
         itemList = am.getMenuByType(itemType.get(4));
         assertEquals(itemList.size(), 6);
 
+
+        itemList = am.getMenuByType("Invalid Entry");
+        assertNotNull(itemList);
+        assertEquals(itemList.size(), 0);
+
         Services.closeDataAccess();
 
         System.out.println("Finished Integration test of AccessMenu to persistence");
@@ -84,6 +93,9 @@ public class BusinessPersistenceSeamTest extends TestCase
     public void testAccessOrders()
     {
         AccessOrders ao;
+        String result;
+        Order order;
+        ArrayList<Item> items;
 
         Services.closeDataAccess();
 
@@ -93,10 +105,33 @@ public class BusinessPersistenceSeamTest extends TestCase
 
         ao = new AccessOrders();
 
-        /*
-           Todo
-           Test code
-        */
+        order = ao.getOrder(1);
+        assertNotNull(order);
+
+        items = order.getOrder();
+        assertNotNull(items);
+
+        //Assert
+        assertEquals(items.size(), ao.getSize(1));
+        assertNull(ao.getOrder(6));
+
+        Order newOrder = new Order(6);
+        newOrder.addItem(new Item(1,"SPECIAL SALAD","Salads","romaine lettuce, arugula, red cabbage, carrot, red onion & toasted sunflower seeds.",9.95));
+
+        result = ao.insertOrder(newOrder);
+        assertNull(result);
+
+        order = ao.getOrder(6);
+
+        assertEquals(order.getSize(), 1);
+        assertEquals(order.getSize(), order.getOrder().size());
+
+        result = ao.removeOrder(6);
+        assertNull(result);
+        assertNull(ao.getOrder(6));
+
+        //invalid entry(doesn't exist such reservation ID)
+        assertNull(ao.getOrder(200));
 
         Services.closeDataAccess();
 
@@ -107,6 +142,9 @@ public class BusinessPersistenceSeamTest extends TestCase
     {
         AccessReservations ar;
 
+        ArrayList<Reservation> reservations = new ArrayList<>();
+        String result;
+
         Services.closeDataAccess();
 
         System.out.println("\nStarting Integration test of AccessReservations to persistence");
@@ -115,10 +153,9 @@ public class BusinessPersistenceSeamTest extends TestCase
 
         ar = new AccessReservations();
 
-        /*
-           Todo
-           Test code
-         */
+        result = ar.getReservations(reservations);
+        assertNull(result);
+
         Services.closeDataAccess();
 
         System.out.println("Finished Integration test of AccessReservations to persistence");
@@ -140,6 +177,8 @@ public class BusinessPersistenceSeamTest extends TestCase
            Todo
            Test code
          */
+
+
         Services.closeDataAccess();
 
         System.out.println("Finished Integration test of AccessTables to persistence");
