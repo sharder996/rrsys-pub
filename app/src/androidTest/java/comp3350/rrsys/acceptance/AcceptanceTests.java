@@ -283,7 +283,7 @@ public class AcceptanceTests
         // confirm that the item got added
         onView(withId(R.id.buttonViewOrder)).check(matches(isDisplayed())).perform(click());
         onView(ViewMatchers.withContentDescription("popup_view_order")).inRoot(RootMatchers.isPlatformPopup()).check(matches(isDisplayed()));
-        onView(withId(R.id.orderList)).check(ViewAssertions.matches((Matchers.withListSize(1))));
+        onView(withId(R.id.orderList)).check(ViewAssertions.matches((Matchers.withListSize(3))));
         onData(instanceOf(Item.class)).atPosition(0).perform(click());
         Espresso.pressBack();
         Espresso.pressBack();
@@ -294,11 +294,20 @@ public class AcceptanceTests
 
         // remove a item
         onView(withId(R.id.buttonViewOrder)).check(matches(isDisplayed())).perform(click());
-        onView(withId(R.id.orderList)).check(ViewAssertions.matches((Matchers.withListSize(2))));
+        onView(withId(R.id.orderList)).check(ViewAssertions.matches((Matchers.withListSize(4))));
         onData(instanceOf(Item.class)).atPosition(1).perform(click());
         onView(ViewMatchers.withContentDescription("popup_remove_item")).inRoot(RootMatchers.isPlatformPopup()).check(matches(isDisplayed()));
         onView(withId(R.id.buttonPopupConfirm)).check(matches(isDisplayed())).perform(click());
-        onView(withId(R.id.orderList)).check(ViewAssertions.matches((Matchers.withListSize(1))));
+        onView(withId(R.id.orderList)).check(ViewAssertions.matches((Matchers.withListSize(3))));
+        Espresso.pressBack();
+
+        //remove another item
+        onView(withId(R.id.buttonViewOrder)).check(matches(isDisplayed())).perform(click());
+        onView(withId(R.id.orderList)).check(ViewAssertions.matches((Matchers.withListSize(3))));
+        onData(instanceOf(Item.class)).atPosition(0).perform(click());
+        onView(ViewMatchers.withContentDescription("popup_remove_item")).inRoot(RootMatchers.isPlatformPopup()).check(matches(isDisplayed()));
+        onView(withId(R.id.buttonPopupConfirm)).check(matches(isDisplayed())).perform(click());
+        onView(withId(R.id.orderList)).check(ViewAssertions.matches((Matchers.withListSize(2))));
         Espresso.pressBack();
 
         // confirm the order
