@@ -32,7 +32,7 @@ public class TestAccessCustomers extends TestCase
 
         accessCustomers.getCustomers(customerList);
         int size = customerList.size();
-        assertTrue(size > 0);
+        assertEquals(5, size);
 
         accessCustomers.insertCustomer(new Customer("Jim", "Jam", "204-956-1203"));
         accessCustomers.getCustomers(customerList);

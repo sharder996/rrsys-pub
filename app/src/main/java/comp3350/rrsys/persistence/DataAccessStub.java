@@ -424,6 +424,9 @@ public class DataAccessStub implements DataAccess
         customer = new Customer("Mary", "Bailey", "1057770123");
         customer.setCID(4);
         customers.add(customer);
+        customer = new Customer("Jim", "Jam", "2049561203");
+        customer.setCID(5);
+        customers.add(customer);
 
         // generate reservation information
         DateTime startTime = new DateTime(new GregorianCalendar(2020, 7, 27, 18, 0));
@@ -450,6 +453,42 @@ public class DataAccessStub implements DataAccess
         reservation.setRID(4);
         reservations.add(reservation);
 
+        startTime = new DateTime(new GregorianCalendar(2020, 8, 4, 9, 0));
+        endTime = new DateTime(new GregorianCalendar(2020, 8, 4, 11, 0));
+        reservation = new Reservation(2,2, 2, startTime, endTime);
+        reservation.setRID(5);
+        reservations.add(reservation);
+
+        startTime = new DateTime(new GregorianCalendar(2020, 8, 4, 12, 0));
+        endTime = new DateTime(new GregorianCalendar(2020, 8, 4, 13, 0));
+        reservation = new Reservation(1,1, 2, startTime, endTime);
+        reservation.setRID(6);
+        reservations.add(reservation);
+
+        startTime = new DateTime(new GregorianCalendar(2020, 8, 4, 9, 0));
+        endTime = new DateTime(new GregorianCalendar(2020, 8, 4, 11, 0));
+        reservation = new Reservation(2,3, 2, startTime, endTime);
+        reservation.setRID(7);
+        reservations.add(reservation);
+
+        startTime = new DateTime(new GregorianCalendar(2020, 8, 4, 12, 0));
+        endTime = new DateTime(new GregorianCalendar(2020, 8, 4, 13, 0));
+        reservation = new Reservation(1,5, 2, startTime, endTime);
+        reservation.setRID(8);
+        reservations.add(reservation);
+
+        startTime = new DateTime(new GregorianCalendar(2020, 8, 5, 9, 0));
+        endTime = new DateTime(new GregorianCalendar(2020, 8, 5, 11, 0));
+        reservation = new Reservation(2,2, 2, startTime, endTime);
+        reservation.setRID(9);
+        reservations.add(reservation);
+
+        startTime = new DateTime(new GregorianCalendar(2020, 8, 4, 10, 0));
+        endTime = new DateTime(new GregorianCalendar(2020, 8, 4, 12, 0));
+        reservation = new Reservation(1,7, 3, startTime, endTime);
+        reservation.setRID(10);
+        reservations.add(reservation);
+
         // generate order information
         Order order = new Order(1);
         order.addItem(menu.get(12), 1, "");
@@ -468,8 +507,20 @@ public class DataAccessStub implements DataAccess
 
         order = new Order(4);
         order.addItem(menu.get(19), 2, "No cheese");
-        order.addItem(menu.get(14), 1, "");
+        order.addItem(menu.get(19), 1, "");
         order.addItem(menu.get(43), 3, "");
+        orders.add(order);
+
+        order = new Order(8);
+        order.addItem(menu.get(6), 1, "No nuts");
+        order.addItem(menu.get(11), 2, "Add cheese");
+        order.addItem(menu.get(16), 1, "");
+        orders.add(order);
+
+        order = new Order(10);
+        order.addItem(menu.get(6), 1, "No nuts");
+        order.addItem(menu.get(11), 2, "Add cheese");
+        order.addItem(menu.get(16), 1, "");
         orders.add(order);
     }
 }
