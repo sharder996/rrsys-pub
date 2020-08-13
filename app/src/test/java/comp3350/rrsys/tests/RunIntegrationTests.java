@@ -11,7 +11,7 @@ public class RunIntegrationTests
 
     public static Test suite()
     {
-        suite = new TestSuite("Integration tests");
+        suite = new TestSuite("Integration Tests");
         suite.addTest(IntegrationTests.suite());
         return suite;
     }

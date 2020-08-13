@@ -35,7 +35,6 @@ public class TestReservation extends TestCase
         assertEquals(res0.getCID(), customer0.getCID());
         assertEquals(1, res0.getTID());
         assertEquals(1, res0.getNumPeople());
-        assertNotNull(res0.confirmation());
 
         System.out.println("\nEnd TestReservation");
     }

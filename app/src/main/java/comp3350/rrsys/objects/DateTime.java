@@ -50,7 +50,16 @@ public class DateTime
     public String toString()
     {
         String s = "";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        s += sdf.format(timeSlot.getTime());
+        return s;
+    }
+
+    public String getTime()
+    {
+        String s = "";
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
         s += sdf.format(timeSlot.getTime());
         return s;

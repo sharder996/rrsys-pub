@@ -58,7 +58,7 @@ public class DataAccessIntegrationTest  extends TestCase
         ArrayList<String> menuTypes;
 
         Item item;
-        Reservation reservation = null;
+        Reservation reservation;
 
         String result;
 
@@ -100,7 +100,7 @@ public class DataAccessIntegrationTest  extends TestCase
         reservation.setCustomerID(2);
         assertNotNull(reservation);
         result = dataAccess.insertReservation(reservation);
-        assertEquals("success", result);
+        assertNull(result);
 
         reservation = dataAccess.getReservation(rid);
         assertNotNull(reservation);
@@ -109,14 +109,13 @@ public class DataAccessIntegrationTest  extends TestCase
         assertEquals(2, reservation.getNumPeople());
         assertEquals(start.toString(), reservation.getStartTime().toString());
         assertEquals(end.toString(), reservation.getEndTime().toString());
-
     }
 
     public void test2() //user creates a reservation and pre-orders a meal
     {
         ArrayList<Item> menu;
 
-        Reservation reservation = null;
+        Reservation reservation;
         Item item;
         Order order;
 
@@ -146,7 +145,7 @@ public class DataAccessIntegrationTest  extends TestCase
         reservation.setCustomerID(1);
         assertNotNull(reservation);
         result = dataAccess.insertReservation(reservation);
-        assertEquals("success", result);
+        assertNull(result);
 
         reservation = dataAccess.getReservation(rid);
         assertNotNull(reservation);
@@ -165,22 +164,31 @@ public class DataAccessIntegrationTest  extends TestCase
 
         item = menu.get(5);
         assertNotNull(item);
-        order.addItem(item, "");
+        order.addItem(item, 1, "");
+        double price = item.getPrice()*item.getQuantity();
+
         item = menu.get(10);
         assertNotNull(item);
-        order.addItem(item, "No nuts");
+        order.addItem(item, 2, "No nuts");
+        price += item.getPrice()*item.getQuantity();
+
         item = menu.get(15);
         assertNotNull(item);
-        order.addItem(item, "Add cheese");
+        order.addItem(item, 1, "Add cheese");
+        price += item.getPrice()*item.getQuantity();
 
-        assertEquals(3, order.size());
-        order.getTotalPrice();
-        assertEquals(41.85, order.getTotalPrice());
-        assertEquals("", order.getNote(1));
         assertEquals(rid, order.getReservationID());
+        assertEquals(3, order.getSize());
+        assertEquals(price, order.getTotalPrice());
+        assertEquals(menu.get(5), order.getOrder().get(0));
+        assertEquals(menu.get(10), order.getOrder().get(1));
+        assertEquals(menu.get(15), order.getOrder().get(2));
 
-        result = dataAccess.insertOrder(order);
-        assertEquals("success", result);
+        for(int i = 0; i < order.getSize(); i++)
+        {
+            result = dataAccess.insertItemIntoOrder(rid, order.getOrder().get(i));
+            assertNull(result);
+        }
 
         order = dataAccess.getOrder(rid);
         assertNotNull(order);
@@ -188,7 +196,7 @@ public class DataAccessIntegrationTest  extends TestCase
 
     public void test3() //tests creating invalid reservations
     {
-        Reservation reservation = null;
+        Reservation reservation;
         String result;
 
         Calendar currDate = Calendar.getInstance();

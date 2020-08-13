@@ -13,7 +13,7 @@ public class TestDateTime extends TestCase
 
     public void testDateCreationGreaterThanValidDateTime()
     {
-        System.out.println("\nStarting testDateCreationGreaterThanValidDateTime");
+        System.out.println("\nStarting TestDateCreationGreaterThanValidDateTime");
         DateTime dateTime = null;
         GregorianCalendar currDate = new GregorianCalendar();
         currDate.set(GregorianCalendar.DATE, currDate.get(GregorianCalendar.DATE) + DateTime.MAX_DAYS_DIFFERENCE + 1);
@@ -28,12 +28,12 @@ public class TestDateTime extends TestCase
             assertNull(dateTime);
         }
 
-        System.out.println("\nEnding testDateCreationGreaterThanValidDateTime");
+        System.out.println("\nEnding TestDateCreationGreaterThanValidDateTime");
     }
     
     public void testDateCreationLessThanValidDateTime()
     {
-        System.out.println("\nStarting testDateCreationLessThanValidDateTime");
+        System.out.println("\nStarting TestDateCreationLessThanValidDateTime");
         DateTime dateTime = null;
         GregorianCalendar currDate = new GregorianCalendar();
         currDate.set(GregorianCalendar.DATE, currDate.get(GregorianCalendar.DATE) - 1);
@@ -48,12 +48,12 @@ public class TestDateTime extends TestCase
             assertNull(dateTime);
         }
 
-        System.out.println("\nEnding testDateCreationLessThanValidDateTime");
+        System.out.println("\nEnding TestDateCreationLessThanValidDateTime");
     }
 
     public void testDateCreationValidDateTime()
     {
-        System.out.println("\nStarting testDateCreationValidDateTime");
+        System.out.println("\nStarting TestDateCreationValidDateTime");
         DateTime dateTime = null;
         GregorianCalendar currDate = new GregorianCalendar();
         currDate.set(GregorianCalendar.DATE, currDate.get(GregorianCalendar.DATE) + DateTime.MAX_DAYS_DIFFERENCE);
@@ -68,12 +68,12 @@ public class TestDateTime extends TestCase
         }
 
         assertNotNull(dateTime);
-        System.out.println("\nEnding testDateCreationValidDateTime");
+        System.out.println("\nEnding TestDateCreationValidDateTime");
     }
 
     public void testDateTimeEqualsPasses()
     {
-        System.out.println("\nStarting testDateTimeEqualsPasses");
+        System.out.println("\nStarting TestDateTimeEqualsPasses");
         DateTime time1 = null;
         DateTime time2 = null;
         GregorianCalendar currDate = new GregorianCalendar();
@@ -92,12 +92,12 @@ public class TestDateTime extends TestCase
         assertNotNull(time1);
         assertNotNull(time2);
         assertTrue(time1.equals(time2));
-        System.out.println("\nEnding testDateTimeEqualsPasses");
+        System.out.println("\nEnding TestDateTimeEqualsPasses");
     }
 
     public void testDateTimeEqualsFails()
     {
-        System.out.println("\nStarting testDateTimeEqualsFails");
+        System.out.println("\nStarting TestDateTimeEqualsFails");
         DateTime time1 = null;
         DateTime time2 = null;
 
@@ -119,12 +119,12 @@ public class TestDateTime extends TestCase
         assertNotNull(time1);
         assertNotNull(time2);
         assertFalse(time1.equals(time2));
-        System.out.println("\nEnding testDateTimeEqualsFails");
+        System.out.println("\nEnding TestDateTimeEqualsFails");
     }
 
     public void testDateTimePreUnixTime()
     {
-        System.out.println("\nStarting testDateTimePreUnixTime");
+        System.out.println("\nStarting TestDateTimePreUnixTime");
 
         // test before unix epoch
         DateTime dateTime = null;
@@ -138,12 +138,12 @@ public class TestDateTime extends TestCase
             assertNull(dateTime);
         }
 
-        System.out.println("\nEnding testDateTimePreUnixTime");
+        System.out.println("\nEnding TestDateTimePreUnixTime");
     }
 
     public void testDateTimeInvalidYear()
     {
-        System.out.println("\nStarting testDateTimeInvalidYear");
+        System.out.println("\nStarting TestDateTimeInvalidYear");
 
         DateTime dateTime = null;
         try
@@ -156,6 +156,6 @@ public class TestDateTime extends TestCase
             assertNull(dateTime);
         }
 
-        System.out.println("\nEnding testDateTimeInvalidYear");
+        System.out.println("\nEnding TestDateTimeInvalidYear");
     }
 }

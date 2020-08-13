@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import comp3350.rrsys.application.Main;
 import comp3350.rrsys.business.AccessTables;
+import comp3350.rrsys.objects.Table;
 import comp3350.rrsys.persistence.DataAccessStub;
 
 public class TestAccessTables extends TestCase
@@ -25,11 +26,24 @@ public class TestAccessTables extends TestCase
 
     public void testAccessTables()
     {
-        assertEquals(2, accessTables.getTableCapacity(1));
-        assertEquals(4, accessTables.getTableCapacity(6));
-        assertEquals(6, accessTables.getTableCapacity(11));
-        assertEquals(8, accessTables.getTableCapacity(16));
-        assertEquals(10, accessTables.getTableCapacity(21));
-        assertEquals(12, accessTables.getTableCapacity(26));
+        /*
+        There are total 30 tables in database(Stub)
+        Table ID from be 1 to 30.
+        5 tables each for 2, 4, 6, 8, 10, 12 people
+        Totally 5 * 6 = 30 tables
+         */
+        Table table;
+        int capacity = 2;
+
+        for(int i = 1; i <= 30; i++)
+        {
+            table = accessTables.getRandom(i);
+
+            assertNotNull(table);
+            assertEquals(capacity, table.getCapacity());
+
+            if(i % 5 == 0)
+                capacity += 2;
+        }
     }
 }

@@ -16,6 +16,7 @@ import java.util.Map;
 
 import comp3350.rrsys.R;
 import comp3350.rrsys.objects.Item;
+import comp3350.rrsys.objects.Order;
 import comp3350.rrsys.business.AccessOrders;
 
 public class ReviewReservationActivity extends Activity
@@ -41,7 +42,8 @@ public class ReviewReservationActivity extends Activity
 
         //if there is an order
         accessOrder = new AccessOrders();
-        if(accessOrder.getNextLineItem(Integer.parseInt(getIntent().getStringExtra("Code"))))
+        Order order = accessOrder.getOrder(Integer.parseInt(getIntent().getStringExtra("Code")));
+        if(order != null && order.getSize() > 0)
         {
             List<String> parentList = new ArrayList<>();
             parentList.add("Total Price: $" + accessOrder.getPrice(Integer.parseInt(getIntent().getStringExtra("Code")))

@@ -12,37 +12,34 @@ import comp3350.rrsys.persistence.DataAccessStub;
 public class TestAccessCustomers extends TestCase
 {
     private AccessCustomers accessCustomers;
-    private DataAccessStub accessStub;
 
     public TestAccessCustomers(String arg0) { super(arg0); }
 
     public void setUp()
     {
         System.out.println("\nStarting TestAccessCustomer");
-
         accessCustomers = new AccessCustomers(new DataAccessStub(Main.dbName));
-        accessStub = new DataAccessStub(); //to get customer list for test
-        accessStub.open(Main.dbName);
-
     }
 
-    public void tearDown()
-    {
-        accessStub.close();
-        System.out.println("\nEnd TestAccessCustomer");
-    }
+    public void tearDown() { System.out.println("\nEnd TestAccessCustomer"); }
 
     public void testAccessCustomersConnection() { assertNotNull(accessCustomers); }
 
     public void testAccessCustomer()
     {
         ArrayList<Customer> customerList = new ArrayList<>();
-
         assertEquals(0, customerList.size());
 
-        accessCustomers.insertCustomer(new Customer("Jim", "Jam", "204-956-1203"));
-        accessStub.getCustomerSequential(customerList);
+        accessCustomers.getCustomers(customerList);
+        int size = customerList.size();
+        assertTrue(size > 0);
 
-        assertTrue(customerList.size() > 0);
+        accessCustomers.insertCustomer(new Customer("Jim", "Jam", "204-956-1203"));
+        accessCustomers.getCustomers(customerList);
+        assertEquals(size + 1, customerList.size());
+
+        accessCustomers.insertCustomer(new Customer("Alice", "Wang", "204-999-4567"));
+        accessCustomers.getCustomers(customerList);
+        assertEquals(size + 2, customerList.size());
     }
 }

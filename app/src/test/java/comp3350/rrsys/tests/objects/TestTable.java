@@ -21,7 +21,6 @@ public class TestTable extends TestCase
         System.out.println("\nEnd TestTableCreate");
     }
 
-
     public void testTableEquality()
     {
         System.out.println("\nStarting TestTableEquality");
@@ -32,9 +31,10 @@ public class TestTable extends TestCase
         assertNotNull(t0);
         assertNotNull(t1);
 
-        assertTrue(t0.equals(0));
-        assertTrue(t1.equals(2));
-        assertFalse(t0.equals(1));
+        assertEquals(0, t0.getTID());
+        assertEquals(2, t1.getTID());
+        assertEquals(4, t0.getCapacity());
+        assertEquals(4, t1.getCapacity());
 
         System.out.println("\nEnd TestTableEquality");
     }

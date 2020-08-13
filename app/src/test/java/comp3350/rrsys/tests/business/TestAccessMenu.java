@@ -19,7 +19,6 @@ public class TestAccessMenu extends TestCase
     {
         System.out.println("/nStarting TestAccessMenu");
         accessMenu = new AccessMenu(new DataAccessStub(Main.dbName));
-
     }
 
     public void tearDown()
@@ -34,10 +33,12 @@ public class TestAccessMenu extends TestCase
 
     public void testAccessMenuGetMenuByType()
     {
-        System.out.println("\nStarting testAccessMenuGetMenuByType");
+        System.out.println("\nStarting TestAccessMenuGetMenuByType");
 
         ArrayList<String> types = accessMenu.getMenuTypes();
 
+        assertNotNull(types);
+        assertEquals(6, types.size());
         assertEquals("Salads", types.get(0));
         assertEquals("Sandwiches", types.get(1));
         assertEquals("Burgers", types.get(2));
@@ -45,12 +46,12 @@ public class TestAccessMenu extends TestCase
         assertEquals("Desserts", types.get(4));
         assertEquals("Drinks", types.get(5));
 
-        System.out.println("\nEnding testAccessMenuGetMenuByType");
+        System.out.println("\nEnding TestAccessMenuGetMenuByType");
     }
 
     public void testAccessCertainTypeMenu()
     {
-        System.out.println("\nStarting testAccessCertainTypeMenu");
+        System.out.println("\nStarting TestAccessCertainTypeMenu");
 
         /*
         There are total 44 items in database(Stub)
@@ -79,17 +80,17 @@ public class TestAccessMenu extends TestCase
         assertEquals(6 , newitems4.size());
         assertEquals(8 , newitems5.size());
 
-        System.out.println("\nEnding testAccessCertainTypeMenu");
+        System.out.println("\nEnding TestAccessCertainTypeMenu");
     }
 
     public void testAccessInvalidEntryTypeMenu()
     {
-        System.out.println("\nStarting testAccessInvalidEntryTypeMenu");
+        System.out.println("\nStarting TestAccessInvalidEntryTypeMenu");
 
         ArrayList<Item> newitems = accessMenu.getMenuByType("Chicken");
 
         assertEquals(0, newitems.size());
 
-        System.out.println("\nEnding testAccessInvalidEntryTypeMenu");
+        System.out.println("\nEnding TestAccessInvalidEntryTypeMenu");
     }
 }

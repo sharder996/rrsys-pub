@@ -42,9 +42,7 @@ public class Reservation {
 
     // setter
     // set the reservation ID only when insert a reservation
-    public void setRID() {
-        this.reservationID = counter++;
-    }
+    public void setRID() { this.reservationID = counter++; }
 
     public void setRID(int reservationID) {
         this.reservationID = reservationID;
@@ -95,13 +93,5 @@ public class Reservation {
 
     public boolean equals(int reservationID) {
         return this.reservationID == reservationID;
-    }
-
-    public String confirmation()
-    {
-        String s = "";
-        s += "Reservation ID: " + reservationID + "\nNumber of People: " + numPeople +
-                "\nTable ID: " + tableID + "\nTime: " + startTime.toString() + " - " + endTime.toString();
-        return s;
     }
 }

@@ -69,7 +69,10 @@ public class ListAdapter extends BaseExpandableListAdapter
         }
 
         TextView textView = view.findViewById(R.id.textView1);
-        textView.setText(childName.display());
+        if(context.getLocalClassName().equals("presentation.ReviewReservationActivity"))
+            textView.setText(childName.toString());
+        else
+            textView.setText(childName.display());
         return view;
     }
 }

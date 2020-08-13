@@ -13,7 +13,6 @@ public class Item
     private String name;    // the name of the item
     private String type;    // the type of the item, e.g., breakfast, lunch, dinner, drink
     private String detail;  // the detail/description of the item
-    private int lineItem;
     private String note;
     private double price;   // the price of the item
     private int quantity;   // quantity of item ordered
@@ -30,13 +29,7 @@ public class Item
         this.quantity = MIN_QUANTITY;
         setItemID(itemID);
         setPrice(price);
-        lineItem = -1;
         note = "";
-    }
-
-    public boolean equals(Item other)
-    {
-        return this.itemID == other.itemID;
     }
 
     public int getItemID() { return itemID; }
@@ -45,15 +38,25 @@ public class Item
     public String getDetail() { return detail; }
     public double getPrice() { return price; }
     public int getQuantity() { return quantity; }
-    public int getLineItem() {return lineItem; }
     public String getNote() { return note; }
 
     public void setName(String name) { this.name = name; }
     public void setType(String type) { this.type = type; }
     public void setDetail(String detail) { this.detail = detail; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
-    public void setLineItem(int lineItem) { this.lineItem = lineItem; }
-    public void setNote(String note) { this.note = note; }
+
+    public void setNote(String note)
+    {
+        char[] illegalChars = { '-','\'', '\"', '*', ';' };
+        String cleansedNote = note;
+
+        if(cleansedNote != null)
+        {
+            for(char c : illegalChars)
+                cleansedNote = cleansedNote.replace(c, ' ');
+        }
+        this.note = cleansedNote.trim();
+    }
 
     public void setItemID(int itemID)
     {
@@ -118,18 +121,18 @@ public class Item
         }
     }
 
-    public boolean equal(Item newItem)
-    {
-        return newItem.getItemID() == this.itemID && newItem.getName().equals(this.name) && newItem.getType().equals(this.type)
-                && newItem.getDetail().equals(this.detail) && newItem.getPrice() == this.price;
-    }
 
+    // display item message in order (preorder the meal)
     @Override
     public String toString()
     {
-        return name + "\n" + price + ", " + detail + "; Quantity: " + quantity + "\nNote: " + note;
+        String message = name + "\n" + price + ", " + detail + " Quantity: " + quantity;
+        if(note.trim().length() > 0)
+            message += "\nNote: " + note;
+        return message;
     }
 
+    // display item message in menu (without quantity and note)
     public String display()
     {
         return name + "\n" + price + ", " + detail;
