@@ -29,6 +29,7 @@ public class DataAccessObject implements DataAccess
     private ArrayList<Table> tables;
     private ArrayList<Reservation> reservations;
     private ArrayList<Item> menu;
+    private ArrayList<Order> order;
 
     private String cmdString;
     private int updateCount;
@@ -213,6 +214,12 @@ public class DataAccessObject implements DataAccess
     {
         String values;
 
+        if(r == null || r.getEndTime() == null || r.getStartTime() == null || r.getNumPeople() < 0 || r.getTID() < 0 || r.getCID() < 0)
+            return "fail";
+
+        if(r.getEndTime().getDate() != r.getStartTime().getDate() || r.getEndTime().getHour() - r.getStartTime().getHour() > 3)
+            return "fail";
+
         result = null;
         try
         {
@@ -305,7 +312,7 @@ public class DataAccessObject implements DataAccess
     {
         Table table;
         int capacity;
-        tables = new ArrayList<Table>();
+        tables = new ArrayList<>();
 
         try
         {
@@ -382,30 +389,6 @@ public class DataAccessObject implements DataAccess
                     + "', '" + customer.getPhoneNumber()
                     + "'";
             cmdString = "INSERT into CUSTOMERS" + " Values(" + values + ")";
-            updateCount = st1.executeUpdate(cmdString);
-            result = checkWarning(st1, updateCount);
-        }
-        catch(Exception e)
-        {
-            result = processSQLError(e);
-        }
-
-        return result;
-    }
-
-    public String insertItem(Item newItem)
-    {
-        String values;
-
-        result = null;
-        try
-        {
-            values = newItem.getItemID()
-                    + ", '" + newItem.getName()
-                    + "', '" + newItem.getType()
-                    + "', '" + newItem.getDetail()
-                    + "', " + newItem.getPrice();
-            cmdString = "INSERT into MENU" + " Values(" + values + ")";
             updateCount = st1.executeUpdate(cmdString);
             result = checkWarning(st1, updateCount);
         }
@@ -611,6 +594,7 @@ public class DataAccessObject implements DataAccess
             rs2 = st0.executeQuery(cmdString);
             rs2.next();
             totalPrice = rs2.getDouble("TOTAL_PRICE");
+            totalPrice = Math.round(totalPrice * 100.0) / 100.0;
             rs2.close();
         }
         catch(Exception e)

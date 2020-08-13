@@ -49,6 +49,7 @@ public class DataAccessIntegrationTest  extends TestCase
         dataAccessIntegrationTest.dataAccess = dataAccess;
         dataAccessIntegrationTest.test1();
         dataAccessIntegrationTest.test2();
+        dataAccessIntegrationTest.test3();
     }
 
     public void test1() //user looks at menu then goes to create a reservation and reviews it after
@@ -57,7 +58,7 @@ public class DataAccessIntegrationTest  extends TestCase
         ArrayList<String> menuTypes;
 
         Item item;
-        Reservation reservation = null;
+        Reservation reservation;
 
         String result;
 
@@ -75,32 +76,46 @@ public class DataAccessIntegrationTest  extends TestCase
         assertEquals("romaine lettuce, arugula, red cabbage, carrot, red onion & toasted sunflower seeds.", item.getDetail());
         assertEquals(9.95, item.getPrice());
 
+        Calendar currDate = Calendar.getInstance();
+        DateTime start = null;
+        DateTime end = null;
+
+        try
+        {
+            start = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1,9,0));
+            end = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 11, 0));
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail();
+        }
+
         int rid = dataAccess.getNextReservationID();
-        DateTime start = new DateTime(new GregorianCalendar(2020, 9, 28, 13, 0));
-        DateTime end = new DateTime(new GregorianCalendar(2020, 9, 28, 15, 0));
 
         reservation = dataAccess.getReservation(rid);
         assertNull(reservation);
 
-        reservation = new Reservation(rid, 2, start, end);
+        reservation = new Reservation(2, 2, start, end);
+        reservation.setRID(rid);
+        reservation.setCustomerID(2);
         assertNotNull(reservation);
         result = dataAccess.insertReservation(reservation);
-        assertEquals("success", result);
+        assertNull(result);
 
         reservation = dataAccess.getReservation(rid);
         assertNotNull(reservation);
-        assertEquals(1, reservation.getRID());
+        assertEquals(rid, reservation.getRID());
+        assertEquals(2, reservation.getTID());
         assertEquals(2, reservation.getNumPeople());
-        assertEquals(start, reservation.getStartTime());
-        assertEquals(end, reservation.getEndTime());
-
+        assertEquals(start.toString(), reservation.getStartTime().toString());
+        assertEquals(end.toString(), reservation.getEndTime().toString());
     }
 
     public void test2() //user creates a reservation and pre-orders a meal
     {
         ArrayList<Item> menu;
 
-        Reservation reservation = null;
+        Reservation reservation;
         Item item;
         Order order;
 
@@ -126,18 +141,19 @@ public class DataAccessIntegrationTest  extends TestCase
         assertNull(reservation);
 
         reservation = new Reservation(1, 2, start, end);
+        reservation.setRID(rid);
+        reservation.setCustomerID(1);
         assertNotNull(reservation);
         result = dataAccess.insertReservation(reservation);
-        reservation.setRID(rid);
-        assertEquals("success", result);
+        assertNull(result);
 
         reservation = dataAccess.getReservation(rid);
         assertNotNull(reservation);
         assertEquals(rid, reservation.getRID());
         assertEquals(1, reservation.getTID());
         assertEquals(2, reservation.getNumPeople());
-        assertEquals(start, reservation.getStartTime());
-        assertEquals(end, reservation.getEndTime());
+        assertEquals(start.toString(), reservation.getStartTime().toString());
+        assertEquals(end.toString(), reservation.getEndTime().toString());
 
         menu = dataAccess.getMenu();
         assertNotNull(menu);
@@ -148,24 +164,157 @@ public class DataAccessIntegrationTest  extends TestCase
 
         item = menu.get(5);
         assertNotNull(item);
-        order.addItem(item, "");
+        order.addItem(item, 1, "");
+        double price = item.getPrice()*item.getQuantity();
+
         item = menu.get(10);
         assertNotNull(item);
-        order.addItem(item, "No nuts");
+        order.addItem(item, 2, "No nuts");
+        price += item.getPrice()*item.getQuantity();
+
         item = menu.get(15);
         assertNotNull(item);
-        order.addItem(item, "Add cheese");
+        order.addItem(item, 1, "Add cheese");
+        price += item.getPrice()*item.getQuantity();
 
-        assertEquals(3, order.size());
-        order.getTotalPrice();
-        assertEquals(41.85, order.getTotalPrice());
-        assertEquals("", order.getNote(1));
         assertEquals(rid, order.getReservationID());
+        assertEquals(3, order.getSize());
+        assertEquals(price, order.getTotalPrice());
+        assertEquals(menu.get(5), order.getOrder().get(0));
+        assertEquals(menu.get(10), order.getOrder().get(1));
+        assertEquals(menu.get(15), order.getOrder().get(2));
 
-        result = dataAccess.insertOrder(order);
-        assertEquals("success", result);
+        for(int i = 0; i < order.getSize(); i++)
+        {
+            result = dataAccess.insertItemIntoOrder(rid, order.getOrder().get(i));
+            assertNull(result);
+        }
 
         order = dataAccess.getOrder(rid);
         assertNotNull(order);
+    }
+
+    public void test3() //tests creating invalid reservations
+    {
+        Reservation reservation;
+        String result;
+
+        Calendar currDate = Calendar.getInstance();
+        DateTime start = null;
+        DateTime end = null;
+
+        //try making a reservation that has 2 different days
+        try
+        {
+            start = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1,12,0));
+            end = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 2, 13, 0));
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail();
+        }
+
+        int rid = dataAccess.getNextReservationID();
+
+        reservation = dataAccess.getReservation(rid);
+        assertNull(reservation);
+
+        reservation = new Reservation(1, 2, start, end);
+        reservation.setRID(rid);
+        reservation.setCustomerID(1);
+        assertNotNull(reservation);
+
+        result = dataAccess.insertReservation(reservation);
+        assertEquals("fail", result); // cant add a reservation in with too big of time difference
+        reservation = dataAccess.getReservation(rid);
+        assertNull(reservation); // it shouldnt have been added
+
+        // try making a reservation that lasts more than 3 hours
+        try
+        {
+            start = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1,10,0));
+            end = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 15, 0));
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail();
+        }
+
+        reservation = new Reservation(1, 2, start, end);
+        reservation.setRID(rid);
+        reservation.setCustomerID(1);
+        assertNotNull(reservation);
+
+        result = dataAccess.insertReservation(reservation);
+        assertEquals("fail", result); // cant add a reservation in with too big of time difference
+        reservation = dataAccess.getReservation(rid);
+        assertNull(reservation); // it shouldnt have been added
+
+        // try making a reservation with a null value or an invalid number
+        try
+        {
+            start = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1,13,0));
+            end = new DateTime(new GregorianCalendar(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE) + 1, 15, 0));
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail();
+        }
+
+        //negative table number
+        reservation = new Reservation(-1, 2, start, end);
+        reservation.setRID(rid);
+        reservation.setCustomerID(1);
+        assertNotNull(reservation);
+
+        result = dataAccess.insertReservation(reservation);
+        assertEquals("fail", result);
+        reservation = dataAccess.getReservation(rid);
+        assertNull(reservation); // it shouldnt have been added
+
+        //negative number of people
+        reservation = new Reservation(1, -2, start, end);
+        reservation.setRID(rid);
+        reservation.setCustomerID(1);
+        assertNotNull(reservation);
+
+        result = dataAccess.insertReservation(reservation);
+        assertEquals("fail", result);
+        reservation = dataAccess.getReservation(rid);
+        assertNull(reservation); // it shouldnt have been added
+
+        //null end time
+        reservation = new Reservation(1, 2, start, null);
+        reservation.setRID(rid);
+        reservation.setCustomerID(1);
+        assertNotNull(reservation);
+
+        result = dataAccess.insertReservation(reservation);
+        assertEquals("fail", result);
+        reservation = dataAccess.getReservation(rid);
+        assertNull(reservation); // it shouldnt have been added
+
+        //null start time
+        reservation = new Reservation(1, 2, null, end);
+        reservation.setRID(rid);
+        reservation.setCustomerID(1);
+        assertNotNull(reservation);
+
+        result = dataAccess.insertReservation(reservation);
+        assertEquals("fail", result);
+        reservation = dataAccess.getReservation(rid);
+        assertNull(reservation); // it shouldnt have been added
+
+        //negative customer id
+        reservation = new Reservation(1, 2, start, end);
+        reservation.setRID(rid);
+        reservation.setCustomerID(-1);
+        assertNotNull(reservation);
+
+        result = dataAccess.insertReservation(reservation);
+        assertEquals("fail", result);
+        reservation = dataAccess.getReservation(rid);
+        assertNull(reservation); // it shouldnt have been added
+
     }
 }

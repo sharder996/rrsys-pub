@@ -34,9 +34,9 @@ public class TestAccessOrders extends TestCase
     {
         System.out.println("\nStarting TestGetOrder");
 
-        Order newOrder = new Order(0);
-        Order newOrder1 = new Order(1);
-        Order newOrder2 = new Order(2);
+        Order newOrder = new Order(5);
+        Order newOrder1 = new Order(6);
+        Order newOrder2 = new Order(7);
 
         Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
         Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
@@ -107,7 +107,7 @@ public class TestAccessOrders extends TestCase
             assertNull(selectedItems);
         }
 
-        assertEquals(null, selectedItems);
+        assertNull(selectedItems);
 
         System.out.println("\nEnding TestGetOrderNegativeValue");
     }
@@ -116,9 +116,17 @@ public class TestAccessOrders extends TestCase
     {
         System.out.println("\nStarting TestRemoveOrder");
 
-        Order newOrder = new Order(0);
-        Order newOrder1 = new Order(1);
-        Order newOrder2 = new Order(2);
+        Order newOrder = new Order(8);
+        Order newOrder1 = new Order(9);
+        Order newOrder2 = new Order(10);
+
+        Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
+        Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
+        Item dish2 = new Item(3, "Turkey Burger", "Sandwich", "Turkey",12.99);
+
+        newOrder.addItem(dish, 1, "");
+        newOrder1.addItem(dish1, 2, "");
+        newOrder2.addItem(dish2, 1, "");
 
         String result = accessOrders.insertOrder(newOrder);
         assertNull(result);
@@ -129,13 +137,10 @@ public class TestAccessOrders extends TestCase
 
         Order selectedItems = accessOrders.getOrder(newOrder.getReservationID());
         assertNotNull(selectedItems);
-        assertEquals(newOrder, selectedItems);
         selectedItems = accessOrders.getOrder(newOrder1.getReservationID());
         assertNotNull(selectedItems);
-        assertEquals(newOrder1, selectedItems);
         selectedItems = accessOrders.getOrder(newOrder2.getReservationID());
         assertNotNull(selectedItems);
-        assertEquals(newOrder2, selectedItems);
 
         accessOrders.removeOrder(newOrder.getReservationID());
         accessOrders.removeOrder(newOrder1.getReservationID());
@@ -155,7 +160,7 @@ public class TestAccessOrders extends TestCase
     {
         System.out.println("\nStarting TestGetPrice");
 
-        Order newOrder = new Order(1);
+        Order newOrder = new Order(11);
 
         Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
         Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
@@ -171,17 +176,22 @@ public class TestAccessOrders extends TestCase
 
         double totalPrice = dish.getPrice()*dish.getQuantity() + dish1.getPrice()*dish1.getQuantity()
                 + dish2.getPrice()*dish2.getQuantity() + dish3.getPrice()*dish3.getQuantity();
+        totalPrice = Math.round(totalPrice * 100.0) / 100.0;
 
         String result = accessOrders.insertOrder(newOrder);
         assertNull(result);
-        assertEquals(newOrder, accessOrders.getOrder(newOrder.getReservationID()));
 
         double price = accessOrders.getPrice(newOrder.getReservationID());
-        assertEquals(totalPrice , price);
+        assertEquals(totalPrice, price);
 
+        newOrder.getOrder().clear();
         newOrder.addItem(dish4, 2, "");
         newOrder.addItem(dish5, 6, "");
-        assertEquals(newOrder, accessOrders.getOrder(newOrder.getReservationID()));
+        result = accessOrders.insertOrder(newOrder);
+        assertNull(result);
+
+        totalPrice += dish4.getPrice()*dish4.getQuantity() + dish5.getPrice()*dish5.getQuantity();
+        totalPrice = Math.round(totalPrice * 100.0) / 100.0;
 
         price = accessOrders.getPrice(newOrder.getReservationID());
         assertEquals(totalPrice , price);
@@ -193,7 +203,7 @@ public class TestAccessOrders extends TestCase
     {
         System.out.println("\nStarting testInvalidEntriesGetPrice");
 
-        double price = accessOrders.getPrice(5);
+        double price = accessOrders.getPrice(15);
 
         assertEquals(0.0, price);
         try
@@ -213,7 +223,7 @@ public class TestAccessOrders extends TestCase
     {
         System.out.println("\nStarting TestGetSize");
 
-        Order newOrder = new Order(3);
+        Order newOrder = new Order(8);
 
         Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
         Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
@@ -229,15 +239,18 @@ public class TestAccessOrders extends TestCase
 
         String result = accessOrders.insertOrder(newOrder);
         assertNull(result);
-        assertEquals(newOrder, accessOrders.getOrder(newOrder.getReservationID()));
         assertEquals(4, accessOrders.getSize(newOrder.getReservationID()));
 
+        newOrder.getOrder().clear();
         newOrder.addItem(dish4);
-        assertEquals(newOrder, accessOrders.getOrder(newOrder.getReservationID()));
+        result = accessOrders.insertOrder(newOrder);
+        assertNull(result);
         assertEquals(5, accessOrders.getSize(newOrder.getReservationID()));
 
+        newOrder.getOrder().clear();
         newOrder.addItem(dish5);
-        assertEquals(newOrder, accessOrders.getOrder(newOrder.getReservationID()));
+        result = accessOrders.insertOrder(newOrder);
+        assertNull(result);
         assertEquals(6, accessOrders.getSize(newOrder.getReservationID()));
 
         System.out.println("\nEnding TestGetSize");
@@ -251,7 +264,8 @@ public class TestAccessOrders extends TestCase
 
         try
         {
-            assertNull(accessOrders.getSize(100));
+            size = accessOrders.getSize(100);
+            fail();
         }
         catch(Exception e)
         {

@@ -20,7 +20,7 @@ public class TestOrder extends TestCase
 
         assertEquals(1, newOrder.getReservationID());
         assertEquals(0, newOrder.getSize());
-        assertEquals(0, newOrder.getTotalPrice());
+        assertEquals(0.0, newOrder.getTotalPrice());
 
         System.out.println("\nEnding TestEmptyOrderCreation");
     }
@@ -207,6 +207,7 @@ public class TestOrder extends TestCase
         newOrder.addItem(dish1, 2, "");
 
         double totalPrice = dish.getPrice()*dish.getQuantity() + dish1.getPrice()*dish1.getQuantity();
+        totalPrice = Math.round(totalPrice * 100.0) / 100.0;
         assertEquals(totalPrice, newOrder.getTotalPrice());
 
         newOrder.addItem(dish2, 2, "");

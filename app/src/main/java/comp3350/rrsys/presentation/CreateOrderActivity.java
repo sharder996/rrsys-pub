@@ -53,6 +53,8 @@ public class CreateOrderActivity extends Activity
         accessOrders = new AccessOrders();
         reservationID = Integer.parseInt(getIntent().getStringExtra("reservationID"));
         order = accessOrders.getOrder(reservationID);
+        if(order == null)
+            order = new Order(reservationID);
 
         List<String> parentList = accessMenu.getMenuTypes();
         parentListItems = new LinkedHashMap<>();

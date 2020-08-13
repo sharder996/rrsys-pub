@@ -90,7 +90,7 @@ public class TestAccessReservations extends TestCase
         ArrayList<Reservation> reservationsList = new ArrayList<>();
         accessReservations.getReservations(reservationsList);
 
-        assertEquals(0, reservationsList.size());
+        assertEquals(4, reservationsList.size());
 
         Calendar currDate = Calendar.getInstance();
         DateTime startTime = null;
@@ -109,23 +109,26 @@ public class TestAccessReservations extends TestCase
         assertNotNull(startTime);
         assertNotNull(endTime);
 
-        Reservation res0 = new Reservation(0, 4, startTime, endTime);
+        Reservation res0 = new Reservation(1, 4, startTime, endTime);
+        res0.setCustomerID(1);
         String result = accessReservations.insertReservation(res0);
         accessReservations.getReservations(reservationsList);
-        assertEquals(1, reservationsList.size());
-        assertEquals(result, "success");
+        assertEquals(5, reservationsList.size());
+        assertNull(result);
 
         Reservation res1 = new Reservation(25, 8, startTime, endTime);
+        res1.setCustomerID(2);
         result = accessReservations.insertReservation(res1);
         accessReservations.getReservations(reservationsList);
-        assertEquals(2, reservationsList.size());
-        assertEquals(result, "success");
+        assertEquals(6, reservationsList.size());
+        assertNull(result);
 
         Reservation res2 = new Reservation(21, 6, startTime, endTime);
+        res2.setCustomerID(4);
         result = accessReservations.insertReservation(res2);
         accessReservations.getReservations(reservationsList);
-        assertEquals(3, reservationsList.size());
-        assertEquals(result, "success");
+        assertEquals(7, reservationsList.size());
+        assertNull(result);
 
         System.out.println("\nEnding TestCreateValidReservations");
     }
@@ -187,6 +190,7 @@ public class TestAccessReservations extends TestCase
         }
 
         Reservation res0 = new Reservation(0, 4, startTime, endTime);
+        res0.setCustomerID(1);
         accessReservations.insertReservation(res0);
 
         res0.setTID(1);
@@ -253,9 +257,11 @@ public class TestAccessReservations extends TestCase
         }
 
         Reservation res0 = new Reservation(0, 4, startTime, endTime);
+        res0.setCustomerID(1);
         accessReservations.insertReservation(res0);
 
         Reservation res1 = new Reservation(20, 6, startTime, endTime);
+        res1.setCustomerID(3);
         accessReservations.insertReservation(res1);
 
         String result = accessReservations.deleteReservation(res0.getRID());

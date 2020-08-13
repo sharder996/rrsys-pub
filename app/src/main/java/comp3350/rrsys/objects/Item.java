@@ -48,14 +48,14 @@ public class Item
     public void setNote(String note)
     {
         char[] illegalChars = { '-','\'', '\"', '*', ';' };
-        String cleansedNote = "";
+        String cleansedNote = note;
 
-        if(note != null)
+        if(cleansedNote != null)
         {
-            for (char c : illegalChars)
-                cleansedNote = note.replace(c, ' ');
+            for(char c : illegalChars)
+                cleansedNote = cleansedNote.replace(c, ' ');
         }
-        this.note = cleansedNote;
+        this.note = cleansedNote.trim();
     }
 
     public void setItemID(int itemID)
@@ -121,11 +121,15 @@ public class Item
         }
     }
 
-    @Override
+
     // display item message in order (preorder the meal)
+    @Override
     public String toString()
     {
-        return name + "\n" + price + ", " + detail + "; Quantity: " + quantity + "\nNote: " + note;
+        String message = name + "\n" + price + ", " + detail + " Quantity: " + quantity;
+        if(note.trim().length() > 0)
+            message += "\nNote: " + note;
+        return message;
     }
 
     // display item message in menu (without quantity and note)

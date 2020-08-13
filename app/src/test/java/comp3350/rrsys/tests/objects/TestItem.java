@@ -10,13 +10,11 @@ import comp3350.rrsys.objects.Table;
 
 public class TestItem extends TestCase
 {
-
     public TestItem(String arg0) { super(arg0); }
 
     public void testItemCreation()
     {
-
-        System.out.println("\nStarting testItemCreation");
+        System.out.println("\nStarting TestItemCreation");
 
         Item dish = new Item(0, "Special Salads", "Salads", "red onion & toasted sunflower seeds",9.95 );
 
@@ -26,13 +24,15 @@ public class TestItem extends TestCase
         assertEquals("Salads", dish.getType());
         assertEquals("red onion & toasted sunflower seeds" , dish.getDetail());
         assertEquals(9.95, dish.getPrice());
+        assertEquals(Item.MIN_QUANTITY, dish.getQuantity());
+        assertEquals("", dish.getNote());
 
-        System.out.println("\nEnding testItemCreation");
+        System.out.println("\nEnding TestItemCreation");
     }
 
     public void testItemSetter()
     {
-        System.out.println("\nStarting testItemSetter");
+        System.out.println("\nStarting TestItemSetter");
 
         Item dish = new Item(0, "Turkey Burger", "Sandwich", "Turkey",12.95 );
 
@@ -41,19 +41,24 @@ public class TestItem extends TestCase
         dish.setPrice(12.30);
         dish.setType("Sandwiches");
         dish.setDetail("Sandwich");
+        dish.setQuantity(5);
+        dish.setNote("More sause");
 
         assertEquals(5, dish.getItemID());
         assertEquals("Turkey Sandwich" , dish.getName());
         assertEquals("Sandwiches", dish.getType());
         assertEquals("Sandwich" , dish.getDetail());
         assertEquals(12.30, dish.getPrice());
+        assertEquals(5, dish.getQuantity());
+        assertEquals("More sause", dish.getNote());
 
-        System.out.println("\nEnding testItemSetter");
+        System.out.println("\nEnding TestItemSetter");
     }
 
     public void testNegativeItemID()
     {
-        System.out.println("\nStarting testNegativeItemID");
+        System.out.println("\nStarting TestNegativeItemID");
+
         Item dish = null;
         try
         {
@@ -75,12 +80,12 @@ public class TestItem extends TestCase
             assertNull(dish);
         }
 
-        System.out.println("\nEnding testNegativeItemID");
+        System.out.println("\nEnding TestNegativeItemID");
     }
 
     public void testItemPrice()
     {
-        System.out.println("\nStarting testItemPrice");
+        System.out.println("\nStarting TestItemPrice");
 
         Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91 );
         Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57 );
@@ -117,12 +122,12 @@ public class TestItem extends TestCase
         assertEquals(13.00, dish4.getPrice());
         assertEquals(10.50, dish5.getPrice());
 
-        System.out.println("\nEnding testItemPrice");
+        System.out.println("\nEnding TestItemPrice");
     }
 
     public void testItemInvalidPriceEntries()
     {
-        System.out.println("\nStarting testItemInvalidPriceEntries");
+        System.out.println("\nStarting TestItemInvalidPriceEntries");
         Item dish = null;
 
         try
@@ -187,27 +192,35 @@ public class TestItem extends TestCase
             assertNotNull(dish);
         }
 
-        System.out.println("\nEnding testItemInvalidPriceEntries");
+        System.out.println("\nEnding TestItemInvalidPriceEntries");
     }
 
     public void testNotes()
     {
-        System.out.println("\nStarting testNotes");
+        System.out.println("\nStarting TestNotes");
 
         Item dish = new Item(1, "Turkey Burger", "Sandwich", "Turkey",12.91);
         Item dish1 = new Item(2, "Turkey Burger", "Sandwich", "Turkey",12.57);
 
+        assertEquals("", dish.getNote());
+        assertEquals("", dish1.getNote());
+
         dish.setNote("Extra mustard");
         assertEquals("Extra mustard", dish.getNote());
-
-        assertEquals("", dish1.getNote());
+        dish.setNote("Extra'mustard");
+        assertEquals("Extra mustard", dish.getNote());
+        dish.setNote("Extra-mustard");
+        assertEquals("Extra mustard", dish.getNote());
+        dish.setNote("Extra*mustard;");
+        assertEquals("Extra mustard", dish.getNote());
 
         dish.setNote("Toasted");
         assertEquals("Toasted", dish.getNote());
+        dish.setNote("Toasted***");
+        assertEquals("Toasted", dish.getNote());
+        dish.setNote("----Toasted**");
+        assertEquals("Toasted", dish.getNote());
 
-        System.out.println("\nEnding testNotes");
-
+        System.out.println("\nEnding TestNotes");
     }
-
-
 }

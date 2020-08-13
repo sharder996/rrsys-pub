@@ -44,8 +44,6 @@ public interface DataAccess
 
     ArrayList<Item> getMenu();
 
-    String insertItem(Item newItem);
-
     ArrayList<Item> getMenuByType(String type);
 
     //Order Functions:
