@@ -142,7 +142,7 @@ public class DataAccessTest extends TestCase
         int capacity = 2;
         for(int i = 1; i <= 30; i++)
         {
-            table = dataAccess.getTableRandom(i);
+            table = dataAccess.getTable(i);
             assertNotNull(table);
             assertEquals(capacity, table.getCapacity());
             if(i % 5 == 0)
@@ -154,10 +154,10 @@ public class DataAccessTest extends TestCase
     {
         Table table;
 
-        table = dataAccess.getTableRandom(-1);
+        table = dataAccess.getTable(-1);
         assertNull(table);
 
-        table = dataAccess.getTableRandom(31);
+        table = dataAccess.getTable(31);
         assertNull(table);
     }
 

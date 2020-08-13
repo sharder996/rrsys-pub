@@ -16,22 +16,22 @@ public interface DataAccess
     void close();
 
     // Reservation Functions:
+    String getReservationSequential(ArrayList<Reservation> reservationResult);
+
     Reservation getReservation(int rID);
-
-    String deleteReservation(int rID);
-
-    String updateReservation(int rID, Reservation curr);
 
     String insertReservation(Reservation r);
 
-    String getReservationSequential(ArrayList<Reservation> reservationResult);
+    String updateReservation(int rID, Reservation curr);
+
+    String deleteReservation(int rID);
 
     int getNextReservationID();
 
     // Table Functions:
     String getTableSequential(ArrayList<Table> tableResult);
 
-    Table getTableRandom(int tableID);
+    Table getTable(int tableID);
 
     // Customer Functions:
     String getCustomerSequential(List<Customer> customerResult);
@@ -45,12 +45,12 @@ public interface DataAccess
 
     ArrayList<Item> getMenuByType(String type);
 
-    //Order Functions:
+    // Order Functions:
     Order getOrder(int resID);
 
-    String removeOrder(int resID);
-
     String insertItemIntoOrder(int resID, Item item);
+
+    String removeOrder(int resID);
 
     double getPrice(int resID);
 }
