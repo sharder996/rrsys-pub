@@ -597,7 +597,6 @@ public class DataAccessObject implements DataAccess
         {
             cmdString = "DELETE from ORDERS where RID=" + resID;
             updateCount = st0.executeUpdate(cmdString);
-            result = checkWarning(st0, updateCount);
         }
         catch(Exception e)
         {
