@@ -91,6 +91,10 @@ The database stub has now been replaced with an HSQLDB.
                                 \---------/
 </pre>
 
+## Running Tests
+
+Unit, integration, and acceptance tests can be found within the `comp3350.rrsys.tests` and `comp3350.rrsys` packages. Since the database that is used for this application is generated upon installation of the application on a device, if for some reason while running the integration tests the database is not restored to its original state, simply reinstall the application on the device thereby forcing a new database to be generated.
+
 ## Team Members
 
 Scott Harder  
